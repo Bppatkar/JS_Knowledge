@@ -56,3 +56,29 @@ const payPalPayment = new PayPalPayment();
 payPalPayment.pay(100); // Payment of 100 is being processed through PayPal.
 
 // same things we are doing in animal class and dog class and cat class , where we use speak method in both classes but we implement it in different ways. This is called polymorphism.
+
+// - ----------------------------------------------------
+
+//! Inheritance (closure) -
+class AnimalClosure {
+  constructor(name, species) {
+    this.name = name;
+    this.species = species;
+  }
+  walk() {
+    console.log(`${this.name} is walking.`);
+  }
+  sleep() {
+    console.log(`${this.name} is sleeping.`);
+  }
+}
+// here we use inheritance using closure, where we create a new class called DogClosure which inherits the properties and methods of the AnimalClosure class. Now, the DogClosure class can use the properties and methods of the AnimalClosure class without having to redefine them.
+
+class DogClosure extends AnimalClosure {
+  constructor(name, species, breed) {
+    super(name, species); // calling the parent class constructor
+    this.breed = breed;
+  }
+}
+const dogClosure = new DogClosure("Buddy", "Dog", "Golden Retriever");
+dogClosure.walk(); // Buddy is walking.

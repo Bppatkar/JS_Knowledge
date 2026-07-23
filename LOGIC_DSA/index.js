@@ -87,3 +87,91 @@ function findLargest(arr) {
   }
   return largest;
 }
+
+/* 
+Index : 0   1   2   3   4   5
+
+Value : 8   2  11   4  19   7
+
+target - 19
+*/
+
+/* 
+| Step | Index | Value | Compare with 19 | Decision |
+| ---- | ----: | ----: | --------------: | -------- |
+| 1    |     0 |     8 |              ❌ | compare but not equal        |
+| 2    |     1 |     2 |               ❌ | compare but not equal       |
+| 3    |     2 |     11 |               ❌ | compare but not equal        |
+| 4    |     3 |     4 |               ❌ | compare but not equal        |
+| 5    |     4 |     19 |               ✅ | compare and equal        |
+
+[8, 2, 11, 4, 19, 7]
+
+| Step | Current Index | Current Element | Comparison | Decision           |
+| ---- | ------------: | --------------: | :--------: | ------------------ |
+| 1    |             0 |               8 |  8 == 19 ❌ | Move to Next Index |
+ 2                    1           2         2==19 ❌ | move to next index
+  3         2                 11              11==19❌ | move to next index
+  4         3                 4              4==19❌ | move to next index
+  5         4                 19              19==19✅ | stop
+
+  */
+
+
+function linearSearch(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+
+    if (arr[i] === target) {
+
+      return "Found";
+    }
+
+  }
+
+  return "Not Found"
+}
+function linearSearch(arr, target) {
+
+  for (let i = 1; i < arr.length; i++) {
+
+    if (arr[i] === target) {
+
+      return i;
+
+    }
+
+  }
+
+  return -1;
+
+}
+
+
+/* 
+Array  [1,1,0,1,1,1]
+
+| Element | Count | Max |
+| ------- | ----: | --: |
+| Start   |     0 |   0 |
+| 1       |     1 |   1 |
+| 1       |     2 |   2 |
+| 0       |     0 |   2 |
+| 1       |     1 |   2 |
+| 1       |     2 |   2 |
+| 1       |     3 |   3 |
+
+*/
+
+//! Leetcode 485. Max Consecutive Ones
+var findMaxConsecutiveOnes = function (nums) {
+  let max = 0, count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === 1) {
+      count++;
+      if (max < count) max = count;
+    }
+    else count = 0;
+  }
+  return max;
+};
+findMaxConsecutiveOnes(nums = [1, 1, 0, 1, 1, 1])

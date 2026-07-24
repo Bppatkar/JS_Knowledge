@@ -1,27 +1,42 @@
 # Design Pattern in System Design
 
-### Defination - Design Pattern in System Design are resuable solutions to common problems that occur in software design. They basically help in improving the flexibility, scalability, and maintainability of the system.
+### Defination - Design patterns are reusable solutions to common software design problems.
 
-#### (Hindi Meaning) - Design Pattern ka matlab hota hai ek reusable solution jo common software design problems ko solve karta hai. Ye code ko clean, maintainable aur scalable banane me help karta hai.
+#### (Hindi Meaning) - Design pattern ek reusable idea hai jo same type ke design problem ko clean tarike se solve karta hai.
 
-### why we use Pattern/Pattern kyun use karte hain?
+### Why we use pattern?
 
 - same problem ka standard solution milta hai
-- code duplication kam hoti hai
+- code simple aur reusable hota hai
 - debugging aur testing easy hoti hai
-- team ke saath consistent structure follow hota hai
-- future changes safe aur simple rehte hain
+- future change karna easy hota hai
+- team ke saath same design language follow hoti hai
 
-### Sequence of 3-4 steps to follow in System Design Pattern:
+### Learning Rule
 
-1. Identify the problem or requirement in the system design.
-2. Analyze the problem and determine the appropriate design pattern that can be applied.
-3. Implement the chosen design pattern in the system design.
-4. Test and validate the implementation to ensure it meets the requirements and solves the problem effectively.
+1. Definition padho.
+2. Problem dekho.
+3. Solution samjho.
+4. Wrong code dekho.
+5. Fixed code dekho.
+6. Same school example ko dimaag me rakho.
 
-### Most Commonly Used Design Patterns in System Design:
+### Read From Start To End
 
-1. Singleton Pattern
-2. Factory Pattern
-3. Observer Pattern
-4. Strategy Pattern
+1. [SingletonPattern.js](SingletonPattern.js)
+2. [FactoryPattern.js](FactoryPattern.js)
+3. [BuilderPattern.js](BuilderPattern.js)
+4. [PrototypePattern.js](PrototypePattern.js)
+5. [AdapterPattern.js](AdapterPattern.js)
+6. [DecoratorPattern.js](DecoratorPattern.js)
+7. [ProxyPattern.js](ProxyPattern.js)
+8. [ObserverPattern.js](ObserverPattern.js)
+9. [StrategyPattern.js](StrategyPattern.js)
+10. [CommandPattern.js](CommandPattern.js)
+
+### Best Flow
+
+1. Pehle creational patterns padho.
+2. Phir structural patterns padho.
+3. Last me behavioral patterns padho.
+4. Har file me school management example use hua hai, isse pattern difference easily samajh aayega.

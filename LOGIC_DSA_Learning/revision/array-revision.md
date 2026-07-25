@@ -114,4 +114,106 @@ Prefix Sum is a precomputation technique used to answer multiple range sum queri
 
 Dummy Zero removes boundary conditions.
 
-Always identify ranges before writing loops.
+---
+
+## Always identify ranges before writing loops.
+
+# Day 6 Revision
+
+## One Line Summary
+
+Difference Array stores changes.
+
+Prefix Sum reconstructs final values.
+
+---
+
+## Recognition Formula
+
+Many Range Updates
+
+↓
+
+Difference Array
+
+↓
+
+One Prefix Sum
+
+↓
+
+Final Updated Array
+
+---
+
+## Golden Rules
+
+Rule 1
+
+diff[L] += value
+
+Rule 2
+
+if (R + 1 < n)
+
+diff[R + 1] -= value
+
+Rule 3
+
+Run Prefix Sum once.
+
+---
+
+## Interview Formula
+
+Prefix Sum
+
+↓
+
+Fast Queries
+
+Difference Array
+
+↓
+
+Fast Updates
+
+---
+
+## Complexity
+
+Brute Force
+
+O(Q × N)
+
+Optimal
+
+O(Q + N)
+
+---
+
+## Common Bugs
+
+- Wrong stopping index.
+- Boundary mistakes.
+- Resetting Difference Array.
+
+---
+
+## Self Test
+
+1. Why R + 1?
+
+2. Why only one Prefix Sum?
+
+3. Difference Array vs Prefix Sum?
+
+4. When should Difference Array not be used?
+
+5. Engineering applications?
+
+---
+
+## Pattern Status
+
+✅ Locked

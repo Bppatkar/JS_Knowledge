@@ -648,3 +648,53 @@ var pivotIndex = function (nums) {
   }
   return -1;
 };
+//--------------------------------------------------------
+
+//* 🎯 Difference Array important sentence
+//? Difference Array values store nahi karta.
+//? Difference Array changes (events) store karta hai.
+
+/* 
+Interview Answer
+
+Prefix Sum original array se cumulative information banata hai, jisse queries fast ho jaati hain.
+
+Difference Array uska reverse idea use karta hai. Ye final values store nahi karta, balki sirf changes (start aur stop events) store karta hai. Baad mein Prefix Sum laga kar original updated array reconstruct kiya jaata hai.
+
+Isliye Difference Array ko Prefix Sum ka inverse concept kaha jaata hai.
+
+🧠 Ultimate Understanding
+
+Ye diagram yaad rakhna.
+
+//* Prefix Sum
+Original Array
+        │
+        ▼
+ Prefix Array
+        │
+        ▼
+ Fast Queries
+
+
+//* Difference Array
+Range Updates
+        │
+        ▼
+Difference Array
+        │
+        ▼
+ Prefix Sum
+        │
+        ▼
+Updated Original Array
+
+Notice?
+
+Prefix Sum banata hai cumulative data.
+
+Difference Array cumulative data ko reconstruct karta hai.
+
+Isliye inverse.
+
+*/

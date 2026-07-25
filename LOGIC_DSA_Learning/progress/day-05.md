@@ -1,32 +1,111 @@
-# Day 5 - Prefix Sum
+# Day 05 Progress
 
-## Topics Covered
+## Topic
+
+Prefix Sum
+
+---
+
+## Status
+
+Completed ✅
+
+---
+
+## Problems Solved
+
+✅ LC303
+
+Range Sum Query — Immutable
+
+Patterns
 
 - Prefix Sum
 - Precomputation
-- Range Sum Query
-- Dummy 0 Prefix
-- Index Mapping
-- Build vs Query Phase
 
-## LeetCode
+---
 
-- 303 ✅
-- 724 ✅
+✅ LC724
 
-## Complexity
+Find Pivot Index
 
-Build: O(n)
+Patterns
 
-Query: O(1)
+- Prefix Sum
+- Pattern Mixing
 
-## Engineering Connections
+---
 
-- Analytics
-- Financial Reports
-- Caching
-- Load Balancing
+## New Patterns Learned
 
-## Biggest Learning
+✅ Prefix Sum
 
-Think in ranges before writing loops.
+✅ Precomputation
+
+✅ Dummy Zero
+
+✅ Range Query
+
+✅ Index Mapping
+
+---
+
+## Engineering Concepts
+
+Compute Once
+
+Store
+
+Reuse
+
+Range Identification
+
+State Before Loop
+
+---
+
+## Thinking Improvements
+
+Stopped writing loops first.
+
+Started identifying ranges first.
+
+Learned to derive formulas instead of memorizing.
+
+---
+
+## Current Thinking Level
+
+3.1 / 5
+
+---
+
+## Time Complexity Learned
+
+Prefix Build
+
+O(n)
+
+Query
+
+O(1)
+
+Pivot
+
+O(n)
+
+---
+
+## Day Result
+
+Academic
+
+✅ Completed
+
+Documentation
+
+✅ Completed
+
+Ready For
+
+Day 6

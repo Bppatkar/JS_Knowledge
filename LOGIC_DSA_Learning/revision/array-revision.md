@@ -59,3 +59,59 @@
 Current Progress
 
 ✅ 10 Pattern Families Locked
+
+# Day 5 Revision
+
+## Prefix Construction
+
+Prefix[0]=0
+
+Prefix[i]=Prefix[i-1]+nums[i-1]
+
+---
+
+## Range Query
+
+Prefix[R+1]-Prefix[L]
+
+---
+
+## Left Sum
+
+Prefix[i]
+
+---
+
+## Right Sum
+
+Prefix[n]-Prefix[i+1]
+
+---
+
+## Recognition
+
+Repeated Sum
+
+↓
+
+Prefix Sum
+
+---
+
+## Remember
+
+Compute Once
+
+Store
+
+Reuse
+
+---
+
+## Interview Lines
+
+Prefix Sum is a precomputation technique used to answer multiple range sum queries efficiently.
+
+Dummy Zero removes boundary conditions.
+
+Always identify ranges before writing loops.

@@ -74,3 +74,121 @@ Pattern Mixing Introduced.
 - Kadane
 - HashMap
 - Matrix
+
+---
+
+# Day 5 — Prefix Sum
+
+## New Patterns Learned
+
+- Prefix Sum
+- Precomputation
+- Range Sum Query
+- Dummy Zero Technique
+- Index Mapping
+
+---
+
+## Prefix Construction
+
+Prefix[0] = 0
+
+Prefix[i] = Prefix[i-1] + nums[i-1]
+
+---
+
+## Range Query Formula
+
+Prefix[R+1] - Prefix[L]
+
+---
+
+## Key Discoveries
+
+Repeated Work
+
+↓
+
+Precompute
+
+↓
+
+Store
+
+↓
+
+Reuse
+
+---
+
+Dummy Zero removes edge cases.
+
+---
+
+Index Mapping
+
+Prefix Index
+
+↓
+
+Nums Index
+
+i
+
+↓
+
+i-1
+
+---
+
+## LeetCode
+
+303
+
+724
+
+---
+
+## Engineering Connections
+
+Analytics Dashboard
+
+Caching
+
+Financial Reports
+
+Database Aggregation
+
+Monitoring Systems
+
+---
+
+## Thinking Upgrade
+
+I no longer think:
+
+Question
+
+↓
+
+Loop
+
+Instead I think
+
+Question
+
+↓
+
+Range
+
+↓
+
+Formula
+
+↓
+
+Algorithm
+
+↓
+
+Code

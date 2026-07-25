@@ -44,7 +44,7 @@ First Occurrence
 
 Last Occurrence
 
->=
+> =
 
 Minimum First
 
@@ -87,3 +87,78 @@ Never jump directly to code.
 - Richest Customer
 - Peak Traffic
 - Highest Sales
+
+
+---
+
+# Day 5 Interview Notes
+
+## Prefix Sum
+
+Recognition
+
+Repeated Range Sum Queries
+
+---
+
+## Why Prefix Sum?
+
+Repeated traversal wastes time.
+
+Precompute cumulative sums once.
+
+Answer each query in O(1).
+
+---
+
+## Dummy Zero
+
+Purpose
+
+Remove boundary conditions.
+
+Universal Formula
+
+Prefix[R+1]-Prefix[L]
+
+---
+
+## Common Mistakes
+
+Using nums[i]
+
+instead of
+
+nums[i-1]
+
+Wrong Prefix Length
+
+Forgetting Prefix[0]=0
+
+---
+
+## Interview Explanation
+
+"I observed repeated range sum calculations.
+
+Instead of recalculating every query,
+
+I precomputed cumulative sums once.
+
+Each query is answered in O(1)."
+
+---
+
+## Engineering Examples
+
+Revenue Dashboard
+
+Analytics
+
+Caching
+
+Database Aggregation
+
+Monitoring Systems
+
+Load Balancing (Pivot Index)

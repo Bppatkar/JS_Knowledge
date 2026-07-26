@@ -698,3 +698,34 @@ Difference Array cumulative data ko reconstruct karta hai.
 Isliye inverse.
 
 */
+
+//! Leetcode 1109. Corporate Flight Bookings
+
+var corpFlightBookings = function (bookings, n) {
+  // creating diff array because it is not given, only flight length given
+  let diff = new Array(n).fill(0);
+
+  // processing booking
+  for (let i = 0; i < bookings.length; i++) {
+    // extracting values - start, end , seats and these are flight numbers and seats ok
+    let start = bookings[i][0] - 1; // -1 because of 0 indexing mapping with flight array index 1
+    let stop = bookings[i][1] - 1;
+    let seat = bookings[i][2];
+
+    // marking
+    diff[start] += seat
+    if (stop + 1 < diff.length) { // diff array ki length 
+      diff[stop + 1] -= seat;
+    }
+  }
+  // now converting diff array into final answer  using prefix sum traversal
+  // prefix sum = curr + prev so loop start from 1
+  console.log("diff array", diff)
+  for (let j = 1; j < diff.length; j++) {
+    diff[j] += diff[j - 1];
+  }
+  return diff;
+}
+let bookings = [[1, 2, 10], [2, 3, 20], [2, 5, 25]], n = 5;
+// let bookings = [[1, 2, 10], [2, 2, 15]], n = 2; 
+console.log(corpFlightBookings(bookings, n)) // [10, 55, 45, 25, 25]

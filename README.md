@@ -1,6 +1,6 @@
 # JS Knowledge Learning Path
 
-This folder is for learning JavaScript OOP, design patterns, and low level design in a simple order.
+This folder is for learning JavaScript DSA, OOP, design patterns, and low level design in a simple order.
 
 ## 1. Start with OOP Basics
 
@@ -29,6 +29,15 @@ Why next:
 
 - SOLID teaches how to write better class-based code.
 - It helps you understand why design patterns are useful.
+
+## 2. Learn Data Structures and Algorithms
+
+Revise:
+
+- Daily revision notes
+  Training System for AI assistant:
+- secret key
+- constitution
 
 ## 3. Learn Common Design Patterns
 

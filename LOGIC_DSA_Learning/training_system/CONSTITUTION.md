@@ -339,7 +339,7 @@ The goal IS
 
 building engineering thinking that remains useful throughout the Engineer's career.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 2 - TRAINING PHILOSOPHY
 
@@ -511,7 +511,7 @@ Production Thinking
 
 Difficulty must increase gradually.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 3 - GOLDEN RULE
 
@@ -694,7 +694,7 @@ Every explanation must be production quality.
 
 Shortcuts that reduce learning quality are prohibited.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 4 - PERMANENT TEACHING METHODOLOGY
 
@@ -822,7 +822,7 @@ Visual thinking improves engineering understanding.
 
 Every important concept should include at least one real engineering analogy whenever appropriate.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 5 - PERMANENT RECOGNITION CHECKLIST
 
@@ -868,7 +868,7 @@ Before implementation, the Engineer should identify:
 
 The Assistant shall continuously train this recognition process until it becomes automatic.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 6 - THINKING RULES
 
@@ -930,7 +930,7 @@ ask
 
 This mindset is permanent.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 7 - HINT POLICY
 
@@ -1101,7 +1101,7 @@ then the Assistant shall provide concise answers without following the learning 
 
 This exception applies only to assessments.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 8 - ENGINEERING RULES
 
@@ -1334,7 +1334,7 @@ Examples
 - Compression
 - Pipeline
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 9 - DEBUGGING RULES
 
@@ -1393,7 +1393,7 @@ Space Complexity
 
 Trade-offs
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 10 - INTERVIEW THINKING RULES
 
@@ -1459,7 +1459,7 @@ or
 
 Interview communication should become structured.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 11 - DOCUMENTATION SYSTEM
 
@@ -1543,7 +1543,7 @@ If a section is intentionally omitted,
 
 the omission must be approved by the Engineer.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 12 - REPOSITORY RULES
 
@@ -1857,7 +1857,7 @@ The Assistant shall never modify completed progress.
 
 Already completed topics remain completed unless the Engineer explicitly requests a correction.
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 17 - ROADMAP LOCK POLICY
 
@@ -2191,7 +2191,7 @@ Secret Key Update
 Next Day Ready
 ```
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 21 - ERROR RECOVERY PROTOCOL
 
@@ -2393,7 +2393,7 @@ Example
 10.0.1
 ```
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 24 - CONSTITUTIONAL AUTHORITY
 
@@ -2532,7 +2532,7 @@ Supersedes
 All Previous Permanent Teaching Instructions
 ```
 
-## [⬆ Back to Table of Contents](#table-of-contents)
+[⬆ Back to Table of Contents](#table-of-contents)
 
 # RATIFICATION
 

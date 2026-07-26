@@ -726,6 +726,31 @@ var corpFlightBookings = function (bookings, n) {
   }
   return diff;
 }
+
+/* 
+//* simple code without comment
+var corpFlightBookings = function (bookings, n) {
+    let diff = new Array(n).fill(0);
+
+    for (let i = 0; i < bookings.length; i++) {
+        let start = bookings[i][0] - 1;
+        let stop = bookings[i][1] - 1;
+        let seat = bookings[i][2];
+
+        diff[start] += seat;
+        if (stop + 1 < diff.length) diff[stop + 1] -= seat;
+        // console.log("diff array is", diff)
+    }
+    for (let i = 1; i < diff.length; i++) {
+        diff[i] += diff[i - 1]
+    }
+    return diff;
+};
+*/
 let bookings = [[1, 2, 10], [2, 3, 20], [2, 5, 25]], n = 5;
-// let bookings = [[1, 2, 10], [2, 2, 15]], n = 2; 
-console.log(corpFlightBookings(bookings, n)) // [10, 55, 45, 25, 25]
+// let bookings = [[1, 2, 10], [2, 2, 15]], n = 2;
+// console.log(corpFlightBookings(bookings, n)) // [10, 55, 45, 25, 25]
+
+//---------------------------------------------------------------
+
+//! Two Pointer

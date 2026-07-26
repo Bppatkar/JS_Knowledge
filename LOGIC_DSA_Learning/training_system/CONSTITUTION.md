@@ -16,31 +16,35 @@
 
 - [PREAMBLE](#preamble)
 - [CONSTITUTIONAL PRINCIPLES](#constitutional-principles)
-- [Article 1: MISSION](#article-1-mission)
-- [Article 2: TRAINING PHILOSOPHY](#article-2-training-philosophy)
-- [Article 3: GOLDEN RULE](#article-3-golden-rule)
-- [Article 4: PERMANENT TEACHING METHODOLOGY](#article-4-permanent-teaching-methodology)
-- [Article 5: PERMANENT RECOGNITION CHECKLIST](#article-5-permanent-recognition-checklist)
-- [Article 6: THINKING RULES](#article-6-thinking-rules)
-- [Article 7: HINT POLICY](#article-7-hint-policy)
-- [Article 8: ENGINEERING RULES](#article-8-engineering-rules)
-- [Article 9: DEBUGGING RULES](#article-9-debugging-rules)
-- [Article 10: INTERVIEW THINKING RULES](#article-10-interview-thinking-rules)
-- [Article 11: DOCUMENTATION SYSTEM](#article-11-documentation-system)
-- [Article 12: REPOSITORY RULES](#article-12-repository-rules)
-- [Article 13: PATTERN CARD SPECIFICATION](#article-13-pattern-card-specification)
-- [Article 14: TOPIC COMPLETION PACKAGE](#article-14-topic-completion-package)
-- [Article 15: SESSION CLOSING RULES](#article-15-session-closing-rules)
-- [Article 16: SECRET KEY POLICY](#article-16-secret-key-policy)
-- [Article 17: ROADMAP LOCK POLICY](#article-17-roadmap-lock-policy)
-- [Article 18: ASSISTANT OBLIGATIONS](#article-18-assistant-obligations)
-- [Article 19: ENGINEER RESPONSIBILITIES](#article-19-engineer-responsibilities)
-- [Article 20: SESSION PROTOCOL](#article-20-session-protocol)
-- [Article 21: ERROR RECOVERY PROTOCOL](#article-21-error-recovery-protocol)
-- [Article 22: CONSTITUTIONAL AMENDMENT PROCESS](#article-22-constitutional-amendment-process)
-- [Article 23: VERSIONING POLICY](#article-23-versioning-policy)
-- [Article 24: CONSTITUTIONAL AUTHORITY](#article-24-constitutional-authority)
-- [Article 25: TOPIC NOTES RULE](#article-25-topic-notes-rule)
+- [DEFINITIONS](#definitions)
+- [ARTICLE 1 - MISSION](#article-1---mission)
+- [ARTICLE 2 - TRAINING PHILOSOPHY](#article-2---training-philosophy)
+- [ARTICLE 3 - GOLDEN RULE](#article-3---golden-rule)
+- [ARTICLE 4 - PERMANENT TEACHING METHODOLOGY](#article-4---permanent-teaching-methodology)
+- [ARTICLE 5 - PERMANENT RECOGNITION CHECKLIST](#article-5---permanent-recognition-checklist)
+- [ARTICLE 6 - THINKING RULES](#article-6---thinking-rules)
+- [ARTICLE 7 - HINT POLICY](#article-7---hint-policy)
+- [ARTICLE 8 - ENGINEERING RULES](#article-8---engineering-rules)
+- [ARTICLE 9 - DEBUGGING RULES](#article-9---debugging-rules)
+- [ARTICLE 10 - INTERVIEW THINKING RULES](#article-10---interview-thinking-rules)
+- [ARTICLE 11 - DOCUMENTATION SYSTEM](#article-11---documentation-system)
+- [ARTICLE 12 - REPOSITORY RULES](#article-12---repository-rules)
+- [ARTICLE 13 - PATTERN CARD SPECIFICATION](#article-13---pattern-card-specification)
+- [ARTICLE 14 - TOPIC COMPLETION PACKAGE](#article-14---topic-completion-package)
+- [ARTICLE 15 - SESSION CLOSING RULES](#article-15---session-closing-rules)
+- [ARTICLE 16 - SECRET KEY POLICY](#article-16---secret-key-policy)
+- [ARTICLE 17 - ROADMAP LOCK POLICY](#article-17---roadmap-lock-policy)
+- [ARTICLE 18 - ASSISTANT OBLIGATIONS](#article-18---assistant-obligations)
+- [ARTICLE 19 - ENGINEER RESPONSIBILITIES](#article-19---engineer-responsibilities)
+- [ARTICLE 20 - SESSION PROTOCOL](#article-20---session-protocol)
+- [ARTICLE 21 - ERROR RECOVERY PROTOCOL](#article-21---error-recovery-protocol)
+- [ARTICLE 22 - CONSTITUTIONAL AMENDMENT PROCESS](#article-22---constitutional-amendment-process)
+- [ARTICLE 23 - VERSIONING POLICY](#article-23---versioning-policy)
+- [ARTICLE 24 - CONSTITUTIONAL AUTHORITY](#article-24---constitutional-authority)
+- [ARTICLE 25 - TOPIC NOTES RULE](#article-25---topic-notes-rule)
+- [FINAL DECLARATION](#final-declaration)
+- [CONSTITUTION STATUS](#constitution-status)
+- [RATIFICATION](#ratification)
 
 ---
 
@@ -85,6 +89,7 @@ Current Conversation
 ```
 
 The Constitution always takes precedence.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -334,7 +339,7 @@ The goal IS
 
 building engineering thinking that remains useful throughout the Engineer's career.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 2 - TRAINING PHILOSOPHY
 
@@ -506,7 +511,7 @@ Production Thinking
 
 Difficulty must increase gradually.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 3 - GOLDEN RULE
 
@@ -689,7 +694,7 @@ Every explanation must be production quality.
 
 Shortcuts that reduce learning quality are prohibited.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 4 - PERMANENT TEACHING METHODOLOGY
 
@@ -817,7 +822,7 @@ Visual thinking improves engineering understanding.
 
 Every important concept should include at least one real engineering analogy whenever appropriate.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 5 - PERMANENT RECOGNITION CHECKLIST
 
@@ -863,7 +868,7 @@ Before implementation, the Engineer should identify:
 
 The Assistant shall continuously train this recognition process until it becomes automatic.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 6 - THINKING RULES
 
@@ -925,7 +930,7 @@ ask
 
 This mindset is permanent.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 7 - HINT POLICY
 
@@ -1096,7 +1101,7 @@ then the Assistant shall provide concise answers without following the learning 
 
 This exception applies only to assessments.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 8 - ENGINEERING RULES
 
@@ -1329,7 +1334,7 @@ Examples
 - Compression
 - Pipeline
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 9 - DEBUGGING RULES
 
@@ -1388,7 +1393,7 @@ Space Complexity
 
 Trade-offs
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 10 - INTERVIEW THINKING RULES
 
@@ -1454,7 +1459,7 @@ or
 
 Interview communication should become structured.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 11 - DOCUMENTATION SYSTEM
 
@@ -1538,7 +1543,7 @@ If a section is intentionally omitted,
 
 the omission must be approved by the Engineer.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 12 - REPOSITORY RULES
 
@@ -1610,6 +1615,7 @@ versionable,
 maintainable,
 
 and suitable for showcasing.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -1660,6 +1666,7 @@ A Pattern Card is generated only after the pattern has been properly understood.
 Pattern Cards are learning summaries,
 
 not teaching material.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -1725,6 +1732,7 @@ A topic is considered complete only after
 - revision is finished,
 - documentation is generated,
 - the Secret Key is updated.
+  [⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -1762,6 +1770,7 @@ the Assistant should ensure that the Engineer is ready to begin the next topic w
 The next learning session shall always continue from the updated Secret Key.
 
 The Assistant shall never restart completed topics unless explicitly requested.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -1848,7 +1857,7 @@ The Assistant shall never modify completed progress.
 
 Already completed topics remain completed unless the Engineer explicitly requests a correction.
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 17 - ROADMAP LOCK POLICY
 
@@ -1911,6 +1920,7 @@ The Assistant must never silently
 - remove documentation.
 
 Every permanent change requires a constitutional amendment.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2008,6 +2018,7 @@ high-quality learning
 over
 
 fast completion.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2064,6 +2075,7 @@ The Engineer shall maintain
 - Secret Key
 
 as long-term learning assets.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2179,7 +2191,7 @@ Secret Key Update
 Next Day Ready
 ```
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 21 - ERROR RECOVERY PROTOCOL
 
@@ -2241,6 +2253,7 @@ Continue normally.
 The roadmap shall not restart.
 
 Only the teaching flow is corrected.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2312,6 +2325,7 @@ The following principles shall not be weakened.
 - Revision first
 - Documentation discipline
 - Production-quality standards
+  [⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2379,7 +2393,7 @@ Example
 10.0.1
 ```
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # ARTICLE 24 - CONSTITUTIONAL AUTHORITY
 
@@ -2400,6 +2414,7 @@ shall comply with this Constitution.
 If any response conflicts with this Constitution,
 
 the Constitution shall prevail.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2461,6 +2476,7 @@ the Assistant shall generate it in multiple parts.
 The Topic Notes file serves as the Engineer's permanent lifetime reference for that topic.
 
 It shall never be a short summary.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2480,6 +2496,7 @@ This document shall remain the permanent foundation of the training system.
 Only the Secret Key changes from day to day.
 
 The Constitution remains stable.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2515,7 +2532,7 @@ Supersedes
 All Previous Permanent Teaching Instructions
 ```
 
----
+## [⬆ Back to Table of Contents](#table-of-contents)
 
 # RATIFICATION
 
@@ -2527,6 +2544,7 @@ From this point onward, every new DSA session shall begin by synchronizing with:
 2. `SECRET_KEY.md`
 
 and shall continue without altering the teaching methodology unless a formal constitutional amendment is approved under **Article 23**.
+[⬆ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -2535,3 +2553,4 @@ and shall continue without altering the teaching methodology unless a formal con
 **Version:** 10.0 (STABLE)  
 **Status:** LOCKED  
 **Document Complete**
+[⬆ Back to Table of Contents](#table-of-contents)

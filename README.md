@@ -1,23 +1,85 @@
-# JS Knowledge Learning Path
+# JavaScript Engineering Learning Path
 
-This folder is for learning JavaScript DSA, OOP, design patterns, and low level design in a simple order.
+This repository follows a structured engineering roadmap designed to build strong problem-solving skills before moving toward software architecture.
 
-## 1. Start with OOP Basics
+---
 
-Read these first:
+## 1. Data Structures & Algorithms (Current Focus)
+
+Master problem-solving and engineering thinking using JavaScript.
+
+Repository
+
+```text
+LOGIC_DSA_Learning/
+```
+
+Learning Flow
+
+- Arrays
+- Strings
+- Recursion
+- Linked List
+- Stack
+- Queue
+- HashMap
+- Trees
+- Graphs
+- Heap
+- Greedy
+- Dynamic Programming
+- Advanced Patterns
+
+Every learning day follows the **SUPREME ENGINEERING TRAINING SYSTEM (SETS)**.
+
+### AI Training Files
+
+These files keep every future ChatGPT session synchronized.
+
+```text
+SECRET_KEY.md
+CONSTITUTION.md
+```
+
+The Secret Key stores
+
+- current progress
+- roadmap
+- completed topics
+- next learning target
+
+The Constitution stores
+
+- permanent teaching rules
+- golden rule
+- documentation rules
+- repository rules
+- engineering standards
+
+---
+
+## 2. Object-Oriented Programming (OOP)
+
+Study the core principles of object-oriented programming.
+
+Topics
 
 - Encapsulation
-- Inheritance and Polymorphism
+- Inheritance
+- Polymorphism
 - Abstraction
 
-Why first:
+Why?
 
-- These are the base ideas for object oriented programming.
-- You need them before learning SOLID and design patterns.
+These concepts form the foundation for SOLID Principles and Design Patterns.
 
-## 2. Learn SOLID Principles
+---
 
-Read these after OOP basics:
+## 3. SOLID Principles
+
+Learn how to write maintainable and scalable software.
+
+Topics
 
 - Single Responsibility Principle
 - Open Closed Principle
@@ -25,36 +87,13 @@ Read these after OOP basics:
 - Interface Segregation Principle
 - Dependency Inversion Principle
 
-Why next:
+---
 
-- SOLID teaches how to write better class-based code.
-- It helps you understand why design patterns are useful.
+## 4. Design Patterns
 
-## 2. Learn Data Structures and Algorithms
+After mastering OOP and SOLID, move to reusable software design.
 
-Revise:
-
-- Daily revision notes
-  Training System for AI assistant:
-- secret key
-- constitution
-
-## 3. Learn Common Design Patterns
-
-Read these after SOLID:
-
-- Singleton Pattern
-- Factory Pattern
-- Builder Pattern
-- Prototype Pattern
-- Adapter Pattern
-- Decorator Pattern
-- Proxy Pattern
-- Strategy Pattern
-- Observer Pattern
-- Command Pattern
-
-Simple order to study:
+Recommended Order
 
 - Singleton
 - Factory
@@ -67,49 +106,60 @@ Simple order to study:
 - Observer
 - Command
 
-Why this order:
+---
 
-- It starts with simple creation patterns.
-- Then it moves to structural patterns.
-- Then it goes to behavior patterns.
+## 5. Low Level Design (LLD)
 
-## 4. Practice Low Level Design Problems
+Apply OOP, SOLID and Design Patterns to build real software systems.
 
-Read these after you know OOP, SOLID, and patterns:
+Practice Problems
 
 - Parking Lot
-- Multiplayer Sudoku Game
 - LRU Cache
-- In Memory Cache
-- Snake and Ladder
-- Exception Class
-- Money Splitter
-- Notification Service
-- Message Queue
-- Command Prompt
-- TinyURL
+- Snake & Ladder
 - BookMyShow
+- TinyURL
+- Notification Service
+- Authentication Service
+- Message Queue
 - Google Autosuggest
 - Stock Exchange
-- Authentication Service
 
-Why last:
+---
 
-- These are full system design practice problems.
-- They use all the concepts you learned before.
+## 6. High Level Design (Future)
 
-## Best Way to Study
+Learn scalable distributed systems.
 
-- Read one topic at a time.
-- First understand the idea.
-- Then open the related `.js` file.
-- Try to write the code yourself before checking the answer.
-- Revise the folder again after finishing all topics.
+Topics
 
-## Suggested Learning Flow
+- Load Balancer
+- Database Scaling
+- Caching
+- Message Queues
+- CDN
+- Microservices
+- CAP Theorem
+- Consistency Models
+- Distributed Storage
+- System Architecture
 
-1. OOP basics
-2. SOLID principles
-3. Design patterns
-4. LLD problems
-5. Revision and practice
+---
+
+# Recommended Learning Order
+
+```text
+DSA
+   ↓
+OOP
+   ↓
+SOLID
+   ↓
+Design Patterns
+   ↓
+Low Level Design
+   ↓
+High Level Design
+```
+
+This order is locked and followed throughout the repository.

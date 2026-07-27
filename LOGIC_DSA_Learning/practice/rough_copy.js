@@ -754,3 +754,117 @@ let bookings = [[1, 2, 10], [2, 3, 20], [2, 5, 25]], n = 5;
 //---------------------------------------------------------------
 
 //! Two Pointer
+
+const nums = [1, 2, 4, 6, 8, 10];
+const target = 10; // return index 
+
+function twoSum(nums, target) {
+  let left = 0
+  let right = nums.length - 1;
+
+  while (left < right) {
+
+    let sum = nums[left] + nums[right];
+
+    if (sum < target) {
+      left++;
+    }
+    else if (sum > target) {
+      right--;
+    }
+    else {
+      return [left, right]
+    }
+
+  }
+
+  return -1;
+}
+//* Notes [comparision btw same direction or opposite direction]
+/* 
+1. Opposite Direction  Example deta hoon
+Suppose 1 4 7 10 13 16
+Target = 17
+
+Current
+1 4 7 10 13 16
+L            R
+Sum = 17
+
+Ab sum par depend karta to movement hi nahi hota. To asli reason sum nahi hai. Sum sirf signal hai.  Decision kis baat se ho raha hai?  👉 Sorted property.
+Hum jaante hain:  Array sorted hai. Isliye hume pata hai:
+Bigger sum chahiye → Left ko badhao.
+Smaller sum chahiye → Right ko ghatao.
+
+Agar array sorted hi na hota...  aisa hota  arr = [5 1 8 2 6 3]
+Aur sum chhota hota. Kya confidently left++ kar sakte? ❌ Nahi.
+Kyuki next value chhoti bhi ho sakti hai. Isliye interview answer hoga 🎯:
+
+//* "Opposite Direction pointer movement depends on the sorted property of the data, which allows us to eliminate impossible search space." Ye sentence SDE interview level ka hai.
+
+2. Same Direction 
+
+//* "Same Direction pointer movement depends on maintaining a valid window according to the problem's condition."
+
+Notice difference 🎯.
+"Add old remove" kaam hai.
+"Maintain valid window" objective hai.
+
+*/
+
+/* 
+🎯 Sabse Important Visualization
+//? Opposite Direction:- 
+ Imagine tum ek library mein ho.  Tumhe dictionary mein ek word dhoondhna hai. Tum jaante ho dictionary alphabetical hai. Agar tum "Mango" dhoondh rahe ho aur page "Apple" par ho... Tum peeche jaoge? ❌ Nahi. Seedha aage jaoge. Kyun?
+
+Sorted order tumhe direction de raha hai.Isliye search space eliminate hota hai.
+
+//? Same Direction: -
+Imagine tum bus mein travel kar rahe ho aur conductor ko hamesha current passengers ka count rakhna hai. Har stop par:
+Kuch log utarte hain.
+Kuch log chadhte hain.
+Conductor poori bus dobara count karta hai? ❌ Nahi. 
+Bas:
+Current Count
+- Utarne wale
++ Chadhne wale
+
+Yehi Window Maintenance hai.
+
+Window = "Current passengers."
+
+*/
+
+/* 
+Ek Table Bana Lo (Ye Lifetime Yaad Rahega)
+Opposite Direction                                      |	Same Direction
+Sorted array is important                               |	Sorted hona zaroori nahi
+Search space eliminate karta hai                        |	Window maintain karta hai
+Sum/condition batata hai kis pointer ko move karna hai  |	Window valid/invalid batata hai kis pointer ko move karna hai
+Pair problems	Subarray/Substring problems
+Example: Two Sum II	Example: Longest Subarray
+
+*/
+
+//! Input Array Is Sorted (LeetCode 167)
+var twoSum = function (nums, target) {
+  let left = 0, right = nums.length - 1;
+  while (left <= right) {
+    let sum = nums[left] + nums[right];
+    if (sum < target) left++;
+    else if (sum > target) right--;
+    else return [left + 1, right + 1];
+  }
+};
+
+//! Leetcode 125. Valid Palindrom
+var isPalindrome = function (s) {
+  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+  let left = 0, right = s.length - 1;
+  while (left < right) {
+    if (s[left] !== s[right]) return false;
+    left++;
+    right--;
+  }
+  return true;
+};

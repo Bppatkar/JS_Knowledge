@@ -174,7 +174,7 @@ var findMaxConsecutiveOnes = function (nums) {
   }
   return max;
 };
-findMaxConsecutiveOnes(nums = [1, 1, 0, 1, 1, 1])
+// findMaxConsecutiveOnes(nums = [1, 1, 0, 1, 1, 1])
 
 // --------------------------------------------
 //! Best value Tracking Pattern [minimum + maximum pattern]
@@ -753,7 +753,7 @@ let bookings = [[1, 2, 10], [2, 3, 20], [2, 5, 25]], n = 5;
 
 //---------------------------------------------------------------
 
-//! Two Pointer
+//! Two Pointer [Opposite Direction]
 
 const nums = [1, 2, 4, 6, 8, 10];
 const target = 10; // return index 
@@ -869,3 +869,357 @@ var isPalindrome = function (s) {
   return true;
 };
 
+//! Sliding window Foundation [Two Pointer Same Direction] [fixed size]
+
+//? Algorithm
+/*
+Step 1: - Build the first window of size k.
+Step 2: - Calculate the sum of the first window.
+Step 3: - Initialize maxSum = currentWindowSum
+Step 4:- Slide the window one position at a time.
+For every move:
+• Add incoming element
+• Remove outgoing element
+• Update current window sum
+• Compare with maxSum
+Step 5: - Return maxSum
+*/
+
+function maxSumFixedWindow(arr, k) {
+  let current_sum = 0, max_sum;
+  // if array values is negative to max_sum compare 0 is always greater thats why we dont write - max_sum = 0;
+  for (let i = 0; i < k; i++) {
+    current_sum += arr[i];
+  }
+  max_sum = current_sum;
+  let left = 0, right = k;
+  // while (right < arr.length) {
+  //   current_sum += arr[right];
+  //   current_sum -= arr[left]
+  //   if (current_sum > max_sum) max_sum = current_sum;
+  //   left++; right++;
+  // }
+  for (let i = k; i < arr.length; i++) {
+    current_sum += arr[i] - arr[i - k];
+    max_sum = Math.max(current_sum, max_sum)
+  }
+  return max_sum;
+}
+
+//! Maximum Average Subarray I
+function findMaxAverage(arr, k) {
+  let sum = 0, max_sum;
+  for (let i = 0; i < k; i++) {
+    sum += arr[i]
+  }
+  max_sum = sum;
+  for (let i = k; i < arr.length; i++) {
+    sum += arr[i] - arr[i - k];
+    max_sum = Math.max(sum, max_sum);
+  }
+  return max_sum / k
+}
+
+
+// let arr1 = [1, 9, 3, 6, 8, 7, 5], k = 3;
+// console.log("max average", findMaxAverage(arr1, k))
+
+
+//---------------------------------------------------------------
+//! Sliding window [Variable size]
+//* In Fixed Size Sliding Window, the window moved because of size.
+//* In Variable Size Sliding Window, the window moves because of rules.
+
+//? Complextiy
+/* 
+In Fixed Sliding Window:
+Left moves at most n times. Right moves at most n times. Therefore O(n).
+
+In Variable size sliding window:
+Right pointer  0 → 1 → 2 → 3 → 4 ... Kabhi peeche gaya? ❌ Nahi.
+Maximum movement? n
+
+Left pointer 0 → 1 → 2 → 3 → 4 ... Kabhi peeche gaya? ❌ Nahi.
+Maximum movement? n
+
+Total movements :- right [n] + left [n] = 2n
+
+Constant ignore.
+O(2n)
+↓
+O(n)
+Left moves at most n times. Same Right moves at most n times. Therefore O(n)
+ */
+
+/* 
+//* Algorithm Derivation
+Step 1 : Pehle Goal ko Mathematical Language me likho
+Step 2 : Window kis taraf move karegi?
+Step 3 : Character add karne ke baad kya hoga?
+Step 4 : Shrink kitna karna hai?
+Step 5 : Valid hone ke baad kya karenge?
+Step 6 : Maximum kab update hoga?
+
+//* Algorithm
+- Initialize two pointers (left, right) at 0.
+- Maintain a data structure to keep track of characters inside the current window.[Set Data structure helps us to detect duplicate value because it is a collection of unique values]
+- Expand the window by moving right.
+- If the current window becomes invalid (duplicate character exists), keep moving left and remove characters until the window becomes valid again. [but condition is how much time we shrink if we have to shrink multiple time in any condition so we write while loop for removing character from left rather than if condition because it shrinks only onces]
+- Whenever the window is valid, calculate its length.
+- Update the maximum length found so far.
+- Continue until right reaches the end of the string.
+--------------------------------------------
+for every right character
+
+    agar duplicate nahi hai
+        add karo
+
+    agar duplicate hai
+        jab tak duplicate rahe
+            left hatao
+            left aage badhao
+
+    current character add karo
+
+    answer update karo
+--------------------------------------------
+//* Pseudocode Derivation
+Create an empty Set
+
+left = 0
+answer = 0
+
+For every right character
+
+    While current character already exists in Set
+
+        Remove left character from Set
+
+        Move left forward
+
+    Add current character into Set
+
+    Calculate current window length
+
+    Update maximum answer
+
+Return answer
+*/
+//! Leetcode 3. Longest Substring Without Repeating Characters
+var lengthOfLongestSubstring = function (s) {
+  let set = new Set(), left = 0, answer = 0, windowLength = 0;
+  for (let right = 0; right < s.length; right++) {
+    while (set.has(s[right])) {
+      set.delete(s[left]);
+      left++;
+    }
+    set.add(s[right])
+    windowLength = right - left + 1;
+    answer = Math.max(answer, windowLength);
+  }
+  return answer
+}
+// console.log(lengthOfLongestSubstring("pwwkew")) // 3
+// console.log(lengthOfLongestSubstring("abcabcbb")) // 3
+// console.log(lengthOfLongestSubstring("bbbbb")) // 1
+//---------------------------------------------------------------
+
+//! Category of Sliding window
+/*
+ //* Presene based so we use = Set
+ Examples: - Longest Substring Without Repeating Characters, Contains Duplicate in Window
+
+ //* Frequency based so we use = Map/Obect
+ Examples: - At Most K Distinct Characters, Minimum Window Substring, Permutation in String ,Find All Anagrams
+---------------------------------------------------------------
+Ab Samjho: - Question: At Most K Distinct Characters
+Example :- K = 2
+Window
+a a b b
+
+Distinct? - a b
+Answer - 2, Window valid hai.
+
+Window
+a a b c
+Distinct? a b c
+Answer - 3,  Window Invalid hai because value of k is 2 and 3 > 2 which is ❌
+
+Ab Socho... Suppose
+Window
+a a b
+
+Ab left se remove kiya. a b
+Question: Abhi bhi 'a' window me hai? ✔️ Haan.
+
+Agar hum Set use karein... Set {a,b} Aur humne set.delete('a') kar diya. Set ban gaya {b} ❌ Galat. Kyun?
+Kyuki window me abhi bhi ek aur 'a' bacha hua hai. Set ko pata hi nahi ki 'a' kitni baar tha. Isi liye Set Fail Set sirf ye jaanta hai: Hai Ya Nahi hai Usse ye nahi pata:
+Kitni baar hai To Hume Kya Chahiye? Hume aisa Data Structure chahiye jo bole:
+a -> 2
+b -> 3
+c -> 1
+
+Yaani... Frequency Aur uske liye hum use karte hain: Map Ya Object
+*/
+/* 
+//* Fixed Sliding Window 
+Question bolega: Exactly k
+Examples:
+-Size k
+-Window of length k
+-Every subarray of size k
+-Every substring of length k
+
+To dimaag bole:  k = Window Size
+
+//* Variable Sliding Window
+Question bolega:
+-At most k replacements
+-At most k distinct
+-At most k zeros
+-At most k operations
+-At most k changes
+
+To dimaag bole: k = Constraint, NOT window size.
+Window jitni chahe badi ho sakti hai, bas constraint satisfy hona chahiye.
+----------------------------------------------------
+Window hai: A A B B C
+Aur k = 2
+
+window - AABBC and 
+k = 2 
+Window Length = 5 
+Max Frequency = 2 [of A or B]
+Required Replacement = length - maxFreq so 5-2 = 3 [either we can change A to B or vice versa] 
+Window Valid ya Invalid? invalid because we check 3 character need replacement and exact value of k is 2 so , required replacement is 3 so it is > 2 so invalid window
+ */
+//! MIMP Line
+/* 
+//* Fixed Sliding Window: "Window ko k ke hisaab se control karte hain."
+//* Variable Sliding Window: "Window ko validity/validation ke hisaab se control karte hain."
+*/
+
+//! Sample Code for Variable Sliding Window
+function vSw(s, k) {
+  let left = 0, right = 0, map = {}, maxFreq = 0, answer = 0;
+  for (let i = 0; i < s.length; i++) {
+    map[s[i]] = (map[s[i]] || 0) + 1;
+  }
+  maxFreq = map[0];
+  while (right < s.length) {
+
+  }
+  return answer;
+}
+vSw('ABAABCAAABDEDCCDB', 2);
+
+
+//! Longest Repeating Character Replacement (LeetCode 424)
+//* MIMP Line -  We intentionally allow maxFreq to become stale [purana value] because an exact value is not required to find the correct longest answer. because Hum kya chahte hain? Perfect maxFreq? ❌ Nahi. Balki, Longest possible window.
+//? We intentionally allow maxFreq to become stale because our goal is to find the longest valid window, not to keep the exact frequency updated after every shrink. Recomputing the exact maximum after every left move would require scanning the whole map repeatedly, which adds unnecessary work.
+// "Window invalid → right stop → left++"
+// matlab hme - maxFreq is variable ko bar bar update nahi krna hai [in Deep - maxFreq ko sirf window expand (right++) hone par update karte hain. Window shrink (left++) hone par usse intentionally decrease nahi karte.], bs stringLength - maxFreq pata kr lena hai means kitne replaceble character chahiye and check krna hai ki jo result aaya minus krne par wo <= k hai ya nahi thats it
+//? [Hum maxFreq ko left move par isliye decrease nahi karte kyunki exact maximum maintain karne ke liye hume baar-baar poora map scan karna padega. Hamara goal exact frequency maintain karna nahi, balki longest valid window efficiently find karna hai. maxFreq stale reh sakta hai aur right pointer expand hone par naturally update ho jata hai.]
+/* 
+requiredReplacements = windowLength - maxFreq
+
+if (requiredReplacements <= k)
+    window is valid
+else
+    shrink the window
+*/
+//! IMP RULE
+/* 
+Example: String
+A A B A
+    ^
+  right
+currentChar = s[right]
+Yahan currentChar = 'B' Ab us character ki frequency map me hogi.
+currentCharFrequency = map.get(currentChar)
+Ya Object use kar rahe ho to currentCharFrequency = freq[currentChar]
+Phir maxFreq = Math.max(maxFreq, currentCharFrequency)
+Ye exact flow hai.
+*/
+/* 
+1. Right move → Frequency increase.
+2. maxFreq = max(maxFreq, currentCharFrequency) and currentCharFreq -> where right pointer is means string[right]
+3. Check:
+  windowLength - maxFreq <= k ?
+4. If invalid → Left move (decrease frequency only).
+   Do NOT decrease maxFreq.
+   --------------------
+Matlab order hona chahiye:
+Right arrives
+↓
+Map update
+↓
+maxFreq update
+↓
+Replacement calculate
+↓
+Validity check
+
+//* if window is invalid
+Invalid
+↓
+Shrink
+↓
+Window valid ho jaye
+↓
+Tab hi answer update.
+```
+//! Algorithm
+1. Add current character to map.
+2. Update maxFreq.
+3. Calculate required replacements.
+4. If invalid:
+      Shrink window until valid.
+5. Update best answer.
+6. Move right.
+
+//! Psuedo Code
+left = 0, right = 0, map = {}, maxFreq = 0, bestAnswer = 0;
+while (right < s.length) {
+  map[s[right]] = (map[s[right]] || 0) + 1;
+  maxFreq = map[right];
+  let requiredReplacements = s.length - maxFreq;
+  while (requiredReplacements > k) {
+    map.delete(map[left])
+    left++;
+  }
+  bestAnswer = right - left + 1 // best answer is current window length
+  right++;
+  return bestAnswer;
+}
+*/
+
+//! Leetcode 424. Longest Repeating Character Replacement 
+var characterReplacement = function (s, k) {
+  let left = 0,
+    right = 0,
+    map = {},
+    maxFreq = 0,
+    bestAnswer = 0;
+
+  while (right < s.length) {
+    map[s[right]] = (map[s[right]] || 0) + 1;
+
+    maxFreq = Math.max(map[s[right]], maxFreq);
+
+    while ((right - left + 1) - maxFreq > k) {
+      map[s[left]]--;
+
+      if (map[s[left]] === 0) delete map[s[left]];
+
+      left++;
+    }
+    bestAnswer = Math.max(bestAnswer, right - left + 1); // best answer is current window length, and whatever is big we need that max val
+    right++;
+  }
+  return bestAnswer;
+}
+console.log("sliding window", characterReplacement("ABAB", 2)) // 4
+console.log("sliding window", characterReplacement("AABABBA", 1)) // 4
+// toughest one
+console.log("sliding window", characterReplacement("ABBB", 2)) // 4

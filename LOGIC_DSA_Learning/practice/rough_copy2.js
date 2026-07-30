@@ -1,22 +1,51 @@
+//! Advanced Sliding window pattern
+//* Algorithm Derivation
 
-// Dry Run (Most Important Part)
-//  s = "AABABBA", K = 1
-// Start me table fill karo.
-
-/* 
-intiall values
-| left | right | Window | Map | maxFreq | Replacements | Valid? | bestAnswer |
-
-| ---: | ----: | ------ | --- | ------- | ------------ | ------ | ---------- |
-
-|    0 |     0 | right -left+1| {}   | 0 | 0  | (right-left+1) - maxFreq <k  | 0  |
---------------------------------------------------------------------------------------------
-| left | right | Window | Map       | maxFreq | Replacements | Valid? | bestAnswer |
-| ---: | ----: | -----: | --------- | ------: | -----------: | :----: | ---------: |
-|    0 |     0 |      1 | {A:1}     |       1 |            0 |  ✅ Yes |          1 |
-|    0 |     1 |      2 | {A:2}     |       2 |            0 |  ✅ Yes |          2 |
-|    0 |     2 |      3 | {A:2,B:1} |       2 |            1 |  ✅ Yes |          3 |
-|    0 |     3 |      4 | {A:3,B:1} |       3 |            1 |  ✅ Yes |          4 |
-right = 4, character = 'B
-|    0 |     4 |      5 | {A:3,B:2} |       3 |            2 |  ❌ No |          4 |
+/*
+let left =0, right = 0, map= {}, maxLength = 0;
+intitialize pointer and map
+↓
+expand right pointer and map and increase the frequency of the character in the map
+↓
+while window invalid
+    decrease frequency
+    remove if frequency is 0
+    move left pointer
+↓
+update maxLength
+↓
+move right pointer and return answer
 */
+
+//* Pseudocode
+/*
+left = 0, maxLength = 0, map = {}
+for every right
+      currentChar = s[right]
+      increase frequency of currentChar in map
+      while window invalid
+            decrease frequency of s[left] in map
+            if frequency of s[left] is 0
+                  remove s[left] from map
+            move left pointer
+      update maxLength
+return maxLength
+*/
+
+//! Longest Substring with at most K distinct [diff diff] characters
+function longestSubstringKDistinct(s, k) {
+  let left = 0, right = 0, maxLength = 0, map = {};
+  while (right < s.length) {
+    map[s[right]] = (map[s[right]] || 0) + 1;
+    while (Object.keys(map).length > k) {
+      map[s[left]]--;
+      if (map[s[left]] === 0) delete map[s[left]];
+      left++;
+    }
+    maxLength = Math.max(maxLength, right - left + 1);
+    right++;
+  }
+  return maxLength;
+}
+console.log("longestSubstringKDistinct", longestSubstringKDistinct("eceba", 2)); // 3
+console.log("longestSubstringKDistinct", longestSubstringKDistinct("aa", 1)); // 2

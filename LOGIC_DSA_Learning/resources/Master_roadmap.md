@@ -150,15 +150,15 @@
 
 **Topics**
 
-- ⬜ Frequency Map
-- ⬜ Frequency Counting
-- ⬜ Valid Window using Frequency
-- ⬜ Most Frequent Character
-- ⬜ Window Optimization
+- ✅ Frequency Map
+- ✅ Frequency Counting
+- ✅ Valid Window using Frequency
+- ✅ Most Frequent Character
+- ✅ Window Optimization
 
 **LeetCode Problems**
 
-- ⬜ Longest Repeating Character Replacement (LeetCode 424)
+- ✅ Longest Repeating Character Replacement (LeetCode 424)
 
 ---
 

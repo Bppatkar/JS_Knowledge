@@ -114,8 +114,40 @@ function minWindow(s, t) {
   return minLength === Infinity ? "" : s.substring(startIndex, startIndex + minLength)
 }
 
-console.log("minWindow", minWindow("ADOBECODEBANC", "ABC")); // BANC
-console.log("minWindow", minWindow("a", "a")); // a
-console.log("minWindow", minWindow("a", "aa")); // ""
+// console.log("minWindow", minWindow("ADOBECODEBANC", "ABC")); // BANC
+// console.log("minWindow", minWindow("a", "a")); // a
+// console.log("minWindow", minWindow("a", "aa")); // ""
 
+// ---------------------------------------------
 
+//! Leetcode 713 Subarray Product Less Than K
+// nums = [10,5,2,6] , k = 100 , output - 8
+// [10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6]
+
+//* Psuedo Code
+/* 
+initialize value and we want count not frequency so we use obj
+For every Right
+1. Add current character into windowMap
+     current window all character product < k
+    if yes return count
+*/
+
+function numSubarrayProductLessThanK(nums, k) {
+  let left = 0, right = 0, count = 0, product = 1;
+  while (right < nums.length) {
+    product *= nums[right]
+    while (product >= k) {
+      if (k <= 1) return 0
+      product /= nums[left]
+      left++;
+    }
+    count += right - left + 1;
+    right++;
+
+  }
+  return count;
+}
+console.log("numSubarrayProductLessThanK", numSubarrayProductLessThanK([10, 5, 2, 6], 100)); // 8
+// console.log("numSubarrayProductLessThanK", numSubarrayProductLessThanK([1, 2, 3], 0)); // 0
+// console.log("numSubarrayProductLessThanK", numSubarrayProductLessThanK([1, 2, 3], 1)); // 0

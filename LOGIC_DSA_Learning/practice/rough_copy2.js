@@ -176,7 +176,7 @@ function subarrOddNum(nums, k) {
 
 
 
-//! Kadane's Algorithm - Maximum Subarray Sum
+//! Kadane's Algorithm - 
 // nums = [-2,1,-3,4,-1,2,1,-5,4] , output - 6 , You need to find the contiguous subarray which has the largest sum and return its sum.
 //? Kadane's Algorithm simply says - if the sum of the subarray becomes negative, then we can discard that subarray and start a new subarray from the next element. This is because a negative sum will only decrease the sum of any future subarray means [our previous sum is hurting us so we restart]. 
 //! Rule -> Kadane always asks: - Which choice gives me the larger sum?
@@ -195,6 +195,7 @@ currentSum = max(currentSum + nums[i],nums[i]); ⭐⭐⭐⭐⭐
 //! Interview explanation("Why does Kadane work?"). -
 //?   "Kadane Algorithm maintains two states: currentSum and bestSum. At every element, we decide whether extending the current subarray gives a better sum or starting a new subarray from the current element gives a better sum. We choose the larger of these two options. Then we update bestSum if the current subarray is the best seen so far. This greedy decision is optimal because a negative running sum can never improve a future subarray."
 
+//! Leetcode 53. Maximum Subarray
 function maxSubArray(nums) {
   let maxSum = nums[0], currSum = nums[0];
   for (let i = 1; i < nums.length; i++) {

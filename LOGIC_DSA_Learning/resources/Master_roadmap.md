@@ -1,493 +1,473 @@
-# Master Data Structures & Algorithms (DSA) Roadmap
+# ⚔️ MASTER DSA ROADMAP
 
-> **Core Philosophy:**
->
-> **Question ≠ Algorithm**
->
-> **Question = One or More Patterns Combined**
+### Supreme Engineering Training System (Official)
 
----
+Version: 1.0
+Status: LOCKED
+Learning Style:
 
-## 🌱 Phase 0 — Thinking Foundation
-
-**Before DSA Fundamentals**
-
-- ✅ Memory Model
-- ✅ Variables
-- ✅ Input / State / Output Thinking
-- ✅ Time Complexity Basics
-- ✅ Space Complexity Basics
-- ✅ Debugging Basics
-- ✅ Dry Run
-- ✅ Pattern Recognition
-- ✅ Interview Communication
+- Pattern First
+- Engineering First
+- 80/20 Rule
+- First Principles
+- Feynman Technique
+- Active Recall
+- Spaced Repetition
+- Parkinson's Law
 
 ---
 
-## 1. Arrays
+# Core Philosophy
 
-### 1.1 Basic Patterns
+Question ≠ Algorithm
 
-**Topics**
+Question = Pattern(s) + Data Structure(s)
 
-- ✅ Traversal
-- ✅ State Update
-- ✅ Build New Array
-- ✅ Comparison Pattern
-- ✅ Early Exit Pattern
-- ✅ Linear Search
-- ✅ Count Pattern
-- ✅ Running Count
-- ✅ Maximum Pattern
-- ✅ Minimum Pattern
-- ✅ Best Index Tracking
-- ✅ First Occurrence
-- ✅ Last Occurrence
-- ✅ Pattern Mixing
+Never memorize code.
 
-**LeetCode Problems**
-
-- ✅ Array from Permutation (LeetCode 1920)
-- ✅ Running Sum of 1D Array (LeetCode 1480)
-- ✅ Concatenation of Array (LeetCode 1929)
-- ✅ Max Consecutive Ones (LeetCode 485)
-- ✅ Richest Customer Wealth (LeetCode 1672)
+Always derive the algorithm.
 
 ---
 
-### 1.2 Prefix Sum
+# Learning Principles
 
-**Topics**
+## 1. Pareto Principle (80/20)
 
-- ✅ Prefix Sum Construction
-- ✅ Prefix Sum Query
-- ✅ Range Sum Thinking
-
-**LeetCode Problems**
-
-- ✅ Range Sum Query – Immutable (LeetCode 303)
+Learn the small number of reusable patterns that solve the majority of interview questions.
 
 ---
 
-### 1.3 Difference Array
+## 2. First Principles Thinking
 
-**Topics**
+Always derive:
 
-- ✅ Difference Array Concept
-- ✅ Range Update
-- ✅ Restore Original Array
+Problem
 
-**LeetCode Problems**
+↓
 
-- (No dedicated LeetCode problem solved.)
+Constraints
 
----
+↓
 
-### 1.4 Two Pointers
+Pattern
 
-**Same Direction**
+↓
 
-- ✅ Same Direction Two Pointers
-- ✅ Pointer Movement Analysis
+Algorithm
 
-**Opposite Direction**
+↓
 
-- ✅ Opposite Direction Thinking
-- ✅ Pointer Comparison Strategy
+Code
 
-**LeetCode Problems**
-
-- LeetCode 167 (Two Sum II)
-- LeetCode 125 (Valid Palindrome)
+Never memorize implementations.
 
 ---
 
-### 1.5 Sliding Window
+## 3. Feynman Technique
 
-#### Fixed Size Sliding Window
+Every pattern must be explainable:
 
-**Topics**
-
-- ✅ Running State
-- ✅ Window Expansion
-- ✅ Window Shift
-- ✅ Window Shrinking
-- ✅ Fixed Window Analysis
-- ✅ Pointer Movement
-- ✅ O(n) Analysis
-
-**LeetCode Problems**
-
-- (Pattern mastered; no dedicated LeetCode problem solved.)
+- Like I'm 12
+- Interview level
+- Engineering level
 
 ---
 
-#### Variable Size Sliding Window
+## 4. Active Recall
 
-**Presence-Based Window**
+Every study day begins with one blind revision question.
 
-**Topics**
+Maximum revision time:
 
-- ✅ Expand
-- ✅ Shrink
-- ✅ Window Validity
-- ✅ Expand vs Shrink Logic
-- ✅ Set Data Structure
-- ✅ Window Synchronization
-- ✅ Algorithm Derivation
-- ✅ Pseudocode
-- ✅ JavaScript Implementation
-- ✅ Dry Run
-- ✅ Interview Discussion
-
-**LeetCode Problems**
-
-- ✅ Longest Substring Without Repeating Characters (LeetCode 3)
+30 minutes.
 
 ---
 
-**Frequency-Based Window**
+## 5. Spaced Repetition
 
-**Topics**
+Every important pattern is revised after:
 
-- ✅ Frequency Map
-- ✅ Frequency Counting
-- ✅ Valid Window using Frequency
-- ✅ Most Frequent Character
-- ✅ Window Optimization
-
-**LeetCode Problems**
-
-- ✅ Longest Repeating Character Replacement (LeetCode 424)
+- 1 Day
+- 3 Days
+- 7 Days
+- 15 Days
+- 30 Days
 
 ---
 
-**Frequency Matching**
+## 6. Parkinson's Law
 
-**Topics**
+No single problem may block roadmap progression.
 
-- ⬜ Frequency Matching
-- ⬜ Exact Match Window
-- ⬜ Pattern Matching
+Maximum struggle time:
 
-**LeetCode Problems**
+45 minutes.
 
-- ⬜ Permutation in String (LeetCode 567)
-- ⬜ Find All Anagrams in a String (LeetCode 438)
-- ⬜ Minimum Window Substring (LeetCode 76)
+After that:
 
----
+Hint →
 
-**Distinct Window**
+Pattern →
 
-**Topics**
+Derivation →
 
-- ⬜ At Most K Distinct
-- ⬜ Exactly K Distinct
-- ⬜ Distinct Count Management
-
-**LeetCode Problems**
-
-- ⬜ Longest Substring with At Most K Distinct Characters (Locked)
-- ⬜ Subarrays with K Different Integers (LeetCode 992)
+Continue Roadmap
 
 ---
 
-### 1.6 Kadane Algorithm
+# PHASE 0
 
-**Topics**
+## Engineering Thinking
 
-- ⬜ Maximum Subarray
-- ⬜ Running Sum Optimization
+Patterns
 
-**LeetCode Problems**
-
-- ⬜ Maximum Subarray (LeetCode 53)
-
----
-
-### 1.7 Dutch National Flag
-
-**Topics**
-
-- ⬜ Three Pointer Partitioning
-
-**LeetCode Problems**
-
-- ⬜ Sort Colors (LeetCode 75)
+- Time Complexity
+- Space Complexity
+- Dry Run
+- Debugging
+- Constraint Analysis
+- Pattern Recognition
+- State Thinking
+- Interview Communication
+- Complexity Estimation
 
 ---
 
-### 1.8 Cyclic Sort
+# PHASE 1
 
-**Topics**
+# Linear Data Processing
 
-- ⬜ Index Placement
-- ⬜ Missing Numbers
+(Data Structures)
 
-**LeetCode Problems**
+- Arrays
+- Strings
 
-- ⬜ Missing Number (LeetCode 268)
-- ⬜ Find All Numbers Disappeared in an Array (LeetCode 448)
+Patterns (~18)
 
----
+### Traversal
 
-### 1.9 Binary Search on Answer (Arrays)
+- Traversal
+- Running State
+- Count
+- Max
+- Min
+- Index Tracking
 
-**Topics**
+### Prefix
 
-- ⬜ Search Space Thinking
-
-**LeetCode Problems**
-
-- ⬜ Koko Eating Bananas (LeetCode 875)
-
----
-
-### 1.10 Monotonic Stack (Arrays)
-
-**Topics**
-
-- ⬜ Next Greater
-- ⬜ Previous Greater
-
-**LeetCode Problems**
-
-- ⬜ Daily Temperatures (LeetCode 739)
-
----
-
-### 1.11 HashMap + Arrays
-
-**Topics**
-
-- ⬜ Prefix Hash
-- ⬜ Frequency
-
-**LeetCode Problems**
-
-- ⬜ Two Sum (LeetCode 1)
-- ⬜ Subarray Sum Equals K (LeetCode 560)
-
----
-
-### 1.12 Matrix Basics
-
-**Topics**
-
-- ⬜ Traversal
-- ⬜ Simulation
-
-**LeetCode Problems**
-
-- ⬜ Set Matrix Zeroes (LeetCode 73)
-- ⬜ Spiral Matrix (LeetCode 54)
-
----
-
-## 2. Strings
-
-**Patterns**
-
-- ⬜ Traversal
-- ⬜ Character Count
-- ⬜ Frequency
-- ⬜ Two Pointer
-- ⬜ Sliding Window
-- ⬜ Palindrome
-- ⬜ KMP
-- ⬜ Rabin-Karp
-- ⬜ Trie Introduction
-
-**LeetCode Problems**
-
-- (To be added as we solve them.)
-
----
-
-## 3. Hashing
-
-**Patterns**
-
-- ⬜ Frequency Map
-- ⬜ Counting
-- ⬜ Presence Check
-- ⬜ Two Sum
-- ⬜ Prefix Hash
-- ⬜ Grouping
-- ⬜ First Unique
-
-**LeetCode Problems**
-
-- (To be added progressively.)
-
----
-
-## 4. Linked List
-
-**Patterns**
-
-- ⬜ Traversal
-- ⬜ Reverse
-- ⬜ Fast & Slow Pointer
-- ⬜ Cycle Detection
-- ⬜ Merge
-- ⬜ Dummy Node
-
----
-
-## 5. Stack
-
-**Patterns**
-
-- ⬜ Next Greater
-- ⬜ Monotonic Stack
-- ⬜ Parentheses
-- ⬜ Expression Evaluation
-- ⬜ Histogram
-
----
-
-## 6. Queue
-
-**Patterns**
-
-- ⬜ BFS
-- ⬜ Sliding Window Maximum
-- ⬜ Circular Queue
-- ⬜ Deque
-
----
-
-## 7. Recursion
-
-**Patterns**
-
-- ⬜ Base Case
-- ⬜ Choice Diagram
-- ⬜ Tree Recursion
-- ⬜ Backtracking Introduction
-
----
-
-## 8. Trees
-
-**Patterns**
-
-- ⬜ DFS
-- ⬜ BFS
-- ⬜ Recursive Traversal
-- ⬜ Diameter
-- ⬜ LCA
-- ⬜ BST
-- ⬜ Balanced Tree
-
----
-
-## 9. Heap
-
-**Patterns**
-
-- ⬜ Priority Queue
-- ⬜ Top K
-- ⬜ Merge K
-- ⬜ Running Median
-
----
-
-## 10. Binary Search
-
-**Patterns**
-
-- ⬜ Classic Binary Search
-- ⬜ Lower Bound
-- ⬜ Upper Bound
-- ⬜ Binary Search on Answer
-
----
-
-## 11. Backtracking
-
-**Patterns**
-
-- ⬜ Subsets
-- ⬜ Permutations
-- ⬜ Combination Sum
-- ⬜ N-Queens
-- ⬜ Sudoku
-
----
-
-## 12. Graphs
-
-**Patterns**
-
-- ⬜ DFS
-- ⬜ BFS
-- ⬜ Topological Sort
-- ⬜ Union Find (DSU)
-- ⬜ Dijkstra
-- ⬜ Minimum Spanning Tree
-- ⬜ Strongly Connected Components
-
----
-
-## 13. Greedy
-
-**Patterns**
-
-- ⬜ Activity Selection
-- ⬜ Interval Scheduling
-- ⬜ Huffman Coding
-- ⬜ Job Scheduling
-
----
-
-## 14. Dynamic Programming
-
-**Patterns**
-
-- ⬜ State Definition
-- ⬜ State Transition
-- ⬜ Memoization
-- ⬜ Tabulation
-- ⬜ 1D DP
-- ⬜ 2D DP
-- ⬜ Knapsack
-- ⬜ LIS
-- ⬜ Interval DP
-- ⬜ Digit DP
-- ⬜ Bitmask DP
-
----
-
-## 15. Advanced Data Structures
-
-**Topics**
-
-- ⬜ Trie
-- ⬜ Segment Tree
-- ⬜ Fenwick Tree (BIT)
-- ⬜ Sparse Table
-- ⬜ Disjoint Set Union (DSU)
-- ⬜ Skip List (Introduction)
-
----
-
-## 📊 Current Progress
-
-### ✅ Completed
-
-- Phase 0 – Thinking Foundation
-- Arrays Basic Patterns
 - Prefix Sum
+- Prefix Product
 - Difference Array
-- Two Pointers
-- Fixed Size Sliding Window
-- Variable Sliding Window (Presence-Based)
+
+### Two Pointer
+
+- Same Direction
+- Opposite Direction
+
+### Sliding Window
+
+- Fixed
+- Variable
+- Presence
+- Frequency
+- Distinct
+- Count
+- Minimum Window
+
+### Kadane
+
+### Cyclic Sort
+
+### Matrix Traversal
+
+### Simulation
+
+Representative Problems
+
+35–40
 
 ---
 
-### 🎯 Current Position
+# PHASE 2
 
-**Arrays → Sliding Window → Variable Sliding Window → Frequency-Based Window**
+# Hashing
+
+(Data Structures)
+
+- HashMap
+- HashSet
+
+Patterns (~10)
+
+- Frequency
+- Presence
+- Counting
+- Prefix Hash
+- Grouping
+- Mapping
+- Hash + Sliding Window
+- Hash + Prefix
+- Hash + Two Pointer
+- Custom Hash
+
+Representative Problems
+
+20
+
+---
+
+# PHASE 3
+
+# Linear ADTs
+
+(Data Structures)
+
+- Stack
+- Queue
+- Deque
+
+Patterns (~12)
+
+## Stack
+
+- Basic Stack
+- Parentheses
+- Monotonic Increasing
+- Monotonic Decreasing
+- Expression Evaluation
+- Histogram
+
+## Queue
+
+- Queue Basics
+- Circular Queue
+
+## Deque
+
+- Double Ended Queue
+- Monotonic Queue
+
+Representative Problems
+
+20
+
+---
+
+# PHASE 4
+
+# Linked List
+
+Patterns (~10)
+
+- Traversal
+- Reverse
+- Merge
+- Dummy Node
+- Fast Slow Pointer
+- Cycle Detection
+- K Group
+- Intersection
+- Middle Node
+- Random Pointer
+
+Representative Problems
+
+20
+
+---
+
+# PHASE 5
+
+# Binary Search
+
+Patterns (~8)
+
+- Classic
+- Lower Bound
+- Upper Bound
+- Rotated Array
+- Binary Search on Answer
+- Search Space
+- Peak
+- Partition
+
+Representative Problems
+
+20
+
+---
+
+# PHASE 6
+
+# Trees
+
+Patterns (~18)
+
+- DFS
+- BFS
+- Recursive Traversal
+- Iterative Traversal
+- Height
+- Diameter
+- Path Sum
+- LCA
+- BST
+- Balanced Tree
+- Construction
+- Serialization
+- Tree DP Introduction
+
+Representative Problems
+
+35+
+
+---
+
+# PHASE 7
+
+# Heap
+
+Patterns (~8)
+
+- Priority Queue
+- Top K
+- Merge K
+- Running Median
+- Frequency Heap
+- Scheduling
+- Two Heap
+- Greedy + Heap
+
+Representative Problems
+
+20
+
+---
+
+# PHASE 8
+
+# Graphs
+
+Patterns (~15)
+
+- DFS
+- BFS
+- Flood Fill
+- Multi Source BFS
+- Topological Sort
+- Union Find
+- Dijkstra
+- MST
+- SCC
+- Shortest Path
+
+Representative Problems
+
+35+
+
+---
+
+# PHASE 9
+
+# Recursion & Backtracking
+
+Patterns (~10)
+
+- Base Case
+- Choice Diagram
+- Subsets
+- Permutations
+- Combination
+- N Queens
+- Sudoku
+- Word Search
+- Partition
+- Restore
+
+Representative Problems
+
+25
+
+---
+
+# PHASE 10
+
+# Greedy
+
+Patterns (~10)
+
+- Activity Selection
+- Interval Scheduling
+- Job Scheduling
+- Huffman
+- Jump Game
+- Gas Station
+- Meeting Rooms
+- Merge Intervals
+
+Representative Problems
+
+20
+
+---
+
+# PHASE 11
+
+# Dynamic Programming
+
+Patterns (~20)
+
+- Memoization
+- Tabulation
+- 1D DP
+- 2D DP
+- Knapsack
+- LCS
+- LIS
+- Grid DP
+- Interval DP
+- Partition DP
+- Digit DP
+- Bitmask DP
+- Tree DP
+
+Representative Problems
+
+50+
+
+---
+
+# PHASE 12
+
+# Advanced Data Structures
+
+- Trie
+- Segment Tree
+- Fenwick Tree
+- Sparse Table
+- DSU
+- Skip List (Intro)
+
+---
+
+# Roadmap Rules
+
+1. Patterns are taught once.
+
+2. Arrays and Strings belong to one phase.
+
+3. Stack, Queue and Deque belong to one phase.
+
+4. Every phase begins with Data Structure fundamentals.
+
+5. Then patterns.
+
+6. Then representative LeetCode problems.
+
+7. Then revision.
+
+8. Engineering understanding is mandatory before memorization.
+
+9. Code is derived, never memorized.
+
+10. This roadmap is LOCKED and can only be modified through an approved Constitution Amendment.

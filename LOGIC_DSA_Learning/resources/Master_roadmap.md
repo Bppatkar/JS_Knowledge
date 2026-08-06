@@ -133,86 +133,404 @@ Patterns
 
 ---
 
-# PHASE 1
+# PHASE 1 - Linear Data Processing (COMPLETED)
 
-# Linear Data Processing
+✅ Arrays
+⏳ Strings (Will be covered after Hashing as a focused mini-module)
 
-(Data Structures)
+Why?
 
-- Arrays
-- Strings
+Because almost every important String interview problem uses HashMap, Sliding Window, or Two Pointers.
 
-Patterns (~18)
+If we teach Strings before Hashing, many problems become awkward.
 
-### Traversal
+So we'll first master Hashing, then revisit Strings with much stronger tools.
 
-- Traversal
-- Running State
-- Count
-- Max
-- Min
-- Index Tracking
+We are not skipping Strings—only postponing the dedicated String module.
 
-### Prefix
+### ✅ Traversal Family Completed ✅
 
-- Prefix Sum
-- Prefix Product
-- Difference Array
+- ✅ Simple Traversal
+- ✅ Build New Array
+- ✅ Running State
+- ✅ Running Sum
+- ✅ Running Product
+- ✅ Count Pattern
+- ✅ Max Pattern
+- ✅ Min Pattern
+- ✅ Index Tracking
+- ✅ Comparison Pattern
+- ✅ Early Exit Pattern
 
-### Two Pointer
+### ✅ Prefix Family Completed ✅
 
-- Same Direction
-- Opposite Direction
+- ✅ Prefix Sum
+- ✅ Prefix Product
+- ✅ Dummy Zero Technique
+- ✅ Range Sum Query
+- ✅ Difference Array
+- ✅ Lazy Update Thinking
 
-### Sliding Window
+### ✅ Two Pointer Family Completed ✅
 
-- Fixed
-- Variable
-- Presence
-- Frequency
-- Distinct
-- Count
-- Minimum Window
+#### Same Direction
 
-### Kadane
+- ✅ Slow Fast Pointer
+- ✅ Compaction
+- ✅ Build In-place
 
-### Cyclic Sort
+#### Opposite Direction
 
-### Matrix Traversal
+- ✅ Sorted Array Pair
+- ✅ Palindrome
+- ✅ Two Sum II
 
-### Simulation
+### ✅ Sliding Window Family Completed ✅
 
-Representative Problems
+#### Fixed Window
 
-35–40
+- ✅ Fixed Size Window
+- ✅ Running Sum
+- ✅ Running Product
+
+#### Variable Window
+
+- ✅ Longest Window
+- ✅ Smallest Window
+- ✅ Presence Window
+- ✅ Frequency Window
+- ✅ Distinct Window
+- ✅ Count Window
+- ✅ Minimum Window
+- ✅ Window Validity Rules
+- ✅ Expand vs Shrink Logic
+- ✅ Incremental State Maintenance
+
+### ✅ Kadane Family Completed ✅
+
+- ✅ Maximum Subarray
+- ✅ Current State
+- ✅ Best State
+- ✅ Restart vs Extend Decision
+
+### ✅ Cyclic Sort Family Completed ✅
+
+- ✅ Correct Position Concept
+- ✅ Missing Number
+- ✅ Missing Numbers
+- ✅ First Missing Positive
+- ✅ Duplicate Placement Thinking
+
+### ✅ Matrix Family Completed ✅
+
+✅ Matrix Basics
+✅ Row Traversal
+✅ Column Traversal
+✅ Boundary Variables
+✅ Boundary Traversal
+✅ Diagonal Traversal
+✅ Transpose
+✅ Rotate Matrix
+
+### ✅ Simulation Family Completed ✅
+
+- ✅ Simulation Thinking
+- ✅ State Changes
+- ✅ In-place Simulation
+
+Phase 1 Representative Problems
+Approximately
+40+ LeetCode Problems
 
 ---
 
-# PHASE 2
+# PHASE 2 Hashing (IN PROGRESS)
 
-# Hashing
+### Goal
 
-(Data Structures)
+Master Hashing as a Data Structure and Pattern Family.
 
-- HashMap
-- HashSet
-
-Patterns (~10)
-
-- Frequency
-- Presence
-- Counting
-- Prefix Hash
-- Grouping
-- Mapping
-- Hash + Sliding Window
-- Hash + Prefix
-- Hash + Two Pointer
-- Custom Hash
+Learn when to trade **memory for speed** and instantly recognize when Hashing is the correct approach.
 
 Representative Problems
 
-20
+20+ LeetCode Problems
+
+---
+
+## SECTION 1 — Hashing Fundamentals
+
+### Theory
+
+- ✅ What is Hashing?
+- ✅ Why Hashing Exists
+- ✅ Time vs Memory Trade-off
+- ✅ Lookup Tables
+- ✅ Key-Value Mapping
+- ✅ Hash Function
+- ✅ Buckets
+- ✅ Collision
+- ✅ Collision Resolution (Awareness)
+  - Chaining
+  - Open Addressing
+- ✅ Load Factor
+- ✅ Rehashing (Awareness)
+- ✅ Average vs Worst Case Complexity
+
+### Engineering Thinking
+
+- Why Hashing gives O(1) average lookup
+- Why worst case becomes O(n)
+- Why Arrays cannot solve every lookup problem
+- Memory vs Performance Trade-off
+- Real-world Engineering Applications
+  - Cache
+  - Session Storage
+  - Database Indexing (Concept)
+  - API Lookup
+  - Authentication
+  - Redis
+
+---
+
+## SECTION 2 — JavaScript Hash Data Structures
+
+### Object
+
+Learn
+
+- Creation
+- Insert
+- Update
+- Delete
+- Search
+- Iteration
+- Object.keys()
+- Object.values()
+- Object.entries()
+
+Engineering Discussion
+
+- Why keys become strings
+- Prototype chain problems
+- When Object should NOT be used
+
+---
+
+### Map
+
+Learn
+
+- new Map()
+- set()
+- get()
+- has()
+- delete()
+- clear()
+- size
+- Iteration
+- Nested Map
+
+Engineering Discussion
+
+- Why Map exists
+- Map vs Object
+- Primitive vs Object keys
+- Performance discussion
+
+---
+
+### Set
+
+Learn
+
+- new Set()
+- add()
+- has()
+- delete()
+- clear()
+- size
+- Iteration
+
+Engineering Discussion
+
+- Why Set is better than Array.includes()
+- Uniqueness Guarantee
+- Presence Checking
+
+---
+
+### WeakMap / WeakSet
+
+Awareness Only
+
+- What they are
+- Garbage Collection Concept
+- Real-world use cases (High Level)
+
+---
+
+## SECTION 3 — Hashing Pattern Family
+
+### Pattern 1 — Frequency Counting
+
+Learn
+
+- Character Frequency
+- Number Frequency
+- Frequency Table
+- Frequency Comparison
+
+Representative Problems
+
+- Valid Anagram
+- Majority Element
+- Top K Frequent (Introduction)
+
+---
+
+### Pattern 2 — Presence Checking
+
+Learn
+
+- Exists / Doesn't Exist
+- Duplicate Detection
+- Missing Element Detection
+
+Representative Problems
+
+- Contains Duplicate
+- Happy Number
+- Longest Consecutive Sequence (Intro)
+
+---
+
+### Pattern 3 — Counting Pattern
+
+Learn
+
+- Counting Occurrences
+- Counting Unique Values
+- Counting Valid Pairs
+- Counting Valid Subarrays
+
+---
+
+### Pattern 4 — Grouping Pattern
+
+Learn
+
+- Group by Key
+- Group by Frequency
+- Group by Signature
+
+Representative Problems
+
+- Group Anagrams
+
+---
+
+### Pattern 5 — Mapping Pattern
+
+Learn
+
+- Value → Index
+- Value → Frequency
+- Parent → Children
+- Custom Mapping
+
+Representative Problems
+
+- Two Sum
+- Isomorphic Strings
+
+---
+
+### Pattern 6 — Prefix Hash
+
+Learn
+
+- Prefix Sum + HashMap
+- Running Prefix Storage
+- Prefix Lookup
+
+Representative Problems
+
+- Subarray Sum Equals K
+- Continuous Subarray Sum
+
+---
+
+### Pattern 7 — Hash + Sliding Window
+
+Learn
+
+- Character Frequency Window
+- Distinct Characters
+- Window Validity using HashMap
+
+Representative Problems
+
+- Longest Substring Without Repeating Characters
+- Minimum Window Substring
+- Permutation in String
+- Find All Anagrams in a String
+
+---
+
+### Pattern 8 — Hash + Prefix Sum
+
+Learn
+
+- Prefix Frequency
+- Prefix Difference
+- Prefix Count
+
+Representative Problems
+
+- Binary Subarrays With Sum
+- Subarray Sum Equals K
+
+---
+
+### Pattern 9 — Hash + Two Pointer
+
+Learn
+
+- Pair Lookup
+- Complement Search
+- Optimized Searching
+
+Representative Problems
+
+- Two Sum
+- 3Sum (Hash Approach Discussion)
+
+---
+
+### Pattern 10 — Custom Hash Thinking
+
+Learn
+
+- Designing Keys
+- Composite Keys
+- Tuple Keys
+- Encoding Multiple Values
+
+Interview Discussion Only
+
+---
+
+## SECTION 4 — Pattern Mixing
+
+Learn to combine Hashing with previously learned patterns.
+
+- Hash + Traversal
+- Hash + Prefix Sum
+- Hash + Sliding Window
+- Hash + Two Pointer
+- Hash + Matrix
+- Hash + Simulation
 
 ---
 

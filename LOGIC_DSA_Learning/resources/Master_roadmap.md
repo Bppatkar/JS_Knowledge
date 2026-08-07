@@ -279,17 +279,17 @@ Representative Problems
 
 ### Engineering Thinking
 
-- Why Hashing gives O(1) average lookup
-- Why worst case becomes O(n)
-- Why Arrays cannot solve every lookup problem
-- Memory vs Performance Trade-off
-- Real-world Engineering Applications
-  - Cache
-  - Session Storage
-  - Database Indexing (Concept)
-  - API Lookup
-  - Authentication
-  - Redis
+- ✅Why Hashing gives O(1) average lookup
+- ✅Why worst case becomes O(n)
+- ✅Why Arrays cannot solve every lookup problem
+- ✅Memory vs Performance Trade-off
+- ✅Real-world Engineering Applications
+  - ✅Cache
+  - ✅Session Storage
+  - ✅Database Indexing (Concept)
+  - ✅API Lookup
+  - ✅Authentication
+  - ✅Redis
 
 ---
 
@@ -297,46 +297,42 @@ Representative Problems
 
 ### Object
 
-Learn
-
-- Creation
-- Insert
-- Update
-- Delete
-- Search
-- Iteration
-- Object.keys()
-- Object.values()
-- Object.entries()
+- ✅ Creation
+- ✅ Insert
+- ✅ Update
+- ✅ Delete
+- ✅ Search
+- ✅ Iteration
+- ✅ Object.keys()
+- ✅ Object.values()
+- ✅ Object.entries()
 
 Engineering Discussion
 
-- Why keys become strings
-- Prototype chain problems
-- When Object should NOT be used
+- ✅ Why keys become strings
+- ✅ Prototype chain problems
+- ✅ When Object should NOT be used
 
 ---
 
 ### Map
 
-Learn
-
-- new Map()
-- set()
-- get()
-- has()
-- delete()
-- clear()
-- size
-- Iteration
-- Nested Map
+✅ new Map()
+✅ set()
+✅ get()
+✅ has()
+✅ delete()
+✅ clear()
+✅ size
+✅ Iteration
+✅ Nested Map
 
 Engineering Discussion
 
-- Why Map exists
-- Map vs Object
-- Primitive vs Object keys
-- Performance discussion
+✅ Why Map exists
+✅ Map vs Object
+✅ Primitive vs Object keys
+✅ Performance discussion
 
 ---
 
@@ -344,19 +340,18 @@ Engineering Discussion
 
 Learn
 
-- new Set()
-- add()
-- has()
-- delete()
-- clear()
-- size
-- Iteration
+- ✅ new Set()
+- ✅ add()
+- ✅ has()
+- ✅ delete()
+- ✅ clear()
+- ✅ size
+- ✅ Learn Iteration
 
 Engineering Discussion
 
-- Why Set is better than Array.includes()
-- Uniqueness Guarantee
-- Presence Checking
+- ✅ Uniqueness Guarantee
+- ✅ Presence Checking
 
 ---
 
@@ -364,9 +359,9 @@ Engineering Discussion
 
 Awareness Only
 
-- What they are
-- Garbage Collection Concept
-- Real-world use cases (High Level)
+- ✅ What they are
+- ✅ Garbage Collection Concept
+- ✅ Real-world use cases (High Level)
 
 ---
 

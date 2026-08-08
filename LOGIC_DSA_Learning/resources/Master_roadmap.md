@@ -378,9 +378,9 @@ Learn
 
 Representative Problems
 
-- Valid Anagram
-- Majority Element
-- Top K Frequent (Introduction)
+- Valid Anagram LC 242
+- Majority Element LC 169
+- Top K Frequent (Introduction) LC 347
 
 ---
 

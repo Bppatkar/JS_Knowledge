@@ -530,7 +530,21 @@ Caching
 Lookup Tables
 Counting
 
+///!  When to use Has and when to use Get in map
+/* 
+///* has() - Question - "Kya ye key exist karti hai?"
+Return: true ya false
+Example: map.has('a')
+Meaning: Does 'a' exist in the Map?
+
+
+///* get() Value laata hai.
+Example: map.get('a')
+Return: 3
+Meaning: 'a' ki current frequency kitni hai?
 */
+
+
 //! Set - "Ye Value pehle dikhi hai ya nahi...?" bas yes/no check karne ke liye use hota hai. [Set is a collection of unique values]
 
 ///* Biggest Property - Uniqueness Guarantee

@@ -369,24 +369,20 @@ Awareness Only
 
 ### Pattern 1 — Frequency Counting
 
-Learn
-
-- Character Frequency
-- Number Frequency
-- Frequency Table
-- Frequency Comparison
+- ✅ Character Frequency
+- ✅ Number Frequency
+- ✅ Frequency Table
+- ✅ Frequency Comparison
 
 Representative Problems
 
-- Valid Anagram LC 242
-- Majority Element LC 169
-- Top K Frequent (Introduction) LC 347
+- ✅ Valid Anagram — LC 242
+- ✅ Majority Element — LC 169 [Boyer–Moore Algorithm]
+- ✅ Top K Frequent Elements (Introduction) — LC 347
 
 ---
 
 ### Pattern 2 — Presence Checking
-
-Learn
 
 - Exists / Doesn't Exist
 - Duplicate Detection
@@ -394,15 +390,13 @@ Learn
 
 Representative Problems
 
-- Contains Duplicate
-- Happy Number
-- Longest Consecutive Sequence (Intro)
+- Contains Duplicate LC217
+- Happy Number LC202
+- Longest Consecutive Sequence (Intro) LC128
 
 ---
 
 ### Pattern 3 — Counting Pattern
-
-Learn
 
 - Counting Occurrences
 - Counting Unique Values
@@ -412,8 +406,6 @@ Learn
 ---
 
 ### Pattern 4 — Grouping Pattern
-
-Learn
 
 - Group by Key
 - Group by Frequency
@@ -426,8 +418,6 @@ Representative Problems
 ---
 
 ### Pattern 5 — Mapping Pattern
-
-Learn
 
 - Value → Index
 - Value → Frequency
@@ -443,8 +433,6 @@ Representative Problems
 
 ### Pattern 6 — Prefix Hash
 
-Learn
-
 - Prefix Sum + HashMap
 - Running Prefix Storage
 - Prefix Lookup
@@ -457,8 +445,6 @@ Representative Problems
 ---
 
 ### Pattern 7 — Hash + Sliding Window
-
-Learn
 
 - Character Frequency Window
 - Distinct Characters
@@ -475,8 +461,6 @@ Representative Problems
 
 ### Pattern 8 — Hash + Prefix Sum
 
-Learn
-
 - Prefix Frequency
 - Prefix Difference
 - Prefix Count
@@ -490,8 +474,6 @@ Representative Problems
 
 ### Pattern 9 — Hash + Two Pointer
 
-Learn
-
 - Pair Lookup
 - Complement Search
 - Optimized Searching
@@ -504,8 +486,6 @@ Representative Problems
 ---
 
 ### Pattern 10 — Custom Hash Thinking
-
-Learn
 
 - Designing Keys
 - Composite Keys
@@ -529,9 +509,7 @@ Learn to combine Hashing with previously learned patterns.
 
 ---
 
-# PHASE 3
-
-# Linear ADTs
+# PHASE 3 Linear ADTs
 
 (Data Structures)
 
@@ -566,9 +544,7 @@ Representative Problems
 
 ---
 
-# PHASE 4
-
-# Linked List
+# PHASE 4 Linked List
 
 Patterns (~10)
 
@@ -589,9 +565,7 @@ Representative Problems
 
 ---
 
-# PHASE 5
-
-# Binary Search
+# PHASE 5 Binary Search
 
 Patterns (~8)
 
@@ -610,9 +584,7 @@ Representative Problems
 
 ---
 
-# PHASE 6
-
-# Trees
+# PHASE 6 Trees
 
 Patterns (~18)
 
@@ -636,9 +608,7 @@ Representative Problems
 
 ---
 
-# PHASE 7
-
-# Heap
+# PHASE 7 Heap
 
 Patterns (~8)
 
@@ -657,9 +627,7 @@ Representative Problems
 
 ---
 
-# PHASE 8
-
-# Graphs
+# PHASE 8 Graphs
 
 Patterns (~15)
 
@@ -680,9 +648,7 @@ Representative Problems
 
 ---
 
-# PHASE 9
-
-# Recursion & Backtracking
+# PHASE 9 Recursion & Backtracking
 
 Patterns (~10)
 
@@ -703,9 +669,7 @@ Representative Problems
 
 ---
 
-# PHASE 10
-
-# Greedy
+# PHASE 10 Greedy
 
 Patterns (~10)
 
@@ -724,9 +688,7 @@ Representative Problems
 
 ---
 
-# PHASE 11
-
-# Dynamic Programming
+# PHASE 11 Dynamic Programming
 
 Patterns (~20)
 
@@ -750,9 +712,7 @@ Representative Problems
 
 ---
 
-# PHASE 12
-
-# Advanced Data Structures
+# PHASE 12 Advanced Data Structures
 
 - Trie
 - Segment Tree

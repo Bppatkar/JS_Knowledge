@@ -413,7 +413,7 @@ Representative Problems
 
 Representative Problems
 
-- Group Anagrams
+- Group Anagrams [LC 49]
 
 ---
 
@@ -426,8 +426,8 @@ Representative Problems
 
 Representative Problems
 
-- Two Sum
-- Isomorphic Strings
+- Two Sum [LC 1]
+- Isomorphic Strings [LC 205]
 
 ---
 

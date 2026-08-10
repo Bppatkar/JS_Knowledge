@@ -244,3 +244,80 @@ Space                  → O(n)
 // console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1])); // 9
 // console.log(longestConsecutive([1, 0, 1, 2])) // 3
 // console.log(longestConsecutive([0])) // 1
+
+//! Leetcode 1512 Number of Good Pairs
+// algorithm
+/* 
+1. Create a map to store the frequency of each number
+2. For each number in the array:
+   a. If the number is not in the map, add it with frequency 1
+   b. If the number is in the map, increment its frequency and add the current frequency to the count
+3. Return the count
+*/
+function numIdenticalPairs(nums) {
+  let map = new Map(), count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (!map.has(nums[i])) map.set(nums[i], 1);
+    else {
+      count += map.get(nums[i]);
+      map.set(nums[i], map.get(nums[i]) + 1);
+    }
+  }
+  return count;
+}
+// Optimized Solution
+function numIdenticalPairs(nums) {
+  let map = new Map(), count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    count += map.get(nums[i]) || 0;
+    map.set(nums[i], (map.get(nums[i]) || 0) + 1);
+  }
+  return count;
+}
+
+// console.log(numIdenticalPairs([1, 2, 3, 1, 1, 3])); // 4
+
+//! Leetcode 49. Group Anagrams
+function groupAnagrams(strs) {
+  let map = new Map();
+  for (let str of strs) {
+    let sorted = str.split("").sort().join("");
+    if (!map.has(sorted)) map.set(sorted, [str]);
+    else map.get(sorted).push(str);
+
+  }
+  return Array.from(map.values());
+}
+// console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])); // [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+//! Leetcode 1. Two Sum
+/* 
+needed = target - current
+if needed exists in Map
+    return stored index + current index
+otherwise
+    store current → current index
+*/
+function twoSum(nums, target) {
+  let map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    let needed = target - nums[i];
+    if (map.has(needed)) return [map.get(needed), i];
+    map.set(nums[i], i);
+  }
+}
+// console.log(twoSum([2, 7, 11, 15], 9)); // [0,1]
+// console.log(twoSum([3, 2, 4], 6)); // [1,2]
+// console.log(twoSum([3, 3], 6)); // [0,1]
+
+//! Leetcode 205. Isomorphic Strings
+function isIsomorphic(s, t) {
+  let sMap = new Map(), tMap = new Map();
+  for (let i = 0; i < s.length; i++) {
+    if (!sMap.has(s[i])) sMap.set(s[i], t[i]);
+    else if (tMap.has(t[i]) !== sMap.has(s[i])) return false;
+  }
+  return true;
+}
+console.log(isIsomorphic("egg", "add")); // true
+console.log(isIsomorphic("foo", "bar"));

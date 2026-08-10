@@ -312,12 +312,20 @@ function twoSum(nums, target) {
 
 //! Leetcode 205. Isomorphic Strings
 function isIsomorphic(s, t) {
+  if (s.length !== t.length) return false;
   let sMap = new Map(), tMap = new Map();
   for (let i = 0; i < s.length; i++) {
-    if (!sMap.has(s[i])) sMap.set(s[i], t[i]);
-    else if (tMap.has(t[i]) !== sMap.has(s[i])) return false;
+    // if (!sMap.has(s[i])) sMap.set(s[i], t[i]);
+    // if (!tMap.has(t[i])) tMap.set(t[i], s[i]);
+    // if (sMap.get(s[i]) === t[i] && tMap.get(t[i]) === s[i]) continue;
+    // else return false;
+    if (sMap.has(s[i]) && sMap.get(s[i]) !== t[i]) return false;
+    if (tMap.has(t[i]) && tMap.get(t[i]) !== s[i]) return false;
+    sMap.set(s[i], t[i]);
+    tMap.set(t[i], s[i])
   }
   return true;
 }
 console.log(isIsomorphic("egg", "add")); // true
-console.log(isIsomorphic("foo", "bar"));
+console.log(isIsomorphic("foo", "bar")); // false
+console.log(isIsomorphic("ab", "aa")) // false;

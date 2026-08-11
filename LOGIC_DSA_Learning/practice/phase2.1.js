@@ -326,6 +326,384 @@ function isIsomorphic(s, t) {
   }
   return true;
 }
-console.log(isIsomorphic("egg", "add")); // true
-console.log(isIsomorphic("foo", "bar")); // false
-console.log(isIsomorphic("ab", "aa")) // false;
+// console.log(isIsomorphic("egg", "add")); // true
+// console.log(isIsomorphic("foo", "bar")); // false
+// console.log(isIsomorphic("ab", "aa")) // false;
+
+//! Prefix Hash
+/*
+Original: nums:
+
+index →    0    1    2    3    4
+           ↓    ↓    ↓    ↓    ↓
+nums   =  [3,   2,  -2,  -3,   5]
+
+prefix:
+index →     0    1    2    3    4
+            ↓    ↓    ↓    ↓    ↓
+prefix =   [3,   5,   3,   0,   5]
+
+Dono arrays ke index same hain, lekin prefix ka number original nums ka element nahi hai.
+
+2. Tumhara pehla example
+prefix[0] = 3
+prefix[2] = 3
+
+Matlab:
+
+prefix index 0
+        ↓
+       [3]
+
+prefix index 2
+        ↓
+       [3]
+
+Ab humein in dono prefix positions ke beech ka nums portion chahiye.
+
+Important rule:
+
+prefix[i] == prefix[j]
+
+        ↓
+
+nums[i + 1 ... j]
+
+Yaani: nums[0 + 1 ... 2] = nums[1...2] = [2, -2]
+Isliye: 2 + (-2) = 0
+
+🔥 Tumhara question: "last wala point tak lena hai?"
+YES. Exactly.
+
+Tumne jo bola:  "2 tak lena hai last wale point tak" ✅ Haan.
+
+Prefix ke second/repeated index j ko include karte hue, nums mein:
+
+i + 1 → j
+
+tak lena hai.
+
+So:
+
+prefix[0] = 3
+prefix[2] = 3
+
+        ↓
+
+nums[1...2]
+
+3. Ab second example
+prefix[1] = 5
+prefix[4] = 5
+
+Yahan: i = 1, j = 4
+
+Rule:  nums[i + 1 ... j]
+
+Therefore: nums[2...4]
+And: nums[2...4] = [-2, -3, 5]
+Sum: -2 + (-3) + 5 = 0
+So tumhara observation: - "yaha bhi last wala hi lekar chalna hai"
+------------------------------------------------
+//* isko ek permanent formula bana lo
+
+Jab: prefix[i] === prefix[j]
+toh zero-sum subarray: nums[i + 1 ... j]
+Example
+prefix[0] === prefix[2]
+↓
+nums[1...2]
+
+Example
+prefix[1] === prefix[4]
+↓
+nums[2...4]
+
+///? Why i + 1?
+Ye sabse important part hai. prefix[i] already nums[i] tak ka total contain karta hai.
+
+For example:
+prefix[1] = nums[0] + nums[1]
+    = 3 + 2 = 5
+
+Agar: prefix[4] = 5
+toh:  prefix[4] - prefix[1]
+= 5 - 5 = 0
+
+prefix[1] mein nums[1] already included hai, Isliye humein nums[1] dobara nahi lena. Hum next element se start karte hain: nums[2]
+
+Hence:  nums[2...4]
+----------------------------------
+🧩 Ek visual yaad rakho
+nums:     [ 3    2   -2   -3    5 ]
+
+index       0    1    2    3    4
+            ↓    ↓    ↓    ↓    ↓
+          [ 3    2   -2   -3    5 ]
+
+prefix:   [ 3    5    3    0    5 ]
+
+index       0    1    2    3    4
+            ↓         ↓
+            3         3
+            ↑         ↑
+          same      same
+
+                 ↓
+
+          nums[1 ... 2]
+             [2, -2]
+
+And:
+
+prefix:   [ 3    5    3    0    5 ]
+
+index       0    1    2    3    4
+                 ↓              ↓
+                 5              5
+                 ↑              ↑
+               same           same
+
+                 ↓
+
+          nums[2 ... 4]
+             [-2,-3,5]
+
+///! Formula - prefix[i] === prefix[j] hone par nums mein zero-sum subarray [i+1 ... j] hota hai, kyunki prefix[i] mein nums[i] tak ka sum already included hota hai. Isliye humein uske baad wale elements, yani i+1 se j tak lene hain.
+///? to mapping me kya store karna hai?
+Mapping me prefix sum ko key ke roop me store karenge aur us ka index value ke roop me store karenge. Agar same prefix sum dobara milta hai, toh iska matlab hai ki unke beech ka subarray ka sum zero hai.
+
+Example: prefix = 5 Index = 1
+Map mein store : 5 → 1
+
+Baad mein jab:
+current prefix = 5
+current index = 4 mile, toh:
+
+Map.has(5)
+      ↓
+   YES
+      ↓
+previous index = 1
+      ↓
+current index = 4
+      ↓
+zero-sum range = [1 + 1 ... 4]
+      ↓
+[2 ... 4]
+
+///? Next Powerfull Message - prefix[j] - prefix[i] = target;
+Agar humein target sum wala subarray chahiye, toh humein current prefix se ek specific previous prefix dhoondhna padega.
+
+Example:
+
+nums = [3, 2, -2, 4] , target = 4
+Yahan hum gradually derive karenge ki:
+
+currentPrefix - previousPrefix = target
+
+Aur HashMap exactly wahi previous prefix quickly find karega.
+------------------------------------------------
+🎯 Next mini-problem
+Given: nums = [3, 2, -2, 4] , target = 4
+Prefix sums: 3, 5, 3, 7
+
+///! Question: - Agar current prefix sum 7 hai aur humein subarray sum 4 chahiye, toh 7 mein se kaunsa previous prefix sum subtract hona chahiye?
+
+Ab actual array dekho nums = [3, 2, -2, 4]
+
+index:   0   1   2   3
+         ↓   ↓   ↓   ↓
+        [3,  2, -2,  4]
+
+prefix:  3   5   3   7
+         ↑       ↑       ↑
+
+Current: prefix[3] = 7 , Previous 3 mila: prefix[2] = 3
+So: 7 - 3 = 4  Aur actual nums range:
+nums[2 + 1 ... 3] = nums[3...3] = [4]
+Sum: 4  🔥 Target mil gaya.
+*/
+
+//! Prefix Hash Main Power
+/* 
+///* Prefix Hash = "Prefix sums ko HashMap mein store karke quickly check karna ki required previous prefix sum pehle aaya tha ya nahi."
+
+Ab tak humne do cases dekhe:
+
+///* Case 1 — Same prefix
+
+prefix[j] - prefix[i] = 0
+because:  prefix[j] === prefix[i] , → zero-sum subarray.
+
+///* Case 2 — Target prefix difference
+prefix[j] - prefix[i] = target
+because: → target-sum subarray.
+
+///? Aur HashMap ka kaam: 
+
+Previous Prefix Sum
+        ↓
+       Map
+        ↓
+Fast lookup
+
+Yahi Prefix Hash ka main power hai.
+------------------------------------------------
+///! 1️⃣ Sabse pehle: Prefix Hash ka purpose
+Tum already Prefix Sum padh chuke ho.  Prefix Sum ka basic kaam: Repeated range-sum calculation ko fast banana.
+
+Example: nums = [3, 2, -2, 4] 
+Prefix: 3, 5, 3, 7
+
+Prefix Sum mein hum calculated information ko store karte hain taaki baad mein reuse kar saken. 
+
+Ab Hashing add karne ka reason: Prefix sums ko HashMap mein store karke quickly check karna ki required previous prefix sum pehle aaya tha ya nahi.
+
+Yahi Prefix + HashMap = Prefix Hash hai.
+
+///! 2️⃣ Humein kya recognize karna hai?
+
+Jab problem bole: 
+subarray
++
+sum
++
+target
+
+especially:  "Find/count a contiguous subarray whose sum is K."
+contiguous = continuously connected / beech mein gap nahi.
+Tab tumhare dimaag mein ye possibility aani chahiye:
+
+Subarray Sum
+      ↓
+Prefix Sum?
+      ↓
+Need previous prefix quickly?
+      ↓
+HashMap
+      ↓
+Prefix Hash
+
+///! 3️⃣ Core mathematical idea
+Ye Pattern 6 ka heart hai:
+
+Suppose:
+
+prefix[j] = current prefix
+prefix[i] = previous prefix
+
+Subarray: nums[i+1 ... j]  ka sum: prefix[j] - prefix[i]
+Agar humein target K chahiye: prefix[j] - prefix[i] = K
+
+Toh rearrange: prefix[i] = prefix[j] - K
+
+🔥 Bas yahi equation Prefix Hash ka engine hai.
+Current prefix pata hai. Target pata hai. Toh:
+
+required previous prefix = current prefix - target
+Phir HashMap mein check: Kya required prefix pehle aaya tha?
+Agar haan → target-sum subarray exist karta hai.
+
+///! 4️⃣ HashMap actually kya store karega?
+
+Ye bhi Pattern ka important part hai. Generally:
+Prefix Sum → Information
+Aur problem ke according information change ho sakti hai.
+For example:
+
+Existence / range identify karni ho: prefix → index
+
+Example: 
+5 → 1
+3 → 2
+
+Count karna ho: prefix → frequency
+Example:
+5 → 3
+matlab prefix sum 5 teen baar aa chuka hai.
+Yahi reason hai ki Prefix Hash ek reusable pattern hai, sirf ek formula nahi.
+
+///! 5️⃣ Running Prefix Storage
+
+Running = chalte-chalte maintain karna.
+Hum poora prefix array banana zaroori nahi samajhte.
+Instead: 
+currentPrefix = 0
+
+array traverse karo
+
+currentPrefix += nums[i]
+
+Map mein currentPrefix ki information store karo
+
+So memory mein conceptually:
+
+Current element
+      ↓
+Current Prefix Sum
+      ↓
+HashMap
+      ↓
+Previous Prefix Information
+
+///! 6️⃣ Prefix Lookup
+
+Lookup = jaldi se check karna / dhoondhna.
+
+Ye Pattern ka actual Hashing benefit hai.
+
+Without HashMap:
+
+required prefix
+      ↓
+poore previous prefixes check karo
+      ↓
+O(n)
+
+Har index par karoge toh potentially:
+
+O(n²)
+
+HashMap ke saath:
+
+required prefix
+      ↓
+Map.has(requiredPrefix)
+      ↓
+average O(1)
+
+Overall:
+
+O(n)
+
+Yahi memory for speed trade-off hai:  Extra memory use karo, repeated searching ko fast karo.
+
+///! 7️⃣ Ek complete example
+nums = [3, 2, -2, 4] , K = 4
+
+Traverse: index 0 , prefix = 3
+Required previous prefix: 3 - 4 = -1 , Map mein -1? No
+Store: 3 → 0 ,index 1 , prefix = 5
+Required: 5 - 4 = 1
+Map mein 1? No, 
+Store:
+
+5 → 1
+index 2
+prefix = 3
+
+Required: 3 - 4 = -1 No.
+
+Same prefix 3 already hai, iska alag meaning bhi hai: prefix[0] === prefix[2]
+
+Therefore: nums[1...2] = [2,-2], sum 0.
+
+index 3
+prefix = 7
+
+Required: 7 - 4 = 3 , Map mein: 3 → 0 ✅ Mil gaya.
+
+Therefore: nums[0+1 ... 3] nums[1...3] [2, -2, 4]
+Sum: 2 + (-2) + 4 = 4 🎯 Target mil gaya.
+*/

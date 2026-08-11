@@ -109,3 +109,145 @@ var maxSubArray = function (nums) {
 // console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // Output: 6 [The subarray [4,-1,2,1] has the largest sum 6]
 // console.log(maxSubArray([1])); // Output: 1
 // console.log(maxSubArray([5, 4, -1, 7, 8])); // Output: 23
+
+
+//! - Blind Revision
+/* Given an integer array nums, return the first number that appears twice.  If every number appears only once, return -1.
+
+ Constraints: -
+1 <= nums.length <= 100,000
+-10^9 <= nums[i] <= 10^9
+
+Example:
+Input:  [4, 1, 7, 3, 1, 9]
+Output: 1
+*/
+
+function firstDuplicate(nums) {
+  let set = new Set();
+  for (let num of nums) {
+    if (set.has(num)) return num;
+    set.add(num);
+  }
+  return -1;
+}
+// console.log(firstDuplicate([4, 1, 7, 3, 1, 9])); // Output: 1
+// console.log(firstDuplicate([1, 2, 3, 4])); // Output: -1
+
+//! Prefix Hash Pattern
+//! Given an integer array nums, find whether there exists a contiguous subarray whose sum is exactly 0. Return true if such a subarray exists, otherwise return false.
+/* 
+Examples:
+
+Input:  [4, 2, -2, 7]
+Output: true
+
+Input:  [1, 2, 3, 4]
+Output: false
+
+Input:  [5, -3, -2, 8]
+Output: true
+*/
+
+// Psuedo Code:
+/* 
+currentPrefix = 0 , map = new Map()
+ map.set(0, -1) // to handle the case when the prefix sum itself is 0
+
+for each element:
+    currentPrefix = currentPrefix + element
+
+    if currentPrefix is already in map:
+        return true
+    
+    otherwise:
+        add currentPrefix to map
+*/
+// ---------------------------------
+/* 
+Pehle ek simple example nums = [2, -2]
+Hum index se sochte hain: 
+
+index:   0    1
+nums:   [2,  -2]
+
+Ab prefix sum:
+
+prefix[0] = 2
+prefix[1] = 0
+
+Ab prefix[1] = 0 ka matlab kya hai? nums[0...1] ka sum = 0
+Yaani poora array zero-sum hai. Ab hamara formula yaad karo Jab:
+
+prefix[i] === prefix[j] toh zero-sum range: [i + 1 ... j]
+Lekin yahan humein chahiye: [0 ... 1]
+Ab formula mein i kya hoga? i + 1 = 0
+Toh: i = -1
+💡 Yahi reason hai 0 → -1 store karne ka.
+---------------------------------------
+///* Ek line mein yaad rakhna: - 
+0 → -1 means: "array start hone se pehle prefix sum 0 tha."
+Aur phir:
+
+prefix[i] === prefix[j]
+        ↓
+range = [i+1 ... j]
+
+Agar i = -1 hai:  [-1 + 1 ... j] = [0 ... j]
+Bas isi wajah se -1. 🧠
+ */
+
+function hasZeroSumSubarray(nums) {
+  let currentPrefix = 0, map = new Map();
+  map.set(0, -1);
+
+  for (let i = 0; i < nums.length; i++) {
+    currentPrefix += nums[i];
+    if (map.has(currentPrefix)) return true;
+    else map.set(currentPrefix, i);
+  }
+  return false;
+}
+// console.log(hasZeroSumSubarray([4, 2, -2, 7])); // Output: true
+// console.log(hasZeroSumSubarray([1, 2, 3, 4])); // Output: false
+// console.log(hasZeroSumSubarray([5, -3, -2, 8])); // Output: true
+
+//! Given an integer array nums and an integer k,return true if there exists a contiguous subarray whose sum is exactly k. Otherwise, return false.
+/* 
+Input:
+nums = [1, 2, 3, 4] , k = 5
+Output: true
+
+Input:
+nums = [4, 2, -1, 3] , k = 6
+Output: true
+ */
+
+function hasKSumSubarray(nums, k) {
+  let currentPrefix = 0, map = new Map();
+  map.set(0, -1); // because array start hone se phle prefix sum 0 tha
+  for (let i = 0; i < nums.length; i++) {
+    currentPrefix += nums[i];
+    if (map.has(currentPrefix - k)) return true;
+    else map.set(currentPrefix, i);
+  }
+  return false
+}
+// console.log(hasKSumSubarray([1, 2, 3, 4], 5)); // Output: true
+// console.log(hasKSumSubarray([4, 2, -1, 3], 6)); // Output: true
+
+//! Leetcode 560. Subarray Sum Equals K
+function subarraySum(nums, k) {
+  let map = new Map(), currentPrefix = 0, countForSubarrays = 0;
+  map.set(0, 1); // because array start hone se phle prefix sum 0 tha
+  for (let i = 0; i < nums.length; i++) {
+    currentPrefix += nums[i];
+    if (map.has(currentPrefix - k)) {
+      countForSubarrays += map.get(currentPrefix - k);
+    }
+    map.set(currentPrefix, (map.get(currentPrefix) || 0) + 1);
+  }
+  return countForSubarrays;
+}
+// console.log(subarraySum([1, 1, 1], 2)); // Output: 2
+// console.log(subarraySum([1, 2, 3], 3)); // Output: 2

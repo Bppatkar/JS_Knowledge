@@ -439,8 +439,8 @@ Representative Problems
 
 Representative Problems
 
-- Subarray Sum Equals K
-- Continuous Subarray Sum
+- Subarray Sum Equals K [LC 560]
+- Continuous Subarray Sum [LC 523]
 
 ---
 

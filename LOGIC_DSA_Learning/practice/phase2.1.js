@@ -330,6 +330,173 @@ function isIsomorphic(s, t) {
 // console.log(isIsomorphic("foo", "bar")); // false
 // console.log(isIsomorphic("ab", "aa")) // false;
 
+
+///! Prefix Sum + Hashing
+/*
+///* Pattern 6 — Prefix Hash ka COMPLETE Mental Model
+
+Sabse pehle ek distinction:  Prefix Sum kya hai?
+Prefix Sum = starting se current index tak ka running sum.
+
+nums = [3, 2, -2, 5]
+
+index:       0   1   2   3
+nums:       [3,  2, -2,  5]
+
+prefix:      3   5    3   8
+
+Matlab:
+
+prefix[0] = 3
+prefix[1] = 3 + 2 = 5
+prefix[2] = 3 + 2 - 2 = 3
+prefix[3] = 3 + 2 - 2 + 5 = 8
+
+Ab important observation:
+
+prefix[0] = 3
+prefix[2] = 3
+
+Same prefix dobara aa gaya. Toh:
+
+prefix[2] - prefix[0]
+= 3 - 3
+= 0
+
+Therefore: nums[1...2] = [2, -2] , sum = 0
+🔥 Prefix Hash actually karta kya hai?  Prefix Sum khud sirf ek running sum hai.
+
+HashMap us prefix sum ki past information remember karta hai.
+
+Prefix Sum
+     ↓
+HashMap
+     ↓
+"Ye prefix pehle kab/kis form mein mila tha?"
+
+Isliye:  Prefix Sum + HashMap = past prefix information ko quickly lookup karna.
+
+///! Ab sabse important part - Question ke according Map mein kya store karna hai?
+
+Tumhara statement:  "kabhi index, kabhi frequency, ya information"
+100% correct.
+
+Actually 3 common cases yaad rakho:
+
+///! 🟢 Case 1 — Existence / Zero Sum
+
+Question:  Kya koi subarray ka sum 0 hai?
+Humein kya chahiye?  Kya same prefix pehle aa chuka hai?
+So:
+Map:
+prefix → earliest index
+
+Example:
+
+3 → 0
+5 → 1
+
+Agar 3 dobara mila: 3 → already exists toh beech ka sum 0.
+
+Skeleton
+let prefix = 0;
+let map = new Map();
+
+map.set(0, -1);
+
+for (let i = 0; i < nums.length; i++) {
+
+    prefix += nums[i];
+
+    if (map.has(prefix)) {
+        return true;
+    }
+
+    map.set(prefix, i);
+}
+
+return false;
+
+
+///! 🟡 Case 2 — Target Sum
+
+Question: Kya koi subarray ka sum k hai?
+
+Ab: currentPrefix - previousPrefix = k
+Rearrange: previousPrefix = currentPrefix - k
+Toh Map mein hum search karenge: currentPrefix - k
+
+Skeleton
+
+function hasKSumSubarray(nums, k) {
+  let currentPrefix = 0;
+  let map = new Map();
+
+  map.set(0, -1);
+
+  for (let i = 0; i < nums.length; i++) {
+    currentPrefix += nums[i];
+
+    let requiredPrefix = currentPrefix - k;
+
+    if (map.has(requiredPrefix)) {
+      return true;
+    }
+
+    map.set(currentPrefix, i);
+  }
+
+  return false;
+}
+
+
+///! 🔴 Case 3 — Target Sum ka COUNT [Ye LeetCode #560 wala tha.]
+
+Question: Kitne subarrays ka sum k hai?
+Ab difference ye hai: Pehle hum pooch rahe the: "required prefix exist karta hai?"
+Ab pooch rahe hain: "required prefix kitni baar pehle aaya?"
+
+Therefore:
+Map: prefix → frequency
+
+Skeleton
+
+{let prefix = 0;
+let count = 0;
+
+let map = new Map();
+map.set(0, 1);
+
+for (let i = 0; i < nums.length; i++) {
+
+    prefix += nums[i];
+
+    let requiredPrefix = prefix - k;
+
+    if (map.has(requiredPrefix)) {
+        count += map.get(requiredPrefix);
+    }
+
+    map.set(
+        prefix,
+        (map.get(prefix) || 0) + 1
+    );
+}
+
+return count;
+}
+
+Ye wahi logic hai jo tumne LC #560 mein submit kiya.
+
+///? 🧠 Ab teenon ko ek table mein dekho
+Question	                    Map mein kya?	            Lookup
+Zero-sum exists?	            prefix → index	          prefix
+Sum k exists?	                prefix → index	          prefix - k
+Sum k kitne hain?	prefix →    frequency	                prefix - k
+Bas ye table Pattern 6 ka 80/20 core hai.
+
+*/
+// ---------------------------------------
 //! Prefix Hash
 /*
 Original: nums:

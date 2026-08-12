@@ -2,7 +2,7 @@
 
 ### Supreme Engineering Training System (Official)
 
-Version: 1.0
+Version: 11.0 [As Per Constitution Amendment 6A]
 Status: LOCKED
 Learning Style:
 
@@ -384,78 +384,90 @@ Representative Problems
 
 ### Pattern 2 — Presence Checking
 
-- Exists / Doesn't Exist
-- Duplicate Detection
-- Missing Element Detection
+- ✅ Exists / Doesn't Exist
+- ✅ Duplicate Detection
+- ✅ Missing Element Detection
 
 Representative Problems
 
-- Contains Duplicate LC217
-- Happy Number LC202
-- Longest Consecutive Sequence (Intro) LC128
+- ✅ Contains Duplicate LC217
+- ✅ Happy Number LC202
+- ✅ Longest Consecutive Sequence (Intro) LC128
 
 ---
 
 ### Pattern 3 — Counting Pattern
 
-- Counting Occurrences
-- Counting Unique Values
-- Counting Valid Pairs
-- Counting Valid Subarrays
+- 🟢 80/20 COMPRESSED
+
+- ✅ Counting Occurrences
+- ✅ Counting Unique Values
+- ✅ Counting Valid Pairs
+- ✅ Counting Valid Subarrays
 
 ---
 
 ### Pattern 4 — Grouping Pattern
 
-- Group by Key
-- Group by Frequency
-- Group by Signature
+- ✅ Group by Key
+- ✅ Group by Frequency
+- ✅ Group by Signature
 
 Representative Problems
 
-- Group Anagrams [LC 49]
+- ✅ Group Anagrams [LC 49]
 
 ---
 
 ### Pattern 5 — Mapping Pattern
 
-- Value → Index
-- Value → Frequency
-- Parent → Children
-- Custom Mapping
+- ✅ Value → Index
+- ✅ Value → Frequency
+- ✅ Parent → Children
+- ✅ Custom Mapping
 
 Representative Problems
 
-- Two Sum [LC 1]
-- Isomorphic Strings [LC 205]
+- ✅ Two Sum [LC 1]
+- ✅ Isomorphic Strings [LC 205]
 
 ---
 
 ### Pattern 6 — Prefix Hash
 
-- Prefix Sum + HashMap
-- Running Prefix Storage
-- Prefix Lookup
+- ✅ Prefix Sum + HashMap
+- ✅ Running Prefix Storage
+- ✅ Prefix Lookup
+- ✅ Zero Sum Detection
+- ✅ Target Prefix Derivation
+- ✅ Index-Based Prefix Storage
+- ✅ Frequency-Based Prefix Storage
 
-Representative Problems
+  Representative Problems
 
-- Subarray Sum Equals K [LC 560]
-- Continuous Subarray Sum [LC 523]
+- ✅ Subarray Sum Equals K [LC 560]
+- ✅ Continuous Subarray Sum [LC 523]
 
 ---
 
 ### Pattern 7 — Hash + Sliding Window
 
-- Character Frequency Window
-- Distinct Characters
-- Window Validity using HashMap
+- ✅ Character Frequency Window
+- ✅ Distinct Characters
+- ✅ Window Validity using HashMap
+- ✅ Presence using HashSet
+- ✅ Last-Seen Index
+- ✅ Incremental Window State
+- ✅ Requirement Decomposition
+- ✅ Constraint-Driven Window Design
+- ✅ Pattern Composition
 
 Representative Problems
 
-- Longest Substring Without Repeating Characters
-- Minimum Window Substring
-- Permutation in String
-- Find All Anagrams in a String
+- ✅ Longest Substring Without Repeating Characters — LC 3
+- ✅ Minimum Window Substring — LC 76
+- ✅ Permutation in String — LC 567
+- ✅ Find All Anagrams in a String — LC 438
 
 ---
 
@@ -467,8 +479,8 @@ Representative Problems
 
 Representative Problems
 
-- Binary Subarrays With Sum
-- Subarray Sum Equals K
+- Binary Subarrays With Sum [LC 930]
+- Subarray Sum Equals K [LC 560]
 
 ---
 
@@ -480,8 +492,8 @@ Representative Problems
 
 Representative Problems
 
-- Two Sum
-- 3Sum (Hash Approach Discussion)
+- Two Sum [LC 1]
+- 3Sum (Hash Approach Discussion) [LC 15]
 
 ---
 

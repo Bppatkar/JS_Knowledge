@@ -473,14 +473,13 @@ Representative Problems
 
 ### Pattern 8 — Hash + Prefix Sum
 
-- Prefix Frequency
-- Prefix Difference
-- Prefix Count
+- ✅ Prefix Frequency
+- ✅ Prefix Difference
+- ✅ Prefix Count
 
 Representative Problems
 
-- Binary Subarrays With Sum [LC 930]
-- Subarray Sum Equals K [LC 560]
+- ✅ Maximum Size Subarray Sum Equals k [LC 325]
 
 ---
 

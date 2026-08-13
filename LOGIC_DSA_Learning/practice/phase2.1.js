@@ -693,7 +693,7 @@ Sum: 4  🔥 Target mil gaya.
 */
 
 //! Prefix Hash Main Power
-/* 
+/*
 ///* Prefix Hash = "Prefix sums ko HashMap mein store karke quickly check karna ki required previous prefix sum pehle aaya tha ya nahi."
 
 Ab tak humne do cases dekhe:
@@ -707,7 +707,7 @@ because:  prefix[j] === prefix[i] , → zero-sum subarray.
 prefix[j] - prefix[i] = target
 because: → target-sum subarray.
 
-///? Aur HashMap ka kaam: 
+///? Aur HashMap ka kaam:
 
 Previous Prefix Sum
         ↓
@@ -720,10 +720,10 @@ Yahi Prefix Hash ka main power hai.
 ///! 1️⃣ Sabse pehle: Prefix Hash ka purpose
 Tum already Prefix Sum padh chuke ho.  Prefix Sum ka basic kaam: Repeated range-sum calculation ko fast banana.
 
-Example: nums = [3, 2, -2, 4] 
+Example: nums = [3, 2, -2, 4]
 Prefix: 3, 5, 3, 7
 
-Prefix Sum mein hum calculated information ko store karte hain taaki baad mein reuse kar saken. 
+Prefix Sum mein hum calculated information ko store karte hain taaki baad mein reuse kar saken.
 
 Ab Hashing add karne ka reason: Prefix sums ko HashMap mein store karke quickly check karna ki required previous prefix sum pehle aaya tha ya nahi.
 
@@ -731,7 +731,7 @@ Yahi Prefix + HashMap = Prefix Hash hai.
 
 ///! 2️⃣ Humein kya recognize karna hai?
 
-Jab problem bole: 
+Jab problem bole:
 subarray
 +
 sum
@@ -781,7 +781,7 @@ For example:
 
 Existence / range identify karni ho: prefix → index
 
-Example: 
+Example:
 5 → 1
 3 → 2
 
@@ -795,7 +795,7 @@ Yahi reason hai ki Prefix Hash ek reusable pattern hai, sirf ek formula nahi.
 
 Running = chalte-chalte maintain karna.
 Hum poora prefix array banana zaroori nahi samajhte.
-Instead: 
+Instead:
 currentPrefix = 0
 
 array traverse karo
@@ -853,7 +853,7 @@ Traverse: index 0 , prefix = 3
 Required previous prefix: 3 - 4 = -1 , Map mein -1? No
 Store: 3 → 0 ,index 1 , prefix = 5
 Required: 5 - 4 = 1
-Map mein 1? No, 
+Map mein 1? No,
 Store:
 
 5 → 1
@@ -874,3 +874,170 @@ Required: 7 - 4 = 3 , Map mein: 3 → 0 ✅ Mil gaya.
 Therefore: nums[0+1 ... 3] nums[1...3] [2, -2, 4]
 Sum: 2 + (-2) + 4 = 4 🎯 Target mil gaya.
 */
+// -------------------------------------------------
+
+//! Prefix Sum + Hash
+
+/*
+Ab indexing automatically samjho  Previous prefix ended at:
+index = 1 Meaning:
+nums: [5,1,2,3] target = 5 and prefix [5,6,8,11]
+and we store in map {0:-1} because jab array start nahi hua tha to remember "PREFIX" sum hamne -1 mana tha jisse next value ke liye ham jab +1 krege qki last value to wahi tk thi and hme chahiye uske aage wali to +1 kiya and -1+1= 0 means hme array ka first index 0 mil jata hai
+
+index     0   1 | 2   3
+          ───────|─────
+nums      5   1 | 2   3
+              ↑
+        previous prefix ends
+
+Humein previous prefix ke baad se elements chahiye.  Therefore:
+
+start = previousIndex + 1 , = 1 + 1  = 2
+
+Current prefix index: currentIndex = 3 Therefore:
+end = 3
+
+So: [start ... end] [2 ... 3]
+
+Original array se: nums.slice(2, 4)
+gives: [2, 3]
+----------------------------------
+Previous prefix ended at: index = 1
+Meaning:
+
+nums: [5,1,2,3] target = 5 and prefix [5,6,8,11]
+
+index     0   1 | 2   3
+          ───────|─────
+nums      5   1 | 2   3
+              ↑
+        previous prefix ends
+
+Humein previous prefix ke baad se elements chahiye.
+
+Therefore: start = previousIndex + 1 , = 1 + 1  = 2
+Current prefix index: currentIndex = 3
+Therefore: end = 3
+
+So: [start ... end] = [2 ... 3]
+Original array se: nums.slice(2, 4) gives: [2, 3]
+----------------------------------
+Map value tells me exactly where the previous prefix ended. That's much more powerful.
+
+Map: 6 → 1
+means: "Prefix sum 6 was complete at index 1."
+Then automatically: subarray starts = 1 + 1
+So: Map value
+   ↓
+previous prefix END
+   ↓
+  +1
+   ↓
+subarray START
+
+🔥 This mental model should become automatic.
+----------------------------------
+Suppose: nums = [5, 1, 2, 3] At index 3:
+
+Prefix:
+
+5   1   2   3
+─────────────
+5   6   8  11
+
+We need sum 5 means target = 5.
+Current: 11
+Need previous:  11 - 5 = 6
+Map says: 6 → 1 [means: "Prefix sum 6 was complete at index 1."]
+
+So:
+             previous prefix
+                   ↓
+nums:      [5, 1 | 2, 3]
+               ↑     ↑
+               1     3
+               │     │
+          previous   current
+           index      index
+
+start = 1 + 1 = 2
+end   = 3
+
+Therefore: nums[2...3] = [2,3]
+*/
+//! Leetcode 325. Maximum Size Subarray Sum Equals k [Level - Medium]
+/* 
+Given an integer array nums and an integer k, return the maximum length of a subarray that sums to k. If there is not one, return 0 instead.
+
+Example 1:
+
+Input: nums = [1,-1,5,-2,3], k = 3
+Output: 4
+Explanation: The subarray [1, -1, 5, -2] sums to 3 and is the longest.
+Example 2:
+
+Input: nums = [-2,-1,2,1], k = 1
+Output: 2
+Explanation: The subarray [-1, 2] sums to 1 and is the longest.
+ 
+
+Constraints:
+
+1 <= nums.length <= 2 * 105
+-104 <= nums[i] <= 104
+-109 <= k <= 109
+*/
+function maxSubArrayLen(nums, k) {
+  let map = new Map(), maxLength = 0, prefixSum = 0;
+  map.set(0, -1);
+
+  for (let i = 0; i < nums.length; i++) {
+    prefixSum += nums[i];
+    let required = prefixSum - k;
+    if (map.has(required)) {
+      maxLength = Math.max(maxLength, i - map.get(required))
+    }
+    if (!map.has(prefixSum)) map.set(prefixSum, i);
+  }
+  return maxLength;
+}
+// console.log(maxSubArrayLen([1, -1, 5, -2, 3], 3)); // 4
+// console.log(maxSubArrayLen([-2, -1, 2, 1], 1)); // 2
+// console.log(maxSubArrayLen([1, 2, 3], 6)); // 3
+
+/* 
+{
+prefixSum : at index , required
+0:-1,
+index 0, pSum = 1 , required = 1-3 = -1 map mein nahi hai to add  {0:-1, 1:0}
+index 1, pSum = 0, required = 0-3 = -3 map mein 0 already hai to update nhi krege qki length chhaiye hai to 0 to hai -1 index par and currentindex hai 1 to  -1+1 = 0 se 1tk means {0:-1, 1:0}
+index 2 = psum = 5, required = 5-3= 2 map mein 2 nahi hai to add {0:-1,  1:0, 5:2}
+index 3 , psum = 3, required = 3-3 = 0, map mein 0 hai to update nahi krege lekin length chahiye to length = currIndex = 3 , and required 0 aaya na to map.get(0) par value  -1 hai to 3-(-1) = 4, to slice mein last index add nahi hota to 0 se 3 tak hi dikhega,and we store in map {0:-1,  1:0, 5:2, 3:3}
+to subarray mila - 0 se 3 tak [required se currIndex tk] means - [1,-1,5,-2] = 3
+
+index 4, psum = 6 , required 6-3 =3, map mein 3 hai tp length
+currentIndex 4 , 6-3=3 to map.get(3) ki value 3 hi hai to 4-3 = 1 to 
+maxLength = Math.max(4,1) to 4 is  max but store in map = {0:-1,  1:0, 5:2, 3:3, 6:4} to subarray mila - start 3+1 = 4 se end =4 tak [required se currIndex tk]
+}
+*/
+
+//! Leetcode 1. Two Sum
+function twoSum(nums, target) {
+  let map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    let find = target - nums[i];
+    if (!map.has(find)) {
+      map.set(nums[i], i);
+    } else return [map.get(find), i];
+  }
+}
+// console.log(twoSum([2, 7, 11, 15], 9)); // [0,1]
+// console.log(twoSum([3, 2, 4], 6)); // [1,2]
+// console.log(twoSum([3, 3], 6)); // [0,1]
+
+
+//! Leetcode 15. 3Sum
+function threeSum(nums) { }
+console.log(threeSum([-1, 0, 1, 2, -1, -4])); // [[-1,-1,2],[-1,0,1]]
+console.log(threeSum([0, 1, 1])); // []
+console.log(threeSum([0, 0, 0])); // [[0,0,0]]

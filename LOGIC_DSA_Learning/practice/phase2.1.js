@@ -1068,5 +1068,404 @@ var threeSum = function (nums) {
 // console.log(threeSum([0, 1, 1])); // []
 // console.log(threeSum([0, 0, 0])); // [[0,0,0]]
 // console.log(threeSum([-2, 0, 0, 2, 2]))
+// --------------------------------------------------
+
+//! Custom Hashing
+/* 
+Custom Hash ka actual meaning Ab tak hum JavaScript ka ready-made:
+Map, Set use kar rahe the.
+
+Custom Hash ka matlab hai:
+
+Hashing ka mechanism khud design/implement karna, instead of directly relying on Map/Set.
+
+///* Simple analogy:  Normal Hashing:
+
+Key (jaise "apple")
+    ↓
+Map (directly store)
+    ↓
+Value (5)
+Ismein direct mapping hai - key direct value ko point karti hai.
+
+///* Custom Hash:
+
+Key (jaise "apple")
+    ↓
+Hash Function (usko number mein badalta hai)
+    ↓
+Bucket/Array Index (us number ko array ka index banata hai)
+    ↓
+Store/Search (us index pe value rakhta hai ya dhundhta hai)
+///? Yeh actual hashmap ka kaam hai - key ko pehle number mein convert karo, phir us number ko array ka index banao, phir wahan store karo.
+
+///! Example 1: Normal Map (JS Object/Map)
+///? Normal Map - direct key → value
+
+const normalMap = new Map();
+normalMap.set("apple", 5);
+normalMap.set("banana", 3);
+
+console.log(normalMap.get("apple")); // 5
+///? Key "apple" direct value "5" ko point karta hai
+
+///! Example 2: Custom Hash Map (Khud banana)
+///? Custom Hash Map - key → hash → index → value
+
+class CustomHashMap {
+    constructor() {
+        this.table = new Array(10); // 10 buckets
+    }
+    
+    /// Hash function - key ko number mein badalta hai
+    hash(key) {
+        let hash = 0;
+        for(let i = 0; i < key.length; i++) {
+            hash += key.charCodeAt(i);
+        }
+        return hash % 10; // 0-9 ke beech mein index
+    }
+    
+    set(key, value) {
+        const index = this.hash(key); // "apple" → 5
+        this.table[index] = value;    // table[5] = 5
+    }
+    
+    get(key) {
+        const index = this.hash(key); // "apple" → 5
+        return this.table[index];     // table[5] se value
+    }
+}
+
+const myMap = new CustomHashMap();
+myMap.set("apple", 5);
+myMap.set("banana", 3);
+
+console.log(myMap.get("apple")); // 5
+---------------------------------------------
+
+///! Simple Real-world Analogy Normal Map:
+
+Book mein index: "Apple" → Page 5 (direct)
+
+///? Custom Hash:
+Library system: "Apple" → uske letters count karo (A=1, P=16, P =16, L= 12,E = 5) → sum =50 → 50%10 =0 → Shelf number 0 pe rakho
+
+---------------------------------------------
+"apple" Ki Poori Calculation
+javascript
+key = "apple"
+hash = 0
+
+// Loop chalega 5 baar (kyunki "apple" mein 5 letters hain)
+
+i=0: "a" → charCodeAt(0) = 97
+      hash = 0 + 97 = 97
+
+i=1: "p" → charCodeAt(1) = 112
+      hash = 97 + 112 = 209
+
+i=2: "p" → charCodeAt(2) = 112
+      hash = 209 + 112 = 321
+
+i=3: "l" → charCodeAt(3) = 108
+      hash = 321 + 108 = 429
+
+i=4: "e" → charCodeAt(4) = 101
+      hash = 429 + 101 = 530
+
+// Loop khatam
+return hash % 10 = 530 % 10 = 0
+Result: "apple" → index 0 🎯
+
+*/
+
+///! HashSet - Simple Explanation
+/* HashSet same concept hai bas values store nahi karta, sirf keys store karta hai (unique keys).
+
+///! HashMap          vs            HashSet
+      HashMap	                      HashSet
+Key → Value store karta hai	        Sirf Key store karta hai
+map.set("apple", 5)	                set.add("apple")
+map.get("apple") → 5 milta hai	    set.has("apple") → true/false
+
+Duplicate keys allowed nahi	Duplicate keys allowed nahi 
+------------------------------------
+///** HashSet Ka Kaam
+"apple" add karo:
+   ↓
+hash("apple") = 530 % 10 = 0
+   ↓
+table[0] = "apple" (store)
+   ↓
+"banana" add karo:
+   ↓
+hash("banana") = 609 % 10 = 9
+   ↓
+table[9] = "banana" (store)
+Bas key store hoti hai, value nahi!
+*/
+
+///! CODE EXAMPLE - Simple Code Examples - Hash & Set
+///* 1. Hash Function(Simple)
+// Hash function - key ko index mein convert karo
+function hash(key) {
+  let sum = 0;
+  for (let i = 0; i < key.length; i++) {
+    sum += key.charCodeAt(i);
+  }
+  return sum % 10;  // 0-9 index
+}
+
+// Test
+console.log(hash("apple"));   // 0
+console.log(hash("banana"));  // 9
+console.log(hash("cat"));     // 2
 
 
+///* 2. Custom HashMap(Key → Value)
+class MyHashMap {
+  constructor() {
+    this.table = new Array(10);
+  }
+
+  hash(key) {
+    let sum = 0;
+    for (let i = 0; i < key.length; i++) {
+      sum += key.charCodeAt(i);
+    }
+    return sum % 10;
+  }
+
+  set(key, value) {
+    const index = this.hash(key);
+    this.table[index] = value;
+    console.log(`Stored: ${key} → ${value} at index ${index}`);
+  }
+
+  get(key) {
+    const index = this.hash(key);
+    return this.table[index];
+  }
+}
+
+// Use karo
+const map = new MyHashMap();
+map.set("apple", 5);     // Stored: apple → 5 at index 0
+map.set("banana", 3);    // Stored: banana → 3 at index 9
+
+console.log(map.get("apple"));   // 5
+console.log(map.get("banana"));  // 3
+console.log(map.get("cat"));     // undefined
+
+
+///* 3. Custom HashSet(Sirf Key)
+class MyHashSet {
+  constructor() {
+    this.table = new Array(10);
+  }
+
+  hash(key) {
+    let sum = 0;
+    for (let i = 0; i < key.length; i++) {
+      sum += key.charCodeAt(i);
+    }
+    return sum % 10;
+  }
+
+  add(key) {
+    const index = this.hash(key);
+    this.table[index] = key;
+    console.log(`Added: ${key} at index ${index}`);
+  }
+
+  has(key) {
+    const index = this.hash(key);
+    return this.table[index] === key;
+  }
+
+  delete(key) {
+    const index = this.hash(key);
+    if (this.table[index] === key) {
+      this.table[index] = undefined;
+      return true;
+    }
+    return false;
+  }
+}
+
+// Use karo
+const set = new MyHashSet();
+set.add("apple");     // Added: apple at index 0
+set.add("banana");    // Added: banana at index 9
+
+console.log(set.has("apple"));   // true
+console.log(set.has("cat"));     // false
+
+set.delete("apple");
+console.log(set.has("apple"));   // false
+
+///* Real JS Map & Set(Built -in)
+// Real Map
+const realMap = new Map();
+realMap.set("apple", 5);
+realMap.set("banana", 3);
+console.log(realMap.get("apple"));   // 5
+
+// Real Set
+const realSet = new Set();
+realSet.add("apple");
+realSet.add("banana");
+realSet.add("apple");  // Duplicate - ignore
+console.log(realSet.has("apple"));   // true
+console.log(realSet.size);           // 2
+
+/*
+///! Quick Comparison
+Code	       HashMap	                 HashSet
+Store	    map.set("apple", 5)	     set.add("apple")
+Get	      map.get("apple") → 5	   set.has("apple") → true
+Table     [0: 5, 9: 3]            [0: "apple", 9: "banana"]
+
+
+Bas Itna Yaad Rakho
+///? HashMap = Key + Value
+map.set("apple", 5);    // Key "apple" → Value 5
+
+///? HashSet = Sirf Key
+set.add("apple");       // Sirf "apple" store 
+------------------------------------------------
+///! 🔥 Now understand Collision Handling
+
+Problem:
+
+17 → bucket 7
+37 → bucket 7
+
+Agar hum simply:  table[7] = 17;
+then later:        table[7] = 37;
+toh 17 lost ho jayega.  So bucket ke andar multiple keys rakhni hongi.
+One simple technique:  Separate Chaining
+Har bucket khud ek small collection rakhta hai:
+
+Bucket 0 → []
+Bucket 1 → []
+Bucket 2 → [42]
+Bucket 3 → [23]
+Bucket 4 → []
+...
+Bucket 7 → [17, 37]
+...
+
+So:
+
+17
+ ↓
+hash
+ ↓
+7
+ ↓
+bucket[7]
+ ↓
+[17, 37]
+
+Now:
+
+contains(17)
+17
+ ↓
+hash → 7
+ ↓
+bucket[7]
+ ↓
+[17,37]
+ ↓
+17 exists
+ ↓
+true
+
+contains(99)
+99
+ ↓
+hash → 9
+ ↓
+bucket[9]
+ ↓
+[]
+ ↓
+false
+
+remove(17)
+17
+ ↓
+hash → 7
+ ↓
+bucket[7]
+ ↓
+[17,37]
+ ↓
+remove 17
+ ↓
+[37]
+
+🔥 Yahi custom HashSet ka basic architecture hai.
+*/
+
+//! Leetcode 705. Design HashSet
+
+var MyHashSet = function () {
+  this.table = new Array(1000);
+  for (let i = 0; i < this.table.length; i++) {
+    this.table[i] = [];       // Initialize each bucket as an empty array for separate chaining and to handle collisions.
+  }
+
+  this.hash = function (key) {
+    return key % 1000;
+  }
+};
+
+
+/** 
+ * @param {number} key
+ * @return {void}
+ */
+MyHashSet.prototype.add = function (key) {
+  let index = this.hash(key);
+  let bucket = this.table[index];
+
+  if (!bucket.includes(key)) {
+    bucket.push(key);
+  }
+};
+
+/** 
+ * @param {number} key
+ * @return {void}
+ */
+MyHashSet.prototype.remove = function (key) {
+  let index = this.hash(key);
+  let bucket = this.table[index];
+  let position = bucket.indexOf(key);
+
+  if (position !== -1) {
+    bucket.splice(position, 1)
+  }
+};
+
+/** 
+ * @param {number} key
+ * @return {boolean}
+ */
+MyHashSet.prototype.contains = function (key) {
+  let index = this.hash(key);
+  let bucket = this.table[index];
+  return bucket.includes(key)
+};
+
+/** 
+ * Your MyHashSet object will be instantiated and called as such:
+ * var obj = new MyHashSet()
+ * obj.add(key)
+ * obj.remove(key)
+ * var param_3 = obj.contains(key)
+ */

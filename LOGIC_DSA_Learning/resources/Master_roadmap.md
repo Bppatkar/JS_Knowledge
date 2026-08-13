@@ -244,7 +244,7 @@ Approximately
 
 ---
 
-# PHASE 2 Hashing (IN PROGRESS)
+# PHASE 2 Hashing (COMPLETED)
 
 ### Goal
 
@@ -498,16 +498,15 @@ Representative Problems
 
 ### Pattern 10 — Custom Hash Thinking
 
-- Designing Keys
-- Composite Keys
-- Tuple Keys
-- Encoding Multiple Values
+- ✅ Designing Keys
+- ✅ Composite Keys
+- ✅ Tuple Keys
+- ✅ Encoding Multiple Values
 
-Interview Discussion Only
-
+- ✅ Design HashSet [LC 705]
 ---
 
-# PHASE 3 Linear ADTs
+# PHASE 3 Linear ADTs (In Progress ⌛)
 
 (Data Structures)
 
@@ -743,16 +742,7 @@ Representative Problems
 
 10. This roadmap is LOCKED and can only be modified through an approved Constitution Amendment.
 
-
-
-
-
-
-
-
-
-
-<!-- 
+<!--
 
 13 August 2026
 10:56 AM current session

@@ -485,14 +485,14 @@ Representative Problems
 
 ### Pattern 9 — Hash + Two Pointer
 
-- Pair Lookup
-- Complement Search
-- Optimized Searching
+- ✅ Pair Lookup
+- ✅ Complement Search
+- ✅ Optimized Searching
 
 Representative Problems
 
-- Two Sum [LC 1]
-- 3Sum (Hash Approach Discussion) [LC 15]
+- ✅ Two Sum [LC 1]
+- ✅ 3Sum (Hash Approach Discussion) [LC 15]
 
 ---
 
@@ -504,19 +504,6 @@ Representative Problems
 - Encoding Multiple Values
 
 Interview Discussion Only
-
----
-
-## SECTION 4 — Pattern Mixing
-
-Learn to combine Hashing with previously learned patterns.
-
-- Hash + Traversal
-- Hash + Prefix Sum
-- Hash + Sliding Window
-- Hash + Two Pointer
-- Hash + Matrix
-- Hash + Simulation
 
 ---
 
@@ -755,3 +742,49 @@ Representative Problems
 9. Code is derived, never memorized.
 
 10. This roadmap is LOCKED and can only be modified through an approved Constitution Amendment.
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+13 August 2026
+10:56 AM current session
+
+Pattern 9 — Hash + Two Pointer
+→ 1 Actual LeetCode
+
+Pattern 10 — Custom Hash
+→ 1 Actual LeetCode
+
+Section 3
+→ COMPLETE
+
+Section 4
+→ SKIP / NOT NEEDED
+
+Phase 2 — Hashing
+→ COMPLETE
+
+Then:
+
+Phase 2 Documentation
+        ↓
+Check Strings
+        ↓
+If important String topics pending
+        ↓
+Cover only what's needed
+
+Otherwise
+        ↓
+TC + SC + Constraints — DEEP FOUNDATION
+        ↓
+Phase 3 — Linear Data Structures
+ -->

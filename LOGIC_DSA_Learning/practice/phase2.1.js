@@ -1037,7 +1037,36 @@ function twoSum(nums, target) {
 
 
 //! Leetcode 15. 3Sum
-function threeSum(nums) { }
-console.log(threeSum([-1, 0, 1, 2, -1, -4])); // [[-1,-1,2],[-1,0,1]]
-console.log(threeSum([0, 1, 1])); // []
-console.log(threeSum([0, 0, 0])); // [[0,0,0]]
+var threeSum = function (nums) {
+  nums.sort((a, b) => a - b);  // O(n log n)
+  let ans = [];
+
+  for (let i = 0; i < nums.length; i++) { // O(n)
+
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+    let left = i + 1, right = nums.length - 1; // O(n)
+
+    while (left < right) {
+      let currSum = nums[i] + nums[left] + nums[right];
+      if (currSum === 0) {
+        ans.push([nums[i], nums[left], nums[right]]);
+        left++; right--;
+        while (left < right && nums[left] === nums[left - 1]) left++;
+        while (left < right && nums[right] === nums[right + 1]) right--;
+      }
+      else if (currSum < 0) left++;
+      else right--;
+    }
+  }
+  return ans;
+};
+// TC -O(nlogn)+ O(n²) = O(n²)
+// SC- O(1)
+
+// console.log(threeSum([-1, 0, 1, 2, -1, -4])); // [[-1,-1,2],[-1,0,1]]
+// console.log(threeSum([0, 1, 1])); // []
+// console.log(threeSum([0, 0, 0])); // [[0,0,0]]
+// console.log(threeSum([-2, 0, 0, 2, 2]))
+
+

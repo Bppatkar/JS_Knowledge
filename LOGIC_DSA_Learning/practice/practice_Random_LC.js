@@ -406,13 +406,94 @@ var minWindow = function (s, t) {
 // console.log(minWindow("ab", "a")); // Output: "a"
 
 //! Leetcode 567. Permutation in String
+//? String + Fixed Sliding Window
+/* 
+We don't need to generate permutations. Instead:
+
+Permutation
+↓
+Same character frequencies
+↓
+Frequency comparison
+↓
+Fixed-size window
+*/
+
 function checkInclusion(s1, s2) { }
 // console.log(checkInclusion("ab", "eidbaooo")); // Output: true
 // console.log(checkInclusion("ab", "eidboaoo")); // Output: false
 // console.log(checkInclusion("adc", "dcda")); // Output: true
 
 //! Leetcode 438. Find All Anagrams in a String
+//? String + Sliding Window + Frequency
+/* 
+So:
+fixed window
++
+frequency map
+
+We don't rebuild the frequency from scratch every time. We maintain it incrementally:
+
+entering character → add
+leaving character → remove
+*/
+
 function findAnagrams(s, p) { }
 // console.log(findAnagrams("cbaebabacd", "abc")); // Output: [0, 6]
 // console.log(findAnagrams("abab", "ab")); // Output: [0, 1, 2]
 // console.log(findAnagrams("af", "be")); // Output: []
+
+//! Leetcode 76. Minimum Window Substring [upar solved hai, but again solved]
+//? Minimum Window — Advanced String Window
+/* 
+String
++
+HashMap
++
+Variable Sliding Window
++
+Frequency Requirement
+--------------------------------
+Expand R
+↓
+Do we satisfy requirement?
+        ↓
+       YES
+        ↓
+Shrink L
+↓
+Keep smallest valid window
+*/
+var minWindow = function (s, t) { }
+console.log(minWindow("ADOBECODEBANC", "ABC")); // Output: "BANC"
+console.log(minWindow("a", "a")); // Output: "a"
+console.log(minWindow("a", "aa")); // Output: ""
+
+
+
+/* 
+maine leetcode par ye sare leetcode questions ->
+
+✅ LC 125 — Valid Palindrome
+✅ LC 242 — Valid Anagram
+✅ LC 205 — Isomorphic Strings
+✅ LC 49 — Group Anagrams
+✅ LC 3 — Longest Substring Without Repeating Characters
+
+ firse solve krke submit kr diye hai ok
+ -----------------------------------------------
+ We'll focus on:
+
+→ LC 344 — Reverse String
+→ LC 14 — Longest Common Prefix
+→ LC 459 — Repeated Substring Pattern
+→ LC 567 — Permutation in String
+→ LC 438 — Find All Anagrams in a String
+→ LC 76 — Minimum Window Substring
+
+And depending on how quickly you demonstrate mastery:
+
+→ LC 151 — Reverse Words in a String
+→ LC 443 — String Compression
+→ LC 647 — Palindromic Substrings
+*/

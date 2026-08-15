@@ -470,30 +470,74 @@ console.log(minWindow("a", "a")); // Output: "a"
 console.log(minWindow("a", "aa")); // Output: ""
 
 
+//! Leetcode 344. Reverse String
+var reverseString = function (s) {
+  for (let left = 0, right = s.length - 1; left < right; left++, right--) {
+    let temp = s[left];
+    s[left] = s[right];
+    s[right] = temp;
+  }
+  return s;
+};
 
+//! Leetcode 14. Longest Common Prefix
+var longestCommonPrefix = function (strs) {
+  //   let ans = "";
+  //   for (let i = 0; i < strs[0].length; i++) {
+  //     let char = strs[0][i];
+  //     for (let j = 1; j < strs.length; j++) {
+  //       if (strs[j][i] !== char) return ans;
+  //     }
+  //     ans += char;
+  //   }
+  //   return ans;
+
+  let length = 0;
+
+  while (length < strs[0].length) {
+    let char = strs[0][length];
+    for (let i = 1; i < strs.length; i++) {
+      if (length === strs[i].length || char !== strs[i][length])
+        return strs[0].substring(0, length);
+    }
+    length++;
+  }
+  return strs[0];
+}
+
+//! Leetcode 5. Longest Palindromic Substring
 /* 
-maine leetcode par ye sare leetcode questions ->
+var longestPalindrome = function (s) {
+    let longest = "";
+    for (let i = 0; i < s.length; i++) {
+        for (let j = i; j < s.length; j++) {
+            let subStr = s.substring(i, j + 1);
+            if (palindromeCheck(subStr) && subStr.length > longest.length) longest = subStr;
+        }
+    }
+    return longest;
+};
+function palindromeCheck(str) {
+    if (str.length === 1) return true ;
+    let left = 0, right = str.length - 1;
+    while (left < right) {
+        if (str[left] != str[right]) return false;
+        left++; right--;
+    }
+    return true;
+} 
+   
+///! Time Limit Exceeded (TLE) aa raha hai! 🕐 Matlab tumhara logic sahi hai but too slow for large inputs.
 
-✅ LC 125 — Valid Palindrome
-✅ LC 242 — Valid Anagram
-✅ LC 205 — Isomorphic Strings
-✅ LC 49 — Group Anagrams
-✅ LC 3 — Longest Substring Without Repeating Characters
+🐢 KYUN TLE AA RAHA HAI?
+Tumhara solution O(n³) hai:
 
- firse solve krke submit kr diye hai ok
- -----------------------------------------------
- We'll focus on:
+Outer loop: O(n)
+Inner loop: O(n)
+palindromeCheck: O(n) for each substring
+Total: O(n³)
 
-→ LC 344 — Reverse String
-→ LC 14 — Longest Common Prefix
-→ LC 459 — Repeated Substring Pattern
-→ LC 567 — Permutation in String
-→ LC 438 — Find All Anagrams in a String
-→ LC 76 — Minimum Window Substring
-
-And depending on how quickly you demonstrate mastery:
-
-→ LC 151 — Reverse Words in a String
-→ LC 443 — String Compression
-→ LC 647 — Palindromic Substrings
 */
+console.log(longestPalindrome("babad")); // Output: "bab" or "aba"
+console.log(longestPalindrome("cbbd")); // Output: "bb"
+

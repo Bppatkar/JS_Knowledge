@@ -405,25 +405,6 @@ var minWindow = function (s, t) {
 // console.log(minWindow("a", "aa")); // Output: ""
 // console.log(minWindow("ab", "a")); // Output: "a"
 
-//! Leetcode 567. Permutation in String
-//? String + Fixed Sliding Window
-/* 
-We don't need to generate permutations. Instead:
-
-Permutation
-↓
-Same character frequencies
-↓
-Frequency comparison
-↓
-Fixed-size window
-*/
-
-function checkInclusion(s1, s2) { }
-// console.log(checkInclusion("ab", "eidbaooo")); // Output: true
-// console.log(checkInclusion("ab", "eidboaoo")); // Output: false
-// console.log(checkInclusion("adc", "dcda")); // Output: true
-
 //! Leetcode 438. Find All Anagrams in a String
 //? String + Sliding Window + Frequency
 /* 
@@ -464,10 +445,38 @@ Shrink L
 ↓
 Keep smallest valid window
 */
-var minWindow = function (s, t) { }
-console.log(minWindow("ADOBECODEBANC", "ABC")); // Output: "BANC"
-console.log(minWindow("a", "a")); // Output: "a"
-console.log(minWindow("a", "aa")); // Output: ""
+var minWindow = function (s, t) {
+  if (s.length < t.length) return "";
+
+  let windowMap = {}, needMap = {};
+
+  for (let ch of t) {
+    needMap[ch] = (needMap[ch] || 0) + 1;
+  }
+
+  let required = Object.keys(needMap).length;
+  let matched = 0, minLength = Infinity, startIndex = 0, left = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    windowMap[s[right]] = (windowMap[s[right]] || 0) + 1;
+
+    if (needMap[s[right]] !== undefined && needMap[s[right]] === windowMap[s[right]]) matched++;
+
+    while (matched === required) {
+      if (right - left + 1 < minLength) {
+        minLength = right - left + 1;
+        startIndex = left;
+      }
+      windowMap[s[left]]--;
+      if (needMap[s[left]] !== undefined && needMap[s[left]] > windowMap[s[left]]) matched--;
+      left++;
+    }
+  }
+  return minLength === Infinity ? "" : s.substring(startIndex, startIndex + minLength);
+}
+// console.log(minWindow("ADOBECODEBANC", "ABC")); // Output: "BANC"
+// console.log(minWindow("a", "a")); // Output: "a"
+// console.log(minWindow("a", "aa")); // Output: ""
 
 
 //! Leetcode 344. Reverse String
@@ -505,39 +514,4 @@ var longestCommonPrefix = function (strs) {
   return strs[0];
 }
 
-//! Leetcode 5. Longest Palindromic Substring
-/* 
-var longestPalindrome = function (s) {
-    let longest = "";
-    for (let i = 0; i < s.length; i++) {
-        for (let j = i; j < s.length; j++) {
-            let subStr = s.substring(i, j + 1);
-            if (palindromeCheck(subStr) && subStr.length > longest.length) longest = subStr;
-        }
-    }
-    return longest;
-};
-function palindromeCheck(str) {
-    if (str.length === 1) return true ;
-    let left = 0, right = str.length - 1;
-    while (left < right) {
-        if (str[left] != str[right]) return false;
-        left++; right--;
-    }
-    return true;
-} 
-   
-///! Time Limit Exceeded (TLE) aa raha hai! 🕐 Matlab tumhara logic sahi hai but too slow for large inputs.
-
-🐢 KYUN TLE AA RAHA HAI?
-Tumhara solution O(n³) hai:
-
-Outer loop: O(n)
-Inner loop: O(n)
-palindromeCheck: O(n) for each substring
-Total: O(n³)
-
-*/
-console.log(longestPalindrome("babad")); // Output: "bab" or "aba"
-console.log(longestPalindrome("cbbd")); // Output: "bb"
 

@@ -1,9 +1,45 @@
 # ⚔️ MASTER DSA ROADMAP
 
 ### Supreme Engineering Training System — Updated Official Roadmap
-**Version:** 12.0  
-**Status:** 🔒 LOCKED  
-**Update Date:** 13 August 2026
+**Version:** 12.1
+**Status:** 🔒 LOCKED
+**Update Date:** 16 August 2026
+
+---
+
+## 📖 Index — Click to Jump
+
+- [Core Philosophy](#core-philosophy)
+- [Learning Principles](#learning-principles)
+- [🔥 PERMANENT PHASE LEARNING METHOD](#permanent-phase-learning-method)
+- [🪜 PROBLEM LADDER RULE](#problem-ladder-rule)
+- [📈 DIFFICULTY PROGRESSION](#difficulty-progression)
+- [🧠 80/20 ALGORITHM RULE](#8020-algorithm-rule)
+- [PHASE 0 — ENGINEERING THINKING](#phase-0-engineering-thinking)
+- [PHASE 1 — LINEAR DATA PROCESSING](#phase-1-linear-data-processing)
+- [PHASE 2 — HASHING](#phase-2-hashing)
+- [PHASE 3 — LINEAR DATA STRUCTURES / LINEAR ADTs](#phase-3-linear-data-structures-linear-adts)
+- [PHASE 4 — LINKED LIST](#phase-4-linked-list)
+- [PHASE 5 — BINARY SEARCH](#phase-5-binary-search)
+- [PHASE 6 — TREES](#phase-6-trees)
+- [PHASE 7 — HEAP / PRIORITY QUEUE](#phase-7-heap-priority-queue)
+- [PHASE 8 — GRAPHS](#phase-8-graphs)
+- [PHASE 9 — RECURSION & BACKTRACKING](#phase-9-recursion-backtracking)
+- [PHASE 10 — GREEDY](#phase-10-greedy)
+- [PHASE 11 — DYNAMIC PROGRAMMING](#phase-11-dynamic-programming)
+- [PHASE 12 — ADVANCED DATA STRUCTURES](#phase-12-advanced-data-structures)
+- [🔗 CROSS-PHASE ALGORITHM CONNECTIONS](#cross-phase-algorithm-connections)
+- [📚 LEETCODE SELECTION RULE](#leetcode-selection-rule)
+- [🔄 CCRS — CONTINUOUS CODING RETENTION SYSTEM](#ccrs-continuous-coding-retention-system)
+- [🧑‍💻 CODING SUPPORT RULE](#coding-support-rule)
+- [🎯 CONSTRAINT-FIRST RULE](#constraint-first-rule)
+- [🎤 INTERVIEW THINKING](#interview-thinking)
+- [🏗️ ENGINEERING CONNECTION RULE](#engineering-connection-rule)
+- [🔒 ROADMAP RULES](#roadmap-rules)
+- [🔐 CURRENT PROGRESS](#current-progress)
+- [🧭 MASTER LEARNING FLOW](#master-learning-flow)
+- [🔒 FINAL ROADMAP STATUS](#final-roadmap-status)
+
 
 ---
 
@@ -358,18 +394,20 @@ Build the reasoning system required before and throughout DSA.
 
 ---
 
-# 🔥 DEEP CONSTRAINTS + TIME COMPLEXITY + SPACE COMPLEXITY FOUNDATION
+## 🔥 DEEP CONSTRAINTS + TIME COMPLEXITY + SPACE COMPLEXITY FOUNDATION
+### Status
+⏳ ACTIVE — Current focus, immediately before Phase 3
 
-## Status
-
-⏳ Dedicated deep foundation before Phase 3
-
-This is not a quick revision.
+This is a dedicated deep module. It is NOT a quick revision.
 
 It will be taught from first principles using repeated examples, visualizations, dry runs, and mini-challenges.
 
-### Learning Sequence
+### Main Objective
+Learn to look at a constraint and intuitively ask:
 
+> "Given this input size, how much work can I afford?"
+
+#### Learning Sequence
 ```text
 Constraint
 ↓
@@ -392,21 +430,184 @@ Data Structure Choice
 Algorithm Choice
 ```
 
-### Complexity Growth
+---
 
-We will deeply decode:
+#### SECTION 0 --- WHY CONSTRAINTS EXIST
+Learn
+
+- What a constraint means
+- Input size vs input value
+- Minimum vs maximum input
+- Why problem setters provide constraints
+- Why constraints affect algorithm choice
+
+WHY
+
+Without constraints, an algorithm may look correct but be unusable.
+
+Example:
+
+n = 10 → O(n²) may be trivial.
+
+But: n = 100,000 → O(n²) becomes enormous.
+
+So:
 
 ```text
-O(1)
-O(log n)
-O(n)
-O(n log n)
-O(n²)
-O(2ⁿ)
-O(n!)
+Constraint
+↓
+Allowed work
+↓
+Algorithm choice
 ```
 
-using repeated input-size examples such as:
+---
+
+#### SECTION 1 --- INPUT SIZE DECODING
+Repeatedly decode constraints such as:
+
+```text
+1 ≤ n ≤ 10
+1 ≤ n ≤ 100
+1 ≤ n ≤ 1,000
+1 ≤ n ≤ 10,000
+1 ≤ n ≤ 100,000
+1 ≤ n ≤ 1,000,000
+```
+
+Also distinguish:
+
+- n = number of elements
+
+from:
+
+- nums[i] = value of one element
+
+WHY
+
+The number of elements usually controls how many times your algorithm can repeat work.
+
+**Real constraint-decoding drill — two lines that look similar but mean different things:**
+
+```text
+1 ≤ strs.length ≤ 200        → number of strings (controls outer-loop work)
+0 ≤ strs[i].length ≤ 200     → length of ONE string (controls inner/per-item work)
+```
+
+These are two separate budgets, not one. Total work is a function of **both**, e.g. an approach that compares every pair of strings character-by-character costs roughly:
+
+```text
+O(strs.length² × strs[i].length)
+```
+
+This exact confusion — mixing up "how many items" vs "how big is one item" — is what showed up while solving **LC 14 (Longest Common Prefix)**: the constraint gives both `strs.length` and `strs[i].length` independently, and the correct complexity reasoning requires accounting for each separately rather than treating `n` as a single number.
+
+Practice this decoding on every new problem: identify every distinct size variable in the constraints before estimating any complexity.
+
+---
+
+#### SECTION 2 --- OPERATION BUDGET
+Build intuition for:
+
+```text
+10
+100
+1,000
+10,000
+100,000
+1,000,000
+```
+
+and ask:
+
+> "If I do this many operations, is it realistic?"
+
+We will repeatedly estimate:
+
+```text
+~10
+~100
+~1,000
+~10,000
+~100,000
+~1,000,000
+~10,000,000
+~100,000,000
+```
+
+WHY
+
+Big-O is useful because it lets us reason about growth without counting every CPU instruction.
+
+---
+
+#### SECTION 3 --- TIME COMPLEXITY
+Every complexity is decoded through the same six-question drill — not just "what it means" but what it actually lets you do:
+
+```text
+What?
+↓
+Why does work grow this way?
+↓
+How does work grow as n increases?
+↓
+What input size can this realistically handle?
+↓
+What does that allow me to choose?
+↓
+What does it rule out?
+```
+
+**O(1)**
+- What: work stays approximately the same as n grows
+- Why: the operation is done directly, no dependency on n
+- Handles: any n, including n = 10,000,000+
+- Allows: direct array index access, hash lookup (average case)
+- Rules out: nothing — this is always safe if achievable
+
+**O(log n)**
+- What: the problem size is repeatedly reduced by a factor
+- Why: a large portion of the search space is discarded at every step
+- Handles: comfortably up to n = 10¹⁸ (≈60 steps for n = 10¹⁸)
+- Allows: Binary Search and similar elimination-based approaches
+- Rules out: nothing size-wise — it's almost always affordable when applicable
+
+**O(n)**
+- What: one pass over the input
+- Why: each element is examined a bounded number of times
+- Handles: comfortably up to n ≈ 10⁷–10⁸ within typical time limits
+- Allows: traversal, frequency counting, single-pass accumulation
+- Rules out: needing to compare every element against every other element
+
+**O(n log n)**
+- What: n work performed across log n levels
+- Why: common when a problem is divided and processed level by level
+- Handles: comfortably up to n ≈ 10⁵–10⁶
+- Allows: efficient comparison sorting, Merge Sort, divide-and-conquer
+- Rules out: naive quadratic comparison once n crosses ~10⁵
+
+**O(n²)**
+- What: for every element, inspect many other elements
+- Why: pairwise relationships often require quadratic work
+- Handles: safely only up to n ≈ 10³–10⁴ (roughly 10⁶–10⁸ operations)
+- Allows: brute-force pair comparison, simple nested loops
+- Rules out: itself, once n exceeds ~10⁴–10⁵ — becomes "suspicious" and usually needs optimization
+
+**O(2ⁿ)**
+- What: each choice creates multiple branches, possibilities double repeatedly
+- Why: every decision point multiplies the remaining search space
+- Handles: only very small n, roughly n ≤ 20–25
+- Allows: naive subset-style recursion, brute-force exploration for tiny inputs
+- Rules out: anything beyond small n — becomes computationally infeasible fast
+
+**O(n!)**
+- What: every possible ordering is considered
+- Why: the number of orderings grows factorially
+- Handles: only extremely small n, roughly n ≤ 10–11
+- Allows: brute-force permutation generation
+- Rules out: essentially all practical input sizes beyond a handful of elements
+
+We will decode all of these using repeated input-size examples such as:
 
 ```text
 n = 10
@@ -421,12 +622,201 @@ The objective is intuitive reasoning, not memorization.
 
 ---
 
+#### SECTION 4 --- HOW CONSTRAINTS GUIDE TC
+Build a practical mental mapping, not a rigid law:
+
+- Very small n → exponential/factorial may sometimes be acceptable
+- Small/medium n → O(n²) may be acceptable depending on actual n
+- Large n → usually need O(n log n) or O(n)
+- Very large n → often need O(n), O(log n), or better
+
+WHY
+
+The constraint is telling us how aggressively we must reduce repeated work.
+
+**Important:** There is no universal "n = X means exactly Y complexity" rule. Context matters.
+
+---
+
+#### SECTION 5 --- BRUTE FORCE → OPTIMIZATION
+For every problem:
+
+```text
+Requirement
+↓
+Obvious/brute-force solution
+↓
+Count its work
+↓
+Find repeated work
+↓
+Ask what information could be remembered
+↓
+Choose Data Structure
+↓
+Reduce work
+↓
+New TC/SC
+```
+
+WHY
+
+Optimization is usually not magic. It is:
+
+> Avoid work you already know how to avoid.
+
+Examples of trade-offs:
+
+```text
+Nested Search       → HashMap
+Repeated Range Sum  → Prefix Sum
+Repeated Window Calc → Sliding Window
+Repeated Boundary Search → Monotonic Stack
+```
+
+---
+
+#### SECTION 6 --- SPACE COMPLEXITY
+Learn:
+
+- Input space vs auxiliary space
+- Variables
+- Arrays
+- Maps
+- Sets
+- Recursion stack
+- Output space
+- In-place algorithms
+
+WHY
+
+Sometimes we spend memory deliberately to save time.
+
+Example:
+
+```text
+Brute Force
+TC = O(n²)
+SC = O(1)
+
+Hashing optimization
+TC ≈ O(n)
+SC = O(n)
+```
+
+This is a time-memory trade-off.
+
+---
+
+#### SECTION 7 --- DATA STRUCTURE CHOICE
+For each required operation ask:
+
+```text
+Need fast lookup?        → HashMap / Set
+Need ordered LIFO?       → Stack
+Need FIFO?                → Queue
+Need both ends?            → Deque
+Need priority?              → Heap
+Need contiguous indexed data? → Array
+```
+
+WHY
+
+A data structure is chosen because of the operations it makes efficient.
+
+Never choose a structure just because it is familiar.
+
+---
+
+#### SECTION 8 --- ALGORITHM CHOICE
+Ask:
+
+```text
+What work must be done?
+↓
+What work is repeated?
+↓
+Can the search space shrink?
+↓
+Can information be maintained incrementally?
+↓
+Can state be stored?
+↓
+Can candidates be eliminated?
+↓
+Which 80/20 algorithm fits?
+```
+
+WHY
+
+Algorithm choice is the bridge between Requirements + Constraints and an Efficient Solution.
+
+---
+
+#### SECTION 9 --- TC + SC DRY-RUN TRAINING
+We will repeatedly take tiny inputs and estimate work.
+
+Example: n = 5 → n = 10 → n = 100 → n = 1,000
+
+For each:
+
+- How many iterations?
+- What grows?
+- What stays constant?
+- What memory grows?
+- Can we afford it?
+
+---
+
+#### SECTION 10 --- CONSTRAINT → DECISION DRILLS
+Mini situations to build automatic reasoning:
+
+- n = 20 → Could O(n²) work?
+- n = 100,000 → Would O(n²) be suspicious?
+- Need millions of lookups → What structure helps?
+- Repeated range queries → What information could be precomputed?
+
+The goal is automatic reasoning.
+
+---
+
+#### SECTION 11 --- COMMON CONFUSIONS TO REMOVE
+We will explicitly fix:
+
+- Constraint ≠ TC
+- Input value ≠ input size
+- O(n) ≠ exactly n operations
+- O(1) ≠ "one CPU instruction"
+- O(n²) ≠ always bad
+- O(n log n) ≠ always better than O(n²)
+- Space complexity ≠ only variables
+- Input space ≠ auxiliary space
+- Output space vs working memory
+- Average-case vs worst-case
+- Nested loops do not automatically mean O(n²) — two loops can still be O(n)
+- Early exits can change practical work without changing worst-case Big-O
+
+---
+
+#### SECTION 12 --- WHY-BASED COMPLEXITY INTERVIEW LANGUAGE
+Learn to explain:
+
+> "The algorithm scans the input once, so the work grows linearly with n, giving O(n) time."
+
+> "We use a hash map because repeated lookup would otherwise make the solution quadratic; the extra O(n) memory reduces the lookup work."
+
+> "The constraint is large enough that O(n²) is not a safe choice, so we need to avoid pairwise scanning."
+
+The goal is to explain why, not merely state the notation.
+
+---
+
 # PHASE 1 — LINEAR DATA PROCESSING
 
 ## Status
 
-✅ Arrays COMPLETED  
-⏳ Strings — Focused Module Pending
+✅ Arrays COMPLETED
+✅ Strings COMPLETED
 
 ---
 
@@ -522,21 +912,30 @@ The objective is intuitive reasoning, not memorization.
 - ✅ State Changes
 - ✅ In-place Simulation
 
-### Representative Problems
+### Array LeetCode — Completed
 
-Approximately 40+ LeetCode problems.
+* ✅ LC 1920 --- Build Array from Permutation
+* ✅ LC 1480 --- Running Sum of 1d Array
+* ✅ LC 1929 --- Concatenation of Array
+* ✅ LC 485 --- Max Consecutive Ones
+* ✅ LC 1672 --- Richest Customer Wealth
+* ✅ LC 303 --- Range Sum Query - Immutable
+* ✅ LC 724 --- Find Pivot Index
+* ✅ LC 238 --- Product of Array Except Self
+* ✅ LC 370 --- Range Addition
+* ✅ LC 1109 --- Corporate Flight Bookings
+* ✅ LC 167 --- Two Sum II - Input Array Is Sorted
+* ✅ LC 268 --- Missing Number
+* ✅ LC 448 --- Find All Numbers Disappeared in an Array
+* ✅ LC 41 --- First Missing Positive
+
+> Note: LC 125, LC 3, and LC 424 were moved out of this list — they are String / Hash + Sliding Window problems by ownership and are tracked under **Strings** below, not double-counted here.
 
 ---
 
-# 🔤 STRINGS — FOCUSED MINI-MODULE
+## STRINGS — COMPLETED
 
-## Status
-
-⏳ Pending — To be completed after Hashing
-
-Strings are **not skipped**.
-
-They were intentionally postponed until Hashing because many important String interview problems become much easier with:
+Strings were intentionally taught after Hashing because many important String interview problems become much easier with:
 
 ```text
 HashMap
@@ -552,111 +951,98 @@ Frequency Counting
 Mapping
 ```
 
-## Goal
+### String Fundamentals
 
-Cover the high-value String concepts without creating unnecessary duplication.
+- ✅ String representation
+- ✅ Character access
+- ✅ String traversal
+- ✅ Character comparison
+- ✅ String immutability
+- ✅ Efficient string building
+- ✅ `split()`
+- ✅ `join()`
+- ✅ `substring()`
+- ✅ `slice()`
+- ✅ `includes()`
+- ✅ `indexOf()`
+- ✅ Character codes
+- ✅ ASCII awareness
+- ✅ Unicode awareness
 
----
+### String Patterns
 
-## String Fundamentals
+#### Pattern 1 — Character Traversal
 
-- String representation
-- Character access
-- String traversal
-- Character comparison
-- String immutability
-- Efficient string building
-- `split()`
-- `join()`
-- `substring()`
-- `slice()`
-- `includes()`
-- `indexOf()`
-- Character codes
-- ASCII awareness
-- Unicode awareness
+- ✅ Character-by-character processing
+- ✅ Running state
+- ✅ Validation
+- ✅ Counting
 
----
+#### Pattern 2 — String + Hashing
 
-## String Patterns
+- ✅ Frequency
+- ✅ Presence
+- ✅ Mapping
+- ✅ Grouping
+- ✅ Signature-based thinking
 
-### Pattern 1 — Character Traversal
+#### Pattern 3 — String + Two Pointer
 
-- Character-by-character processing
-- Running state
-- Validation
-- Counting
+- ✅ Palindrome
+- ✅ Reverse
+- ✅ Character filtering
 
-### Pattern 2 — String + Hashing
+#### Pattern 4 — String + Sliding Window
 
-- Frequency
-- Presence
-- Mapping
-- Grouping
-- Signature-based thinking
+- ✅ Consolidated with previously learned Hash + Sliding Window concepts
 
-### Pattern 3 — String + Two Pointer
+#### Pattern 5 — String Construction
 
-- Palindrome
-- Reverse
-- Character filtering
+- ✅ Build result
+- ✅ Incremental construction
+- ✅ Avoid unnecessary repeated work
 
-### Pattern 4 — String + Sliding Window
+#### Pattern 6 — Basic String Parsing
 
-Consolidate previously learned Hash + Sliding Window concepts.
+- ✅ Tokenization
+- ✅ Validation
+- ✅ Numeric extraction
+- ✅ Parsing
 
-### Pattern 5 — String Construction
+### 80/20 String Algorithms
 
-- Build result
-- Incremental construction
-- Avoid unnecessary repeated work
+- ✅ Two Pointer String Scan
+- ✅ Frequency-based String Matching
+- ✅ Sliding Window String Algorithm
+- ✅ Character Mapping
+- ✅ Basic Parsing
+- ✅ Efficient String Construction
 
-### Pattern 6 — Basic String Parsing
+Advanced algorithms such as KMP, Z Algorithm, and Rabin-Karp remain postponed until their value becomes relevant.
 
-- Tokenization
-- Validation
-- Numeric extraction
-- Parsing
+### String LeetCode — Completed
 
----
+Previously learned + re-solved:
 
-## 80/20 String Algorithms
+* ✅ LC 125 --- Valid Palindrome
+* ✅ LC 242 --- Valid Anagram
+* ✅ LC 205 --- Isomorphic Strings
+* ✅ LC 49 --- Group Anagrams
+* ✅ LC 3 --- Longest Substring Without Repeating Characters
 
-Focus on:
+Focused String Problems:
 
-- Two Pointer String Scan
-- Frequency-based String Matching
-- Sliding Window String Algorithm
-- Character Mapping
-- Basic Parsing
-- Efficient String Construction
-
-Advanced algorithms such as:
-
-- KMP
-- Z Algorithm
-- Rabin-Karp
-
-are postponed until their value becomes relevant.
-
----
-
-## Representative LeetCode Problems
-
-Use previously completed problems as CCRS where appropriate instead of blindly repeating them.
-
-- ✅ LC 125 — Valid Palindrome
-- ✅ LC 242 — Valid Anagram
-- ✅ LC 205 — Isomorphic Strings
-- ✅ LC 49 — Group Anagrams
-- ✅ LC 3 — Longest Substring Without Repeating Characters
-- ✅ LC 567 — Permutation in String
-- ✅ LC 438 — Find All Anagrams in a String
-- ✅ LC 76 — Minimum Window Substring
-
-Target:
-
-Approximately 8–12 carefully selected String problems, depending on actual gaps.
+* ✅ LC 76 --- Minimum Window Substring
+* ✅ LC 5 --- Longest Palindromic Substring
+* ✅ LC 344 --- Reverse String
+* ✅ LC 14 --- Longest Common Prefix
+* ✅ LC 151 --- Reverse Words in a String
+* ✅ LC 567 --- Permutation in String
+* ✅ LC 438 --- Find All Anagrams in a String
+* ✅ LC 459 --- Repeated Substring Pattern
+* ✅ LC 443 --- String Compression
+* ✅ LC 647 --- Palindromic Substrings
+* ✅ LC 424 --- Longest Repeating Character Replacement — String + Hash + Sliding Window
 
 ---
 
@@ -679,6 +1065,8 @@ Speed
 ```
 
 and recognize Hashing as an appropriate tool.
+
+> **Ownership note:** Several problems below (e.g. LC 242, LC 49, LC 205, LC 3, LC 76, LC 567, LC 438) are also listed under **Strings** in Phase 1. A problem can demonstrate more than one pattern — here they appear as *representative examples of the Hashing pattern*, not as a separate solve. The actual completed-problem count lives with the phase where the problem was first solved (Strings), so nothing is double-counted.
 
 ---
 
@@ -904,6 +1292,27 @@ Representative:
 
 - ✅ LC 705 — Design HashSet
 
+### Hashing LeetCode — Completed
+
+* ✅ LC 242 --- Valid Anagram
+* ✅ LC 169 --- Majority Element
+* ✅ LC 347 --- Top K Frequent Elements
+* ✅ LC 217 --- Contains Duplicate
+* ✅ LC 202 --- Happy Number
+* ✅ LC 128 --- Longest Consecutive Sequence
+* ✅ LC 49 --- Group Anagrams
+* ✅ LC 1 --- Two Sum
+* ✅ LC 205 --- Isomorphic Strings
+* ✅ LC 560 --- Subarray Sum Equals K
+* ✅ LC 523 --- Continuous Subarray Sum
+* ✅ LC 3 --- Longest Substring Without Repeating Characters
+* ✅ LC 76 --- Minimum Window Substring
+* ✅ LC 567 --- Permutation in String
+* ✅ LC 438 --- Find All Anagrams in a String
+* ✅ LC 325 --- Maximum Size Subarray Sum Equals k
+* ✅ LC 15 --- 3Sum --- Hash approach discussion
+* ✅ LC 705 --- Design HashSet
+
 ---
 
 # PHASE 3 — LINEAR DATA STRUCTURES / LINEAR ADTs
@@ -934,27 +1343,22 @@ Core question:
 
 ---
 
-# SECTION 1 — STACK
-
-## Stack Fundamentals
-
-### Core Principle
-
+## SECTION 1 — STACK
+### Stack Fundamentals
+#### Core Principle
 ```text
 LIFO
 Last In
 First Out
 ```
 
-### Operations
-
+#### Operations
 - `push`
 - `pop`
 - `peek`
 - `isEmpty`
 
-### JavaScript Representation
-
+#### JavaScript Representation
 ```js
 const stack = [];
 
@@ -963,8 +1367,7 @@ stack.pop();
 stack[stack.length - 1];
 ```
 
-### Engineering Connections
-
+#### Engineering Connections
 - Function Call Stack
 - Undo systems
 - Browser navigation/history thinking
@@ -973,8 +1376,7 @@ stack[stack.length - 1];
 
 ---
 
-## Stack Pattern 1 — Basic Stack
-
+### Stack Pattern 1 — Basic Stack
 Requirement:
 
 > Most recently added item must be accessed first.
@@ -987,8 +1389,7 @@ Stack
 
 ---
 
-## Stack Pattern 2 — Parentheses / Matching
-
+### Stack Pattern 2 — Parentheses / Matching
 Core idea:
 
 ```text
@@ -1007,10 +1408,8 @@ Representative:
 
 ---
 
-## Stack Pattern 3 — Monotonic Increasing Stack
-
-### Core Idea
-
+### Stack Pattern 3 — Monotonic Increasing Stack
+#### Core Idea
 ```text
 Stack
 +
@@ -1028,8 +1427,7 @@ Applications:
 
 ---
 
-## Stack Pattern 4 — Monotonic Decreasing Stack
-
+### Stack Pattern 4 — Monotonic Decreasing Stack
 Maintain useful candidates in decreasing order.
 
 Learn to derive:
@@ -1048,8 +1446,7 @@ Do not memorize a fixed "greater = X stack" rule without understanding why.
 
 ---
 
-## 🔥 80/20 Algorithm — Monotonic Stack
-
+### 🔥 80/20 Algorithm — Monotonic Stack
 Generic flow:
 
 ```text
@@ -1069,8 +1466,7 @@ This single algorithm supports many unknown problems.
 
 ---
 
-## Stack Pattern 5 — Expression Evaluation
-
+### Stack Pattern 5 — Expression Evaluation
 Concepts:
 
 - Operand
@@ -1093,8 +1489,7 @@ Representative:
 
 ---
 
-## Stack Pattern 6 — Histogram / Boundary Problems
-
+### Stack Pattern 6 — Histogram / Boundary Problems
 Major representative:
 
 - **LC 84 — Largest Rectangle in Histogram**
@@ -1119,27 +1514,22 @@ Optional deep extension:
 
 ---
 
-# SECTION 2 — QUEUE
-
-## Queue Fundamentals
-
-### Core Principle
-
+## SECTION 2 — QUEUE
+### Queue Fundamentals
+#### Core Principle
 ```text
 FIFO
 First In
 First Out
 ```
 
-### Operations
-
+#### Operations
 - `enqueue`
 - `dequeue`
 - `front`
 - `isEmpty`
 
-### Engineering Connections
-
+#### Engineering Connections
 - Task Scheduling
 - Request Queues
 - Message Queues
@@ -1148,8 +1538,7 @@ First Out
 
 ---
 
-## Queue Pattern 1 — Basic Queue
-
+### Queue Pattern 1 — Basic Queue
 Requirement:
 
 > Oldest item must leave first.
@@ -1164,10 +1553,8 @@ Representative examples/problems will be selected according to demonstrated gaps
 
 ---
 
-## Queue Pattern 2 — Circular Queue
-
-### Concepts
-
+### Queue Pattern 2 — Circular Queue
+#### Concepts
 - Front
 - Rear
 - Size
@@ -1176,8 +1563,7 @@ Representative examples/problems will be selected according to demonstrated gaps
 - Wrap-around
 - Circular indexing
 
-### 80/20 Algorithm
-
+#### 80/20 Algorithm
 ```text
 nextIndex = (index + 1) % capacity
 ```
@@ -1190,10 +1576,8 @@ The state conditions will be derived, not memorized.
 
 ---
 
-# SECTION 3 — DEQUE
-
-## Deque Fundamentals
-
+## SECTION 3 — DEQUE
+### Deque Fundamentals
 Deque = Double Ended Queue
 
 Operations:
@@ -1207,8 +1591,7 @@ Both ends are active.
 
 ---
 
-## Deque Pattern 1 — Double Ended Processing
-
+### Deque Pattern 1 — Double Ended Processing
 Requirement:
 
 > Both ends of the collection matter.
@@ -1217,10 +1600,8 @@ Learn when Deque is better than a normal Queue.
 
 ---
 
-## Deque Pattern 2 — Monotonic Queue
-
-### Core Idea
-
+### Deque Pattern 2 — Monotonic Queue
+#### Core Idea
 ```text
 Deque
 +
@@ -1247,10 +1628,8 @@ Monotonic Queue
 
 ---
 
-# 🔥 PHASE 3 — 80/20 ALGORITHMS
-
-## Algorithm 1 — Stack Matching
-
+## 🔥 PHASE 3 — 80/20 ALGORITHMS
+### Algorithm 1 — Stack Matching
 ```text
 Opening → push
 Closing → validate + pop
@@ -1264,8 +1643,7 @@ Useful for:
 
 ---
 
-## Algorithm 2 — Monotonic Stack
-
+### Algorithm 2 — Monotonic Stack
 Useful for:
 
 - Next Greater
@@ -1277,8 +1655,7 @@ Useful for:
 
 ---
 
-## Algorithm 3 — Circular Indexing
-
+### Algorithm 3 — Circular Indexing
 ```text
 (index + 1) % capacity
 ```
@@ -1291,8 +1668,7 @@ Useful for:
 
 ---
 
-## Algorithm 4 — Stack-Based Expression Evaluation
-
+### Algorithm 4 — Stack-Based Expression Evaluation
 ```text
 Operands
 +
@@ -1309,8 +1685,7 @@ Useful for:
 
 ---
 
-## Algorithm 5 — Monotonic Queue
-
+### Algorithm 5 — Monotonic Queue
 ```text
 Deque
 +
@@ -1328,8 +1703,7 @@ Useful for:
 
 ---
 
-# PHASE 3 — PATTERN COMPOSITION
-
+## PHASE 3 — PATTERN COMPOSITION
 We will explicitly practice combinations such as:
 
 ```text
@@ -1356,50 +1730,42 @@ The purpose is to recognize patterns from requirements rather than from problem 
 
 ---
 
-# PHASE 3 — REPRESENTATIVE LEETCODE PROBLEM POOL
-
+## PHASE 3 — REPRESENTATIVE LEETCODE PROBLEM POOL
 This is a **candidate pool**, not a rigid mandatory 20-question list.
 
 Final selection depends on demonstrated mastery and coverage.
 
-### Stack
-
+#### Stack
 1. **LC 20 — Valid Parentheses**
 2. **LC 155 — Min Stack**
 3. **LC 682 — Baseball Game**
 
-### Monotonic Stack
-
+#### Monotonic Stack
 4. **LC 496 — Next Greater Element I**
 5. **LC 503 — Next Greater Element II**
 6. **LC 739 — Daily Temperatures**
 7. **LC 901 — Online Stock Span**
 
-### Expression / Parsing
-
+#### Expression / Parsing
 8. **LC 150 — Evaluate Reverse Polish Notation**
 9. **LC 224 — Basic Calculator** — optional
 
-### Histogram / Boundary
-
+#### Histogram / Boundary
 10. **LC 84 — Largest Rectangle in Histogram**
 11. **LC 85 — Maximal Rectangle** — optional deepening
 
-### Queue
-
+#### Queue
 12. **LC 933 — Number of Recent Calls**
 13. **LC 622 — Design Circular Queue**
 
-### Deque / Monotonic Queue
-
+#### Deque / Monotonic Queue
 14. **LC 239 — Sliding Window Maximum**
 
 Additional problems may be selected when needed to reach complete phase coverage.
 
 ---
 
-# 🪜 PHASE 3 PROBLEM LADDER
-
+## 🪜 PHASE 3 PROBLEM LADDER
 ```text
 Minimum: 5
 Target: 15–20
@@ -1434,8 +1800,7 @@ Difficulty is increased only when the current level is sufficiently comfortable.
 
 ---
 
-# PHASE 3 — COMPLETION CONDITIONS
-
+## PHASE 3 — COMPLETION CONDITIONS
 Phase 3 is locked only after the Engineer can:
 
 - Explain Stack
@@ -2459,72 +2824,6 @@ State Thinking
 
 The objective is a reusable mental library, not isolated tricks.
 
-# 🔗 CROSS-PHASE ALGORITHM CONNECTIONS
-
-Algorithms are not isolated.
-
-We continuously connect them.
-
-```text
-Two Pointer
-+
-Sliding Window
-+
-Hashing
-+
-String
-```
-
-```text
-Prefix Sum
-+
-Hashing
-```
-
-```text
-Monotonic Stack
-+
-Index Tracking
-```
-
-```text
-Deque
-+
-Sliding Window
-```
-
-```text
-Heap
-+
-Greedy
-```
-
-```text
-BFS
-+
-Queue
-```
-
-```text
-DFS
-+
-Stack
-```
-
-```text
-Binary Search
-+
-Constraint-driven Search Space
-```
-
-```text
-DP
-+
-State Thinking
-```
-
-The objective is to build a reusable mental library rather than isolated tricks.
-
 ---
 
 # 📚 LEETCODE SELECTION RULE
@@ -2777,7 +3076,7 @@ Graph
 ## Phase 1 — Linear Data Processing
 
 - Arrays → ✅ COMPLETED
-- Strings → ⏳ FOCUSED MODULE PENDING
+- Strings → ✅ COMPLETED
 
 ## Phase 2 — Hashing
 
@@ -2786,9 +3085,7 @@ Graph
 ## Next
 
 ```text
-Strings
-↓
-Deep Constraints + TC + SC Foundation
+Deep Constraints + TC + SC Foundation  ⏳ ACTIVE
 ↓
 Phase 3 — Linear Data Structures
 ```
@@ -2866,13 +3163,13 @@ Move Forward
 ```text
 PHASE 1 — Linear Data Processing
     Arrays ✅
-    Strings ⏳
+    Strings ✅
 
 PHASE 2 — Hashing
     ✅ LOCKED
 
 DEEP FOUNDATION
-    Constraints + TC + SC ⏳
+    Constraints + TC + SC ⏳ ACTIVE
 
 PHASE 3 — Linear ADTs
     Stack ⏳

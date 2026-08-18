@@ -1,6 +1,7 @@
 # ⚔️ MASTER DSA ROADMAP
 
 ### Supreme Engineering Training System — Updated Official Roadmap
+
 **Version:** 12.1
 **Status:** 🔒 LOCKED
 **Update Date:** 16 August 2026
@@ -39,7 +40,6 @@
 - [🔐 CURRENT PROGRESS](#current-progress)
 - [🧭 MASTER LEARNING FLOW](#master-learning-flow)
 - [🔒 FINAL ROADMAP STATUS](#final-roadmap-status)
-
 
 ---
 
@@ -395,7 +395,9 @@ Build the reasoning system required before and throughout DSA.
 ---
 
 ## 🔥 DEEP CONSTRAINTS + TIME COMPLEXITY + SPACE COMPLEXITY FOUNDATION
+
 ### Status
+
 ⏳ ACTIVE — Current focus, immediately before Phase 3
 
 This is a dedicated deep module. It is NOT a quick revision.
@@ -403,11 +405,13 @@ This is a dedicated deep module. It is NOT a quick revision.
 It will be taught from first principles using repeated examples, visualizations, dry runs, and mini-challenges.
 
 ### Main Objective
+
 Learn to look at a constraint and intuitively ask:
 
 > "Given this input size, how much work can I afford?"
 
 #### Learning Sequence
+
 ```text
 Constraint
 ↓
@@ -433,6 +437,7 @@ Algorithm Choice
 ---
 
 #### SECTION 0 --- WHY CONSTRAINTS EXIST
+
 Learn
 
 - What a constraint means
@@ -464,6 +469,7 @@ Algorithm choice
 ---
 
 #### SECTION 1 --- INPUT SIZE DECODING
+
 Repeatedly decode constraints such as:
 
 ```text
@@ -507,6 +513,7 @@ Practice this decoding on every new problem: identify every distinct size variab
 ---
 
 #### SECTION 2 --- OPERATION BUDGET
+
 Build intuition for:
 
 ```text
@@ -542,6 +549,7 @@ Big-O is useful because it lets us reason about growth without counting every CP
 ---
 
 #### SECTION 3 --- TIME COMPLEXITY
+
 Every complexity is decoded through the same six-question drill — not just "what it means" but what it actually lets you do:
 
 ```text
@@ -559,6 +567,7 @@ What does it rule out?
 ```
 
 **O(1)**
+
 - What: work stays approximately the same as n grows
 - Why: the operation is done directly, no dependency on n
 - Handles: any n, including n = 10,000,000+
@@ -566,6 +575,7 @@ What does it rule out?
 - Rules out: nothing — this is always safe if achievable
 
 **O(log n)**
+
 - What: the problem size is repeatedly reduced by a factor
 - Why: a large portion of the search space is discarded at every step
 - Handles: comfortably up to n = 10¹⁸ (≈60 steps for n = 10¹⁸)
@@ -573,6 +583,7 @@ What does it rule out?
 - Rules out: nothing size-wise — it's almost always affordable when applicable
 
 **O(n)**
+
 - What: one pass over the input
 - Why: each element is examined a bounded number of times
 - Handles: comfortably up to n ≈ 10⁷–10⁸ within typical time limits
@@ -580,6 +591,7 @@ What does it rule out?
 - Rules out: needing to compare every element against every other element
 
 **O(n log n)**
+
 - What: n work performed across log n levels
 - Why: common when a problem is divided and processed level by level
 - Handles: comfortably up to n ≈ 10⁵–10⁶
@@ -587,6 +599,7 @@ What does it rule out?
 - Rules out: naive quadratic comparison once n crosses ~10⁵
 
 **O(n²)**
+
 - What: for every element, inspect many other elements
 - Why: pairwise relationships often require quadratic work
 - Handles: safely only up to n ≈ 10³–10⁴ (roughly 10⁶–10⁸ operations)
@@ -594,6 +607,7 @@ What does it rule out?
 - Rules out: itself, once n exceeds ~10⁴–10⁵ — becomes "suspicious" and usually needs optimization
 
 **O(2ⁿ)**
+
 - What: each choice creates multiple branches, possibilities double repeatedly
 - Why: every decision point multiplies the remaining search space
 - Handles: only very small n, roughly n ≤ 20–25
@@ -601,6 +615,7 @@ What does it rule out?
 - Rules out: anything beyond small n — becomes computationally infeasible fast
 
 **O(n!)**
+
 - What: every possible ordering is considered
 - Why: the number of orderings grows factorially
 - Handles: only extremely small n, roughly n ≤ 10–11
@@ -623,6 +638,7 @@ The objective is intuitive reasoning, not memorization.
 ---
 
 #### SECTION 4 --- HOW CONSTRAINTS GUIDE TC
+
 Build a practical mental mapping, not a rigid law:
 
 - Very small n → exponential/factorial may sometimes be acceptable
@@ -639,6 +655,7 @@ The constraint is telling us how aggressively we must reduce repeated work.
 ---
 
 #### SECTION 5 --- BRUTE FORCE → OPTIMIZATION
+
 For every problem:
 
 ```text
@@ -677,6 +694,7 @@ Repeated Boundary Search → Monotonic Stack
 ---
 
 #### SECTION 6 --- SPACE COMPLEXITY
+
 Learn:
 
 - Input space vs auxiliary space
@@ -709,6 +727,7 @@ This is a time-memory trade-off.
 ---
 
 #### SECTION 7 --- DATA STRUCTURE CHOICE
+
 For each required operation ask:
 
 ```text
@@ -729,6 +748,7 @@ Never choose a structure just because it is familiar.
 ---
 
 #### SECTION 8 --- ALGORITHM CHOICE
+
 Ask:
 
 ```text
@@ -754,6 +774,7 @@ Algorithm choice is the bridge between Requirements + Constraints and an Efficie
 ---
 
 #### SECTION 9 --- TC + SC DRY-RUN TRAINING
+
 We will repeatedly take tiny inputs and estimate work.
 
 Example: n = 5 → n = 10 → n = 100 → n = 1,000
@@ -769,6 +790,7 @@ For each:
 ---
 
 #### SECTION 10 --- CONSTRAINT → DECISION DRILLS
+
 Mini situations to build automatic reasoning:
 
 - n = 20 → Could O(n²) work?
@@ -781,6 +803,7 @@ The goal is automatic reasoning.
 ---
 
 #### SECTION 11 --- COMMON CONFUSIONS TO REMOVE
+
 We will explicitly fix:
 
 - Constraint ≠ TC
@@ -799,6 +822,7 @@ We will explicitly fix:
 ---
 
 #### SECTION 12 --- WHY-BASED COMPLEXITY INTERVIEW LANGUAGE
+
 Learn to explain:
 
 > "The algorithm scans the input once, so the work grows linearly with n, giving O(n) time."
@@ -914,20 +938,20 @@ The goal is to explain why, not merely state the notation.
 
 ### Array LeetCode — Completed
 
-* ✅ LC 1920 --- Build Array from Permutation
-* ✅ LC 1480 --- Running Sum of 1d Array
-* ✅ LC 1929 --- Concatenation of Array
-* ✅ LC 485 --- Max Consecutive Ones
-* ✅ LC 1672 --- Richest Customer Wealth
-* ✅ LC 303 --- Range Sum Query - Immutable
-* ✅ LC 724 --- Find Pivot Index
-* ✅ LC 238 --- Product of Array Except Self
-* ✅ LC 370 --- Range Addition
-* ✅ LC 1109 --- Corporate Flight Bookings
-* ✅ LC 167 --- Two Sum II - Input Array Is Sorted
-* ✅ LC 268 --- Missing Number
-* ✅ LC 448 --- Find All Numbers Disappeared in an Array
-* ✅ LC 41 --- First Missing Positive
+- ✅ LC 1920 --- Build Array from Permutation
+- ✅ LC 1480 --- Running Sum of 1d Array
+- ✅ LC 1929 --- Concatenation of Array
+- ✅ LC 485 --- Max Consecutive Ones
+- ✅ LC 1672 --- Richest Customer Wealth
+- ✅ LC 303 --- Range Sum Query - Immutable
+- ✅ LC 724 --- Find Pivot Index
+- ✅ LC 238 --- Product of Array Except Self
+- ✅ LC 370 --- Range Addition
+- ✅ LC 1109 --- Corporate Flight Bookings
+- ✅ LC 167 --- Two Sum II - Input Array Is Sorted
+- ✅ LC 268 --- Missing Number
+- ✅ LC 448 --- Find All Numbers Disappeared in an Array
+- ✅ LC 41 --- First Missing Positive
 
 > Note: LC 125, LC 3, and LC 424 were moved out of this list — they are String / Hash + Sliding Window problems by ownership and are tracked under **Strings** below, not double-counted here.
 
@@ -1024,25 +1048,25 @@ Advanced algorithms such as KMP, Z Algorithm, and Rabin-Karp remain postponed un
 
 Previously learned + re-solved:
 
-* ✅ LC 125 --- Valid Palindrome
-* ✅ LC 242 --- Valid Anagram
-* ✅ LC 205 --- Isomorphic Strings
-* ✅ LC 49 --- Group Anagrams
-* ✅ LC 3 --- Longest Substring Without Repeating Characters
+- ✅ LC 125 --- Valid Palindrome
+- ✅ LC 242 --- Valid Anagram
+- ✅ LC 205 --- Isomorphic Strings
+- ✅ LC 49 --- Group Anagrams
+- ✅ LC 3 --- Longest Substring Without Repeating Characters
 
 Focused String Problems:
 
-* ✅ LC 76 --- Minimum Window Substring
-* ✅ LC 5 --- Longest Palindromic Substring
-* ✅ LC 344 --- Reverse String
-* ✅ LC 14 --- Longest Common Prefix
-* ✅ LC 151 --- Reverse Words in a String
-* ✅ LC 567 --- Permutation in String
-* ✅ LC 438 --- Find All Anagrams in a String
-* ✅ LC 459 --- Repeated Substring Pattern
-* ✅ LC 443 --- String Compression
-* ✅ LC 647 --- Palindromic Substrings
-* ✅ LC 424 --- Longest Repeating Character Replacement — String + Hash + Sliding Window
+- ✅ LC 76 --- Minimum Window Substring
+- ✅ LC 5 --- Longest Palindromic Substring
+- ✅ LC 344 --- Reverse String
+- ✅ LC 14 --- Longest Common Prefix
+- ✅ LC 151 --- Reverse Words in a String
+- ✅ LC 567 --- Permutation in String
+- ✅ LC 438 --- Find All Anagrams in a String
+- ✅ LC 459 --- Repeated Substring Pattern
+- ✅ LC 443 --- String Compression
+- ✅ LC 647 --- Palindromic Substrings
+- ✅ LC 424 --- Longest Repeating Character Replacement — String + Hash + Sliding Window
 
 ---
 
@@ -1066,7 +1090,7 @@ Speed
 
 and recognize Hashing as an appropriate tool.
 
-> **Ownership note:** Several problems below (e.g. LC 242, LC 49, LC 205, LC 3, LC 76, LC 567, LC 438) are also listed under **Strings** in Phase 1. A problem can demonstrate more than one pattern — here they appear as *representative examples of the Hashing pattern*, not as a separate solve. The actual completed-problem count lives with the phase where the problem was first solved (Strings), so nothing is double-counted.
+> **Ownership note:** Several problems below (e.g. LC 242, LC 49, LC 205, LC 3, LC 76, LC 567, LC 438) are also listed under **Strings** in Phase 1. A problem can demonstrate more than one pattern — here they appear as _representative examples of the Hashing pattern_, not as a separate solve. The actual completed-problem count lives with the phase where the problem was first solved (Strings), so nothing is double-counted.
 
 ---
 
@@ -1294,24 +1318,24 @@ Representative:
 
 ### Hashing LeetCode — Completed
 
-* ✅ LC 242 --- Valid Anagram
-* ✅ LC 169 --- Majority Element
-* ✅ LC 347 --- Top K Frequent Elements
-* ✅ LC 217 --- Contains Duplicate
-* ✅ LC 202 --- Happy Number
-* ✅ LC 128 --- Longest Consecutive Sequence
-* ✅ LC 49 --- Group Anagrams
-* ✅ LC 1 --- Two Sum
-* ✅ LC 205 --- Isomorphic Strings
-* ✅ LC 560 --- Subarray Sum Equals K
-* ✅ LC 523 --- Continuous Subarray Sum
-* ✅ LC 3 --- Longest Substring Without Repeating Characters
-* ✅ LC 76 --- Minimum Window Substring
-* ✅ LC 567 --- Permutation in String
-* ✅ LC 438 --- Find All Anagrams in a String
-* ✅ LC 325 --- Maximum Size Subarray Sum Equals k
-* ✅ LC 15 --- 3Sum --- Hash approach discussion
-* ✅ LC 705 --- Design HashSet
+- ✅ LC 242 --- Valid Anagram
+- ✅ LC 169 --- Majority Element
+- ✅ LC 347 --- Top K Frequent Elements
+- ✅ LC 217 --- Contains Duplicate
+- ✅ LC 202 --- Happy Number
+- ✅ LC 128 --- Longest Consecutive Sequence
+- ✅ LC 49 --- Group Anagrams
+- ✅ LC 1 --- Two Sum
+- ✅ LC 205 --- Isomorphic Strings
+- ✅ LC 560 --- Subarray Sum Equals K
+- ✅ LC 523 --- Continuous Subarray Sum
+- ✅ LC 3 --- Longest Substring Without Repeating Characters
+- ✅ LC 76 --- Minimum Window Substring
+- ✅ LC 567 --- Permutation in String
+- ✅ LC 438 --- Find All Anagrams in a String
+- ✅ LC 325 --- Maximum Size Subarray Sum Equals k
+- ✅ LC 15 --- 3Sum --- Hash approach discussion
+- ✅ LC 705 --- Design HashSet
 
 ---
 
@@ -1344,8 +1368,11 @@ Core question:
 ---
 
 ## SECTION 1 — STACK
+
 ### Stack Fundamentals
+
 #### Core Principle
+
 ```text
 LIFO
 Last In
@@ -1353,12 +1380,14 @@ First Out
 ```
 
 #### Operations
+
 - `push`
 - `pop`
 - `peek`
 - `isEmpty`
 
 #### JavaScript Representation
+
 ```js
 const stack = [];
 
@@ -1368,6 +1397,7 @@ stack[stack.length - 1];
 ```
 
 #### Engineering Connections
+
 - Function Call Stack
 - Undo systems
 - Browser navigation/history thinking
@@ -1377,6 +1407,7 @@ stack[stack.length - 1];
 ---
 
 ### Stack Pattern 1 — Basic Stack
+
 Requirement:
 
 > Most recently added item must be accessed first.
@@ -1390,6 +1421,7 @@ Stack
 ---
 
 ### Stack Pattern 2 — Parentheses / Matching
+
 Core idea:
 
 ```text
@@ -1409,7 +1441,9 @@ Representative:
 ---
 
 ### Stack Pattern 3 — Monotonic Increasing Stack
+
 #### Core Idea
+
 ```text
 Stack
 +
@@ -1428,6 +1462,7 @@ Applications:
 ---
 
 ### Stack Pattern 4 — Monotonic Decreasing Stack
+
 Maintain useful candidates in decreasing order.
 
 Learn to derive:
@@ -1447,6 +1482,7 @@ Do not memorize a fixed "greater = X stack" rule without understanding why.
 ---
 
 ### 🔥 80/20 Algorithm — Monotonic Stack
+
 Generic flow:
 
 ```text
@@ -1467,6 +1503,7 @@ This single algorithm supports many unknown problems.
 ---
 
 ### Stack Pattern 5 — Expression Evaluation
+
 Concepts:
 
 - Operand
@@ -1490,6 +1527,7 @@ Representative:
 ---
 
 ### Stack Pattern 6 — Histogram / Boundary Problems
+
 Major representative:
 
 - **LC 84 — Largest Rectangle in Histogram**
@@ -1515,8 +1553,11 @@ Optional deep extension:
 ---
 
 ## SECTION 2 — QUEUE
+
 ### Queue Fundamentals
+
 #### Core Principle
+
 ```text
 FIFO
 First In
@@ -1524,12 +1565,14 @@ First Out
 ```
 
 #### Operations
+
 - `enqueue`
 - `dequeue`
 - `front`
 - `isEmpty`
 
 #### Engineering Connections
+
 - Task Scheduling
 - Request Queues
 - Message Queues
@@ -1539,6 +1582,7 @@ First Out
 ---
 
 ### Queue Pattern 1 — Basic Queue
+
 Requirement:
 
 > Oldest item must leave first.
@@ -1554,7 +1598,9 @@ Representative examples/problems will be selected according to demonstrated gaps
 ---
 
 ### Queue Pattern 2 — Circular Queue
+
 #### Concepts
+
 - Front
 - Rear
 - Size
@@ -1564,6 +1610,7 @@ Representative examples/problems will be selected according to demonstrated gaps
 - Circular indexing
 
 #### 80/20 Algorithm
+
 ```text
 nextIndex = (index + 1) % capacity
 ```
@@ -1577,7 +1624,9 @@ The state conditions will be derived, not memorized.
 ---
 
 ## SECTION 3 — DEQUE
+
 ### Deque Fundamentals
+
 Deque = Double Ended Queue
 
 Operations:
@@ -1592,6 +1641,7 @@ Both ends are active.
 ---
 
 ### Deque Pattern 1 — Double Ended Processing
+
 Requirement:
 
 > Both ends of the collection matter.
@@ -1601,7 +1651,9 @@ Learn when Deque is better than a normal Queue.
 ---
 
 ### Deque Pattern 2 — Monotonic Queue
+
 #### Core Idea
+
 ```text
 Deque
 +
@@ -1629,7 +1681,9 @@ Monotonic Queue
 ---
 
 ## 🔥 PHASE 3 — 80/20 ALGORITHMS
+
 ### Algorithm 1 — Stack Matching
+
 ```text
 Opening → push
 Closing → validate + pop
@@ -1644,6 +1698,7 @@ Useful for:
 ---
 
 ### Algorithm 2 — Monotonic Stack
+
 Useful for:
 
 - Next Greater
@@ -1656,6 +1711,7 @@ Useful for:
 ---
 
 ### Algorithm 3 — Circular Indexing
+
 ```text
 (index + 1) % capacity
 ```
@@ -1669,6 +1725,7 @@ Useful for:
 ---
 
 ### Algorithm 4 — Stack-Based Expression Evaluation
+
 ```text
 Operands
 +
@@ -1686,6 +1743,7 @@ Useful for:
 ---
 
 ### Algorithm 5 — Monotonic Queue
+
 ```text
 Deque
 +
@@ -1704,6 +1762,7 @@ Useful for:
 ---
 
 ## PHASE 3 — PATTERN COMPOSITION
+
 We will explicitly practice combinations such as:
 
 ```text
@@ -1731,34 +1790,41 @@ The purpose is to recognize patterns from requirements rather than from problem 
 ---
 
 ## PHASE 3 — REPRESENTATIVE LEETCODE PROBLEM POOL
+
 This is a **candidate pool**, not a rigid mandatory 20-question list.
 
 Final selection depends on demonstrated mastery and coverage.
 
 #### Stack
+
 1. **LC 20 — Valid Parentheses**
 2. **LC 155 — Min Stack**
 3. **LC 682 — Baseball Game**
 
 #### Monotonic Stack
+
 4. **LC 496 — Next Greater Element I**
 5. **LC 503 — Next Greater Element II**
 6. **LC 739 — Daily Temperatures**
 7. **LC 901 — Online Stock Span**
 
 #### Expression / Parsing
+
 8. **LC 150 — Evaluate Reverse Polish Notation**
 9. **LC 224 — Basic Calculator** — optional
 
 #### Histogram / Boundary
+
 10. **LC 84 — Largest Rectangle in Histogram**
 11. **LC 85 — Maximal Rectangle** — optional deepening
 
 #### Queue
+
 12. **LC 933 — Number of Recent Calls**
 13. **LC 622 — Design Circular Queue**
 
 #### Deque / Monotonic Queue
+
 14. **LC 239 — Sliding Window Maximum**
 
 Additional problems may be selected when needed to reach complete phase coverage.
@@ -1766,6 +1832,7 @@ Additional problems may be selected when needed to reach complete phase coverage
 ---
 
 ## 🪜 PHASE 3 PROBLEM LADDER
+
 ```text
 Minimum: 5
 Target: 15–20
@@ -1801,6 +1868,7 @@ Difficulty is increased only when the current level is sufficiently comfortable.
 ---
 
 ## PHASE 3 — COMPLETION CONDITIONS
+
 Phase 3 is locked only after the Engineer can:
 
 - Explain Stack
@@ -1840,6 +1908,7 @@ Next Phase
 # PHASE 4 — LINKED LIST
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -1953,6 +2022,7 @@ Difficulty rises only after pointer manipulation becomes comfortable.
 # PHASE 5 — BINARY SEARCH
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2039,6 +2109,7 @@ Target ≈ 15–20
 # PHASE 6 — TREES
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2166,6 +2237,7 @@ Trees require deeper coverage, so the ladder may naturally approach the maximum.
 # PHASE 7 — HEAP / PRIORITY QUEUE
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2238,6 +2310,7 @@ Target ≈ 15–20
 # PHASE 8 — GRAPHS
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2359,6 +2432,7 @@ Graphs require broad algorithm coverage, so deeper ladder coverage is expected.
 # PHASE 9 — RECURSION & BACKTRACKING
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2435,6 +2509,7 @@ Target ≈ 15–20
 # PHASE 10 — GREEDY
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2507,6 +2582,7 @@ Target ≈ 15–20
 # PHASE 11 — DYNAMIC PROGRAMMING
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -2640,6 +2716,7 @@ DP naturally needs deeper coverage.
 # PHASE 12 — ADVANCED DATA STRUCTURES
 
 ## Status
+
 ⏳ Future Phase
 
 ## Goal
@@ -3169,10 +3246,13 @@ PHASE 2 — Hashing
     ✅ LOCKED
 
 DEEP FOUNDATION
-    Constraints + TC + SC ⏳ ACTIVE
+    └── ⏸️ POSTPONED
+    └── Will be formally studied later after broader DSA knowledge.
+    └── Until then constraints + TC + SC are taught incrementally
+       inside every relevant problem.
 
-PHASE 3 — Linear ADTs
-    Stack ⏳
+PHASE 3 — Linear ADTs  ⏳ ACTIVE
+    Stack ⏳ In Progress
     Queue ⏳
     Deque ⏳
 

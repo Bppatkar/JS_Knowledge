@@ -2,9 +2,9 @@
 
 ### Supreme Engineering Training System — Updated Official Roadmap
 
-**Version:** 12.1
+**Version:** 12.2
 **Status:** 🔒 LOCKED
-**Update Date:** 16 August 2026
+**Update Date:** 19 August 2026
 
 ---
 
@@ -1343,7 +1343,7 @@ Representative:
 
 ## Status
 
-⏳ NEXT PHASE
+⏳ ACTIVE — In Progress
 
 ## Goal
 
@@ -1436,7 +1436,7 @@ validate + pop
 
 Representative:
 
-- **LC 20 — Valid Parentheses**
+- **LC 20 — Valid Parentheses** ✅
 
 ---
 
@@ -1521,8 +1521,8 @@ Concepts:
 
 Representative:
 
-- **LC 150 — Evaluate Reverse Polish Notation**
-- **LC 224 — Basic Calculator** — optional advanced extension
+- **LC 150 — Evaluate Reverse Polish Notation** ✅
+- **LC 224 — Basic Calculator** — optional advanced extension ⏳
 
 ---
 
@@ -1530,7 +1530,7 @@ Representative:
 
 Major representative:
 
-- **LC 84 — Largest Rectangle in Histogram**
+- **LC 84 — Largest Rectangle in Histogram** ⏳
 
 Core derivation:
 
@@ -1548,7 +1548,7 @@ Monotonic Stack
 
 Optional deep extension:
 
-- **LC 85 — Maximal Rectangle**
+- **LC 85 — Maximal Rectangle** — optional ⏳
 
 ---
 
@@ -1593,7 +1593,9 @@ Need FIFO
 Queue
 ```
 
-Representative examples/problems will be selected according to demonstrated gaps.
+Representative:
+
+- **LC 933 — Number of Recent Calls** ⏳
 
 ---
 
@@ -1617,7 +1619,7 @@ nextIndex = (index + 1) % capacity
 
 Representative:
 
-- **LC 622 — Design Circular Queue**
+- **LC 622 — Design Circular Queue** ⏳
 
 The state conditions will be derived, not memorized.
 
@@ -1664,7 +1666,7 @@ Ordering Invariant
 
 Major application:
 
-- **LC 239 — Sliding Window Maximum**
+- **LC 239 — Sliding Window Maximum** ⏳
 
 Important connection:
 
@@ -1795,39 +1797,36 @@ This is a **candidate pool**, not a rigid mandatory 20-question list.
 
 Final selection depends on demonstrated mastery and coverage.
 
-#### Stack
+#### Stack — Already Completed ✅
 
-1. **LC 20 — Valid Parentheses**
-2. **LC 155 — Min Stack**
-3. **LC 682 — Baseball Game**
+1. **LC 20 — Valid Parentheses** ✅
+2. **LC 155 — Min Stack** ✅
+3. **LC 150 — Evaluate Reverse Polish Notation** ✅
+4. **LC 682 — Baseball Game** ✅
+5. **LC 496 — Next Greater Element I** ✅
 
-#### Monotonic Stack
+#### Stack — Remaining ⏳
 
-4. **LC 496 — Next Greater Element I**
-5. **LC 503 — Next Greater Element II**
-6. **LC 739 — Daily Temperatures**
-7. **LC 901 — Online Stock Span**
+6. **LC 503 — Next Greater Element II** ✅
+7. **LC 739 — Daily Temperatures** ⏳
+8. **LC 901 — Online Stock Span** ⏳
+9. **LC 84 — Largest Rectangle in Histogram** ⏳
+10. **LC 224 — Basic Calculator** — optional ⏳
 
-#### Expression / Parsing
+#### Histogram / Boundary — Optional Deepening
 
-8. **LC 150 — Evaluate Reverse Polish Notation**
-9. **LC 224 — Basic Calculator** — optional
+11. **LC 85 — Maximal Rectangle** — optional deepening ⏳
 
-#### Histogram / Boundary
+#### Queue ⏳
 
-10. **LC 84 — Largest Rectangle in Histogram**
-11. **LC 85 — Maximal Rectangle** — optional deepening
+12. **LC 933 — Number of Recent Calls** ⏳
+13. **LC 622 — Design Circular Queue** ⏳
 
-#### Queue
+#### Deque / Monotonic Queue ⏳
 
-12. **LC 933 — Number of Recent Calls**
-13. **LC 622 — Design Circular Queue**
+14. **LC 239 — Sliding Window Maximum** ⏳
 
-#### Deque / Monotonic Queue
-
-14. **LC 239 — Sliding Window Maximum**
-
-Additional problems may be selected when needed to reach complete phase coverage.
+Additional problems may be selected when needed to reach complete phase coverage. Target remains 15–20 problems; nothing is added artificially just to hit the number.
 
 ---
 
@@ -2005,7 +2004,11 @@ Representative LeetCode:
 - **LC 143 — Reorder List**
 - **LC 92 — Reverse Linked List II**
 - **LC 138 — Copy List with Random Pointer**
+- **LC 2 — Add Two Numbers**
+- **LC 82 — Remove Duplicates from Sorted List II**
+- **LC 61 — Rotate List**
 - **LC 23 — Merge k Sorted Lists** — advanced extension
+- **LC 25 — Reverse Nodes in k-Group** — advanced extension
 
 ## Problem Ladder
 
@@ -2092,8 +2095,12 @@ This is one of the most important unknown-problem recognition skills.
 - **LC 153 — Find Minimum in Rotated Sorted Array**
 - **LC 33 — Search in Rotated Sorted Array**
 - **LC 162 — Find Peak Element**
+- **LC 74 — Search a 2D Matrix**
 - **LC 875 — Koko Eating Bananas**
 - **LC 1011 — Capacity To Ship Packages Within D Days**
+- **LC 69 — Sqrt(x)**
+- **LC 540 — Single Element in a Sorted Array**
+- **LC 981 — Time Based Key-Value Store**
 - **LC 410 — Split Array Largest Sum** — advanced
 - **LC 4 — Median of Two Sorted Arrays** — interview-level extension
 
@@ -2296,6 +2303,8 @@ Always process the currently highest-priority item.
 - **LC 23 — Merge k Sorted Lists**
 - **LC 295 — Find Median from Data Stream**
 - **LC 621 — Task Scheduler**
+- **LC 767 — Reorganize String**
+- **LC 692 — Top K Frequent Words**
 - **LC 502 — IPO** — advanced
 
 ## Problem Ladder
@@ -2416,6 +2425,9 @@ For non-negative weighted shortest paths.
 - **LC 743 — Network Delay Time**
 - **LC 787 — Cheapest Flights Within K Stops**
 - **LC 1584 — Min Cost to Connect All Points**
+- **LC 721 — Accounts Merge**
+
+Additional multi-source BFS variations (beyond LC 994) may be selected as needed.
 
 ## Problem Ladder
 
@@ -2496,6 +2508,9 @@ Stop exploring branches that can no longer produce a valid answer.
 - **LC 79 — Word Search**
 - **LC 51 — N-Queens**
 - **LC 37 — Sudoku Solver**
+- **LC 17 — Letter Combinations of a Phone Number**
+- **LC 22 — Generate Parentheses**
+- **LC 216 — Combination Sum III**
 
 ## Problem Ladder
 
@@ -2569,6 +2584,8 @@ Understand why replacing a non-greedy choice with the greedy choice does not mak
 - **LC 57 — Insert Interval**
 - **LC 621 — Task Scheduler**
 - **LC 763 — Partition Labels**
+- **LC 406 — Queue Reconstruction by Height**
+- **LC 846 — Hand of Straights**
 
 ## Problem Ladder
 
@@ -2698,6 +2715,8 @@ The most important DP skill:
 - **LC 64 — Minimum Path Sum**
 - **LC 139 — Word Break**
 - **LC 494 — Target Sum**
+- **LC 152 — Maximum Product Subarray**
+- **LC 309 — Best Time to Buy and Sell Stock with Cooldown**
 - **LC 312 — Burst Balloons** — advanced
 - **LC 10 — Regular Expression Matching** — advanced
 
@@ -2788,6 +2807,11 @@ index += index & -index
 ```
 
 Use only after bit manipulation fundamentals are comfortable.
+
+### Representative
+
+- **LC 327 — Count of Range Sum**
+- **LC 493 — Reverse Pairs**
 
 ---
 
@@ -3159,12 +3183,20 @@ Graph
 
 - Hashing → 🔒 COMPLETED / LOCKED
 
+## Phase 3 — Linear Data Structures — ⏳ ACTIVE
+
+- Stack: 5/10 representative problems done (LC 20, 155, 150, 682, 496 ✅ | LC 503, 739, 901, 84, 224 ⏳)
+- Queue: 0/2 done (LC 933, 622 ⏳)
+- Deque: 0/1 done (LC 239 ⏳)
+
 ## Next
 
 ```text
 Deep Constraints + TC + SC Foundation  ⏳ ACTIVE
 ↓
-Phase 3 — Linear Data Structures
+Finish Phase 3 remaining problems
+↓
+Phase 4 — Linked List
 ```
 
 ## Phase 3
@@ -3252,19 +3284,19 @@ DEEP FOUNDATION
        inside every relevant problem.
 
 PHASE 3 — Linear ADTs  ⏳ ACTIVE
-    Stack ⏳ In Progress
-    Queue ⏳
-    Deque ⏳
+    Stack ⏳ In Progress (5/10 done)
+    Queue ⏳ (0/2 done)
+    Deque ⏳ (0/1 done)
 
-PHASE 4 — Linked List ⏳
-PHASE 5 — Binary Search ⏳
-PHASE 6 — Trees ⏳
-PHASE 7 — Heap ⏳
-PHASE 8 — Graphs ⏳
-PHASE 9 — Recursion & Backtracking ⏳
-PHASE 10 — Greedy ⏳
-PHASE 11 — Dynamic Programming ⏳
-PHASE 12 — Advanced Data Structures ⏳
+PHASE 4 — Linked List ⏳ (15 problems)
+PHASE 5 — Binary Search ⏳ (14 problems)
+PHASE 6 — Trees ⏳ (15 problems)
+PHASE 7 — Heap ⏳ (12 problems)
+PHASE 8 — Graphs ⏳ (14 problems)
+PHASE 9 — Recursion & Backtracking ⏳ (14 problems)
+PHASE 10 — Greedy ⏳ (14 problems)
+PHASE 11 — Dynamic Programming ⏳ (17 problems)
+PHASE 12 — Advanced Data Structures ⏳ (11 problems)
 ```
 
 **Roadmap Objective:**

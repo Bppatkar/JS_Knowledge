@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 # ⚔️ MASTER DSA ROADMAP
 
 ### Supreme Engineering Training System — Updated Official Roadmap
@@ -43,6 +45,8 @@
 
 ---
 
+<a id="core-philosophy"></a>
+
 # Core Philosophy
 
 ```text
@@ -78,7 +82,11 @@ Algorithm Derivation
 Code
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="learning-principles"></a>
 
 # Learning Principles
 
@@ -181,7 +189,11 @@ Algorithm Derivation
 Continue
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="permanent-phase-learning-method"></a>
 
 # 🔥 PERMANENT PHASE LEARNING METHOD
 
@@ -247,7 +259,11 @@ The selected problems collectively cover:
 - Interview thinking
 - Engineering connections
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="problem-ladder-rule"></a>
 
 # 🪜 PROBLEM LADDER RULE
 
@@ -272,7 +288,11 @@ Use more when:
 
 Never add problems merely to hit a number.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="difficulty-progression"></a>
 
 # 📈 DIFFICULTY PROGRESSION
 
@@ -335,7 +355,11 @@ Pseudocode
 Implementation
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="8020-algorithm-rule"></a>
 
 # 🧠 80/20 ALGORITHM RULE
 
@@ -369,7 +393,11 @@ The goal is:
 
 > "I can recognize and derive the small set of algorithms that repeatedly appear in unfamiliar problems."
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-0-engineering-thinking"></a>
 
 # PHASE 0 — ENGINEERING THINKING
 
@@ -833,7 +861,11 @@ Learn to explain:
 
 The goal is to explain why, not merely state the notation.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-1-linear-data-processing"></a>
 
 # PHASE 1 — LINEAR DATA PROCESSING
 
@@ -957,6 +989,8 @@ The goal is to explain why, not merely state the notation.
 
 ---
 
+<a id="phase-2-string-processing"></a>
+
 ## STRINGS — COMPLETED
 
 Strings were intentionally taught after Hashing because many important String interview problems become much easier with:
@@ -1068,7 +1102,11 @@ Focused String Problems:
 - ✅ LC 647 --- Palindromic Substrings
 - ✅ LC 424 --- Longest Repeating Character Replacement — String + Hash + Sliding Window
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-2-hashing"></a>
 
 # PHASE 2 — HASHING
 
@@ -1337,8 +1375,11 @@ Representative:
 - ✅ LC 15 --- 3Sum --- Hash approach discussion
 - ✅ LC 705 --- Design HashSet
 
+[⬆️ Back to Index](#top)
+
 ---
 
+<a id="phase-3-linear-data-structures-linear-adts"></a>
 # PHASE 3 — LINEAR DATA STRUCTURES / LINEAR ADTs
 
 ## Status
@@ -1762,7 +1803,6 @@ Useful for:
 - Streaming-style problems
 
 ---
-
 ## PHASE 3 — PATTERN COMPOSITION
 
 We will explicitly practice combinations such as:
@@ -1902,7 +1942,11 @@ Phase Lock
 Next Phase
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-4-linked-list"></a>
 
 # PHASE 4 — LINKED LIST
 
@@ -2020,7 +2064,11 @@ Maximum: 25
 
 Difficulty rises only after pointer manipulation becomes comfortable.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-5-binary-search"></a>
 
 # PHASE 5 — BINARY SEARCH
 
@@ -2111,7 +2159,11 @@ This is one of the most important unknown-problem recognition skills.
 Target ≈ 15–20
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-6-trees"></a>
 
 # PHASE 6 — TREES
 
@@ -2239,7 +2291,11 @@ Maximum: 25
 
 Trees require deeper coverage, so the ladder may naturally approach the maximum.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-7-heap-priority-queue"></a>
 
 # PHASE 7 — HEAP / PRIORITY QUEUE
 
@@ -2314,7 +2370,11 @@ Always process the currently highest-priority item.
 Target ≈ 15–20
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-8-graphs"></a>
 
 # PHASE 8 — GRAPHS
 
@@ -2439,7 +2499,11 @@ Maximum: 25
 
 Graphs require broad algorithm coverage, so deeper ladder coverage is expected.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-9-recursion-backtracking"></a>
 
 # PHASE 9 — RECURSION & BACKTRACKING
 
@@ -2519,7 +2583,11 @@ Stop exploring branches that can no longer produce a valid answer.
 Target ≈ 15–20
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-10-greedy"></a>
 
 # PHASE 10 — GREEDY
 
@@ -2594,7 +2662,11 @@ Understand why replacing a non-greedy choice with the greedy choice does not mak
 Target ≈ 15–20
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-11-dynamic-programming"></a>
 
 # PHASE 11 — DYNAMIC PROGRAMMING
 
@@ -2730,7 +2802,11 @@ Maximum: 25
 
 DP naturally needs deeper coverage.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="phase-12-advanced-data-structures"></a>
 
 # PHASE 12 — ADVANCED DATA STRUCTURES
 
@@ -2857,7 +2933,11 @@ Maximum: 25
 
 Depth depends on target interviews and demonstrated need.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="cross-phase-algorithm-connections"></a>
 
 # 🔗 CROSS-PHASE ALGORITHM CONNECTIONS
 
@@ -2925,7 +3005,11 @@ State Thinking
 
 The objective is a reusable mental library, not isolated tricks.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="leetcode-selection-rule"></a>
 
 # 📚 LEETCODE SELECTION RULE
 
@@ -2945,7 +3029,11 @@ Problem count is secondary.
 
 **Coverage + mastery > number of solved problems.**
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="ccrs-continuous-coding-retention-system"></a>
 
 # 🔄 CCRS — CONTINUOUS CODING RETENTION SYSTEM
 
@@ -2973,7 +3061,11 @@ Maximum:
 
 **30 minutes**
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="coding-support-rule"></a>
 
 # 🧑‍💻 CODING SUPPORT RULE
 
@@ -3007,7 +3099,11 @@ Dry Run
 Debugging
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="constraint-first-rule"></a>
 
 # 🎯 CONSTRAINT-FIRST RULE
 
@@ -3028,7 +3124,11 @@ Before selecting a pattern:
 
 Never choose a pattern merely because the problem "looks like" one.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="interview-thinking"></a>
 
 # 🎤 INTERVIEW THINKING
 
@@ -3070,7 +3170,11 @@ For important problems, practice explaining:
 
 > "What can break the algorithm?"
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="engineering-connection-rule"></a>
 
 # 🏗️ ENGINEERING CONNECTION RULE
 
@@ -3115,7 +3219,11 @@ Graph
 → Routing
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="roadmap-rules"></a>
 
 # 🔒 ROADMAP RULES
 
@@ -3170,7 +3278,11 @@ Graph
 
 24. This roadmap is the working DSA roadmap and follows the Supreme Engineering Training System.
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="current-progress"></a>
 
 # 🔐 CURRENT PROGRESS
 
@@ -3219,7 +3331,11 @@ Interview Thinking
 Phase Lock
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="master-learning-flow"></a>
 
 # 🧭 MASTER LEARNING FLOW
 
@@ -3265,7 +3381,11 @@ Phase Lock
 Move Forward
 ```
 
+[⬆️ Back to Index](#top)
+
 ---
+
+<a id="final-roadmap-status"></a>
 
 # 🔒 FINAL ROADMAP STATUS
 
@@ -3302,3 +3422,5 @@ PHASE 12 — Advanced Data Structures ⏳ (11 problems)
 **Roadmap Objective:**
 
 > Become capable of taking an unknown DSA problem, decoding its requirements and constraints, selecting the right Data Structure and 80/20 Algorithm, deriving the Pattern, implementing it in JavaScript, analyzing complexity, debugging it, and explaining the solution like an engineer.
+
+[⬆️ Back to Index](#top)

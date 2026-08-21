@@ -336,5 +336,259 @@ var nextGreaterElements = function (nums) {
   }
   return result;
 }
-console.log(nextGreaterElements([1, 2, 1])); // [2,-1,2]
-console.log(nextGreaterElements([1, 2, 3, 4, 3])); // [2,3,4,-1,4]
+// console.log(nextGreaterElements([1, 2, 1])); // [2,-1,2]
+// console.log(nextGreaterElements([1, 2, 3, 4, 3])); // [2,3,4,-1,4]
+
+//! Leetcode 739. Daily Temperatures
+var dailyTemperatures = function (temp) {
+  let n = temp.length;
+  let answer = new Array(n).fill(0);
+
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      if (temp[j] > temp[i]) { answer[i] = j - i; break; }
+    }
+  }
+
+  return answer;
+} // TC - O(n^2) SC - O(n)
+
+/* 
+Worst case mein agar temperatures decreasing hain: [80,79,78,77,76,...]
+Har element ke liye kya hoga? Kya har element ko almost poora remaining array scan karna padega? Is brute force ki TC kya hogi?
+---------------------------------------------
+Humara problem hai:
+
+[73, 74, 75, 71, 69, 72]
+
+Hum left → right ja rahe hain. Jab 72 par aaye:
+
+73  74  75  71  69  72
+             ↑   ↑   ↑
+            wait wait current
+
+71 aur 69 ko abhi tak warmer temperature nahi mila. Ab 72 aaya:
+
+69 ke liye → 72 warmer hai → answer 1
+71 ke liye → 72 warmer hai → answer 1
+75 ke liye → 72 warmer nahi hai → woh abhi wait karega
+Ab important point
+ 
+Humein previous unresolved days ko store karna hai. Aur jab naya temperature aaye, sabse pehle recent unresolved day ko 
+check karna natural hai:
+
+69 ← sabse recent
+71
+75 ← purana
+
+Agar 72 > 69: 69 → solve
+Phir: 72 > 71
+71 → solve
+Lekin 72 > 75 false, toh stop. 
+
+So question: Jo element last mein  store hua, wahi pehle bahar/process hona chahiye.
+Ye: LIFO hai ya FIFO?  - ans is LIFO - because most recent ya fir last mein store hua wo LIFO
+
+73 → stack = [73]
+74 → 74 > 73 → 73 solve → stack = [74]
+75 → 75 > 74 → 74 solve → stack = [75]
+71 → stack = [75,71]
+69 → stack = [75,71,69]
+72 → 
+      72 > 69 → solve
+      72 > 71 → solve
+      72 > 75 → false → stop
+*/
+
+//* Optimized Approach - Stack
+var dailyTemperatures = function (temp) {
+  let ans = new Array(temp.length).fill(0), stack = [];
+
+  for (let i = 0; i < temp.length; i++) {
+    let curr = temp[i];
+    while (stack.length > 0 && curr > temp[stack[stack.length - 1]]) {
+      let popped = stack.pop();
+      ans[popped] = i - popped;
+    }
+    stack.push(i);
+  }
+  return ans;
+}
+
+// console.log(dailyTemperatures([30, 60, 90])); // [1,1,0]
+// console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73])); // [1,1,4,2,1,1,0,0]
+// console.log(dailyTemperatures([30, 40, 50, 60])); // [1,1,1,0]
+
+//! Leetcodde 901. Online Stock Span
+
+var StockSpanner = function () {
+  this.stack = [];
+};
+
+/** 
+ * @param {number} price
+ * @return {number}
+*/
+StockSpanner.prototype.next = function (price) {
+  let span = 1;
+  while (this.stack.length > 0 && this.stack[this.stack.length - 1][0] <= price) { // we are comparing value
+    let popped = this.stack.pop();
+    span += popped[1];    // adding popped element span value in span
+  }
+  this.stack.push([price, span]); // we are adding value and span in stack
+  return span;
+};
+
+/** 
+ * Your StockSpanner object will be instantiated and called as such:
+ * var obj = new StockSpanner()
+ * var param_1 = obj.next(price)
+ */
+
+const stockSpanner = new StockSpanner();
+// console.log(stockSpanner.next(100));
+// console.log(stockSpanner.next(80));
+// console.log(stockSpanner.next(60));
+// console.log(stockSpanner.next(70));
+// console.log(stockSpanner.next(60));
+// console.log(stockSpanner.next(75));
+// console.log(stockSpanner.next(85));
+
+//! Leetcode 84. Largest Rectangle in Histogram
+/* 
+Brute Force Approach [Thinking]
+
+bar i = rectangle ki height
+↓
+left mein expand
+↓
+right mein expand
+↓
+jahan height < heights[i], stop
+↓
+width calculate
+↓
+area calculate
+*/
+var largestRectangleArea = function (heights) {
+  let n = heights.length, maxArea = 0;
+  for (let i = 0; i < n; i++) {
+    let height = heights[i], width = 1;
+    // we can expand left and right so we move firstly left and then right
+    for (let j = i - 1; j >= 0; j--) {
+      if (heights[j] >= height) width++;
+      else break;
+    }
+    // moving right
+    for (let j = i + 1; j < n; j++) {
+      if (heights[j] >= height) width++;
+      else break;
+    }
+    // now we have height and width so we can calculate area
+    let area = height * width;
+    maxArea = Math.max(maxArea, area);
+  }
+  return maxArea;
+} // TC- O(n^2) SC - O(1)
+
+//* Optimized Approach - Stack
+// In Brute Force we are scanning heights array again and again for each element to find left and right boundary that why its TC is O(n^2). 
+//? Question -  Har bar ke liye mujhe actually kaunsi information chahiye, jisse mujhe left aur right dono taraf scan na karna pade? 
+/* 
+Brute force mein hum dhoondh rahe the:
+
+Isliye brute force ka actual kaam
+
+Har i ke liye:
+
+height = heights[i]
+
+
+← left scan
+   jab tak heights[j] >= height
+
+
+→ right scan
+   jab tak heights[j] >= height
+
+
+width
+↓
+area
+------------------------------------------
+Aur conceptually hum boundary dhoondh rahe hain:
+Nearest Smaller on Left
++
+Nearest Smaller on Right
+*/
+/* 
+Example: [2, 1, 5, 6, 2, 3]
+Jab hum 5 dekhte hain: 5 → abhi iska right smaller nahi mila , To 5 ko yaad rakhna padega.
+
+Phir 6: 6 → iska bhi right smaller nahi mila
+To: pending: 
+5
+6
+
+Ab 2 aaya: 2 < 6 , To 6 ka right boundary mil gaya.
+Aur: 2 < 5, To 5 ka bhi right boundary mil gaya.
+
+Yahi main reason hai Stack ki need ka.
+--------------------------------
+Lekin Stack hi kyun? - Kyuki pending bars mein humein most recently encountered unresolved bar ko pehle resolve karna padta hai.
+
+Dekho:
+5
+6
+
+2 aaya.
+
+Pehle kaun resolve hoga? 6  ← latest / top
+Uske baad: 5
+
+Ye exactly: Last In → First Out
+yaani LIFO.
+*/
+// Instead we can use stack to find left and right boundary for each element in one pass. we are using stack to store the index of the elements in increasing order. when we find an element which is smaller than the top of the stack, we pop the stack and calculate the area for the popped element. we repeat this process until the stack is empty or the current element is greater than the top of the stack. finally we return the max area.
+
+var largestRectangleArea = function (heights) {
+  let n = heights.length, maxArea = 0, stack = [];
+
+  for (let i = 0; i < n; i++) {
+    // taking first elem to check if its smaller than top of stack or not
+    let curr = heights[i];
+    while (stack.length > 0 && curr < heights[stack[stack.length - 1]]) {
+      // if current element is smaller than top of stack, we pop the stack and calculate the area for the popped element
+      let popped = stack.pop();
+      let height = heights[popped];
+
+      let rightBoundary = i;
+      let leftBoundary = stack.length > 0 ? stack[stack.length - 1] : -1;
+      let width = rightBoundary - leftBoundary - 1;
+
+      let area = height * width;
+      maxArea = Math.max(maxArea, area);
+    }
+    stack.push(i);
+  }
+
+  // process remaining bars
+  while (stack.length > 0) {
+    let popped = stack.pop();
+    let height = heights[popped];
+
+    let rightBoundary = n; // last boundary because array ka end bhi boundary h
+    let leftBoundary = stack.length > 0 ? stack[stack.length - 1] : -1;
+    let width = rightBoundary - leftBoundary - 1;
+
+    let area = height * width;
+    maxArea = Math.max(maxArea, area);
+  }
+
+  return maxArea;
+}
+// TC: O(n) — each index stack mein ek baar push aur maximum ek baar pop hota hai.
+// SC: O(n) — stack.
+
+console.log(largestRectangleArea([2, 1, 5, 6, 2, 3])); // 10
+console.log(largestRectangleArea([2, 4])); // 0

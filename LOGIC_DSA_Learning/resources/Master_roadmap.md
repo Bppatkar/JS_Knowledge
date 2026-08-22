@@ -1380,6 +1380,7 @@ Representative:
 ---
 
 <a id="phase-3-linear-data-structures-linear-adts"></a>
+
 # PHASE 3 — LINEAR DATA STRUCTURES / LINEAR ADTs
 
 ## Status
@@ -1803,6 +1804,7 @@ Useful for:
 - Streaming-style problems
 
 ---
+
 ## PHASE 3 — PATTERN COMPOSITION
 
 We will explicitly practice combinations such as:
@@ -1848,9 +1850,9 @@ Final selection depends on demonstrated mastery and coverage.
 #### Stack — Remaining ⏳
 
 6. **LC 503 — Next Greater Element II** ✅
-7. **LC 739 — Daily Temperatures** ⏳
-8. **LC 901 — Online Stock Span** ⏳
-9. **LC 84 — Largest Rectangle in Histogram** ⏳
+7. **LC 739 — Daily Temperatures** ✅
+8. **LC 901 — Online Stock Span** ✅
+9. **LC 84 — Largest Rectangle in Histogram** ✅
 10. **LC 224 — Basic Calculator** — optional ⏳
 
 #### Histogram / Boundary — Optional Deepening
@@ -1859,8 +1861,8 @@ Final selection depends on demonstrated mastery and coverage.
 
 #### Queue ⏳
 
-12. **LC 933 — Number of Recent Calls** ⏳
-13. **LC 622 — Design Circular Queue** ⏳
+12. **LC 933 — Number of Recent Calls** ✅
+13. **LC 622 — Design Circular Queue** ✅
 
 #### Deque / Monotonic Queue ⏳
 

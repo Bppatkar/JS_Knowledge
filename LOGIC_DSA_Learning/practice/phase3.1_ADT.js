@@ -590,5 +590,232 @@ var largestRectangleArea = function (heights) {
 // TC: O(n) — each index stack mein ek baar push aur maximum ek baar pop hota hai.
 // SC: O(n) — stack.
 
-console.log(largestRectangleArea([2, 1, 5, 6, 2, 3])); // 10
-console.log(largestRectangleArea([2, 4])); // 0
+// console.log(largestRectangleArea([2, 1, 5, 6, 2, 3])); // 10
+// console.log(largestRectangleArea([2, 4])); // 0
+
+//!-------------------------------------------
+
+//! Queue
+// Complete Basic details and all operation of Queue
+//? Defination - Queue is a linear data structure which follows the First In First Out (FIFO) principle. It means that the element which is inserted first will be removed first. It is similar to a real-life queue where people wait in line for their turn.
+
+//? Operations of Queue
+// 1. Enqueue - It is the operation of adding an element to the end of the queue.
+// 2. Dequeue - It is the operation of removing an element from the front of the queue.
+
+//* Implementation of Queue using Array
+class Queue {
+  constructor() {
+    this.items = [];
+    this.head = 0;
+    this.tail = 0;
+  }
+
+  // Add an item to the end of the queue
+  enqueue(elem) {
+    this.items[this.tail] = elem;
+    this.tail++;
+  }
+
+  // Remove an item from the front of the queue
+  dequeue() {
+    if (this.isEmpty()) return null;
+    const item = this.items[this.head];
+    delete this.items[this.head]; // cleanup memory
+    this.head++;
+    return item; // return the removed item it is optional
+  }
+
+  // look at the front item of the queue without removing it
+  peek() {
+    if (this.isEmpty()) return null;
+    return this.items[this.head];
+  }
+
+  // Check if the queue is empty
+  isEmpty() {
+    return this.tail - this.head === 0;
+  }
+
+  // Get the size of the queue
+  length() {
+    return this.tail - this.head;
+  }
+}
+
+//* Implementation of Queue without Head and Tail pointer
+class Queue1 {
+  constructor() {
+    this.queue = [];
+  }
+
+  enqueue(elem) {
+    this.queue.push(elem);
+  }
+  dequeue() {
+    if (this.isEmpty()) return null;
+    return this.queue.shift(); // O(n) time complexity
+  }
+  peek() {
+    if (this.isEmpty()) return null;
+    return this.queue[0];
+  }
+  isEmpty() {
+    return this.queue.length === 0;
+  }
+  length() {
+    return this.queue.length;
+  }
+}
+
+// const taskQueue = new Queue();
+// taskQueue.enqueue("Email Client");
+// taskQueue.enqueue("Process Data");
+// taskQueue.enqueue("Generate Report");
+
+// console.log(taskQueue.dequeue()); // "Email Client"
+// console.log(taskQueue.peek()); // "Process Data"
+// console.log(taskQueue.length()); // 2
+
+
+//! Queue ka actual purpose -
+//* Queue tab choose karte hain jab requirement ho: - "Jo sabse pehle aaya hai, usko sabse pehle process karo." [BFS - in graph, tree, etc.], [CPU scheduling], [Print Queue], [Call Center] etc.
+
+//! Why we dont use shift 
+//* Javascript ka shift() method O(n) time complexity mein kaam karta hai, kyuki ye array ke first element ko remove karta hai aur baaki elements ko left shift kar deta hai. Isliye agar hum queue implement karte hain using array aur shift() use karte hain, toh har dequeue operation O(n) time lega. Isliye humne head aur tail pointers use kiye hain, jisse enqueue aur dequeue dono O(1) time mein ho jaye.
+// example - to solve this problem
+
+// let queue = new Queue();
+// let frontItem = queue.peek(); // null
+// queue.enqueue(1);
+// queue.enqueue(2);
+// queue.enqueue(3);
+
+// let dequeuedItem = queue[frontItem]; // 1
+// frontItem++; // move front pointer to next item
+// ab dequeue effectively O(1) time mein ho gaya hai, kyuki humne sirf front pointer ko increment kiya hai aur array ke elements ko shift nahi kiya hai.
+
+//! Leetcode 933. Number of Recent Calls
+var RecentCounter = function () {
+  this.queue = [];
+  this.head = 0;
+}
+RecentCounter.prototype.ping = function (t) {
+  this.queue.push(t);
+
+  while (this.head < this.queue.length && this.queue[this.head] < t - 3000) {
+    this.head++;
+  }
+  return this.queue.length - this.head;
+}
+
+//! without head and tail - using simple queue shift push etc.
+var RecentCounter = function () {
+  this.queue = [];
+}
+RecentCounter.prototype.ping = function (t) {
+  this.queue.push(t);
+
+  while (this.queue.length > 0 && this.queue[0] < t - 3000) {
+    this.queue.shift();
+  }
+  return this.queue.length;
+}
+
+//! Leetcode 622. Design Circular Queue
+/* 
+
+ State Tracking (Full vs Empty)
+ Circular Queue mein sabse tricky part hota hai Empty aur Full state ko distinguish karna.
+ Agar hum sirf head aur tail rakhein:
+ Queue Empty hai head === tail
+ Queue Full ho gayi (wrap hoke tail wapas head ke paas pahunch gaya) 
+  head === tail
+ Dono cases mein head === tail ho jata hai, jisse ambiguity create hoti hai.
+ Tum batao:Is ambiguity ko khatam karne ke liye hum class ke andar ek third variable kya maintain kar sakte hain jisse:isEmpty() check karna trivial ban jaye (O(1))
+ isFull() check karna trivial ban jaye O(1) Kaun sa variable aur uski initial value kya hogi?
+
+ Hint 1: Ek aisa variable socho jo count kare ki right now queue ke andar total kitne valid elements maujood hain.
+
+Jab hum enQueue karenge, yeh count +1 hoga.
+Jab hum deQueue karenge, yeh count -1 hoga.
+
+Tum batao:  Is count variable ka naam aur initial value (empty state par) kya honi chahiye?
+Agar max capacity k hai, toh: 
+isEmpty() ke liye condition kya banegi?
+isFull() ke liye condition kya banegi?
+
+count = 0 maan lene se:
+isEmpty() -> this.count === 0
+isFull() -> this.count === this.k
+Ambiguity clean ho gayi!
+*/
+
+class MyCircularQueue {
+  constructor(k) {
+    this.k = k;
+    this.queue = new Array(k);
+    this.head = 0;
+    this.tail = 0;
+    this.count = 0;
+  }
+}
+
+MyCircularQueue.prototype.enQueue = function (value) {
+  if (this.isFull()) return false;
+  this.queue[this.tail] = value;
+  this.tail = (this.tail + 1) % this.k;
+  this.count++;
+  return true;
+};
+MyCircularQueue.prototype.deQueue = function () {
+  if (this.isEmpty()) return false;
+  this.head = (this.head + 1) % this.k;
+  this.count--;
+  return true;
+};
+MyCircularQueue.prototype.Front = function () {
+  if (this.isEmpty()) return -1;
+  else return this.queue[this.head];
+};
+MyCircularQueue.prototype.Rear = function () {
+  // Agar queue empty nahi hai, toh last element this.tail - 1 index par hoga.
+  // Circular nature ke karan, agar this.tail = 0 hai, toh last element index this.k - 1 par hoga.
+  if (this.isEmpty()) return -1;
+  else return this.queue[(this.tail - 1 + this.k) % this.k];
+};
+MyCircularQueue.prototype.isEmpty = function () {
+  return this.count === 0;
+};
+MyCircularQueue.prototype.isFull = function () {
+  return this.count === this.k;
+};
+
+//! Leetcode 239. Sliding Window Maximum
+//* we are using deque here
+var maxSlidingWindow = function (nums, k) {
+  let q = [], i = 0, j = 0, result = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let curr = nums[i];
+
+    // remove elem out of curr window from front
+    /* 
+    Window ki range hoti hai [i - k + 1, j].
+Agar queue ke sabse aage baitha index q[0] is range se pehle ka hai (q[0] < i - k + 1 ya q[0] <= i - k), toh usko aage se nikaalna hoga
+     */
+    if (q.length > 0 && q[0] <= i - k) q.shift();
+
+    // maintain monotonic decreasing order from back
+    while (q.length > 0 && curr > nums[q[q.length - 1]]) { q.pop(); }
+
+    // adding current index
+    q.push(i);
+
+    // collect answer once window size reaches k
+    if (i >= k - 1) result.push(nums[q[0]])
+
+  }
+  return result;
+}
+console.log(maxSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3)); // [3,3,5,5,6,7]

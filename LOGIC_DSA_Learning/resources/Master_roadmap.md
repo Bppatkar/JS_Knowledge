@@ -1853,20 +1853,20 @@ Final selection depends on demonstrated mastery and coverage.
 7. **LC 739 — Daily Temperatures** ✅
 8. **LC 901 — Online Stock Span** ✅
 9. **LC 84 — Largest Rectangle in Histogram** ✅
-10. **LC 224 — Basic Calculator** — optional ⏳
+10. **LC 224 — Basic Calculator** — optional ✅
 
 #### Histogram / Boundary — Optional Deepening
 
 11. **LC 85 — Maximal Rectangle** — optional deepening ⏳
 
-#### Queue ⏳
+#### Queue ✅
 
 12. **LC 933 — Number of Recent Calls** ✅
 13. **LC 622 — Design Circular Queue** ✅
 
-#### Deque / Monotonic Queue ⏳
+#### Deque / Monotonic Queue ✅
 
-14. **LC 239 — Sliding Window Maximum** ⏳
+14. **LC 239 — Sliding Window Maximum** ✅
 
 Additional problems may be selected when needed to reach complete phase coverage. Target remains 15–20 problems; nothing is added artificially just to hit the number.
 

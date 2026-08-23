@@ -819,3 +819,50 @@ Agar queue ke sabse aage baitha index q[0] is range se pehle ka hai (q[0] < i - 
   return result;
 }
 console.log(maxSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3)); // [3,3,5,5,6,7]
+
+//! Leetcode 224. Basic Calculator
+var calculate = function (s) {
+  let result = 0, currNum = 0, sign = 1, stack = [];
+
+  for (let i = 0; i < s.length; i++) {
+    let ch = s[i];
+
+    // Case 1: - Digit find
+    if (ch >= '0' && ch <= '9') {
+      currNum = currNum * 10 + Number(ch);
+    }
+
+    // Case 2: - "+" ya '-' mila
+    else if (ch === '+' || ch === '-') {
+      result += sign * currNum;
+      currNum = 0;
+      sign = ch === "+" ? 1 : -1;
+    }
+
+    // Case 3: '(' mila
+    else if (ch === '(') {
+      stack.push(result);
+      stack.push(sign);
+      result = 0;
+      sign = 1;
+    }
+
+    // Case 4: ')' mila
+    else if (ch === ')') {
+      result += sign * currNum;
+      currNum = 0;
+
+      let prevSign = stack.pop();
+      let prevResult = stack.pop();
+
+      result = prevResult + (prevSign * result);
+    }
+  }
+  // last bacha hua number
+  result += sign * currNum;
+
+  return result;
+}
+console.log(calculate("1 + 1")); // 2
+console.log(calculate(" 2-1 + 2 ")); // 3
+console.log(calculate("(1+(4+5+2)-3)+(6+8)")); // 23

@@ -2040,16 +2040,17 @@ fast → 2 steps
 
 Representative LeetCode:
 
-- **LC 1290 — Convert Binary Number in a Linked List to Integer**
-- **LC 83 — Remove Duplicates from Sorted List**
-- **LC 203 — Remove Linked List Elements**
-- **LC 876 — Middle of the Linked List**
-- **LC 160 — Intersection of Two Linked Lists**
-- **LC 141 — Linked List Cycle**
-- **LC 206 — Reverse Linked List**
-- **LC 21 — Merge Two Sorted Lists**
-- **LC 142 — Linked List Cycle II**
-- **LC 19 — Remove Nth Node From End of List**
+- **LC 1290 — Convert Binary Number in a Linked List to Integer** ✅
+- **LC 83 — Remove Duplicates from Sorted List** ✅
+- **LC 203 — Remove Linked List Elements** ✅
+- **LC 876 — Middle of the Linked List** ✅
+- **LC 160 — Intersection of Two Linked Lists** ✅
+- **LC 141 — Linked List Cycle** ✅
+- **LC 206 — Reverse Linked List** ✅
+- **LC 234 — Palindrome Linked List** ✅
+- **LC 21 — Merge Two Sorted Lists** ✅
+- **LC 19 — Remove Nth Node From End of List** ✅
+- **LC 142 — Linked List Cycle II** ✅
 - **LC 143 — Reorder List**
 - **LC 92 — Reverse Linked List II**
 - **LC 138 — Copy List with Random Pointer**

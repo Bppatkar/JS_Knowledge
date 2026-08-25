@@ -282,3 +282,302 @@ var getIntersectionNodeOptimized = function (headA, headB) {
   }
   return pointerA;
 }
+
+//! Leetcode 141. Linked List Cycle [Floyd's Cycle-Finding Algorithm]
+//* Bruteforce using set
+var hasCycle = function (head) {
+  let visited = new Set();
+  let curr = head;
+  while (curr != null) {
+    if (visited.has(curr)) return true;
+    else {
+      visited.add(curr);
+    }
+    curr = curr.next;
+  }
+  return false;
+} // TC - O(n) and SC - O(n)
+
+//* Optimise one
+var hasCycle = function (head) {
+  let slow = head, fast = head;
+  while (fast != null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow === fast) return true;
+  }
+  return false;
+}
+
+//! Leetcode 206. Reverse Linked List
+var reverseList = function (head) {
+  let prev = null, curr = head;
+
+  while (curr != null) {
+    let next = curr.next;
+    curr.next = prev; // fliping the arrow from R to L
+    prev = curr;
+    curr = next;
+  }
+
+  // Yeh loop tab tak chalega jab tak curr !== null ho.
+  // Jab curr null par chala jayega, toh sabse aakhri dabba kiske paas hoga? prev ke paas.
+  return prev;
+}
+
+//!===========================
+//*===========================
+/* 
+Abhi Tak Ka Level Check: -
+///? Tumne Singly Linked List ke 4 core foundational patterns successfully code kar liye hain:
+
+1- Basic Traversal & Logic: Binary to Integer (LC 1290) & Remove Duplicates (LC 83)
+2- Sentinel / Dummy Node Technique: Remove Elements (LC 203)
+3- Two-Pointer Fast & Slow: Middle of List (LC 876) & Cycle Detection (LC 141)
+4- Pointer Inversion (In-place Reversal): Reverse List (LC 206)
+
+*/
+//*===========================
+//!===========================
+
+//! Leetcode 234. Palindrome Linked List
+//* bruteforce [two pointer with extra space array]
+var isPalindrome = function (head) {
+  let arr = [], left = 0;
+  let curr = head;
+  while (curr != null) {
+    arr.push(curr.val);
+    curr = curr.next;
+  }
+  let right = arr.length - 1;
+  while (left < right) {
+    if (arr[left] !== arr[right]) return false;
+    left++; right--;
+  }
+  return true;
+}
+
+//* wihtout extra space [Optimise One]
+// 1- finding middle with fast slow pointer
+// 2- reverse half part [second one]
+// 3- compare [one pointer fast half starting, second pointer second half starting move 1-1 step]
+var isPalindrome = function (head) {
+  // 1. Find Middle
+  let slow = head, fast = head;
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // 2. Reverse Second Half [after reverse slow become null and head is now on  prev]
+  let prev = null;
+  while (slow != null) {
+    let next = slow.next;
+    slow.next = prev;
+    prev = slow;
+    slow = next;
+  }
+
+  // 3. Compare First Half and Reversed Second Half
+  let left = head, right = prev;
+  while (prev !== null) {
+    if (left.val != right.val) return false;
+    left = left.next;
+    right = right.next;
+  }
+  return true;
+}
+
+
+//! Leetcode 21. Merge Two Sorted Lists
+var mergeTwoLists = function (list1, list2) {
+  let dummyNode = new ListNode(-1);
+  let curr = dummyNode;
+
+  while (list1 != null && list2 != null) {
+    if (list1.val <= list2.val) {
+      curr.next = list1;
+      list1 = list1.next;
+    }
+    else {
+      curr.next = list2;
+      list2 = list2.next;
+    }
+
+    curr = curr.next;
+  }
+
+  // rest of value putting in ListNode
+  // in linkedlist no need to run loop, just write this and rest of item automatically added to the listnode
+  curr.next = list1 || list2;
+
+  return dummyNode.next;
+}
+
+//! Leetcode 19. Remove Nth Node From End of List
+/* 
+1. Length Count Approach (Two-Pass)
+Goal: Pehle pata karo total dabbe kitne hain, fir aage se target position calculate karo.
+
+Steps:
+1- Safety: dummyNode ko head se jodo (taaki agar pehla dabba delete ho, toh list safe rahe).
+2- Pass 1 (Length): head se chalkar asli list ki total length (L) count karo.
+3- Target Calculation: Peeche se n-th dabba matlab aage se (L - n) steps.
+4- Pass 2 (Reach Target-1): dummyNode se exactly (L - n) kadam aage chalo. Tu theek us dabbe par rukega jiske aage wale ko delete karna hai.
+5- Bypass & Return: curr.next = curr.next.next karke target ko delete karo aur dummyNode.next return karo.Complexity: Time: O(N) (2-pass), Space: O(1)
+*/
+var removeNthFromEnd = function (head, n) {
+
+  let dummyNode = new ListNode(-1, head);
+
+  let length = 0, curr = head;
+
+  while (curr != null) {
+    curr = curr.next; length++;
+  }
+
+  curr = dummyNode;
+  let counter = length - n;
+
+  while (counter > 0) {
+    curr = curr.next;
+    counter--;
+  }
+  curr.next = curr.next.next;
+  return dummyNode.next;
+};
+
+//* Next approch
+/* 
+2. Fast & Slow Pointer Approach (One-Pass / Fixed Gap)
+
+Goal: Bina length jaane, do pointers ke beech n steps ki doori bana do taaki end par pahunchte hi target mil jaye.
+
+Steps:
+1- Safety: Dono pointers (pA aur pB) ko dummyNode par khada karo.
+2- Create Gap: pB ko pehle hi n kadam aage bhej do (dono ke beech n ka fixed gap ban gaya).
+3- Move Together: Dono ko 1-1 kadam aage badhao jab tak pB.next !== null na ho jaye.
+
+pB.next !== null tak kyun chalana hai? Agar while (pB !== null) chalaya to:
+- pB aakhri node ke bhi paar chalkar null par rukega (1 extra step).
+- Isse pA bhi 1 step aage nikal kar theek usi node par khada ho jayega jise delete karna hai — jahan se delete karna impossible ho jata hai.
+- Isliye while (pB.next !== null) chalate hain: Taaki pB list ke last valid node par hi ruk jaye, null par na jaye. Aur pA theek deletion wale node ke 1 kadam peeche (previous node par) ruk sake, jahan se pA.next = pA.next.next safely ho sake.
+
+
+4- Target Lock: Jaise hi pB aakhri node par rukega, pA theek deletion wale node ke pichhle dabbe par khada hoga.
+5- Bypass & Return: pA.next = pA.next.next karo aur dummyNode.next return karo.Complexity: Time: O(N) (1-pass), Space: O(1)
+*/
+
+var removeNthFromEnd = function (head, n) {
+  let dummyNode = new ListNode(-1, head);
+  let pA = dummyNode, pB = dummyNode;
+
+  while (n > 0) {
+    pB = pB.next;
+    n--;
+  }
+
+  while (pB.next != null) {
+    pA = pA.next;
+    pB = pB.next;
+  }
+  pA.next = pA.next.next;
+
+  return dummyNode.next;
+}
+
+//! Leetcode 142. Linked List Cycle II
+//* Same as lc 141 we solved using set [we need to return the node, to curr hi return kr denge because wo node ka address hoga jahan cycle start ho rahi hai,  otherwise false return kr denge]
+var detectCycle = function (head) {
+  let visited = new Set();
+  let curr = head;
+  while (curr != null) {
+    if (visited.has(curr)) return curr;
+    else {
+      visited.add(curr);
+    }
+    curr = curr.next;
+  }
+  return null;
+}; // TC - O(n) and SC - O(n)
+
+//* Optimise one [Floyd's Cycle-Finding Algorithm] - (O(1))
+/* 
+///! Floyd's Cycle Finding Algorithm (Cycle II — Entry Point)
+
+Pattern Name: Two-Pointer (Slow & Fast / Tortoise & Hare)
+
+Problem Type: Find the starting node of a cycle in O(N) time and O(1) space.
+
+Tune socha: Fast ek cycle complete karke last par pahunchega aur entry point kaise nikaalein.
+Aao isko mathematical geometry se dekhte hain:
+
+Plaintext:
+
+  L1 (Seedha rasta)          L2 (Milne tak)
+[head] -------------------> [Entry] -------------> [Meeting Point]
+                              ↑                          |
+                              +--------------------------+
+                                      L3 (Bacha hua)
+
+Maan lo:
+
+- head se lekar Cycle ke Entry point tak ka seedha distance = L_1
+- Entry point se lekar jahan slow aur fast takraye (Meeting Point) tak ka distance = L_2
+- Meeting Point se wapas Entry point tak ka cycle ka bacha hua hissa = L_3
+
+Ab dhyan se dekho: slow ne total kitni doori chali?
+
+distSlow = L_1 + L_2
+
+Fast ne double doori chali:  distFast = 2 * (L_1 + L_2) = 2L_1 + 2L_2
+
+Lekin fast ne asal mein cycle ke chakkar kaat kar doori chali:
+
+distFast = L_1 + L_2 + {Cycle} = L_1 + L_2 + (L_2 + L_3)
+
+Dono equations ko equate karo: 2L_1 + 2L_2 = L_1 + 2L_2 + L_3 = L_1 = L_3 Iska Asal Matlab Kya Hai? 
+
+L_1 = L_3 ka matlab:
+
+head se Entry tak ki doori (L_1) theek barabar hai Meeting Point se Entry tak ki doori (L_3) ke!
+
+Core Intuition:
+Head se entry tak ki doori = meeting point se entry tak ki doori (L_1 = L_3).
+
+Algorithm (2-Phase Rule):
+
+Phase 1 (Detect Loop):
+  1. Slow ko 1 step aur fast ko 2 step chalao.
+  2. Agar fast ya fast.next null ho gaya --> no cycle, return null.
+  3. Jaise hi slow === fast ho gaya --> loop mil gaya, Phase 2 par chalo.
+
+Phase 2 (Find Entry Gate):
+  1. Ek pointer p1 = head par set karo.
+  2. Doosra pointer p2 = slow (meeting point) par rehne do.
+  3. Dono ko 1-1 step aage badhao jab tak p1 !== p2.
+  4. Jahan dono milenge (p1 === p2), wahi cycle ka starting node hoga --> return p1.
+*/
+
+var detectCycle = function (head) {
+  let slow = head, fast = head;
+
+  // 1. finding meeting point
+  while (fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    if (slow === fast) {
+      // 2. finding entry point
+      let p1 = head, p2 = slow;
+
+      while (p1 != p2) {
+        p1 = p1.next;
+        p2 = p2.next;
+      }
+      return p1; // returning the entry point of the cycle
+    }
+  }
+
+  return null;
+}

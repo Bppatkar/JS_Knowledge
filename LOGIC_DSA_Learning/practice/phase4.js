@@ -578,6 +578,116 @@ var detectCycle = function (head) {
       return p1; // returning the entry point of the cycle
     }
   }
-
   return null;
 }
+
+//! Leetcode 143. Reorder List
+// 1. finding middle [slow,fast]
+// 2. reverse second half
+// 3. merge/Interleave both list like
+/* 
+L1: 1 -> 2 -> 3
+L2: 5 -> 4 -> 3
+
+zip/interleave One by one: 1 -> 5 -> 2 -> 4 -> 3
+Pointers kaise chalenge:
+
+1 ka .next jod do 5 se.
+5 ka .next jod do 2 se.
+2 ka .next jod do 4 se...
+
+Agar tu karega p1.next = p2 (1 ko 5 se joda): Toh 1 ka purana connection 2 ke sath toot jayega!
+Isliye pehle 2 ko kisi temporary variable (temp1) mein save karna padega.
+
+Agar tu karega p2.next = temp1 (5 ko 2 se joda): Toh 5 ka purana connection 4 ke sath toot jayega!
+
+Isliye pehle 4 ko bhi kisi temporary variable (temp2) mein save karna padega.
+Uske baad dono ko aage shift kar do: p1 = temp1 aur p2 = temp2.
+
+Hume sirf 2 naye dhage (pointers) baandhne hain har iteration mein:
+
+p1.next = p2; (Pehle list ke bande ko doosri list ke bande se joda: 1 -> 5)
+
+p2.next = p1Temp; (Doosri list ke bande ko pehli list ke bache hue hisse se joda: 5 -> 2)
+
+Bas! p1Temp ka aage ka connection abhi mat chhedo, wo agli iteration mein khud handle hoga
+
+
+Yeh loop kab tak chalega? Jab tak p2.next !== null na ho jaye. because last mein same value hue to like p1 = 3 and p2 = 3 to check krne mein infinite loop ban jayega because 3.next = 3 -> cycle start. isiliye p2.next check karege
+
+*/
+var reorderList = function (head) {
+  // finding middle
+  let slow = head, fast = head;
+  while (fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // reversing the second half now slow is on middle
+  let prev = null; curr = slow;
+  while (curr != null) {
+    let next = curr.next;
+    curr.next = prev; // fliping the arrow from R to L
+    prev = curr;
+    curr = next;
+  }
+  // now head of reverse if prev
+  // now we have two heads 
+  let p1 = head, p2 = prev;
+
+  // merging
+  while (p2.next != null) {
+    let p1Temp = p1.next;
+    let p2Temp = p2.next;
+
+    p1.next = p2;
+    p2.next = p1Temp;
+
+    p1 = p1Temp;
+    p2 = p2Temp;
+  }
+}
+
+//! Leetcode 92. Reverse Linked List II
+/* 
+Agar left = 1 ho (yaani pehla node hi reverse section ka hissa ho), toh head badal sakta hai. Uske liye kya use karega? - dummyNode yr
+
+we start reversing from left, so we create variable prevLeft and that start with left-1, to jahan s left start ho rha uske phle ki node hm store kr lenge
+and Ab prevLeft (1) ko kis se jodega taaki nayi sublist connect ho jaye? (1.next = ? ans is 4 se and 
+
+aur reversed zone ke purane start (2) ko kis se jodega taaki aage ki bachi list (5) connect ho jaye? (2.next = ?) ans is 5 se 
+ */
+var reverseBetween = function (head, left, right) {
+  let dummy = new ListNode(-1, head);
+  let prevLeft = dummy;
+
+  // 1. Reaching (left - 1)th position
+  for (let i = 0; i < left - 1; i++) {
+    prevLeft = prevLeft.next;
+  }
+
+  // 2. Saving pointers before reversing
+  let subListHead = prevLeft.next; // Yehi node reverse hone ke baad sublist ki tail banega (Node 2)
+  let curr = prevLeft.next;
+  let prev = null;
+
+  // 3. Reversing standard sublist
+  // Total nodes to reverse = (right - left + 1)
+  let count = right - left + 1;
+  while (count > 0) {
+    let next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+    count--;
+  }
+
+  // 4. Rewiring (Dono ends ko baaki list se jodna)
+  prevLeft.next = prev;     // Node 1 ko naye sublist head (Node 4) se joda
+  subListHead.next = curr;  // Purani tail (Node 2) ko aage bachi hui list (Node 5) se joda
+
+  return dummy.next;
+}; // TC - O(n) beacause hmne 1 se right tak travel kiya and SC - O(1)
+
+//! Leetcode 138. Copy List with Random Pointer

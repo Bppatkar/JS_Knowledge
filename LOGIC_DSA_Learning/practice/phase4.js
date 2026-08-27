@@ -1,4 +1,6 @@
 //! LinkedList
+
+
 /*
 1. 4 dabbe banao jinki values hon: 5, 15, 25, 35.
 2. Un chaaron ko aapas mein next se jodo.  
@@ -179,6 +181,41 @@ while (curr !== null) {
 Yeh notes repository ya topic notes mein save kar sakte ho.
  */
 //-----------------------------------------------
+
+//* DummyNode
+/* 
+Dummy Node Kyun Banate Hain? (The Real Reason)
+Linked List mein ek bohot badi majboori hoti hai: Kisi bhi node ko delete ya insert karne ke liye, tumhe uske theek pichhle wale node (Previous Node) par khada hona padta hai.
+
+Lekin Head ke peeche koi nahi hota!
+
+Is wajah se 2 badi problems aati hain jinhe Dummy Node chutki mein solve karta hai:
+
+Reason 1: "Agar Pehla Dabba (Head) Hi Badal Jaye Ya Delete Ho Jaye?"
+Soch agar list hai [1 -> 1 -> 2] aur tujhe duplicate 1 ko delete karna hai:
+
+Yahan pehla dabba hi delete ho raha hai, toh naya head kaun banega?
+
+Agar dummy nahi lagaya, toh tujhe code mein alag se if-else ki line likhni padegi: "Agar head delete hua toh head = head.next karo, agar beech ka hua toh prev.next = curr.next karo."
+
+Dummy Node ka magic: Hum head ke peeche ek fake bodyguard khada kar dete hain (dummy -> [1] -> [1] -> [2]). Ab head pehla dabba bacha hi nahi! Wo ban gaya doosra dabba. Ab har dabbe ke peeche koi na koi khada hai, toh alag se edge case likhne ki zaroorat hi khatam.
+
+Reason 2: "Jab Hume Ek Nayi List Banani Ho" (Jaise LC 2 / LC 21)
+Jab do lists ko add ya merge karke ek nayi list banate hain:
+
+Bina Dummy ke dikkat: Pehla dabba banate waqt newHead save karo, fir aage ke liye curr.next karo. Har step par check karo: "Kya yeh pehla node hai ya baad wala?"
+
+Dummy Node ke saath: Hum shuruat mein hi ek khali dabba dummy = new ListNode(-1) rakh dete hain aur bina kisi tension ke curr.next = new ListNode(...) jodte chale jaate hain.
+
+Aakhri mein asli list kahan se shuru hoti hai? Seedha dummy.next se!
+
+Golden Rule: Dummy Node sirf ek Safe Anchor hai jo code se gande if-else edge cases ko hatata hai aur poore code ko clean banata hai.
+
+Ab aate hain roadmap ke agle question par jahan Dummy Node ka sabse tagda use hota hai:
+*/
+
+//-----------------------------------------------
+
 
 
 //! Leetcode 1290. Convert Binary Number in a Linked List to Integer
@@ -691,3 +728,176 @@ var reverseBetween = function (head, left, right) {
 }; // TC - O(n) beacause hmne 1 se right tak travel kiya and SC - O(1)
 
 //! Leetcode 138. Copy List with Random Pointer
+// using map
+/**
+ * // Definition for a _Node.
+ * function _Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */ // naya node banane ke liye new _Node(val) likha jata hai.
+var copyRandomList = function (head) {
+  if (head === null) return null;
+
+  let map = new Map();
+  let curr = head;
+
+  // 1. Har original node ka clone banakar Map mein store karo
+  while (curr !== null) {
+    map.set(curr, new _Node(curr.val));
+    curr = curr.next;
+  }
+
+  // 2. Har clone node ke next aur random pointers ko set karo
+  curr = head;
+  while (curr !== null) {
+    let cloneNode = map.get(curr);
+    cloneNode.next = map.get(curr.next) || null;
+    cloneNode.random = map.get(curr.random) || null;
+    curr = curr.next;
+  }
+  return map.get(head);
+} // TC - O(n) and SC - O(n) because of map
+
+///* without extra space [Optimise one] - (O(1))
+//* Isme bina HashMap use kiye hum list ke nodes ke beech mein hi duplicate ghusa dete hain:
+/* 
+Step 1 (Duplicate Insert): Har node ke theek aage uska clone ghusao -->  A -> A' -> B -> B' -> C -> C'.
+
+Step 2 (Random Connect): Agar curr.random exist karta hai, toh clone ka random theek uske aage wala node hoga --> random = curr.random.next.
+
+Step 3 (Separate Lists): Dono intertwined lists ko alag-alag split karke clone list ka head return karo.
+*/
+
+var copyRandomList = function (head) {
+  if (!head) return null;
+
+  //1. Har node ke aage uska clone insert karo
+  let curr = head;
+  while (curr) {
+    let copy = new _Node(curr.val, curr.next, null);
+    curr.next = copy;
+    curr = copy.next;
+  }
+
+  // 2. clone nodes ke random pointers set karo
+  curr = head;
+  while (curr) {
+    if (curr.random) {
+      curr.next.random = curr.random.next;
+    }
+    curr = curr.next.next; // Move to the next original node
+  }
+
+  // 3. Original aur clone list ko alag karo
+  curr = head;
+  let clonedHead = head.next;
+  while (curr) {
+    let copy = curr.next;
+    curr.next = copy.next;  // Restore original list
+    if (copy.next) {
+      copy.next = copy.next.next; // Set next for cloned list
+    }
+    curr = curr.next; // Move to the next original node
+  }
+  return clonedHead;
+}; // TC - O(n) and SC - O(1)
+
+//! Leetcode 2. Add Two Numbers
+var addTwoNumbers = function (l1, l2) {
+  let ans = new ListNode(-1);
+  let ansHead = ans;
+
+  let carry = 0;
+
+  // Loop tab tak jab tak koi list ya carry bacha ho
+  while (l1 !== null || l2 !== null || carry > 0) {
+    let val1 = l1 ? l1.val : 0;
+    let val2 = l2 ? l2.val : 0;
+
+    let sum = val1 + val2 + carry;
+    carry = Math.floor(sum / 10); // Agle round ke liye carry
+
+    let digit = sum % 10;
+
+    let newNode = new ListNode(digit); // Result node
+    ans.next = newNode;
+    ans = ans.next;
+
+    if (l1) l1 = l1.next;
+    if (l2) l2 = l2.next;
+  }
+  return ansHead.next;
+
+}
+
+//! Leetcode 82. Remove Duplicates from Sorted List II
+var deleteDuplicates = function (head) {
+  // first elem hi delete krna pada to return kya kroge isiliye dummynode lagaya and head se connect kiya
+  let dummyNode = new ListNode(-1, head);
+  let prev = dummyNode;
+
+  let curr = head;
+  while (curr != null) {
+
+    // checking duplicate - 
+    if (curr.next !== null && curr.val === curr.next.val) {
+      // agar same values hai to aage badhate jao 
+      while (curr.next !== null && curr.val === curr.next.val) {
+        curr = curr.next; // aisa krte krte abhi curr ki value 3 par h
+      }
+
+      // yaha curr ki value last wale 3 par h to prev ko badhao or last wale 3 k bad 4 par jump kra do but remember dont move prev because it might be possible ki next value bhi duplicate ho
+      prev.next = curr.next;
+    }
+
+    // if no duplicate to unique hi h
+    else prev = prev.next;
+
+    // alge node par chalo
+    curr = curr.next;
+  }
+  return dummyNode.next;
+}  // TC - O(n) and SC - O(1)
+
+
+
+//! Leetcode 61. Rotate List
+var rotateRight = function (head, k) {
+  // edge case: Empty list ya single node
+  if (!head || !head.next || k === 0) return head;
+
+
+  // calculate the length and stand on the last node (tail)
+  let length = 1;
+  let tail = head;
+
+  while (tail.next !== null) {
+    tail = tail.next;
+    length++;
+  }
+
+  // removing extra rotation
+  k = k % length;
+  if (k === 0) return head;
+
+  // creating ring [by adding tail from head]
+  tail.next = head;
+
+  // now going to new tail - by from head to length - k - 1 
+  let steps = length - k - 1;
+  let newTail = head;
+
+  while (steps > 0) {
+    newTail = newTail.next;
+    steps--;
+  }
+
+  // breaking ring by creating/holding newHead
+  let newHead = newTail.next;
+  // and now tail .next become null, and we aleady added last pointer into head
+  newTail.next = null;
+
+  return newHead;
+}

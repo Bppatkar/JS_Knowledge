@@ -2051,12 +2051,12 @@ Representative LeetCode:
 - **LC 21 — Merge Two Sorted Lists** ✅
 - **LC 19 — Remove Nth Node From End of List** ✅
 - **LC 142 — Linked List Cycle II** ✅
-- **LC 143 — Reorder List**
-- **LC 92 — Reverse Linked List II**
-- **LC 138 — Copy List with Random Pointer**
-- **LC 2 — Add Two Numbers**
-- **LC 82 — Remove Duplicates from Sorted List II**
-- **LC 61 — Rotate List**
+- **LC 143 — Reorder List** ✅
+- **LC 92 — Reverse Linked List II** ✅
+- **LC 138 — Copy List with Random Pointer** ✅
+- **LC 2 — Add Two Numbers** ✅
+- **LC 82 — Remove Duplicates from Sorted List II** ✅
+- **LC 61 — Rotate List** ✅
 - **LC 23 — Merge k Sorted Lists** — advanced extension
 - **LC 25 — Reverse Nodes in k-Group** — advanced extension
 

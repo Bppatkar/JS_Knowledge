@@ -4,9 +4,9 @@
 
 ### Supreme Engineering Training System — Updated Official Roadmap
 
-**Version:** 12.2
+**Version:** 12.3
 **Status:** 🔒 LOCKED
-**Update Date:** 19 August 2026
+**Update Date:** 28 August 2026
 
 ---
 
@@ -24,6 +24,7 @@
 - [PHASE 3 — LINEAR DATA STRUCTURES / LINEAR ADTs](#phase-3-linear-data-structures-linear-adts)
 - [PHASE 4 — LINKED LIST](#phase-4-linked-list)
 - [PHASE 5 — BINARY SEARCH](#phase-5-binary-search)
+- [PHASE 5B — SORTING & SEARCHING (PARALLEL TRACK)](#phase-5b-sorting-searching-parallel-track)
 - [PHASE 6 — TREES](#phase-6-trees)
 - [PHASE 7 — HEAP / PRIORITY QUEUE](#phase-7-heap-priority-queue)
 - [PHASE 8 — GRAPHS](#phase-8-graphs)
@@ -40,6 +41,7 @@
 - [🏗️ ENGINEERING CONNECTION RULE](#engineering-connection-rule)
 - [🔒 ROADMAP RULES](#roadmap-rules)
 - [🔐 CURRENT PROGRESS](#current-progress)
+- [🔑 SECRET KEY — CONTINUITY BLOCK](#secret-key-continuity-block)
 - [🧭 MASTER LEARNING FLOW](#master-learning-flow)
 - [🔒 FINAL ROADMAP STATUS](#final-roadmap-status)
 
@@ -426,7 +428,7 @@ Build the reasoning system required before and throughout DSA.
 
 ### Status
 
-⏳ ACTIVE — Current focus, immediately before Phase 3
+⏸️ POSTPONED — taught incrementally inside relevant problems
 
 This is a dedicated deep module. It is NOT a quick revision.
 
@@ -1385,7 +1387,7 @@ Representative:
 
 ## Status
 
-⏳ ACTIVE — In Progress
+✅ COMPLETED / LOCKED
 
 ## Goal
 
@@ -1564,7 +1566,7 @@ Concepts:
 Representative:
 
 - **LC 150 — Evaluate Reverse Polish Notation** ✅
-- **LC 224 — Basic Calculator** — optional advanced extension ⏳
+- **LC 224 — Basic Calculator** ✅
 
 ---
 
@@ -1572,7 +1574,7 @@ Representative:
 
 Major representative:
 
-- **LC 84 — Largest Rectangle in Histogram** ⏳
+- **LC 84 — Largest Rectangle in Histogram** ✅
 
 Core derivation:
 
@@ -1637,7 +1639,7 @@ Queue
 
 Representative:
 
-- **LC 933 — Number of Recent Calls** ⏳
+- **LC 933 — Number of Recent Calls** ✅
 
 ---
 
@@ -1661,7 +1663,7 @@ nextIndex = (index + 1) % capacity
 
 Representative:
 
-- **LC 622 — Design Circular Queue** ⏳
+- **LC 622 — Design Circular Queue** ✅
 
 The state conditions will be derived, not memorized.
 
@@ -1708,7 +1710,7 @@ Ordering Invariant
 
 Major application:
 
-- **LC 239 — Sliding Window Maximum** ⏳
+- **LC 239 — Sliding Window Maximum** ✅
 
 Important connection:
 
@@ -1835,29 +1837,22 @@ The purpose is to recognize patterns from requirements rather than from problem 
 
 ## PHASE 3 — REPRESENTATIVE LEETCODE PROBLEM POOL
 
-This is a **candidate pool**, not a rigid mandatory 20-question list.
-
-Final selection depends on demonstrated mastery and coverage.
-
-#### Stack — Already Completed ✅
+#### Stack ✅
 
 1. **LC 20 — Valid Parentheses** ✅
 2. **LC 155 — Min Stack** ✅
 3. **LC 150 — Evaluate Reverse Polish Notation** ✅
 4. **LC 682 — Baseball Game** ✅
 5. **LC 496 — Next Greater Element I** ✅
-
-#### Stack — Remaining ⏳
-
 6. **LC 503 — Next Greater Element II** ✅
 7. **LC 739 — Daily Temperatures** ✅
 8. **LC 901 — Online Stock Span** ✅
 9. **LC 84 — Largest Rectangle in Histogram** ✅
-10. **LC 224 — Basic Calculator** — optional ✅
+10. **LC 224 — Basic Calculator** ✅
 
 #### Histogram / Boundary — Optional Deepening
 
-11. **LC 85 — Maximal Rectangle** — optional deepening ⏳
+11. **LC 85 — Maximal Rectangle** — optional ⏳
 
 #### Queue ✅
 
@@ -1867,8 +1862,6 @@ Final selection depends on demonstrated mastery and coverage.
 #### Deque / Monotonic Queue ✅
 
 14. **LC 239 — Sliding Window Maximum** ✅
-
-Additional problems may be selected when needed to reach complete phase coverage. Target remains 15–20 problems; nothing is added artificially just to hit the number.
 
 ---
 
@@ -1880,37 +1873,13 @@ Target: 15–20
 Maximum: 25
 ```
 
-Difficulty should increase gradually:
-
-```text
-Concept
-↓
-Easy
-↓
-Easy+
-↓
-Easy-Medium
-↓
-Medium
-↓
-Medium+
-↓
-Medium-Hard
-↓
-Interview-level
-```
-
-No forced jump to Hard.
-
-The Engineer is learning.
-
-Difficulty is increased only when the current level is sufficiently comfortable.
+Result: 14/14 core problems completed. Phase locked.
 
 ---
 
 ## PHASE 3 — COMPLETION CONDITIONS
 
-Phase 3 is locked only after the Engineer can:
+✅ All conditions met — Phase locked:
 
 - Explain Stack
 - Explain Queue
@@ -1932,18 +1901,6 @@ Phase 3 is locked only after the Engineer can:
 - Debug independently
 - Explain solutions in interview language
 
-Then:
-
-```text
-CCRS
-↓
-Phase Documentation
-↓
-Phase Lock
-↓
-Next Phase
-```
-
 [⬆️ Back to Index](#top)
 
 ---
@@ -1954,7 +1911,7 @@ Next Phase
 
 ## Status
 
-⏳ Future Phase
+🔒 COMPLETED / LOCKED
 
 ## Goal
 
@@ -2038,27 +1995,34 @@ slow → 1 step
 fast → 2 steps
 ```
 
-Representative LeetCode:
+### Linked List LeetCode — Completed (20/20 core problems) ✅
 
-- **LC 1290 — Convert Binary Number in a Linked List to Integer** ✅
-- **LC 83 — Remove Duplicates from Sorted List** ✅
-- **LC 203 — Remove Linked List Elements** ✅
-- **LC 876 — Middle of the Linked List** ✅
-- **LC 160 — Intersection of Two Linked Lists** ✅
-- **LC 141 — Linked List Cycle** ✅
-- **LC 206 — Reverse Linked List** ✅
-- **LC 234 — Palindrome Linked List** ✅
-- **LC 21 — Merge Two Sorted Lists** ✅
-- **LC 19 — Remove Nth Node From End of List** ✅
-- **LC 142 — Linked List Cycle II** ✅
-- **LC 143 — Reorder List** ✅
-- **LC 92 — Reverse Linked List II** ✅
-- **LC 138 — Copy List with Random Pointer** ✅
-- **LC 2 — Add Two Numbers** ✅
-- **LC 82 — Remove Duplicates from Sorted List II** ✅
-- **LC 61 — Rotate List** ✅
-- **LC 23 — Merge k Sorted Lists** — advanced extension
-- **LC 25 — Reverse Nodes in k-Group** — advanced extension
+- ✅ LC 1290 — Convert Binary Number in a Linked List to Integer
+- ✅ LC 83 — Remove Duplicates from Sorted List
+- ✅ LC 203 — Remove Linked List Elements
+- ✅ LC 876 — Middle of the Linked List
+- ✅ LC 160 — Intersection of Two Linked Lists
+- ✅ LC 141 — Linked List Cycle
+- ✅ LC 206 — Reverse Linked List
+- ✅ LC 234 — Palindrome Linked List
+- ✅ LC 21 — Merge Two Sorted Lists
+- ✅ LC 19 — Remove Nth Node From End of List
+- ✅ LC 142 — Linked List Cycle II
+- ✅ LC 143 — Reorder List
+- ✅ LC 92 — Reverse Linked List II
+- ✅ LC 138 — Copy List with Random Pointer
+- ✅ LC 2 — Add Two Numbers
+- ✅ LC 82 — Remove Duplicates from Sorted List II
+- ✅ LC 61 — Rotate List
+- ✅ LC 328 — Odd Even Linked List
+- ✅ LC 86 — Partition List
+- ✅ LC 148 — Sort List
+
+Optional advanced extensions (not required for phase lock):
+
+- ⏳ LC 25 — Reverse Nodes in k-Group — advanced extension
+- ⏳ LC 23 — Merge k Sorted Lists — advanced extension
+- ⏳ LC 146 — LRU Cache — advanced extension
 
 ## Problem Ladder
 
@@ -2068,7 +2032,17 @@ Target: 15–20
 Maximum: 25
 ```
 
-Difficulty rises only after pointer manipulation becomes comfortable.
+Result: 20/20 core problems completed. **Phase locked.**
+
+## Phase 4 — Completion Conditions ✅
+
+All core pointer-manipulation skills demonstrated across the full problem set:
+
+- Traversal, reversal, merging, dummy-node technique
+- Fast/slow pointer, cycle detection (Floyd's)
+- Two-list intersection, k-group / partition-style rewiring
+- In-place reversal of sub-ranges, deep-copy with random pointers
+- Sort List (merge sort applied to a linked list — direct bridge into Phase 5B sorting)
 
 [⬆️ Back to Index](#top)
 
@@ -2080,7 +2054,7 @@ Difficulty rises only after pointer manipulation becomes comfortable.
 
 ## Status
 
-⏳ Future Phase
+⏳ ACTIVE — current phase
 
 ## Goal
 
@@ -2143,20 +2117,20 @@ This is one of the most important unknown-problem recognition skills.
 
 ## Representative LeetCode
 
-- **LC 704 — Binary Search**
-- **LC 35 — Search Insert Position**
-- **LC 34 — Find First and Last Position**
-- **LC 153 — Find Minimum in Rotated Sorted Array**
-- **LC 33 — Search in Rotated Sorted Array**
-- **LC 162 — Find Peak Element**
-- **LC 74 — Search a 2D Matrix**
-- **LC 875 — Koko Eating Bananas**
-- **LC 1011 — Capacity To Ship Packages Within D Days**
-- **LC 69 — Sqrt(x)**
-- **LC 540 — Single Element in a Sorted Array**
-- **LC 981 — Time Based Key-Value Store**
-- **LC 410 — Split Array Largest Sum** — advanced
-- **LC 4 — Median of Two Sorted Arrays** — interview-level extension
+- ⏳ LC 704 — Binary Search
+- ⏳ LC 35 — Search Insert Position
+- ⏳ LC 34 — Find First and Last Position
+- ⏳ LC 153 — Find Minimum in Rotated Sorted Array
+- ⏳ LC 33 — Search in Rotated Sorted Array
+- ⏳ LC 162 — Find Peak Element
+- ⏳ LC 74 — Search a 2D Matrix
+- ⏳ LC 875 — Koko Eating Bananas
+- ⏳ LC 1011 — Capacity To Ship Packages Within D Days
+- ⏳ LC 69 — Sqrt(x)
+- ⏳ LC 540 — Single Element in a Sorted Array
+- ⏳ LC 981 — Time Based Key-Value Store
+- ⏳ LC 410 — Split Array Largest Sum — advanced
+- ⏳ LC 4 — Median of Two Sorted Arrays — interview-level extension
 
 ## Problem Ladder
 
@@ -2164,6 +2138,182 @@ This is one of the most important unknown-problem recognition skills.
 5–25 problems
 Target ≈ 15–20
 ```
+
+> **Running in parallel with this phase:** Sorting & Searching fundamentals — see [PHASE 5B](#phase-5b-sorting-searching-parallel-track) below. Binary Search itself is a searching algorithm, so the two tracks reinforce each other directly (e.g. Merge Sort's divide-and-conquer structure mirrors Binary Search's halving structure).
+
+[⬆️ Back to Index](#top)
+
+---
+
+<a id="phase-5b-sorting-searching-parallel-track"></a>
+
+# PHASE 5B — SORTING & SEARCHING (PARALLEL TRACK)
+
+## Status
+
+⏳ ACTIVE — runs alongside Phase 5, not a separate sequential phase
+
+## Why This Runs in Parallel, Not Sequentially
+
+Sorting and Searching are **foundational tools**, not a new mental model the way Trees or Graphs are. They plug directly into everything already learned (Arrays, Two Pointer, Hashing) and everything about to be learned (Binary Search). Studying them side-by-side with Binary Search reinforces both:
+
+```text
+Binary Search
+↓ needs
+Sorted Data
+↓ produced by
+Sorting Algorithms
+↓ whose divide-and-conquer members (Merge Sort)
+↓ share the exact halving structure of
+Binary Search
+```
+
+## Goal
+
+Understand sorting not as "call `.sort()`" but as:
+
+> "Given these constraints, which comparison/non-comparison strategy gives the required TC/SC trade-off, and is it stable/in-place?"
+
+And searching (beyond Binary Search) as:
+
+> "Is the data ordered? Indexed? Streaming? — which lets me skip a linear scan?"
+
+## Core Topics — Sorting
+
+- Comparison-based vs Non-comparison-based sorting
+- Stability (does equal-key relative order survive?)
+- In-place vs Extra-space sorting
+- Bubble Sort — baseline, why it's O(n²)
+- Selection Sort — baseline, minimizing swaps
+- Insertion Sort — why it's fast on nearly-sorted data
+- Merge Sort — Divide & Conquer, stable, O(n log n) guaranteed
+- Quick Sort — partitioning, pivot choice, average vs worst case
+- Counting Sort — non-comparison, when value range is small
+- Radix Sort — awareness only, digit-by-digit bucketing
+- Bucket Sort — awareness only
+
+## Core Topics — Searching (beyond classic Binary Search)
+
+- Linear Search — baseline, when it's actually correct to use
+- Binary Search on a sorted structure (cross-link to Phase 5)
+- Exponential/Galloping Search — awareness, unbounded/streaming search
+- Interpolation Search — awareness, uniformly-distributed sorted data
+- Ternary Search — awareness, unimodal function optimization
+
+## 80/20 Algorithms
+
+### 1. Merge Sort (Divide & Conquer)
+
+```text
+Split array in half
+↓
+Recursively sort each half
+↓
+Merge two sorted halves
+```
+
+- TC: O(n log n) always (best/avg/worst)
+- SC: O(n) auxiliary
+- Stable: Yes
+- Why it matters: direct rehearsal for Binary Search's halving logic + recursion; reused later in Phase 4's LC 148 (Sort List) and in external merge / k-way merge problems (Phase 7)
+
+### 2. Quick Sort (Partition-based)
+
+```text
+Pick pivot
+↓
+Partition: smaller left, larger right
+↓
+Recursively sort each side
+```
+
+- TC: O(n log n) average, O(n²) worst case
+- SC: O(log n) recursion stack (in-place)
+- Stable: No (standard implementation)
+- Why it matters: partitioning logic reappears in Quickselect (Kth largest — Phase 7) and in interview "why is worst case O(n²)" discussions
+
+### 3. Insertion Sort
+
+```text
+Take next element
+↓
+Shift larger elements right
+↓
+Insert into correct position
+```
+
+- TC: O(n²) worst, O(n) on nearly-sorted input
+- Why it matters: real-world relevance — used inside Timsort/hybrid sorts for small subarrays; good "why is a bad-looking algorithm sometimes the right choice" discussion
+
+### 4. Counting Sort
+
+```text
+Count frequency of each value
+↓
+Compute prefix positions
+↓
+Place elements at correct index
+```
+
+- TC: O(n + k) where k = value range
+- Why it matters: non-comparison sorting breaks the O(n log n) comparison-sort lower bound when the value range is small — important constraint-driven decision (ties directly into the 80/20 Algorithm Choice framework from Phase 0)
+
+### 5. Binary Search as a Searching Algorithm (cross-reference)
+
+Already covered in depth in Phase 5 — reinforced here as the "searching" half of the sorting+searching pairing.
+
+## Engineering Connections
+
+```text
+Merge Sort
+→ External sorting (data too large for memory)
+→ Distributed sort (MapReduce-style merge)
+```
+
+```text
+Quick Sort
+→ Default general-purpose sort in many languages (with hybrid fallback)
+```
+
+```text
+Counting/Radix Sort
+→ Sorting fixed-range data: grades, ages, digit-keyed records
+```
+
+```text
+Binary Search
+→ Database index range lookups
+→ Version/commit bisection (git bisect)
+```
+
+## Representative Problems
+
+- ⏳ Implement Bubble Sort, Selection Sort, Insertion Sort from scratch (concept drill, not LeetCode)
+- ⏳ Implement Merge Sort from scratch
+- ⏳ Implement Quick Sort from scratch (Lomuto and/or Hoare partition)
+- ⏳ LC 912 — Sort an Array (use to validate Merge Sort / Quick Sort implementations)
+- ⏳ LC 75 — Sort Colors (Dutch National Flag — counting-sort-adjacent thinking)
+- ⏳ LC 148 — Sort List — already ✅ completed in Phase 4; revisit here explicitly as "Merge Sort applied to a Linked List"
+- ⏳ LC 215 — Kth Largest Element in an Array — Quickselect (partition-based searching) — light preview, full depth in Phase 7
+- ⏳ LC 56 — Merge Intervals — sorting as a pre-processing step (preview, full depth in Phase 10 Greedy)
+
+## Problem Ladder
+
+```text
+Minimum: 5
+Target: 8–10
+Maximum: 15
+```
+
+This is a supporting/parallel track, not a full standalone phase — so its ladder is intentionally lighter than a main phase.
+
+## Completion Conditions
+
+- Can implement Bubble, Selection, Insertion, Merge, and Quick Sort from a blank screen without help
+- Can state each algorithm's TC (best/avg/worst), SC, and stability without looking it up
+- Can explain, for a given constraint, which sort is the right choice and why
+- Can explain why comparison sorts cannot beat O(n log n) and how Counting Sort escapes that bound
+- Can connect Merge Sort's structure back to Binary Search's structure in one sentence
 
 [⬆️ Back to Index](#top)
 
@@ -3004,6 +3154,13 @@ Constraint-driven Search Space
 ```
 
 ```text
+Merge Sort
++
+Binary Search
+(shared divide-and-conquer / halving structure)
+```
+
+```text
 DP
 +
 State Thinking
@@ -3057,6 +3214,12 @@ Revision of Arrays + Hashing + Strings
 Phase 4
 ↓
 Revision of Arrays + Hashing + Two Pointer + Stack
+```
+
+```text
+Phase 5 / 5B
+↓
+Revision of Linked List (LC 148 Sort List) through the Merge Sort lens
 ```
 
 Previously learned concepts should be reused in new combinations.
@@ -3225,6 +3388,12 @@ Graph
 → Routing
 ```
 
+```text
+Sorting
+→ Database ORDER BY
+→ External / distributed sort
+```
+
 [⬆️ Back to Index](#top)
 
 ---
@@ -3284,6 +3453,8 @@ Graph
 
 24. This roadmap is the working DSA roadmap and follows the Supreme Engineering Training System.
 
+25. Sorting & Searching (Phase 5B) is a **parallel supporting track**, not a sequential phase — it runs alongside Phase 5 and does not block or delay Binary Search progression.
+
 [⬆️ Back to Index](#top)
 
 ---
@@ -3301,41 +3472,83 @@ Graph
 
 - Hashing → 🔒 COMPLETED / LOCKED
 
-## Phase 3 — Linear Data Structures — ⏳ ACTIVE
+## Phase 3 — Linear Data Structures
 
-- Stack: 5/10 representative problems done (LC 20, 155, 150, 682, 496 ✅ | LC 503, 739, 901, 84, 224 ⏳)
-- Queue: 0/2 done (LC 933, 622 ⏳)
-- Deque: 0/1 done (LC 239 ⏳)
+- Stack, Queue, Deque → 🔒 COMPLETED / LOCKED (14/14 core problems)
+
+## Phase 4 — Linked List
+
+- Linked List → 🔒 COMPLETED / LOCKED (20/20 core problems)
+
+## Phase 5 — Binary Search — ⏳ ACTIVE (current)
+
+- 0/14 representative problems done — starting fresh
+
+## Phase 5B — Sorting & Searching — ⏳ ACTIVE (parallel, current)
+
+- 0/8–10 representative problems done — starting fresh, alongside Phase 5
 
 ## Next
 
 ```text
-Deep Constraints + TC + SC Foundation  ⏳ ACTIVE
+Phase 5 — Binary Search (main track)
++
+Phase 5B — Sorting & Searching (parallel track)
 ↓
-Finish Phase 3 remaining problems
-↓
-Phase 4 — Linked List
+Phase 6 — Trees
 ```
 
-## Phase 3
+[⬆️ Back to Index](#top)
+
+---
+
+<a id="secret-key-continuity-block"></a>
+
+# 🔑 SECRET KEY — CONTINUITY BLOCK
+
+Paste this block as the FIRST message in a brand-new chat (with this full roadmap file attached/pasted alongside it) so a fresh conversation resumes exactly where this one left off — no re-explaining needed.
 
 ```text
-Stack
-Queue
-Deque
-+
-80/20 Algorithms
-+
-Patterns
-+
-5–25 Phase Problems
-+
-CCRS
-+
-Interview Thinking
-↓
-Phase Lock
+SECRET KEY — DSA MASTERY CONTINUITY
+Roadmap Version: 12.3
+Date: 28 August 2026
+
+SYSTEM: Follow the "Supreme Engineering Training System" exactly as
+defined in the attached MASTER DSA ROADMAP file — Core Philosophy,
+Learning Principles, Permanent Phase Learning Method, Problem Ladder
+Rule, 80/20 Algorithm Rule, Coding Support Rule, Constraint-First
+Rule, and Interview Thinking sections all apply without exception.
+
+COMPLETED / LOCKED:
+- Phase 1 (Arrays, Strings)
+- Phase 2 (Hashing)
+- Phase 3 (Stack, Queue, Deque)
+- Phase 4 (Linked List — 20/20 core problems)
+
+CURRENT ACTIVE PHASES (dual-track):
+- Phase 5 — Binary Search (main track)
+- Phase 5B — Sorting & Searching (parallel track)
+
+NEXT AFTER CURRENT: Phase 6 — Trees
+
+ENGINEER PROFILE:
+- Already comfortable coding independently after AI/tutor-assisted
+  practice through Linked List phase
+- Wants deep theory before code, hints/steps only when stuck (no
+  direct code unless fully stuck after real attempts)
+- Wants explanations in the 70% English / 30% Hinglish mix
+- Wants interview Q&A woven into concepts, built from own code
+- Wants spaced revision (Day 0/3/7/15/30/60) and CCRS respected
+
+INSTRUCTION TO NEW CHAT: Do not restart from Phase 0. Resume directly
+at Phase 5 + Phase 5B as described above.
 ```
+
+## Where to Paste It
+
+- **Paste it inside your Claude Project** (in a new chat created within that Project), not in a random standalone chat outside any project. A Project keeps this roadmap file and the secret key available as persistent project knowledge, so every new chat inside it automatically has the full context without you re-pasting the whole roadmap each time.
+- In a plain new chat outside a project, you'd need to paste both this secret key AND the full roadmap file every single time, since nothing carries over automatically.
+- The "chat paused" message you're seeing is unrelated to documents or images — it happens simply because a conversation has run long (token/length limit), not because of anything you shared. Starting a fresh chat is the correct fix either way; doing it inside a Project just means less re-pasting.
 
 [⬆️ Back to Index](#top)
 
@@ -3403,19 +3616,19 @@ PHASE 1 — Linear Data Processing
 PHASE 2 — Hashing
     ✅ LOCKED
 
-DEEP FOUNDATION
+DEEP FOUNDATION (Constraints + TC + SC)
     └── ⏸️ POSTPONED
-    └── Will be formally studied later after broader DSA knowledge.
-    └── Until then constraints + TC + SC are taught incrementally
-       inside every relevant problem.
+    └── Taught incrementally inside every relevant problem.
 
-PHASE 3 — Linear ADTs  ⏳ ACTIVE
-    Stack ⏳ In Progress (5/10 done)
-    Queue ⏳ (0/2 done)
-    Deque ⏳ (0/1 done)
+PHASE 3 — Linear ADTs
+    🔒 LOCKED (Stack, Queue, Deque — 14/14 done)
 
-PHASE 4 — Linked List ⏳ (15 problems)
-PHASE 5 — Binary Search ⏳ (14 problems)
+PHASE 4 — Linked List
+    🔒 LOCKED (20/20 core problems done)
+
+PHASE 5 — Binary Search  ⏳ ACTIVE (14 problems)
+PHASE 5B — Sorting & Searching  ⏳ ACTIVE — PARALLEL (8–10 problems)
+
 PHASE 6 — Trees ⏳ (15 problems)
 PHASE 7 — Heap ⏳ (12 problems)
 PHASE 8 — Graphs ⏳ (14 problems)

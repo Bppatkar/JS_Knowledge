@@ -901,3 +901,114 @@ var rotateRight = function (head, k) {
 
   return newHead;
 }
+
+//! Leetcode 328. Odd Even Linked List
+var oddEvenList = function (head) {
+  if (!head || !head.next) return head;
+
+  let odd = head;
+  let even = head.next;
+
+  let evenStart = even;
+
+  while (even != null && even.next !== null) {
+    odd.next = even.next; // (Odd ko agle odd yaani 3 se joda)
+    odd = odd.next; // (Odd pointer ko 3 par laya)
+    even.next = odd.next; // (Even ko agle even yaani 4 se joda)
+    even = even.next; // (Even pointer ko 4 par laya)
+  }
+
+  odd.next = evenStart;
+  return head;
+}
+
+//! Leetcode 86. Partition List
+var partition = function (head, x) {
+  let lessDummy = new ListNode(-1);
+  let greaterDummy = new ListNode(-1);
+
+  let less = lessDummy;
+  let greater = greaterDummy;
+  let curr = head;
+
+  while (curr != null) {
+    if (curr.val >= x) {
+      greater.next = curr;
+      greater = greater.next;
+    }
+    else {
+      less.next = curr;
+      less = less.next;
+    }
+    curr = curr.next;
+  }
+  less.next = greaterDummy.next; // adding both list
+  greater.next = null; // making sure that it not become cycle so we put null in the end
+
+  return lessDummy.next;
+}
+
+//! Leetcode 148. Sort List
+//* O(N log N) means we have to use merge sort or quick sort, but in linked list merge sort is better because we can split the list in O(N) time and merge in O(N) time, so overall O(N log N) time complexity and O(log N) space complexity for recursion stack.
+
+//? O(n log n) kyu? = log n levels of division × n elements merge at each level = O(n log n)
+
+// simple idea of merge sort for first time is
+// step1 - divide the list into two halves using slow and fast pointer
+// step2 - sort each half 
+// step3 - merge the two sorted halves
+
+var sortList = function (head) {
+  // Base case: Agar list empty ho ya sirf 1 node ho, toh wo already sorted hai
+  if (!head || !head.next) return head;
+
+  let fast = head;
+  let slow = head;
+
+  // PREV KYUN CHAHIYE?
+  // Jab hum 2 nodes [4 -> 2] par slow-fast chalate hain, toh slow '2' par pahunch jata hai.
+  // Agar hum slow se todne jayenge, toh pehla tukda [4 -> 2] aur doosra tukda null ban jayega 
+  // (yaani list divide hi nahi hogi aur infinite recursion/stack overflow ho jayega).
+  // Isliye hume 'slow' se theek 1 step pehle (prev) par connection todna (prev.next = null) padta hai 
+  // taaki Left part [4] bane aur Right part [2] bane.
+  let prev = null;
+
+  // 1. Finding middle node
+  while (fast !== null && fast.next !== null) {
+    prev = slow;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // 2. List ko do equal halves mein tod do:
+  // - Left Half  : 'head' se lekar 'prev' tak
+  // - Right Half : 'slow' se lekar aage tak
+  prev.next = null;
+
+  // 3. Dono halves ko independently sort karo (Divide & Conquer)
+  let firstSorted = sortList(head);
+  let secondSorted = sortList(slow);
+
+  // 4. Dono sorted halves ko merge karke return karo
+  return mergeTwoSortedLists(firstSorted, secondSorted);
+}
+
+var mergeTwoSortedLists = function (l1, l2) {
+  let dummy = new ListNode(-1);
+  let curr = dummy;
+
+  while (l1 !== null && l2 !== null) {
+    if (l1.val < l2.val) {
+      curr.next = l1;
+      l1 = l1.next;
+    } else {
+      curr.next = l2;
+      l2 = l2.next;
+    }
+    curr = curr.next;
+  }
+  // rest of value putting in ListNode
+  // in linkedlist no need to run loop, just write this and rest of item automatically added to the listnode
+  curr.next = l1 || l2;
+  return dummy.next;
+}

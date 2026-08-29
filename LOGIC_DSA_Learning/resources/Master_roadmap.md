@@ -2131,6 +2131,9 @@ This is one of the most important unknown-problem recognition skills.
 - ⏳ LC 981 — Time Based Key-Value Store
 - ⏳ LC 410 — Split Array Largest Sum — advanced
 - ⏳ LC 4 — Median of Two Sorted Arrays — interview-level extension
+- ⏳ LC 278 — First Bad Version
+- ⏳ LC 367 — Valid Perfect Square
+- ⏳ LC 744 — Find Smallest Letter Greater Than Target
 
 ## Problem Ladder
 
@@ -2296,6 +2299,8 @@ Binary Search
 - ⏳ LC 148 — Sort List — already ✅ completed in Phase 4; revisit here explicitly as "Merge Sort applied to a Linked List"
 - ⏳ LC 215 — Kth Largest Element in an Array — Quickselect (partition-based searching) — light preview, full depth in Phase 7
 - ⏳ LC 56 — Merge Intervals — sorting as a pre-processing step (preview, full depth in Phase 10 Greedy)
+- ⏳ LC 88 — Merge Sorted Array
+- ⏳ LC 147 — Insertion Sort List
 
 ## Problem Ladder
 

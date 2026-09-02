@@ -122,4 +122,58 @@ var search = function (nums, target) {
 }; //TC: O(log n), SC: O(1)
 
 //! Leetcode 35. Search Insert Position
-var searchInsert = function (nums, target) { }
+var searchInsert = function (nums, target) {
+  let left = 0, right = nums.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (nums[mid] === target) return mid;
+    else if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return left;   // return left because it will be the position where target can be inserted
+};
+// console.log(searchInsert([1, 3, 5, 6], 5)); // Output: 2
+// console.log(searchInsert([1, 3, 5, 6], 2)); // Output: 1
+// console.log(searchInsert([1, 3, 5, 6], 7)); // Output: 4
+
+//! Leetcode 34. Find First and Last Position of Element in Sorted Array
+/* 
+///* LC34 is actually TWO binary searches
+Binary Search #1
+→ Find FIRST occurrence
+
+Binary Search #2
+→ Find LAST occurrence
+
+Then: [first, last]
+*/
+var searchRange = function (nums, target) {
+  let firstPosition = -1, lastPosition = -1;
+
+  // finding first occurrence then we check left
+  let left = 0, right = nums.length - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] === target) {
+      firstPosition = mid;
+      right = mid - 1;
+    }
+    else if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+
+  // finding last occurrence then we check right
+  left = 0, right = nums.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] === target) {
+      lastPosition = mid;
+      left = mid + 1;
+    }
+    else if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return [firstPosition, lastPosition]
+}

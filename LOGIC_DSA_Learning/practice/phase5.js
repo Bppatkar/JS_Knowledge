@@ -177,3 +177,123 @@ var searchRange = function (nums, target) {
   }
   return [firstPosition, lastPosition]
 }
+
+//! Leetcode 153. Find Minimum in Rotated Sorted Array
+var findMin = function (nums) {
+  let left = 0, right = nums.length - 1;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] > nums[right]) left = mid + 1;
+    else right = mid;
+  }
+  return nums[left];
+}
+var findMin = function (nums) {
+  let left = 0, right = nums.length - 1;
+
+  while (left <= right) {
+    // if array already sorted
+    if (nums[left] <= nums[right]) return nums[left];
+
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] < nums[mid - 1]) return nums[m];
+
+    // if left half part is not sorted [means inflaction point in left]
+    if (nums[left] > nums[mid]) right = mid - 1;
+    else left = mid + 1;
+  }
+  return nums[left];
+}
+// console.log(findMin([3, 4, 5, 1, 2])); // Output: 1
+// console.log(findMin([4, 5, 6, 7, 0, 1, 2])); // Output: 0
+
+//! Leetcode 33. Search in Rotated Sorted Array
+var search = function (nums, target) {
+  let left = 0, right = nums.length - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (nums[mid] === target) return mid;
+
+    // Left half sorted
+    if (nums[left] <= nums[mid]) {
+      if (nums[left] <= target && target < nums[mid]) right = mid - 1;
+      else left = mid + 1;
+    }
+    else {
+      // Right half sorted
+      if (nums[mid] < target && target <= nums[right]) left = mid + 1;
+      else right = mid - 1;
+    }
+  }
+  return -1;
+}
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 0)); // Output: 4
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 3)); // Output: -1
+
+//! Leetcode 162. Find Peak Element
+var findPeakElement = function (nums) {
+  let left = 0, right = nums.length - 1;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] < nums[mid + 1]) left = mid + 1;
+    else right = mid;
+  }
+  return left;
+}
+// console.log(findPeakElement([1, 2, 1, 3, 5, 6, 4])); // Output: 5
+// console.log(findPeakElement([1, 2, 3, 1])); // Output: 2
+
+//! Leetcode 74. Search a 2D Matrix
+// Hum matrix ko virtually 1D sorted array maan rahe hain, Virtual indices maan lenge and us basis par mid nikalege and after that mid ko matrix position mein convert krege in 2 formulla se
+/* 
+let r = Math.floor(mid / col);
+let c = mid % col;
+
+
+🧠 Why these formulas?
+
+Virtual indices ko row-wise distribute kiya hai:
+
+0 1 2 3     → row 0
+4 5 6 7     → row 1
+8 9 10 11   → row 2
+
+///* mid / col batata hai kaunsi row.
+///* mid % col batata hai us row mein kaunsa column.
+*/
+
+var searchMatrix = function (matrix, target) {
+  let row = matrix.length;
+  let col = matrix[0].length
+  let total = row * col;
+
+
+  let left = 0, right = total - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2)
+    // virtually mid index find kiya hai ab ise actual matrix position mein convert krege
+    // to 2 formulla use honge
+
+    let r = Math.floor(mid / col); // finding which row
+    let c = mid % col;  // finding which col
+
+    // bas ab matrix[r][c] ko targer s compare krke binary search lagana hai
+    if (matrix[r][c] === target) return true;
+    else if (matrix[r][c] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return false;
+}
+// console.log(searchMatrix([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 3)); // Output: true
+// console.log(searchMatrix([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 13)); // Output: false
+
+//! Leetcode 875. Koko Eating Bananas
+var minEatingSpeed = function (piles, h) { }
+console.log(minEatingSpeed([3, 6, 7, 11], 8)); // Output: 4
+console.log(minEatingSpeed([30, 11, 23, 4, 20], 5)); // Output: 30
+console.log(minEatingSpeed([30, 11, 23, 4, 20], 6)); // Output: 23

@@ -293,7 +293,41 @@ var searchMatrix = function (matrix, target) {
 // console.log(searchMatrix([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 13)); // Output: false
 
 //! Leetcode 875. Koko Eating Bananas
-var minEatingSpeed = function (piles, h) { }
+// range of k will start from 1 and goes up to highimum pile
+var minEatingSpeed = function (piles, h) {
+  // FIX 1: high must be the biggest pile, NOT the array length.
+  // Because speed cannot be less than 1 and more than the largest pile.
+  let low = 1;
+  let high = Math.max(...piles); 
+
+  // Binary Search loop
+  while (low < high) {
+    // Find the middle speed to test
+    let mid = Math.floor((low + high) / 2);
+
+    // Step 1: Checker - Calculate total hours needed at this 'mid' speed
+    let totalTime = 0;
+    piles.forEach(pile => {
+      // FIX 2: Use Math.ceil. If pile=11 and mid=4, she takes 3 hours, not 2.75.
+      let time = Math.ceil(pile / mid); 
+      totalTime += time;
+    });
+
+    // Step 2: Decision making
+    // If she finishes within 'h' hours, this speed is valid.
+    // We want the MINIMUM speed, so we search for a smaller speed on the left.
+    if (totalTime <= h) {
+      high = mid; // mid works, try to go slower (left side)
+    } else {
+      // If totalTime > h, 'mid' is too slow.
+      // We must increase speed, so search on the right.
+      low = mid + 1;
+    }
+  }
+  // When loop ends, low == high, which is our minimum valid speed.
+  return low; 
+};
+
 console.log(minEatingSpeed([3, 6, 7, 11], 8)); // Output: 4
 console.log(minEatingSpeed([30, 11, 23, 4, 20], 5)); // Output: 30
 console.log(minEatingSpeed([30, 11, 23, 4, 20], 6)); // Output: 23

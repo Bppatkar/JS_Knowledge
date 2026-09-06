@@ -298,7 +298,7 @@ var minEatingSpeed = function (piles, h) {
   // FIX 1: high must be the biggest pile, NOT the array length.
   // Because speed cannot be less than 1 and more than the largest pile.
   let low = 1;
-  let high = Math.max(...piles); 
+  let high = Math.max(...piles);
 
   // Binary Search loop
   while (low < high) {
@@ -309,7 +309,7 @@ var minEatingSpeed = function (piles, h) {
     let totalTime = 0;
     piles.forEach(pile => {
       // FIX 2: Use Math.ceil. If pile=11 and mid=4, she takes 3 hours, not 2.75.
-      let time = Math.ceil(pile / mid); 
+      let time = Math.ceil(pile / mid);
       totalTime += time;
     });
 
@@ -325,9 +325,15 @@ var minEatingSpeed = function (piles, h) {
     }
   }
   // When loop ends, low == high, which is our minimum valid speed.
-  return low; 
+  return low;
 };
 
-console.log(minEatingSpeed([3, 6, 7, 11], 8)); // Output: 4
-console.log(minEatingSpeed([30, 11, 23, 4, 20], 5)); // Output: 30
-console.log(minEatingSpeed([30, 11, 23, 4, 20], 6)); // Output: 23
+// console.log(minEatingSpeed([3, 6, 7, 11], 8)); // Output: 4
+// console.log(minEatingSpeed([30, 11, 23, 4, 20], 5)); // Output: 30
+// console.log(minEatingSpeed([30, 11, 23, 4, 20], 6)); // Output: 23
+
+//! Leetcode 1011. Capacity To Ship Packages Within D Days
+var shipWithinDays = function (weights, days) { }
+console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // Output: 15
+console.log(shipWithinDays([3, 2, 2, 4, 1, 4], 3)); // Output: 6
+console.log(shipWithinDays([1, 2, 3, 1, 1], 4)); // Output: 3

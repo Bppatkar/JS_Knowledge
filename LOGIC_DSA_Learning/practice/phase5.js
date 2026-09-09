@@ -333,7 +333,89 @@ var minEatingSpeed = function (piles, h) {
 // console.log(minEatingSpeed([30, 11, 23, 4, 20], 6)); // Output: 23
 
 //! Leetcode 1011. Capacity To Ship Packages Within D Days
-var shipWithinDays = function (weights, days) { }
-console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // Output: 15
-console.log(shipWithinDays([3, 2, 2, 4, 1, 4], 3)); // Output: 6
-console.log(shipWithinDays([1, 2, 3, 1, 1], 4)); // Output: 3
+///* Capacity ↑ ⇒ Days required ↓ / same
+///* Capacity ↓ ⇒ Days required ↑ / same
+/* 
+Capacity too small → required days > D → ❌
+Ek certain capacity se start → required days ≤ D → ✅
+Uske baad capacity aur badhaoge → valid hi rahegi
+
+For [1,2,3,4,5]:
+Minimum capacity = 5 → because largest single package is 5
+Maximum capacity = 1 + 2 + 3 + 4 + 5 = 15 → because with 15, everything ships in one day
+
+So answer 5 se 15 ke beech hai.
+-----------------------------------
+Ab humare paas complete decision rule ban raha hai:
+
+Valid → smaller capacity try karo
+Invalid → bigger capacity try karo
+
+Valid (daysUsed <= D) → smaller capacity try karo → high = mid
+Invalid (daysUsed > D) → capacity badhani padegi → low = mid + 1
+*/
+//-------------------------------------------------
+/* 
+Capacity mid
+     ↓
+packages one-by-one
+     ↓
+fit? ── yes → same day
+  │
+  no
+  ↓
+new day
+     ↓
+daysUsed
+     ↓
+daysUsed <= days ?
+   │
+ ┌─┴─┐
+yes  no
+ ↓    ↓
+high  low
+=mid  =mid+1
+*/
+
+var shipWithinDays = function (weights, days) {
+  // Minimum capacity ka lower bound [if capicity 9 hue to 10 weight ka package ship hi nhi ho skta]
+  let low = Math.max(...weights);
+  // Maximum capacity
+  let high = weights.reduce((sum, w) => sum + w, 0);
+
+
+  while (low < high) {
+    let mid = Math.floor((low + high) / 2);
+
+    // checker
+    let currentLoad = 0;
+    let dayUsed = 1;
+
+    // har weight ko ek ek krke check krna
+    for (let w of weights) {
+      if (currentLoad + w > mid) {
+        dayUsed++;
+        currentLoad = w;
+      }
+      else {
+        currentLoad += w;
+      }
+    }
+
+    // valid/invalid
+    if (dayUsed <= days) {
+      // valid
+      high = mid;
+    } else {
+      low = mid + 1;
+    }
+  }
+
+  return low
+}
+
+
+
+// console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // Output: 15
+// console.log(shipWithinDays([3, 2, 2, 4, 1, 4], 3)); // Output: 6
+// console.log(shipWithinDays([1, 2, 3, 1, 1], 4)); // Output: 3

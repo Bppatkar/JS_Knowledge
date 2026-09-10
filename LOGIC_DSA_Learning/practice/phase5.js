@@ -413,9 +413,23 @@ var shipWithinDays = function (weights, days) {
 
   return low
 }
-
-
-
 // console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // Output: 15
 // console.log(shipWithinDays([3, 2, 2, 4, 1, 4], 3)); // Output: 6
 // console.log(shipWithinDays([1, 2, 3, 1, 1], 4)); // Output: 3
+
+//! Leetcode 69. Sqrt(x)
+var mySqrt = function (x) {
+  let left = 1, right = x;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if ((mid * mid) > x) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+  return right;
+}
+console.log(mySqrt(4)); // Output: 2
+console.log(mySqrt(8)); // Output: 2

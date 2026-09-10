@@ -2117,15 +2117,15 @@ This is one of the most important unknown-problem recognition skills.
 
 ## Representative LeetCode
 
-- ⏳ LC 704 — Binary Search
-- ⏳ LC 35 — Search Insert Position
-- ⏳ LC 34 — Find First and Last Position
-- ⏳ LC 153 — Find Minimum in Rotated Sorted Array
-- ⏳ LC 33 — Search in Rotated Sorted Array
-- ⏳ LC 162 — Find Peak Element
-- ⏳ LC 74 — Search a 2D Matrix
-- ⏳ LC 875 — Koko Eating Bananas
-- ⏳ LC 1011 — Capacity To Ship Packages Within D Days
+- ✅ LC 704 — Binary Search
+- ✅ LC 35 — Search Insert Position
+- ✅ LC 34 — Find First and Last Position
+- ✅ LC 153 — Find Minimum in Rotated Sorted Array
+- ✅ LC 33 — Search in Rotated Sorted Array
+- ✅ LC 162 — Find Peak Element
+- ✅ LC 74 — Search a 2D Matrix
+- ✅ LC 875 — Koko Eating Bananas
+- ✅ LC 1011 — Capacity To Ship Packages Within D Days
 - ⏳ LC 69 — Sqrt(x)
 - ⏳ LC 540 — Single Element in a Sorted Array
 - ⏳ LC 981 — Time Based Key-Value Store

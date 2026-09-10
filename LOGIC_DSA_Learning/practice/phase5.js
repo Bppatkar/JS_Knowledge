@@ -431,5 +431,76 @@ var mySqrt = function (x) {
   }
   return right;
 }
-console.log(mySqrt(4)); // Output: 2
-console.log(mySqrt(8)); // Output: 2
+// console.log(mySqrt(4)); // Output: 2
+// console.log(mySqrt(8)); // Output: 2
+
+
+//! Leetcode 540. Single Element in a Sorted Array
+/* 
+Single element se pehle: even → odd [even index → next odd index]
+Single element ke baad: odd → even [odd index → next even index]
+--------------------------------------------------
+Valid input:
+
+[1,1, 2,2, 3, 4,4, 5,5]
+             ↑
+           single
+
+Single se pehle:
+
+0,1   2,3
+
+Single ke baad:
+
+5,6   7,8
+
+So single ki wajah se pair alignment toot jaata hai.
+
+Hum Binary Search mein bas ye dekh rahe hain:
+
+Kya mid aur mid + 1 ek normal pair hain?
+
+Agar hain:
+
+mid, mid+1
+  ↓
+proper pair
+
+toh single right mein hai.
+
+Agar nahi:
+
+mid, mid+1
+  ↓
+pair broken
+
+toh single left side / mid mein hai.
+
+Aur hum mid ko even bana dete hain taaki comparison hamesha: mid ↔ mid + 1 ho.
+loop tb tk chalega jab tk left < right because single element ka position left = right pe hi hoga to jab loop terminate ho jaayega to ham last mein left = right pe hi honge and wahi single element hoga. to ham return nums[left] kar skte hai ya fir nums[right] kar skte hai because left = right pe hi honge.
+*/
+var singleNonDuplicate = function (nums) {
+
+  let left = 0, right = nums.length - 1;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+
+    // if mid is odd
+    if (mid % 2 !== 0) mid = mid - 1;
+    if (nums[mid] === nums[mid + 1]) {
+      // proper pair 
+      // single is on right
+      left = mid + 2;
+    }
+    else {
+      // single is on left/mid
+      // pair broken
+      right = mid;
+    }
+  }
+  return nums[left]; // nums[right] we return as well
+}
+console.log(singleNonDuplicate([1, 1, 2, 3, 3, 4, 4, 8, 8])); // Output: 2
+console.log(singleNonDuplicate([3, 3, 7, 7, 10, 11, 11])); // Output: 10
+console.log(singleNonDuplicate([1, 1, 2])); // Output: 2

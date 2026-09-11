@@ -501,6 +501,64 @@ var singleNonDuplicate = function (nums) {
   }
   return nums[left]; // nums[right] we return as well
 }
-console.log(singleNonDuplicate([1, 1, 2, 3, 3, 4, 4, 8, 8])); // Output: 2
-console.log(singleNonDuplicate([3, 3, 7, 7, 10, 11, 11])); // Output: 10
-console.log(singleNonDuplicate([1, 1, 2])); // Output: 2
+// console.log(singleNonDuplicate([1, 1, 2, 3, 3, 4, 4, 8, 8])); // Output: 2
+// console.log(singleNonDuplicate([3, 3, 7, 7, 10, 11, 11])); // Output: 10
+// console.log(singleNonDuplicate([1, 1, 2])); // Output: 
+
+//! Leetcode 981. Time Based Key-Value map
+/* 
+mid <= target  →  remember candidate → right side
+mid > target   →  left side
+---------------------------------
+Map
+ ↓
+key → [[timestamp, value], [timestamp, value], ...]
+
+get()
+ ↓
+history nikalo
+ ↓
+binary search timestamps par
+ ↓
+timestamp <= target
+ ↓
+candidate remember
+ ↓
+right side search
+ ↓
+candidate ki value return
+ */
+var TimeMap = function () {
+  this.map = new Map();
+}
+
+TimeMap.prototype.set = function (key, value, timestamp) {
+  if (!this.map.has(key)) {
+    this.map.set(key, []);
+  }
+  this.map.get(key).push([timestamp, value]);
+}
+
+TimeMap.prototype.get = function (key, timestamp) {
+  const history = this.map.get(key);
+
+  if (!history) return "";
+
+  let left = 0;
+  let right = history.length - 1;
+  let candidate = -1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (history[mid][0] > timestamp) right = mid - 1;
+    else {
+      candidate = mid;
+      left = mid + 1;
+    }
+  }
+
+  if (candidate === -1) return "";
+
+  return history[candidate][1];
+}

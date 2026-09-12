@@ -2126,10 +2126,10 @@ This is one of the most important unknown-problem recognition skills.
 - ✅ LC 74 — Search a 2D Matrix
 - ✅ LC 875 — Koko Eating Bananas
 - ✅ LC 1011 — Capacity To Ship Packages Within D Days
-- ⏳ LC 69 — Sqrt(x)
-- ⏳ LC 540 — Single Element in a Sorted Array
-- ⏳ LC 981 — Time Based Key-Value Store
-- ⏳ LC 410 — Split Array Largest Sum — advanced
+- ✅ LC 69 — Sqrt(x)
+- ✅ LC 540 — Single Element in a Sorted Array
+- ✅ LC 981 — Time Based Key-Value Store
+- ✅ LC 410 — Split Array Largest Sum — advanced
 - ⏳ LC 4 — Median of Two Sorted Arrays — interview-level extension
 - ⏳ LC 278 — First Bad Version
 - ⏳ LC 367 — Valid Perfect Square

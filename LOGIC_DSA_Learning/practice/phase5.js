@@ -562,3 +562,29 @@ TimeMap.prototype.get = function (key, timestamp) {
 
   return history[candidate][1];
 }
+
+//! Leetcode 410. Split Array Largest Sum
+var splitArray = function (nums, m) {
+  let left = Math.max(...nums);
+  let right = nums.reduce((sum, e) => sum + e, 0);
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    let currentSum = 0, subArray = 1; // why 1 because initially subarray start ho chuka h
+
+    for (let num of nums) {
+      if (currentSum + num <= mid) {
+        currentSum += num;
+      }
+      else {
+        subArray++;
+        currentSum = num;
+      }
+    }
+    if (subArray <= m) {
+      right = mid;
+    } else { left = mid + 1; }
+  }
+  return left;
+}
+console.log(splitArray([7, 2, 5, 10, 8], 2)); // Output: 18

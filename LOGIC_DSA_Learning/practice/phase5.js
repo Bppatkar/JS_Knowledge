@@ -587,4 +587,178 @@ var splitArray = function (nums, m) {
   }
   return left;
 }
-console.log(splitArray([7, 2, 5, 10, 8], 2)); // Output: 18
+// console.log(splitArray([7, 2, 5, 10, 8], 2)); // Output: 18
+
+//! Leetcode 4. Median of Two Sorted Arrays
+/* 
+Median = sorted array ka middle element.
+
+Agar total elements odd hain (jaise 3, 5, 7) → exactly middle wala element. [1, 2, 3] → median = 2
+Agar total elements even hain (jaise 2, 4, 6) → do middle elements ka average. [1, 2, 3, 4] → middle do = 2 aur 3 → median = (2+3)/2 = 2.5
+---------------------------------------------------
+//* Hm real mein array ko sorted order m merge krke medium nahi nikalenge
+- ///? Ham bas Dono original arrays ko merge kiye bina unhe "mentally" ek LEFT group aur RIGHT group mein divide karna.
+like - array ki length  7 hai to usme medium center mein hoga aur 3 elem left mein honge and 3 hi right mein
+
+- hame, sorted order mein hi imagin krna hai, merging krte time
+*/
+var findMedianSortedArrays = function (nums1, nums2) {
+  // 1. nums1 should be smaller one
+  /* 
+  Binary search hum smaller array par karna chahte hain.
+  Why?
+  Because binary search ka work: O(log(min(m,n)))
+  Agar chhote array par search karenge, maximum possible partition positions kam hongi.
+--------------------------------------------
+  Hum chhote array (nums1) par binary search laga rahe hain — ye dhoondhne ke liye ki usme cut kahan lagana hai. Cut mil gaya toh nums2 ka cut apne aap nikal aata hai (kyunki totalLEFT size fixed hai). Phir check karte hain ki LEFT ke saare elements RIGHT ke saare elements se chhote hain ya nahi. Agar haan → median nikal lo. Agar nahi → binary search se cut adjust karo.
+  */
+  if (nums1.length > nums2.length) {
+    [nums1, nums2] = [nums2, nums1];
+  }
+
+  let m = nums1.length;
+  let n = nums2.length;
+
+  // 2. Left side mein total kitne elem chahiye
+  let totalLeft = Math.floor((m + n + 1) / 2);
+  // 1 extra rakha left mein because left side ka last wala hi to medium hoga, and 0 index based hai to 1 extra lene se wo sahi result dega
+
+  // 3. nums1 ke partition par binary search
+  let left = 0, right = m;
+
+  while (left <= right) {
+    let partition1 = Math.floor((left + right) / 2);
+
+    // nums2 ka partition automatic hoga
+    let partition2 = totalLeft - partition1;
+
+    // 4. partition ke liye 4 boundary values
+    /* 
+    nums1 = [1 | 2]
+    nums2 = [3 | 4]
+
+    left1 = 1
+    right1 = 2
+    left2 = 3
+    right2 = 4
+    --------------------------------------------
+    nums1 = [1, 3 | 8]
+    nums2 = [2, 7 | 10, 12]
+
+   Ab:
+
+    nums1 LEFT  = [1, 3]
+    nums1 RIGHT = [8]
+
+    nums2 LEFT  = [2, 7]
+    nums2 RIGHT = [10, 12]
+
+Collectively:
+
+    LEFT  = [1, 3] + [2, 7]
+           = [1, 2, 3, 7]
+
+    RIGHT = [8] + [10, 12]
+           = [8, 10, 12]
+    */
+    let left1 = partition1 === 0 ? -Infinity : nums1[partition1 - 1];
+    let right1 = partition1 === m ? Infinity : nums1[partition1];
+    let left2 = partition2 === 0 ? -Infinity : nums2[partition2 - 1];
+    let right2 = partition2 === n ? Infinity : nums2[partition2];
+
+    // 5. correct partition ?
+    /* 
+    left1 ko right2 se compare kyun? Aur: left2 ko right1 se compare kyun?
+    ///? LEFT aur RIGHT ko proper sorted division banana hai. Matlab: - LEFT ka har element <= RIGHT ke har element hona chahiye.
+    */
+    if (left1 <= right2 && left2 <= right1) {
+
+      // odd total
+      if ((m + n) % 2 !== 0) { return Math.max(left1, left2) }
+      else {
+        // even total
+        return (Math.max(left1, left2) + Math.min(right1, right2)) / 2;
+      }
+    }
+
+    // 6. nums1 ka partition bahut right chala gya
+    else if (left1 > right2) right = partition1 - 1;
+
+    // 7. nums1 ka partition bahut left hai
+    else left = partition1 + 1;
+  }
+
+}
+// console.log(findMedianSortedArrays([1, 2], [3, 4])); // Output: 2.5
+// console.log(findMedianSortedArrays([1, 3], [2])); // Output: 2.0
+
+//! Leetcode 278. First Bad Version
+/* 
+///* isBadVersion(mid) === true
+        ↓
+mid could be the FIRST bad
+        ↓
+answer left side mein bhi ho sakta hai
+        ↓
+right = mid
+-------------------------------
+///* isBadVersion(mid) === false
+
+toh mid definitely first bad nahi ho sakta.
+
+Aur kyunki uske left ke versions bhi good honge, answer right side mein hi hoga:
+
+left = mid + 1;
+-----------------------------------------
+isBadVersion(mid) == false
+        ↓
+mid definitely first bad nahi hai
+        ↓
+left = mid + 1
+
+
+isBadVersion(mid) == true
+        ↓
+mid first bad HO SAKTA hai
+        ↓
+right = mid
+*/
+var solution = function (n) {
+  // Versions ka valid domain: 1 → n that why start with 1 not 0
+  let left = 1, right = n;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (isBadVersion(mid)) right = mid;
+    else left = mid + 1;
+  }
+  return right;
+}
+
+//! Leetcode 367. Valid Perfect Square
+var isPerfectSquare = function (num) {
+  // square 1 se start hoga and maximum square num tak hoga
+  let left = 1, right = num;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (mid * mid === num) return true;
+    else if (mid * mid < num) left = mid + 1;
+    else right = mid - 1;
+  }
+  return false;
+}
+
+//! Leetcode 744. Find Smallest Letter Greater Than Target
+var nextGreatestLetter = function (letters, target) {
+  let left = 0, right = letters.length - 1;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (letters[mid] <= target) left = mid + 1;
+    else right = mid;
+  }
+  if (letters[left] <= target) return letters[0];
+  return letters[left];
+}

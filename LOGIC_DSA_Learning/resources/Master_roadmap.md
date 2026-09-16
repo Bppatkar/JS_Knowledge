@@ -2130,10 +2130,10 @@ This is one of the most important unknown-problem recognition skills.
 - ✅ LC 540 — Single Element in a Sorted Array
 - ✅ LC 981 — Time Based Key-Value Store
 - ✅ LC 410 — Split Array Largest Sum — advanced
-- ⏳ LC 4 — Median of Two Sorted Arrays — interview-level extension
-- ⏳ LC 278 — First Bad Version
-- ⏳ LC 367 — Valid Perfect Square
-- ⏳ LC 744 — Find Smallest Letter Greater Than Target
+- ✅ LC 4 — Median of Two Sorted Arrays — interview-level extension
+- ✅ LC 278 — First Bad Version
+- ✅ LC 367 — Valid Perfect Square
+- ✅ LC 744 — Find Smallest Letter Greater Than Target
 
 ## Problem Ladder
 
@@ -2289,18 +2289,81 @@ Binary Search
 → Version/commit bisection (git bisect)
 ```
 
-## Representative Problems
+# 14. Representative Questions — LAST
 
-- ⏳ Implement Bubble Sort, Selection Sort, Insertion Sort from scratch (concept drill, not LeetCode)
-- ⏳ Implement Merge Sort from scratch
-- ⏳ Implement Quick Sort from scratch (Lomuto and/or Hoare partition)
-- ⏳ LC 912 — Sort an Array (use to validate Merge Sort / Quick Sort implementations)
-- ⏳ LC 75 — Sort Colors (Dutch National Flag — counting-sort-adjacent thinking)
-- ⏳ LC 148 — Sort List — already ✅ completed in Phase 4; revisit here explicitly as "Merge Sort applied to a Linked List"
-- ⏳ LC 215 — Kth Largest Element in an Array — Quickselect (partition-based searching) — light preview, full depth in Phase 7
-- ⏳ LC 56 — Merge Intervals — sorting as a pre-processing step (preview, full depth in Phase 10 Greedy)
-- ⏳ LC 88 — Merge Sorted Array
-- ⏳ LC 147 — Insertion Sort List
+These questions validate the concepts studied above.
+
+## A. From-Scratch Algorithm Drills
+
+- ⌛ **Implement Bubble Sort from scratch**
+- ⌛ **Implement Selection Sort from scratch**
+- ⌛ **Implement Insertion Sort from scratch**
+- ⌛ **Implement Merge Sort from scratch**
+- ⌛ **Implement Quick Sort from scratch — Lomuto partition**
+- ⌛ **Implement Counting Sort from scratch**
+
+These are **algorithm implementation drills**, not LeetCode questions.
+
+---
+
+## B. LeetCode / Application Problems
+
+### 1. LC 912 — Sort an Array
+
+- ⌛ Main sorting application
+- Purpose: validate a real sorting implementation
+- Relevant concepts: Merge Sort / Quick Sort
+- Primary role: sorting implementation + complexity reasoning
+
+---
+
+### 2. LC 75 — Sort Colors
+
+- ⌛ Dutch National Flag / 3-way partition
+- Relevant concepts: partitioning, in-place processing
+- **Important:** This is primarily a **3-way partitioning problem**, not simply a Counting Sort problem.
+
+---
+
+### 3. LC 88 — Merge Sorted Array
+
+- ⌛ Merge two sorted sequences
+- Relevant concepts: merging, two pointers, sorted structure
+- Connection: Merge Sort's merge operation
+
+---
+
+### 4. LC 147 — Insertion Sort List
+
+- ⌛ Insertion Sort applied to Linked List
+- Relevant concepts: sorted prefix, insertion
+- Connection: Phase 4 Linked List + Phase 5B Insertion Sort
+
+---
+
+### 5. LC 148 — Sort List
+
+- ✅ **Already solved in Phase 4**
+- Revisit only
+- Relevant concepts: Merge Sort on Linked List
+- Purpose: explicitly connect Phase 4 Linked List with Phase 5B Merge Sort
+- **Not counted as a new problem**
+
+---
+
+### 6. LC 56 — Merge Intervals
+
+- ⌛ Sorting as preprocessing
+- Relevant concepts: sort first → then process intervals
+- **Preview:** Full interval/Greedy depth belongs to a later phase.
+
+---
+
+### 7. LC 215 — Kth Largest Element in an Array
+
+- ⌛ Partition / Quickselect preview
+- Relevant concepts: Quick Sort partitioning
+- **Preview:** Full Quickselect depth belongs to a later phase.
 
 ## Problem Ladder
 
@@ -3475,19 +3538,20 @@ Sorting
 
 ## Phase 2 — Hashing
 
-- Hashing → 🔒 COMPLETED / LOCKED
+- Hashing → ✅ COMPLETED
 
 ## Phase 3 — Linear Data Structures
 
-- Stack, Queue, Deque → 🔒 COMPLETED / LOCKED (14/14 core problems)
+- Stack, Queue, Deque → ✅ COMPLETED
 
 ## Phase 4 — Linked List
 
-- Linked List → 🔒 COMPLETED / LOCKED (20/20 core problems)
+- Linked List → ✅ COMPLETED
 
-## Phase 5 — Binary Search — ⏳ ACTIVE (current)
+## Phase 5 — Binary Search
 
-- 0/14 representative problems done — starting fresh
+- 17/17 representative problems done✅
+- [Leetcode Solved -LC704 → 35 → 34 → 153 → 33 → 162 → 74 → 875 → 1011 → 69 → 540 → 981 → 410 → 4 → 278 → 367 → 744]
 
 ## Phase 5B — Sorting & Searching — ⏳ ACTIVE (parallel, current)
 
@@ -3626,12 +3690,12 @@ DEEP FOUNDATION (Constraints + TC + SC)
     └── Taught incrementally inside every relevant problem.
 
 PHASE 3 — Linear ADTs
-    🔒 LOCKED (Stack, Queue, Deque — 14/14 done)
+    ✅ LOCKED (Stack, Queue, Deque — 14/14 done)
 
 PHASE 4 — Linked List
-    🔒 LOCKED (20/20 core problems done)
+    ✅ LOCKED (20/20 core problems done)
 
-PHASE 5 — Binary Search  ⏳ ACTIVE (14 problems)
+PHASE 5 — Binary Search ✅ (17 problems)
 PHASE 5B — Sorting & Searching  ⏳ ACTIVE — PARALLEL (8–10 problems)
 
 PHASE 6 — Trees ⏳ (15 problems)

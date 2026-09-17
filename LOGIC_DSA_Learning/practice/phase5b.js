@@ -173,6 +173,22 @@
 //!   LEFT BADA -> RIGHT CHHOTA -> SWAP -> chhota left, bada right.
 //-----------------------------------------------------------
 
+///! =========== Comparision =====================
+// Bubble: largest → right
+// Selection: smallest → left
+
+// Bubble:
+// compare adjacent
+// → swap immediately
+// → largest moves to end
+
+// Selection:
+// search minimum
+// → remember its index
+// → swap once at end
+// → smallest moves to front
+///! ================================
+
 // ==========================================================
 //* Bubble Sort -
 // ==========================================================
@@ -187,6 +203,20 @@ for each pass:
 
     agar swapped false:
         stop
+-------------------------------
+Baju wale compare karo
+        ↓
+left > right ?
+   ↓          ↓
+  YES         NO
+   ↓           ↓
+ SWAP       kuch nahi
+   ↓
+pair aage badhao
+   ↓
+largest end mein
+   ↓
+next pass mein end wala skip
 */
 //? Bubble Sort mein kya chahiye?- Humein har time current neighbour pair chahiye:
 function bubbleSort(arr) {
@@ -314,11 +344,25 @@ minimumIndex = 3
 Scan complete hone ke baad sirf ek swap.
 SELECT minimum → SWAP once → position fixed
 */
+
 /* 
-///! ================================
-Bubble: largest → right
-Selection: smallest → left
-///! ================================
+///! ======== Thinking ===============
+Bubble mein hum pooch rahe the:- “Ye dono neighbours sahi order mein hain?”
+Selection mein hum poochte hain: - “Unsorted portion mein sabse chhota kaun hai?”
+--------------------------------------------
+Position i fill karni hai
+        ↓
+Unsorted portion scan karo
+        ↓
+Minimum ka INDEX yaad rakho
+        ↓
+Scan complete?
+        ↓
+Minimum ko position i par swap karo
+        ↓
+i++
+        ↓
+Next position fill karo
 */
 function selectionSort(arr) {
    for (let i = 0; i < arr.length; i++) {
@@ -328,9 +372,11 @@ function selectionSort(arr) {
          if (arr[j] < arr[minIndex]) minIndex = j;
       }
 
-      let temp = arr[i];
-      arr[i] = arr[minIndex];
-      arr[minIndex] = temp;
+      if (minIndex !== i) {
+         let temp = arr[i];
+         arr[i] = arr[minIndex];
+         arr[minIndex] = temp;
+      }
    }
 
    return arr;
@@ -338,3 +384,85 @@ function selectionSort(arr) {
 
 // console.log(selectionSort([22, 5, 1, 8, 17, 9, 13])); // [1, 5, 8, 9, 13, 17, 22]
 // console.log(selectionSort([5, 2, 8, 1])); // [1, 2, 5, 8]
+
+// ==========================================================
+//! Insertion Sort - [Pick → correct position find → shift → insert]
+// ==========================================================
+///* Sorted prefix + ek element uthao + usko sorted prefix mein correct position par insert karo.
+/* 
+Yahan sabse important difference hai.
+
+Bubble: - Neighbours compare.
+Selection: - Minimum search.
+Insertion: - Ek element uthao aur already-sorted portion mein usko insert karo.
+--------------------------------------
+i → next element uthao
+key → isko temporarily pakdo
+j → key ke left se start karo
+
+jab tak:
+    j array ke andar hai
+    AND arr[j] > key
+
+    → arr[j] ko right shift
+    → j--
+
+loop khatam
+→ gap mein key insert
+→ i++
+------------------------------
+key = arr[i]
+j = i-1
+
+while (j >= 0 && arr[j] > key)
+    right shift
+    j--
+
+insert key at j+1
+*/
+
+function trainInsertion(arr) {
+   for (let i = 1; i < arr.length; i++) {
+
+      // 1. Current element uthao
+      let key = arr[i];
+
+      // 2. Key ke just left se start
+      let j = i - 1;
+
+      // 3. Bade elements ko right shift karo
+      while (j >= 0 && arr[j] > key) {
+
+         arr[j + 1] = arr[j];
+
+         // 4. Ek step left jao
+         j--;
+      }
+
+      // 5. Empty position mein key insert
+      arr[j + 1] = key;
+   }
+
+   return arr;
+}
+// console.log("insertion", insetionSort([23, 1, 10, 5, 2])); // [1,2,5,10,23]
+
+function insetionSort1(arr) {
+   for (let i = 1; i < arr.length; i++) {
+      let key = arr[i];
+      let j = i - 1;
+
+      while (j >= 0 && arr[j] > key) {
+         arr[j + 1] = arr[j];
+         j--;
+      }
+      arr[j + 1] = key;
+   }
+   return arr;
+}
+console.log(insetionSort1([4, 2, 1, 3]))
+
+
+
+//! Leetcode 147. Insertion Sort List
+var insertionSortList = function (head) { }

@@ -190,7 +190,7 @@
 ///! ================================
 
 // ==========================================================
-//* Bubble Sort -
+//* Bubble Sort - [Compare → neighbours → swap if wrong → largest bubbles to end]
 // ==========================================================
 /* 
 for each pass:
@@ -447,22 +447,226 @@ function trainInsertion(arr) {
 }
 // console.log("insertion", insetionSort([23, 1, 10, 5, 2])); // [1,2,5,10,23]
 
-function insetionSort1(arr) {
-   for (let i = 1; i < arr.length; i++) {
-      let key = arr[i];
-      let j = i - 1;
-
-      while (j >= 0 && arr[j] > key) {
-         arr[j + 1] = arr[j];
-         j--;
-      }
-      arr[j + 1] = key;
-   }
-   return arr;
-}
-console.log(insetionSort1([4, 2, 1, 3]))
-
-
 
 //! Leetcode 147. Insertion Sort List
-var insertionSortList = function (head) { }
+var insertionSortList = function (head) {
+   if (head === null || head.next === null) return head;
+
+   let dummy = new ListNode(0);
+   dummy.next = head;
+
+   let prev = head;
+   let curr = head.next;
+
+   while (curr != null) {
+      let next = curr.next;
+
+      // curr already correct position par hai
+      if (prev.val <= curr.val) {
+         prev = curr;
+         curr = next;
+         continue;
+      }
+
+      // 1. curr ko original position se hatao
+      prev.next = next;
+
+      // 2. sorted list mein curr ki jagah dhundho
+      let pos = dummy;
+      while (pos.next != null && pos.next.val <= curr.val) {
+         pos = pos.next;
+      }
+
+      // 3. cur ko correct position par insert karo
+      curr.next = pos.next;
+      /*
+      Dhyaan do: abhi 2 list mein connected nahi hua hai.
+      Abhi complete list: dummy → 4 → 1 → 3
+      2 → 4
+      */
+      pos.next = curr;
+      /* 
+      dummy → 2
+      Aur 2 ka next hum pehle hi 4 kar chuke hain:- dummy → 2 → 4 → 1 → 3
+      */
+
+      // 4. next unsorted node par jao
+      curr = next;
+   }
+   return dummy.next;
+}
+// console.log(insertionSortList([4, 2, 1, 3])); // [1,2,3,4]
+
+// ==========================================================
+//! Merge Sort - [Divide -> Sort -> merge]
+// Merge Sort ka natural implementation recursive hai.
+// ==========================================================
+/* 
+///* 🧠 Merge Sort — Thinking
+
+///? Bubble mein hum pooch rahe the: - “Ye dono neighbours sahi order mein hain?”
+
+///? Selection mein: - “Unsorted portion mein sabse chhota kaun hai?”
+
+///? Insertion mein: - “Ye key sorted portion mein kahan fit hogi?”
+
+///? Merge Sort mein: - “Bade problem ko chhote sorted problems mein tod sakte hain kya?”
+*/
+/* 
+Array
+  ↓
+2 halves mein divide karo
+  ↓
+Har half ko recursively divide karo
+  ↓
+Single elements?
+  ↓
+YES → already sorted
+  ↓
+Ab 2 sorted parts ko MERGE karo
+  ↓
+Dono ke front elements compare karo
+  ↓
+Jo chhota hai → result mein daalo
+  ↓
+Us side ka pointer aage
+  ↓
+Ek side khatam?
+  ↓
+Dusri side ke remaining elements append
+--------------------------------------
+left → portion ka starting index
+right → portion ka ending index
+
+left === right
+      ↓
+sirf 1 element
+      ↓
+divide karna STOP
+-------------------------------------
+[8, 3, 5, 1]
+
+       Divide
+          ↓
+     [8, 3] [5, 1]
+       ↓       ↓
+   [8] [3]  [5] [1]
+       ↓       ↓
+     [3,8]   [1,5]
+          ↓
+        Merge
+          ↓
+          [1,3,5,8]
+-------------------------------------
+function mergeSort(arr, left, right)
+
+arr        → actual data
+left       → current portion ka START
+right      → current portion ka END
+mid        → current portion ko 2 halves mein divide karne ki boundary
+recursion  → smaller portions par same process repeat
+base case  → left >= right → 1 element → STOP
+ */
+/* 
+///! =========== Full Pseudocode ==============
+MERGE_SORT(arr, left, right):
+
+    IF left >= right:
+        RETURN
+
+    mid = floor((left + right) / 2)
+
+    MERGE_SORT(arr, left, mid)
+
+    MERGE_SORT(arr, mid + 1, right)
+
+    MERGE(arr, left, mid, right)
+-------------------------------------------
+And MERGE:
+
+MERGE(arr, left, mid, right):
+
+    create empty temp array
+
+    i = left
+    j = mid + 1
+
+    WHILE i <= mid AND j <= right:
+
+        IF arr[i] <= arr[j]:
+            add arr[i] to temp
+            i++
+
+        ELSE:
+            add arr[j] to temp
+            j++
+
+    WHILE i <= mid:
+        add arr[i] to temp
+        i++
+
+    WHILE j <= right:
+        add arr[j] to temp
+        j++
+
+    copy temp back into arr
+*/
+
+function mergeSort(arr, left, right) {
+   // base case [when portion has 1 elem then stop dividing]
+   if (left >= right) return;
+
+   // finding middle for breaking into two halves
+   let mid = Math.floor((left + right) / 2);
+
+   // sorting left half [recursively]
+   mergeSort(arr, left, mid);
+
+   // sorting right half [recursively]
+   mergeSort(arr, mid + 1, right);
+
+   // merging both left and right half
+   mergeBothHalves(arr, left, mid, right);
+}
+function mergeBothHalves(arr, left, mid, right) {
+   let tempArr = [];
+
+   let i = left, j = mid + 1;
+
+   while (i <= mid && j <= right) {
+      if (arr[i] <= arr[j]) {
+         tempArr.push(arr[i]);
+         i++;
+      }
+      else {
+         tempArr.push(arr[j]);
+         j++;
+      }
+   }
+
+   // pushing remaning ele from left halves
+   while (i <= mid) {
+      tempArr.push(arr[i]);
+      i++;
+   }
+
+   // pushing remaning ele from right halves
+   while (j <= right) {
+      tempArr.push(arr[j]);
+      j++;
+   }
+
+   // copy tempArr to original arr
+   for (let i = 0; i < tempArr.length; i++) {
+      arr[left + i] = tempArr[i];
+   }
+
+}
+
+let arr = [8, 3, 5, 1, 7];
+let arr1 = [8, 3, 5, 1, 7, 2];
+
+mergeSort(arr, 0, arr.length - 1); // [1, 3, 5, 7, 8]
+console.log(arr);
+mergeSort(arr1, 0, arr1.length - 1); // [1, 2, 3, 5, 7, 8]
+console.log(arr1);

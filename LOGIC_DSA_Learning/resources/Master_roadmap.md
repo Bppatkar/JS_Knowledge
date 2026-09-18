@@ -2295,10 +2295,10 @@ These questions validate the concepts studied above.
 
 ## A. From-Scratch Algorithm Drills
 
-- ⌛ **Implement Bubble Sort from scratch**
-- ⌛ **Implement Selection Sort from scratch**
-- ⌛ **Implement Insertion Sort from scratch**
-- ⌛ **Implement Merge Sort from scratch**
+- ✅ **Implement Bubble Sort from scratch**
+- ✅ **Implement Selection Sort from scratch**
+- ✅ **Implement Insertion Sort from scratch**
+- ✅ **Implement Merge Sort from scratch**
 - ⌛ **Implement Quick Sort from scratch — Lomuto partition**
 - ⌛ **Implement Counting Sort from scratch**
 
@@ -2335,7 +2335,7 @@ These are **algorithm implementation drills**, not LeetCode questions.
 
 ### 4. LC 147 — Insertion Sort List
 
-- ⌛ Insertion Sort applied to Linked List
+- ✅ Insertion Sort applied to Linked List
 - Relevant concepts: sorted prefix, insertion
 - Connection: Phase 4 Linked List + Phase 5B Insertion Sort
 

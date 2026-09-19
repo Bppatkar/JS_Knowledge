@@ -2299,8 +2299,7 @@ These questions validate the concepts studied above.
 - ✅ **Implement Selection Sort from scratch**
 - ✅ **Implement Insertion Sort from scratch**
 - ✅ **Implement Merge Sort from scratch**
-- ⌛ **Implement Quick Sort from scratch — Lomuto partition**
-- ⌛ **Implement Counting Sort from scratch**
+- ✅ **Implement Quick Sort from scratch — Lomuto partition**
 
 These are **algorithm implementation drills**, not LeetCode questions.
 
@@ -2310,7 +2309,7 @@ These are **algorithm implementation drills**, not LeetCode questions.
 
 ### 1. LC 912 — Sort an Array
 
-- ⌛ Main sorting application
+- ✅ Main sorting application
 - Purpose: validate a real sorting implementation
 - Relevant concepts: Merge Sort / Quick Sort
 - Primary role: sorting implementation + complexity reasoning

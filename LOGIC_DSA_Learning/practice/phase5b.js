@@ -666,7 +666,138 @@ function mergeBothHalves(arr, left, mid, right) {
 let arr = [8, 3, 5, 1, 7];
 let arr1 = [8, 3, 5, 1, 7, 2];
 
-mergeSort(arr, 0, arr.length - 1); // [1, 3, 5, 7, 8]
-console.log(arr);
-mergeSort(arr1, 0, arr1.length - 1); // [1, 2, 3, 5, 7, 8]
-console.log(arr1);
+// mergeSort(arr, 0, arr.length - 1); // [1, 3, 5, 7, 8]
+// console.log(arr);
+// mergeSort(arr1, 0, arr1.length - 1); // [1, 2, 3, 5, 7, 8]
+// console.log(arr1);
+
+//! Leetcode 912. Sort an Array
+var sortArray = function (nums) {
+   let left = 0, right = nums.length - 1;
+   mergeSort(nums, left, right);
+   return nums;
+};
+
+function mergeSort(nums, left, right) {
+   if (left >= right) return;
+
+   let mid = Math.floor((left + right) / 2);
+
+   // sort left half 
+   mergeSort(nums, left, mid);
+
+   // sort right half 
+   mergeSort(nums, mid + 1, right);
+
+   // merging both left and right half
+   mergeBothHalf(nums, left, mid, right);
+}
+
+
+function mergeBothHalf(arr, left, mid, right) {
+   let i = left, j = mid + 1;
+   let tempArr = [];
+
+   while (i <= mid && j <= right) {
+      if (arr[i] <= arr[j]) { tempArr.push(arr[i]); i++; }
+      else { tempArr.push(arr[j]); j++; }
+   }
+
+   // pushing remaning elems from left halves
+   while (i <= mid) { tempArr.push(arr[i]); i++; }
+
+   // pushing remaning elems from right halves
+   while (j <= right) { tempArr.push(arr[j]); j++; }
+
+   // copy tempArr into original one
+   for (let i = 0; i < tempArr.length; i++) {
+      arr[left + i] = tempArr[i];
+   }
+}
+
+// ==========================================================
+//! Quick Sort - [Pivot → Partition → Recursively sort]
+// Quick Sort ka natural implementation recursive hai.
+// ==========================================================
+/* 
+///* ======Thinking======= 
+/// 1. choose a pivot element [Pivot = ek element jiske basis par array ko 2 sides mein partition karte hain.]
+
+///? Pivot kaunsa element ho sakta hai? - Koi fixed universal rule nahi hai.
+
+Common choices:
+
+- First element
+- Last element
+- Middle element
+- Random element
+- Median-of-three
+
+So tumhara question: - "Center ka maanna hai ya last ka ya mid nikalna hai?"
+
+///? Answer: algorithm/partition scheme par depend karta hai.
+
+/// 2. partition the array into two halves:
+///    - left half: elements < pivot
+///    - right half: elements > pivot
+/// 3. recursively apply quick sort to both halves
+------------------------
+///*   Diff [Merge vs Quick]
+///! Merge Sort
+Divide → Sort → Merge
+
+///! Quick Sort
+Choose Pivot → Partition → Sort left/right
+*/
+/* 
+///? ====== PsuedoCode========
+function quickSort(arr, left, right):
+    IF left >= right:
+        RETURN 
+   /// choose pivot and we choose last element as pivot because it is easy to implement
+
+Hum abhi LAST element kyun le rahe hain? - Kyuki hum Lomuto Partition seekh rahe hain.
+///! [Lomuto Partition = Quick Sort ke andar array ko partition karne ka ek specific method.]
+///? Lomuto Partition ka commonly taught version: - pivot = last element
+
+Isliye: [7, 2, 9, 1, 5, 3]
+                         ↑
+                   pivot = 3
+
+Ye Quick Sort ka universal rule nahi hai.
+
+Ye specifically hamare Lomuto implementation ka convention hai.
+
+    pivot = arr[right]
+    partitionIndex = partition(arr, left, right, pivot)
+    quickSort(arr, left, partitionIndex - 1)
+    quickSort(arr, partitionIndex + 1, right)
+   
+*/
+
+function quickSort(arr, left, right) {
+   if (left >= right) return;
+
+   let pivot = partition(arr, left, right);
+
+   quickSort(arr, left, pivot - 1);
+   quickSort(arr, pivot + 1, right);
+}
+
+function partition(arr, left, right) {
+   let pivot = arr[right] // Lomuto Partition
+   let i = left - 1;
+
+   for (let j = right; j < right; j++) {
+      if (arr[j] < pivot) {
+         i++;
+         [arr[i], arr[j]] = [arr[j], arr[i]]
+      }
+   }
+   i++;
+   [arr[i], arr[right]] = [arr[right], arr[i]]
+   return i; // returning pivot
+}
+
+let quickArr = [7, 2, 9, 1, 5, 3];
+console.log(quickSort(quickArr, 0, quickArr.length - 1));

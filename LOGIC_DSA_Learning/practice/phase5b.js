@@ -220,6 +220,20 @@ next pass mein end wala skip
 */
 //? Bubble Sort mein kya chahiye?- Humein har time current neighbour pair chahiye:
 function bubbleSort(arr) {
+   for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length - 1 - i; j++) {
+         if (arr[j] > arr[j + 1]) {
+            let temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+         }
+      }
+   }
+   return arr;
+}
+
+//! using swapped flag [//! if our array is already sorted or after one iteration sorted we use flag to make bubblesort faster]
+function bubbleSort(arr) {
    for (let i = 0; i < arr.length - 1; i++) {
       let swapped = false;
       // Har pass ke baad 1 largest element apni final position par fix ho jata hai,
@@ -420,27 +434,44 @@ while (j >= 0 && arr[j] > key)
 
 insert key at j+1
 */
+//! This is my implementation
+function insertionSort(arr) {
+   // first part is already sorted because if array has only 1 element then it is already sorted so we started from second one 
+   for (let i = 1; i < arr.length; i++) {
+      let j = i - 1;
+      // j har bar chota hota jayega aur ham reverse mein check krege ki elem chota hai ya bada hai agar chota hai to left mein shift karte jayenge aur j-- karte jayenge
+      while (j >= 0 && arr[i] < arr[j]) {
+         let temp = arr[i];
+         arr[i] = arr[j];
+         arr[j] = temp;
+         j--;
+         i--;
+      }
+   }
+   return arr;
+}
 
+// other way to implement insertion sort is to use key and j pointer to find the correct position of key in sorted portion and then shift the elements to right and insert the key in correct position
 function trainInsertion(arr) {
    for (let i = 1; i < arr.length; i++) {
 
       // 1. Current element uthao
-      let key = arr[i];
+      let curr = arr[i];
 
-      // 2. Key ke just left se start
-      let j = i - 1;
+      // 2. prev pointer , curr ke pehle hoga  and har bar prev change hota rhega isiliye arr[i-1] nahi likh rhe ok
+      let prev = i - 1;
 
       // 3. Bade elements ko right shift karo
-      while (j >= 0 && arr[j] > key) {
+      while (prev >= 0 && arr[prev] > curr) {
 
-         arr[j + 1] = arr[j];
+         arr[prev + 1] = arr[prev];
 
          // 4. Ek step left jao
-         j--;
+         prev--;
       }
 
       // 5. Empty position mein key insert
-      arr[j + 1] = key;
+      arr[prev + 1] = curr;
    }
 
    return arr;
@@ -612,6 +643,60 @@ MERGE(arr, left, mid, right):
     copy temp back into arr
 */
 
+//! My Implementation of Merge Sort
+function mergeSort(arr) {
+   //base case
+   if (arr.length <= 1) return arr;
+
+   const mid = Math.floor(arr.length / 2);
+   const left = mergeSort(arr.slice(0, mid));
+   const right = mergeSort(arr.slice(mid));
+   return merge(arr, left, right);
+   // return arr;
+}
+
+
+function merge(arr, left, right) {
+   // Create an empty array and fill it in sorted order.
+   let temp = [];
+
+   // assume we get - [3,5,8] [2,4] in left and right so we do this
+   // [3,5,8]    [2,4]
+   //  i          j
+   let i = 0, j = 0;
+
+   // we stop loop when i goes beyond left array length and same for right
+   while (i < left.length && j < right.length) {
+      if (left[i] <= right[j]) {
+         temp.push(left[i]);
+         i++;
+      } else {
+         temp.push(right[j]);
+         j++;
+      }
+   }
+
+   // pushing remaining elems from left halves
+   while (i < left.length) {
+      temp.push(left[i]);
+      i++;
+   }
+
+   // pushing remaining elems from right halves
+   while (j < right.length) {
+      temp.push(right[j]);
+      j++;
+   }
+
+   // copying temp array to original array
+   for (let i = 0; i < temp.length; i++) {
+      arr[i] = temp[i];
+   }
+
+   return arr;
+}
+
+// chatgpt implementation of merge sort
 function mergeSort(arr, left, right) {
    // base case [when portion has 1 elem then stop dividing]
    if (left >= right) return;
@@ -788,7 +873,7 @@ function partition(arr, left, right) {
    let pivot = arr[right] // Lomuto Partition
    let i = left - 1;
 
-   for (let j = right; j < right; j++) {
+   for (let j = left; j < right; j++) {
       if (arr[j] < pivot) {
          i++;
          [arr[i], arr[j]] = [arr[j], arr[i]]
@@ -799,5 +884,284 @@ function partition(arr, left, right) {
    return i; // returning pivot
 }
 
-let quickArr = [7, 2, 9, 1, 5, 3];
-console.log(quickSort(quickArr, 0, quickArr.length - 1));
+// let quickArr = [7, 2, 9, 1, 5, 3];
+// quickSort(quickArr, 0, quickArr.length - 1);
+// console.log(quickArr)
+
+//! Leetcode 75. Sort Colors
+//? using built-in method
+var sortColors1 = function (nums) {
+   return nums.sort((a, b) => a - b)
+} // TC- O(n log n)
+
+//? method 2 - conting 0,1,and 2 and put in array
+var sortColors2 = function (nums) {
+   let zeroCount = 0, oneCount = 0, twoCount = 0;
+   for (let i = 0; i < nums.length; i++) {
+      if (nums[i] === 0) zeroCount++;
+      else if (nums[i] === 1) oneCount++;
+      else twoCount++;
+   }
+   let index = 0;
+   // now we will fill the array with 0s, 1s, and 2s based on their counts
+   for (let i = 0; i < zeroCount; i++) {
+      // nums[index++] = 0;
+      nums[index] = 0;
+      index++;
+   }
+   for (let i = 0; i < oneCount; i++) {
+      nums[index++] = 1;
+   }
+   for (let i = 0; i < twoCount; i++) {
+      nums[index++] = 2;
+   }
+   return nums;
+} // TC - O(n)
+
+///! Famous solution
+var sortColors = function (nums) {
+   // we chhose 3 pointer, ans "ASSUME" ki i/left ke pass 0 hona chahiye, j/mid ke pass 1 and k/high ke pass = 2
+   // we put k in last because 2 needs in the end, and we dont know where is 1 so we put i and j in start ok
+   // and condition ye rhegi loop ki , ki ye j , k ko cross na kre because k end s fill hoga aur reverse mein aayega , j agar k ko cross krega means sare elem fill ho gye hai sahi jagah end loop end
+
+   let i = 0; // denotes 0
+   let j = 0; // denotes 1
+   let k = nums.length - 1; // denotes 2
+
+   while (j <= k) {
+      if (nums[j] === 0) {
+         swap(nums, i, j);
+         i++; j++;
+      }
+      else if (nums[j] === 1) {
+         j++;
+      } else {
+         swap(nums, j, k);
+         k--;
+      }
+   }
+   return nums;
+} // TC- O(n)
+
+function swap(arr, a, b) {
+   let temp = arr[a];
+   arr[a] = arr[b];
+   arr[b] = temp;
+   return arr;
+}
+
+// console.log(sortColors([2, 0, 2, 1, 1, 0])); // [0,0,1,1,2,2]
+// console.log(sortColors([2, 0, 1])); // [0,1,2]
+
+//! Leetcode 88. Merge Sorted Array
+var merge = function (nums1, m, nums2, n) {
+   if (m === 0) {
+      for (let k = 0; k < n; k++) {
+         nums1[k] = nums2[k];
+      }
+      return nums1;
+   }
+   if (n === 0) return nums1;
+
+   let tempArr = [];
+   let i = 0, j = 0;
+   while (i < m && j < n) {
+      if (nums1[i] < nums2[j]) {
+         tempArr.push(nums1[i]);
+         i++;
+      } else if (nums1[i] === nums2[j]) {
+         tempArr.push(nums1[i]);
+         tempArr.push(nums2[j]);
+         i++; j++;
+      }
+      else {
+         tempArr.push(nums2[j]);
+         j++;
+      }
+
+   }
+   // pushing remanning elems
+   for (let k = i; k < m; k++) {
+      tempArr.push(nums1[k]);
+   }
+   for (let k = j; k < n; k++) {
+      tempArr.push(nums2[k]);
+   }
+   // replacing tempArr from nums1
+   for (let i = 0; i < m + n; i++) {
+      nums1[i] = tempArr[i];
+   }
+   return nums1;
+} // O(m+n) and extra space tempArr
+
+//! reversing two pointer approach [no extra space]
+var merge1 = function (nums1, m, nums2, n) {
+   let p1 = m - 1;
+   let p2 = n - 1;
+
+   for (let i = m + n - 1; i >= 0; i--) {
+      if (p2 < 0) break;
+      if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+         nums1[i] = nums1[p1];
+         p1--;
+      } else {
+         nums1[i] = nums2[p2];
+         p2--;
+      }
+   }
+   return nums1;
+} // O(1) extra space and  TC - O(m+n)
+
+// console.log(merge1([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3)); // [1,2,2,3,5,6]
+// console.log(merge1([1], 1, [], 0)); // [1]
+// console.log(merge1([0], 0, [1], 1)); // [1]
+
+// ======================================
+//! Counting Sort - [Count → Place → Output]
+// ======================================
+/* 
+============ Thinking =============
+Counting Sort ka main idea hai: - "Compare mat karo, bas count karo."
+
+Array: - [4, 2, 2, 1, 4, 3, 2]
+
+Counting Sort bolta hai: - "Compare kyun karna? Pehle ye count karo ki har number kitni baar aaya."
+
+Dekho:
+
+Value:  1  2  3  4
+Count:  1  3  1  2
+
+Matlab:
+
+1 → 1 baar
+2 → 3 baar
+3 → 1 baar
+4 → 2 baar
+
+Ab sorted array banana trivial hai:
+
+1 → [1]
+2 → [2,2,2]
+3 → [3]
+4 → [4,4]
+
+Result:- [1, 2, 2, 2, 3, 4, 4] 
+
+///! Yahi Counting Sort ka core idea hai
+
+Array
+  ↓
+Har value ki frequency count karo
+  ↓
+Values ko increasing order mein dekho
+  ↓
+Jitni baar count hai, utni baar output mein daalo
+
+============ Pseudocode =============
+1. pehle range find karo (min, max)
+2. count array create karo (size = max - min + 1)
+3. input array ke elements ko count array mein count karo
+4. count array ke basis par output array fill karo
+5. output array ko original array mein copy karo
+
+*/
+var countingSort = function (arr) {
+   let min = Math.min(...arr);
+   let max = Math.max(...arr);
+
+   // finding range
+   let range = max - min + 1;
+
+   // creating count array using size of range
+   let count = new Array(range).fill(0);
+
+   // counting frequency of each elem
+   for (let i = 0; i < arr.length; i++) {
+      // incrementing count for each element
+      // count[arr[i] - min]++;
+      let index = arr[i] - min;
+      count[index]++;
+   }
+
+   // scanning count array from left to right
+   let index = 0;
+   for (let i = 0; i < count.length; i++) {
+      while (count[i] > 0) {
+         arr[index] = i + min;
+         index++;
+         count[i]--;
+      }
+   }
+   return arr;
+}
+// console.log(countingSort([4, 2, 2, 8, 3, 3, 1])); // [1,2,2,3,3,4,8]
+
+//! above one is not stable, so we write counting sort using prefix sum
+
+/* 
+//* Stable ka matlab
+
+Suppose objects hain:
+
+(2, A)
+(1, X)
+(2, B)
+(1, Y)
+
+Agar sort by number karein, stable result hona chahiye:
+
+(1, X)
+(1, Y)
+(2, A)
+(2, B)
+
+Notice:
+
+2: A → B
+1: X → Y
+
+same-value elements ka original order preserve hua.
+
+Tumhara current frequency-rebuild version sirf values jaanta hai:
+
+count[1] = 2
+count[2] = 2
+
+Usse ye information nahi pata ki kaunsa 2 pehle tha aur kaunsa baad mein.
+*/
+
+function countingSort1(arr) {
+   let min = Math.min(...arr);
+   let max = Math.max(...arr);
+
+   let range = max - min + 1;
+
+   let count = new Array(range).fill(0);
+
+   for (let i = 0; i < arr.length; i++) {
+      let index = arr[i] - min;
+      count[index]++;
+   }
+
+   // count ko prefix sum mein convert krna h
+   for (let i = 1; i < count.length; i++) {
+      count[i] = count[i] + count[i - 1];
+   }
+
+   // output array same as input size arr
+   let outputArr = new Array(arr.length).fill(0);
+
+   // traversing right to left [stable placement]
+   for (let j = arr.length - 1; j >= 0; j--) {
+      let val = arr[j];
+      let index = val - min;
+      let position = count[index] - 1;
+      outputArr[position] = val;
+      count[index]--;
+   }
+
+
+   return outputArr;
+}
+console.log(countingSort1([4, 2, 2, 8, 3, 3, 1])); // [1,2,2,3,3,4,8]

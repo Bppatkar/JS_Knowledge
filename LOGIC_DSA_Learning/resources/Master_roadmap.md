@@ -2300,6 +2300,7 @@ These questions validate the concepts studied above.
 - ✅ **Implement Insertion Sort from scratch**
 - ✅ **Implement Merge Sort from scratch**
 - ✅ **Implement Quick Sort from scratch — Lomuto partition**
+- ✅ **Implement Counting Sort from scratch**
 
 These are **algorithm implementation drills**, not LeetCode questions.
 
@@ -2318,7 +2319,7 @@ These are **algorithm implementation drills**, not LeetCode questions.
 
 ### 2. LC 75 — Sort Colors
 
-- ⌛ Dutch National Flag / 3-way partition
+- ✅ Dutch National Flag / 3-way partition
 - Relevant concepts: partitioning, in-place processing
 - **Important:** This is primarily a **3-way partitioning problem**, not simply a Counting Sort problem.
 
@@ -2326,7 +2327,7 @@ These are **algorithm implementation drills**, not LeetCode questions.
 
 ### 3. LC 88 — Merge Sorted Array
 
-- ⌛ Merge two sorted sequences
+- ✅ Merge two sorted sequences
 - Relevant concepts: merging, two pointers, sorted structure
 - Connection: Merge Sort's merge operation
 

@@ -871,15 +871,15 @@ function quickSort(arr, left, right) {
 
 function partition(arr, left, right) {
    let pivot = arr[right] // Lomuto Partition
-   let i = left - 1;
+   let i = left;
 
    for (let j = left; j < right; j++) {
       if (arr[j] < pivot) {
-         i++;
          [arr[i], arr[j]] = [arr[j], arr[i]]
+         i++;
       }
    }
-   i++;
+
    [arr[i], arr[right]] = [arr[right], arr[i]]
    return i; // returning pivot
 }
@@ -1066,34 +1066,39 @@ Jitni baar count hai, utni baar output mein daalo
 5. output array ko original array mein copy karo
 
 */
-var countingSort = function (arr) {
+function countingSort(arr) {
+   if (arr.length === 0) return [];
+
    let min = Math.min(...arr);
    let max = Math.max(...arr);
 
-   // finding range
+
+   // creating count array of range
    let range = max - min + 1;
+   let countArr = new Array(range).fill(0);
 
-   // creating count array using size of range
-   let count = new Array(range).fill(0);
-
-   // counting frequency of each elem
+   // counting elems frequency and putting that in countArr
    for (let i = 0; i < arr.length; i++) {
-      // incrementing count for each element
-      // count[arr[i] - min]++;
-      let index = arr[i] - min;
-      count[index]++;
+      // arr = [5, 3, 8, 4, 2], min = 2, max = 8, range = 7.
+
+      // Toh countArr ki indexing 0 se 6 tak hai.
+      // Lekin arr[i] = 8 ke liye tu countArr[8]++ kar raha hai — jo exist hi nahi karta. Isse array me extra space ban jayegi aur tera logic gadbad ho jayega.
+
+      // Sudhaar:- Jab bhi value ko countArr me daale, us value se min subtract kar:
+      // let index = arr[i] - min;
+      // count[index]++;
+      countArr[arr[i] - min]++;
    }
 
-   // scanning count array from left to right
-   let index = 0;
-   for (let i = 0; i < count.length; i++) {
-      while (count[i] > 0) {
-         arr[index] = i + min;
-         index++;
-         count[i]--;
+   // creating new array and filling that with countArr frequencies
+   let temp = [];
+   for (let i = 0; i < countArr.length; i++) {
+      let freq = countArr[i];
+      for (let j = 0; j < freq; j++) {
+         temp.push(i + min);
       }
    }
-   return arr;
+   return temp;
 }
 // console.log(countingSort([4, 2, 2, 8, 3, 3, 1])); // [1,2,2,3,3,4,8]
 
@@ -1102,66 +1107,109 @@ var countingSort = function (arr) {
 /* 
 //* Stable ka matlab
 
-Suppose objects hain:
+Example:
 
-(2, A)
-(1, X)
-(2, B)
-(1, Y)
+arr = [
+  { name: "A", marks: 50 },
+  { name: "B", marks: 30 },
+  { name: "C", marks: 50 },
+  { name: "D", marks: 20 }
+]
+Sort by marks:
 
-Agar sort by number karein, stable result hona chahiye:
+Stable sort ka output: 
 
-(1, X)
-(1, Y)
-(2, A)
-(2, B)
+D(20), B(30), A(50), C(50)
+// A pehle tha C se, isliye A pehle raha
+Unstable sort ka output:
 
-Notice:
-
-2: A → B
-1: X → Y
-
-same-value elements ka original order preserve hua.
-
-Tumhara current frequency-rebuild version sirf values jaanta hai:
-
-count[1] = 2
-count[2] = 2
-
-Usse ye information nahi pata ki kaunsa 2 pehle tha aur kaunsa baad mein.
+D(20), B(30), C(50), A(50)
+// C pehle aa gaya A se, order bigad gaya
+Matlab stable sort equal elements ka relative order nahi badalta.
 */
 
-function countingSort1(arr) {
+function countingSortStable(arr) {
    let min = Math.min(...arr);
    let max = Math.max(...arr);
 
    let range = max - min + 1;
+   let countArr = new Array(range).fill(0);
 
-   let count = new Array(range).fill(0);
-
-   for (let i = 0; i < arr.length; i++) {
-      let index = arr[i] - min;
-      count[index]++;
+   // counting frequency
+   // for (let i = 0; i < arr.length; i++) {
+   //   countArr[arr[i] - min]++;
+   // }
+   //? Counting frequency using for-of loop
+   for (let x of arr) {
+      countArr[x - min]++;
    }
 
-   // count ko prefix sum mein convert krna h
-   for (let i = 1; i < count.length; i++) {
-      count[i] = count[i] + count[i - 1];
+   // converting countArr into prefixSum
+   for (let i = 1; i < countArr.length; i++) {
+      countArr[i] = countArr[i] + countArr[i - 1];
    }
+   // countArr = [1, 2, 3, 4, 4, 4, 5]
+   //              ↑  ↑  ↑  ↑  ↑  ↑  ↑
+   //             2  3  4  5  6  7  8
+   // countArr[i] batata hai ki value(i + min) tak kitne elements hain(inclusive).
 
-   // output array same as input size arr
-   let outputArr = new Array(arr.length).fill(0);
+   // Jaise: countArr[0] = 1 → value 2 tak 1 element hai
+   // countArr[3] = 4 → value 5 tak 4 elements hain(2, 3, 4, 5)
+   // countArr[6] = 5 → value 8 tak 5 elements hain(poore array me 5 elements)
 
-   // traversing right to left [stable placement]
-   for (let j = arr.length - 1; j >= 0; j--) {
-      let val = arr[j];
-      let index = val - min;
-      let position = count[index] - 1;
+   let outputArr = new Array(arr.length);
+   // reverse array traversing
+   for (let i = arr.length - 1; i >= 0; i--) {
+      let val = arr[i];
+      // finding index to place the value in outputArr using countArr/prefixSum array
+      let position = countArr[val - min] - 1;
+      // we subtract 1 because countArr is 1-based index and outputArr is 0-based index
       outputArr[position] = val;
-      count[index]--;
+      countArr[val - min]--;
+      // decrementing the countArr so that if there are duplicate values, the next duplicate value will be placed in the correct position in outputArr.
    }
-
-
    return outputArr;
 }
-console.log(countingSort1([4, 2, 2, 8, 3, 3, 1])); // [1,2,2,3,3,4,8]
+// console.log(countingSortStable([4, 2, 2, 8, 3, 3, 1])); // [1,2,2,3,3,4,8]
+
+
+
+
+
+
+
+
+//! ==============================================
+//* SORTING COMPARISION TABLE
+//! ==============================================
+
+/*
+    n = number of elements
+    k = value range (max - min + 1) / number of buckets
+    d = number of digits, b = base/radix
+
+    | Sorting       | Best TC       | Average TC       | Worst TC        | SC             | Stable | In-place | Important point                         |
+    |---------------|---------------|------------------|-----------------|----------------|--------|----------|-----------------------------------------|
+    | Bubble         | O(n)          | O(n^2)           | O(n^2)          | O(1)           | Yes    | Yes      | Nearly sorted data ke liye achha       |
+    | Selection      | O(n^2)        | O(n^2)           | O(n^2)          | O(1)           | No*    | Yes      | Swaps kam, lekin scans hamesha hote hain|
+    | Insertion      | O(n)          | O(n^2)           | O(n^2)          | O(1)           | Yes    | Yes      | Nearly sorted data par bahut fast       |
+    | Merge          | O(n log n)    | O(n log n)       | O(n log n)      | O(n)           | Yes    | No       | Guaranteed performance; extra array     |
+    | Quick          | O(n log n)    | O(n log n)       | O(n^2)          | O(log n)**     | No     | Yes      | Pivot choice important; practical fast  |
+    | Counting       | O(n + k)      | O(n + k)         | O(n + k)        | O(n + k)       | Yes*** | No       | Comparison-free; range chhota hona chahiye|
+    | Radix         | O(d(n + b))   | O(d(n + b))      | O(d(n + b))    | O(n + b)       | Yes****| No       | Fixed-width numbers/strings ke liye     |
+    | Bucket         | O(n + k)      | O(n + k)         | O(n^2)          | O(n + k)       | Depends| Depends  | Uniform distribution mein best          |
+
+    * Selection sort ko stable banane ke liye normal swap ki jagah shifting chahiye.
+    ** Quick sort ka recursion stack average O(log n), worst case O(n) ho sakta hai.
+    *** Prefix-sum + right-to-left placement wali implementation stable hoti hai;
+          frequency-rebuild wali implementation stable nahi hoti.
+    **** Radix sort tabhi stable hota hai jab har digit-pass mein stable sort use ho.
+
+    Quick revision:
+    - Stable ka matlab: equal elements ka original order preserve rahe.
+    - In-place ka matlab: input array ke bahar O(n) extra array na banana.
+    - Comparison-based sorts (Bubble, Selection, Insertion, Merge, Quick) ka
+       general lower bound best possible O(n log n) hota hai.
+    - Counting, Radix aur Bucket non-comparison sorting techniques hain.
+*/
+

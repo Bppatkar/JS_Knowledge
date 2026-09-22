@@ -1173,7 +1173,143 @@ function countingSortStable(arr) {
 // console.log(countingSortStable([4, 2, 2, 8, 3, 3, 1])); // [1,2,2,3,3,4,8]
 
 
+//! Leetcode 215. Kth Largest Element in an Array
+//? reason behind using quick sort ka partition mechanism ya so called - quickSelecct because question says can u solve it without sorting so we use only mechanism , we are not going to sort it ok
+/* 
+Quickselect
+Quick Sort ka partition mechanism reuse karta hai.
+Pivot choose karo.
+Partition karo.
+Pivot ki final position identify karo.
+Check karo required K-th element pivot ke left ya right kis side hai.
+Sirf relevant side mein continue karo.
+Irrelevant side ko sort karne ki zarurat nahi.
+Goal → sirf required element find karna.
+*/
 
+var findKthLargest = function (nums, k) {
+   let left = 0, right = nums.length - 1;
+   return quickSelect(nums, left, right, k);
+}
+function quickSelect(arr, left, right, k) {
+   if (left === right) return arr[left];
+
+   let pivotIndex = quickSelectSort(arr, left, right);
+
+   // we find pivot back 
+   // it means all the left one is smaller than pivot , so we ignore it and check only on right side
+   // our pivot elem is 4 and its index is 3, if we sort the original array then we get same index for value 4 
+   // we want 2nd largest because k=2 so we find target index so = total array length - k 
+   // so we got target index means 2ne largest index
+   let targetIndex = arr.length - k;
+
+   if (pivotIndex === targetIndex) return arr[pivotIndex];
+   else if (pivotIndex < targetIndex) {
+      // that means required elem pivot ke right side m h
+      // so we search on right side
+      let result = quickSelect(arr, pivotIndex + 1, right, k)
+      return result;
+   }
+   else {
+      // that means required elem pivot ke left side m h 
+      // so we search on left side
+      let result = quickSelect(arr, left, pivotIndex - 1, k)
+      return result;
+   }
+}
+function quickSelectSort(arr, left, right) {
+   let pivot = arr[right];
+   let i = left;
+   for (let j = left; j < right; j++) {
+      if (arr[j] < pivot) {
+         [arr[i], arr[j]] = [arr[j], arr[i]]
+         i++;
+      }
+   }
+   // putting pivot in correct position
+   [arr[i], arr[right]] = [arr[right], arr[i]];
+
+   return i; // returning pivot index
+
+}
+
+//! this code is algorithmically correct and giving us answer but in leetcode it is giving us TLE because of worst case scenario so we can use random pivot selection to avoid worst case scenario 
+
+var findKthLargest = function (nums, k) {
+   let left = 0, right = nums.length - 1;
+   return quickSelect(nums, left, right, k);
+}
+
+function quickSelect(arr, left, right, k) {
+   if (left === right) return arr[left];
+
+   let [lessEnd, greaterStart] = quickSelectSortFixTLE(arr, left, right);
+
+   let targetIndex = arr.length - k;
+
+   // target is in the < pivot section
+   if (targetIndex < lessEnd) {
+      let result = quickSelect(arr, left, lessEnd - 1, k);
+      return result;
+   }
+
+   // target is in the > pivot section
+   else if (targetIndex > greaterStart) {
+      let result = quickSelect(arr, greaterStart + 1, right, k);
+      return result;
+   }
+
+   // target is inside == pivot section
+   else {
+      return arr[targetIndex];
+   }
+}
+
+function quickSelectSortFixTLE(arr, left, right) {
+
+   // choosing random pivot
+   let randomIdx = left + Math.floor(
+      Math.random() * (right - left + 1)
+   );
+
+   let pivot = arr[randomIdx];
+
+   // 3-way partition
+   let less = left;
+   let current = left;
+   let greater = right;
+
+   while (current <= greater) {
+
+      if (arr[current] < pivot) {
+
+         [arr[less], arr[current]] = [arr[current], arr[less]];
+
+         less++;
+         current++;
+
+      } else if (arr[current] > pivot) {
+
+         [arr[current], arr[greater]] = [arr[greater], arr[current]];
+
+         greater--;
+
+      } else {
+
+         // arr[current] === pivot
+         current++;
+      }
+   }
+
+   // [left ... less-1]     < pivot
+   // [less ... greater]    == pivot
+   // [greater+1 ... right] > pivot
+
+   return [less, greater];
+}
+// console.log(findKthLargest([3, 2, 1, 5, 6, 4], 2)); // 5
+// console.log(findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)); // 4
+// console.log(findKthLargest([3, 2, 1, 5, 6, 4, 8, 7, 10, 9], 2)); // 9
 
 
 

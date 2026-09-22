@@ -275,45 +275,89 @@ function countingSortStable(arr) {
   let max = Math.max(...arr);
 
   let range = max - min + 1;
-  let countArr = new Array(range).fill(0);
+  let prefixCountArr = new Array(range).fill(0);
+  // 0 fill nahi krege to empty array create hoga with value undefined to undefined++ hone lagega and it gives us NaN
 
   // counting frequency
   // for (let i = 0; i < arr.length; i++) {
-  //   countArr[arr[i] - min]++;
+  //   prefixCountArr[arr[i] - min]++;
   // }
   //? Counting frequency using for-of loop
   for (let x of arr) {
-    countArr[x - min]++;
+    prefixCountArr[x - min]++;
   }
 
-  // converting countArr into prefixSum
-  for (let i = 1; i < countArr.length; i++) {
-    countArr[i] = countArr[i] + countArr[i - 1];
+  // converting prefixCountArr into prefixSum
+  for (let i = 1; i < prefixCountArr.length; i++) {
+    prefixCountArr[i] = prefixCountArr[i] + prefixCountArr[i - 1];
   }
-  // countArr = [1, 2, 3, 4, 4, 4, 5]
+  // prefixCountArr = [1, 2, 3, 4, 4, 4, 5]
   //              ↑  ↑  ↑  ↑  ↑  ↑  ↑
   //             2  3  4  5  6  7  8
-  // countArr[i] batata hai ki value(i + min) tak kitne elements hain(inclusive).
+  // prefixCountArr[i] batata hai ki value(i + min) tak kitne elements hain(inclusive).
 
-  // Jaise: countArr[0] = 1 → value 2 tak 1 element hai
-  // countArr[3] = 4 → value 5 tak 4 elements hain(2, 3, 4, 5)
-  // countArr[6] = 5 → value 8 tak 5 elements hain(poore array me 5 elements)
+  // Jaise: prefixCountArr[0] = 1 → value 2 tak 1 element hai
+  // prefixCountArr[3] = 4 → value 5 tak 4 elements hain(2, 3, 4, 5)
+  // prefixCountArr[6] = 5 → value 8 tak 5 elements hain(poore array me 5 elements)
 
   let outputArr = new Array(arr.length);
   // reverse array traversing
   for (let i = arr.length - 1; i >= 0; i--) {
     let val = arr[i];
-    // finding index to place the value in outputArr using countArr/prefixSum array
-    let position = countArr[val - min] - 1;
-    // we subtract 1 because countArr is 1-based index and outputArr is 0-based index
+    // finding index to place the value in outputArr using prefixCountArr/prefixSum array
+    let position = prefixCountArr[val - min] - 1;
+    // we subtract 1 because prefixCountArr is 1-based index and outputArr is 0-based index
     outputArr[position] = val;
-    countArr[val - min]--;
-    // decrementing the countArr so that if there are duplicate values, the next duplicate value will be placed in the correct position in outputArr.
+    prefixCountArr[val - min]--; // counting kam kr rhe hai bas counter se
+    //prefixCountArr[val - min] kya batata hai , Ye batata hai ki val value tak kitne elements hain (inclusive). Aur - 1 karke uski last position nikalte hain.
+
+
+    ///!  agar prefixCountArr[val-min]-- na kre to Problem kya hui?
+
+    // prefixCountArr[val - min] har baar same value deta hai (val ke liye). Isliye pos bhi har baar same nikalta hai, aur naya element purane wale ko overwrite kar deta hai.
+
+    // Isliye -- karte hain
+    // Jab humne ek val ko uski position pe rakh diya, to ab us val ke liye ek position peeche chale jao, taaki agar same value dobara aaye, to wo ek kam position pe baithe — jahan khali jagah hai. jisse stablity aa jayegi aur values bhi overwrite nhi hogi
+
+  }
+  return outputArr;
+}
+
+// more sort code
+function countingSortStable1(arr) {
+  let max = Math.max(...arr);
+
+  let count = new Array(max + 1).fill(0);
+  // because i want array from 0 to max , so for 0 index i add +1
+
+  // getting frequency
+  for (let x of arr) {
+    count[x]++;
+  }
+
+  // getting prefixsum array
+  let prefix = new Array(max + 1).fill(0);
+
+  for (let i = 1; i < count.length; i++) {
+    prefix[i] = count[i] + prefix[i - 1];
+  }
+
+  let outputArr = new Array(arr.length);
+
+  for (let i = arr.length - 1; i >= 0; i--) {
+    let val = arr[i];
+    // we take values from arr from last to first and then we find their position in prefix array and place them in output array
+    let pos = prefix[val]; // pos means index
+    outputArr[pos - 1] = val;
+    prefix[val]--;
   }
   return outputArr;
 }
 
 console.log("Counting Sort", countingSort([5, 3, 8, 4, 2])); // Output: [2, 3, 4, 5, 8]
 console.log("Counting Sort", countingSortStable([-1, -4, 6, 8, 2, 12])); // Output: [-4, -1, 2, 6, 8, 12]
+console.log("Counting Sort", countingSortStable1([4, 2, 5, 3, 3, 2, 1, 4])); // Output: [1, 2, 2, 3, 3, 4, 4, 5]
+console.log("Counting Sort", countingSortStable1([5, 3, 3, 6, 2, 5, 1])); // Output: [1, 2, 3, 3, 5, 5, 6]
+
 ///====================================================================
 

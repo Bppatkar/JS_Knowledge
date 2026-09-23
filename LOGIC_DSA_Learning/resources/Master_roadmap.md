@@ -1,12 +1,11 @@
-<a id="top"></a>
-
 # ⚔️ MASTER DSA ROADMAP
 
 ### Supreme Engineering Training System — Updated Official Roadmap
 
-**Version:** 12.3
+**Version:** 12.4
 **Status:** 🔒 LOCKED
 **Update Date:** 28 August 2026
+**Change:** Recursion & Backtracking promoted to **Phase 6** (previously Phase 9). All subsequent phases renumbered sequentially.
 
 ---
 
@@ -25,10 +24,10 @@
 - [PHASE 4 — LINKED LIST](#phase-4-linked-list)
 - [PHASE 5 — BINARY SEARCH](#phase-5-binary-search)
 - [PHASE 5B — SORTING & SEARCHING (PARALLEL TRACK)](#phase-5b-sorting-searching-parallel-track)
-- [PHASE 6 — TREES](#phase-6-trees)
-- [PHASE 7 — HEAP / PRIORITY QUEUE](#phase-7-heap-priority-queue)
-- [PHASE 8 — GRAPHS](#phase-8-graphs)
-- [PHASE 9 — RECURSION & BACKTRACKING](#phase-9-recursion-backtracking)
+- [PHASE 6 — RECURSION & BACKTRACKING](#phase-6-recursion-backtracking)
+- [PHASE 7 — TREES](#phase-7-trees)
+- [PHASE 8 — HEAP / PRIORITY QUEUE](#phase-8-heap-priority-queue)
+- [PHASE 9 — GRAPHS](#phase-9-graphs)
 - [PHASE 10 — GREEDY](#phase-10-greedy)
 - [PHASE 11 — DYNAMIC PROGRAMMING](#phase-11-dynamic-programming)
 - [PHASE 12 — ADVANCED DATA STRUCTURES](#phase-12-advanced-data-structures)
@@ -2218,7 +2217,7 @@ Merge two sorted halves
 - TC: O(n log n) always (best/avg/worst)
 - SC: O(n) auxiliary
 - Stable: Yes
-- Why it matters: direct rehearsal for Binary Search's halving logic + recursion; reused later in Phase 4's LC 148 (Sort List) and in external merge / k-way merge problems (Phase 7)
+- Why it matters: direct rehearsal for Binary Search's halving logic + recursion; reused later in Phase 4's LC 148 (Sort List) and in external merge / k-way merge problems (Phase 8)
 
 ### 2. Quick Sort (Partition-based)
 
@@ -2233,7 +2232,7 @@ Recursively sort each side
 - TC: O(n log n) average, O(n²) worst case
 - SC: O(log n) recursion stack (in-place)
 - Stable: No (standard implementation)
-- Why it matters: partitioning logic reappears in Quickselect (Kth largest — Phase 7) and in interview "why is worst case O(n²)" discussions
+- Why it matters: partitioning logic reappears in Quickselect (Kth largest — Phase 8) and in interview "why is worst case O(n²)" discussions
 
 ### 3. Insertion Sort
 
@@ -2387,9 +2386,124 @@ This is a supporting/parallel track, not a full standalone phase — so its ladd
 
 ---
 
-<a id="phase-6-trees"></a>
+<a id="phase-6-recursion-backtracking"></a>
 
-# PHASE 6 — TREES
+# PHASE 6 — RECURSION & BACKTRACKING
+
+## Status
+
+⏳ Future Phase
+
+## Why This Phase Comes Here (Ordering Rationale)
+
+Recursion is the **base mental model** that Trees, Graphs, DP, and Greedy all depend on. Trees are literally recursive structures. Graph DFS is recursion. DP memoization is recursion + cache. Greedy's exchange argument is often reasoned recursively. So recursion must arrive **before** all of them:
+
+```text
+Recursion & Backtracking  ← Phase 6 (foundation of the rest)
+        ↓
+Trees                     ← Phase 7 (recursive state systems)
+        ↓
+Heap                      ← Phase 8
+        ↓
+Graphs                    ← Phase 9 (DFS = recursion on a graph)
+        ↓
+Greedy                    ← Phase 10
+        ↓
+Dynamic Programming       ← Phase 11 (recursion + memoization → tabulation)
+        ↓
+Advanced Data Structures  ← Phase 12
+```
+
+If recursion is weak, every later phase collapses into memorized templates. This phase prevents that.
+
+## Goal
+
+Learn how to systematically explore a decision space.
+
+## Core Topics
+
+- Base Case
+- Recursive Case
+- Call Stack
+- Choice
+- State
+- Undo
+- Backtracking
+- Pruning
+- Constraint Checking
+
+## Core Patterns
+
+- Subsets
+- Permutations
+- Combinations
+- Combination Sum
+- Partitioning
+- Grid Search
+- Word Search
+- N-Queens
+- Sudoku
+
+## 80/20 Algorithms
+
+### 1. Choice → Explore → Undo
+
+```text
+Choose
+↓
+Recurse
+↓
+Undo
+```
+
+### 2. State-based Recursion
+
+Define exactly what the recursive function represents.
+
+### 3. Pruning
+
+Stop exploring branches that can no longer produce a valid answer.
+
+## Representative LeetCode
+
+- **LC 78 — Subsets**
+- **LC 90 — Subsets II**
+- **LC 46 — Permutations**
+- **LC 47 — Permutations II**
+- **LC 39 — Combination Sum**
+- **LC 40 — Combination Sum II**
+- **LC 77 — Combinations**
+- **LC 131 — Palindrome Partitioning**
+- **LC 79 — Word Search**
+- **LC 51 — N-Queens**
+- **LC 37 — Sudoku Solver**
+- **LC 17 — Letter Combinations of a Phone Number**
+- **LC 22 — Generate Parentheses**
+- **LC 216 — Combination Sum III**
+
+## Problem Ladder
+
+```text
+5–25
+Target ≈ 15–20
+```
+
+## Completion Conditions
+
+- Can write a recursive function from a blank screen using base case + recursive case
+- Can explain what the call stack looks like at any point during execution
+- Can derive the recursion tree of a backtracking problem
+- Can explain when to prune and why pruning is safe
+- Can state TC/SC of backtracking solutions in terms of the recursion tree (branching factor × depth)
+- Can connect recursion forward to Trees (Phase 7), Graphs (Phase 9), and DP (Phase 11)
+
+[⬆️ Back to Index](#top)
+
+---
+
+<a id="phase-7-trees"></a>
+
+# PHASE 7 — TREES
 
 ## Status
 
@@ -2398,6 +2512,8 @@ This is a supporting/parallel track, not a full standalone phase — so its ladd
 ## Goal
 
 Learn trees as recursive state systems rather than memorizing traversal code.
+
+> **Dependency:** This phase directly builds on **Phase 6 — Recursion & Backtracking**. Every tree traversal here *is* a recursion. If recursion is not solid, return to Phase 6 first.
 
 ## Core Topics
 
@@ -2519,9 +2635,9 @@ Trees require deeper coverage, so the ladder may naturally approach the maximum.
 
 ---
 
-<a id="phase-7-heap-priority-queue"></a>
+<a id="phase-8-heap-priority-queue"></a>
 
-# PHASE 7 — HEAP / PRIORITY QUEUE
+# PHASE 8 — HEAP / PRIORITY QUEUE
 
 ## Status
 
@@ -2598,9 +2714,9 @@ Target ≈ 15–20
 
 ---
 
-<a id="phase-8-graphs"></a>
+<a id="phase-9-graphs"></a>
 
-# PHASE 8 — GRAPHS
+# PHASE 9 — GRAPHS
 
 ## Status
 
@@ -2609,6 +2725,8 @@ Target ≈ 15–20
 ## Goal
 
 Learn to model relationships and navigate connected systems.
+
+> **Dependency:** Graph DFS and backtracking both rely on **Phase 6 — Recursion & Backtracking**. Tree traversal (Phase 7) is the direct warm-up for graph traversal here.
 
 ## Core Topics
 
@@ -2727,90 +2845,6 @@ Graphs require broad algorithm coverage, so deeper ladder coverage is expected.
 
 ---
 
-<a id="phase-9-recursion-backtracking"></a>
-
-# PHASE 9 — RECURSION & BACKTRACKING
-
-## Status
-
-⏳ Future Phase
-
-## Goal
-
-Learn how to systematically explore a decision space.
-
-## Core Topics
-
-- Base Case
-- Recursive Case
-- Call Stack
-- Choice
-- State
-- Undo
-- Backtracking
-- Pruning
-- Constraint Checking
-
-## Core Patterns
-
-- Subsets
-- Permutations
-- Combinations
-- Combination Sum
-- Partitioning
-- Grid Search
-- Word Search
-- N-Queens
-- Sudoku
-
-## 80/20 Algorithms
-
-### 1. Choice → Explore → Undo
-
-```text
-Choose
-↓
-Recurse
-↓
-Undo
-```
-
-### 2. State-based Recursion
-
-Define exactly what the recursive function represents.
-
-### 3. Pruning
-
-Stop exploring branches that can no longer produce a valid answer.
-
-## Representative LeetCode
-
-- **LC 78 — Subsets**
-- **LC 90 — Subsets II**
-- **LC 46 — Permutations**
-- **LC 47 — Permutations II**
-- **LC 39 — Combination Sum**
-- **LC 40 — Combination Sum II**
-- **LC 77 — Combinations**
-- **LC 131 — Palindrome Partitioning**
-- **LC 79 — Word Search**
-- **LC 51 — N-Queens**
-- **LC 37 — Sudoku Solver**
-- **LC 17 — Letter Combinations of a Phone Number**
-- **LC 22 — Generate Parentheses**
-- **LC 216 — Combination Sum III**
-
-## Problem Ladder
-
-```text
-5–25
-Target ≈ 15–20
-```
-
-[⬆️ Back to Index](#top)
-
----
-
 <a id="phase-10-greedy"></a>
 
 # PHASE 10 — GREEDY
@@ -2828,6 +2862,8 @@ Greedy is not:
 > "Choose whatever looks best."
 
 It requires a correctness argument.
+
+> **Dependency:** Greedy correctness arguments are often reasoned recursively / inductively (Phase 6), and many greedy problems reuse Heap (Phase 8) and Tree/Graph state (Phases 7 & 9).
 
 ## Core Topics
 
@@ -2911,6 +2947,8 @@ Transition
 ```
 
 and derive DP instead of memorizing templates.
+
+> **Dependency:** DP is the natural continuation of **Phase 6 — Recursion & Backtracking**. Memoization *is* recursion + cache. If recursion is weak, DP becomes pure memorization and this phase fails.
 
 ## Core Topics
 
@@ -3198,6 +3236,36 @@ Sliding Window
 ```
 
 ```text
+Recursion
++
+Backtracking
++
+Pruning
+```
+
+```text
+Recursion
++
+Trees
+(DFS is recursion on a tree)
+```
+
+```text
+Recursion
++
+Graphs
+(DFS is recursion on a graph)
+```
+
+```text
+Recursion
++
+Memoization
+=
+Dynamic Programming
+```
+
+```text
 Heap
 +
 Greedy
@@ -3288,6 +3356,30 @@ Revision of Arrays + Hashing + Two Pointer + Stack
 Phase 5 / 5B
 ↓
 Revision of Linked List (LC 148 Sort List) through the Merge Sort lens
+```
+
+```text
+Phase 6 — Recursion & Backtracking
+↓
+Revision of Trees/DFS thinking preview through recursion trees
+```
+
+```text
+Phase 7 — Trees
+↓
+Revision of Recursion + Backtracking through DFS traversals
+```
+
+```text
+Phase 9 — Graphs
+↓
+Revision of Recursion + Trees through DFS on graphs
+```
+
+```text
+Phase 11 — DP
+↓
+Revision of Recursion + Backtracking through memoization
 ```
 
 Previously learned concepts should be reused in new combinations.
@@ -3457,6 +3549,13 @@ Graph
 ```
 
 ```text
+Recursion / Backtracking
+→ File system traversal
+→ Compilers / parsers
+→ Constraint solvers (scheduling, Sudoku-like engines)
+```
+
+```text
 Sorting
 → Database ORDER BY
 → External / distributed sort
@@ -3523,6 +3622,8 @@ Sorting
 
 25. Sorting & Searching (Phase 5B) is a **parallel supporting track**, not a sequential phase — it runs alongside Phase 5 and does not block or delay Binary Search progression.
 
+26. **Recursion & Backtracking (Phase 6) must be completed before Trees, Graphs, Greedy, or DP** — because every one of those phases depends on recursion as its base mental model.
+
 [⬆️ Back to Index](#top)
 
 ---
@@ -3555,22 +3656,28 @@ Sorting
 
 ## Phase 5B — Sorting & Searching
 
-- 7/7–10 representative problems done — starting fresh, alongside Phase 5 ✅
+- 7/7–10 representative problems done — parallel track, alongside Phase 5 ✅
 
-## Phase 6 — Trees
+## Phase 6 — Recursion & Backtracking
 
-- 0/15 representative problems done ⏳
+- 0/14 representative problems done ⏳ — **NEXT PHASE**
 
 ## Next
 
 ```text
-Phase 6 — Trees
+Phase 6 — Recursion & Backtracking
 ↓
-Phase 7 — Heap
+Phase 7 — Trees
 ↓
-Phase 8 — Graphs
+Phase 8 — Heap
 ↓
-Phase 9 — Recursion & Backtracking
+Phase 9 — Graphs
+↓
+Phase 10 — Greedy
+↓
+Phase 11 — Dynamic Programming
+↓
+Phase 12 — Advanced Data Structures
 ```
 
 [⬆️ Back to Index](#top)
@@ -3585,7 +3692,7 @@ Paste this block as the FIRST message in a brand-new chat (with this full roadma
 
 ```text
 SECRET KEY — DSA MASTERY CONTINUITY
-Roadmap Version: 12.3
+Roadmap Version: 12.4
 Date: 28 August 2026
 
 SYSTEM: Follow the "Supreme Engineering Training System" exactly as
@@ -3599,14 +3706,24 @@ COMPLETED / LOCKED:
 - Phase 2 (Hashing)
 - Phase 3 (Stack, Queue, Deque)
 - Phase 4 (Linked List — 20/20 core problems)
-
-- Phase 5 — Binary Search (main track)
+- Phase 5 — Binary Search (main track, 17/17)
 - Phase 5B — Sorting & Searching (parallel track)
 
-CURRENT ACTIVE PHASES (dual-track):
-- Phase 6 - Trees (15 problems)
+CURRENT ACTIVE PHASE:
+- Phase 6 — Recursion & Backtracking (14 problems)  ← was Phase 9, now Phase 6
 
-NEXT AFTER CURRENT: Phase 7 - Heap (12 problems)
+NEXT AFTER CURRENT:
+- Phase 7 — Trees (15 problems)
+- Phase 8 — Heap (12 problems)
+- Phase 9 — Graphs (14 problems)
+- Phase 10 — Greedy (14 problems)
+- Phase 11 — Dynamic Programming (17 problems)
+- Phase 12 — Advanced Data Structures (11 problems)
+
+IMPORTANT ORDERING NOTE:
+Recursion & Backtracking was deliberately moved to Phase 6 because
+Trees, Graphs, DP, and Greedy all depend on recursion as their base
+mental model. Do NOT jump to Trees without Phase 6.
 
 ENGINEER PROFILE:
 - Already comfortable coding independently after AI/tutor-assisted
@@ -3618,7 +3735,7 @@ ENGINEER PROFILE:
 - Wants spaced revision (Day 0/3/7/15/30/60) and CCRS respected
 
 INSTRUCTION TO NEW CHAT: Do not restart from Phase 0. Resume directly
-at Phase 5 + Phase 5B as described above.
+at Phase 6 — Recursion & Backtracking as described above.
 ```
 
 ## Where to Paste It
@@ -3703,16 +3820,34 @@ PHASE 3 — Linear ADTs
 PHASE 4 — Linked List
     ✅ LOCKED (20/20 core problems done)
 
-PHASE 5 — Binary Search ✅ (17 problems)
-PHASE 5B — Sorting & Searching  ✅ ACTIVE — PARALLEL (8–10 problems)
+PHASE 5  — Binary Search ✅ (17 problems)
+PHASE 5B — Sorting & Searching ✅ PARALLEL TRACK (7–10 problems)
 
-PHASE 6 — Trees ⏳ (15 problems)
-PHASE 7 — Heap ⏳ (12 problems)
-PHASE 8 — Graphs ⏳ (14 problems)
-PHASE 9 — Recursion & Backtracking ⏳ (14 problems)
+PHASE 6  — Recursion & Backtracking ⏳ (14 problems)   ← MOVED UP (was Phase 9)
+PHASE 7  — Trees ⏳ (15 problems)                      ← was Phase 6
+PHASE 8  — Heap ⏳ (12 problems)                       ← was Phase 7
+PHASE 9  — Graphs ⏳ (14 problems)                     ← was Phase 8
 PHASE 10 — Greedy ⏳ (14 problems)
 PHASE 11 — Dynamic Programming ⏳ (17 problems)
 PHASE 12 — Advanced Data Structures ⏳ (11 problems)
+```
+
+**Ordering principle now enforced:**
+
+```text
+Recursion & Backtracking   ← foundation of everything below
+        ↓
+Trees
+        ↓
+Heap
+        ↓
+Graphs
+        ↓
+Greedy
+        ↓
+Dynamic Programming
+        ↓
+Advanced Data Structures
 ```
 
 **Roadmap Objective:**

@@ -2154,7 +2154,7 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ ACTIVE — runs alongside Phase 5, not a separate sequential phase
+Completed ✅
 
 ## Why This Runs in Parallel, Not Sequentially
 
@@ -3553,18 +3553,24 @@ Sorting
 - 17/17 representative problems done✅
 - [Leetcode Solved -LC704 → 35 → 34 → 153 → 33 → 162 → 74 → 875 → 1011 → 69 → 540 → 981 → 410 → 4 → 278 → 367 → 744]
 
-## Phase 5B — Sorting & Searching — ⏳ ACTIVE (parallel, current)
+## Phase 5B — Sorting & Searching
 
-- 0/8–10 representative problems done — starting fresh, alongside Phase 5
+- 7/7–10 representative problems done — starting fresh, alongside Phase 5 ✅
+
+## Phase 6 — Trees
+
+- 0/15 representative problems done ⏳
 
 ## Next
 
 ```text
-Phase 5 — Binary Search (main track)
-+
-Phase 5B — Sorting & Searching (parallel track)
-↓
 Phase 6 — Trees
+↓
+Phase 7 — Heap
+↓
+Phase 8 — Graphs
+↓
+Phase 9 — Recursion & Backtracking
 ```
 
 [⬆️ Back to Index](#top)
@@ -3594,11 +3600,13 @@ COMPLETED / LOCKED:
 - Phase 3 (Stack, Queue, Deque)
 - Phase 4 (Linked List — 20/20 core problems)
 
-CURRENT ACTIVE PHASES (dual-track):
 - Phase 5 — Binary Search (main track)
 - Phase 5B — Sorting & Searching (parallel track)
 
-NEXT AFTER CURRENT: Phase 6 — Trees
+CURRENT ACTIVE PHASES (dual-track):
+- Phase 6 - Trees (15 problems)
+
+NEXT AFTER CURRENT: Phase 7 - Heap (12 problems)
 
 ENGINEER PROFILE:
 - Already comfortable coding independently after AI/tutor-assisted
@@ -3696,7 +3704,7 @@ PHASE 4 — Linked List
     ✅ LOCKED (20/20 core problems done)
 
 PHASE 5 — Binary Search ✅ (17 problems)
-PHASE 5B — Sorting & Searching  ⏳ ACTIVE — PARALLEL (8–10 problems)
+PHASE 5B — Sorting & Searching  ✅ ACTIVE — PARALLEL (8–10 problems)
 
 PHASE 6 — Trees ⏳ (15 problems)
 PHASE 7 — Heap ⏳ (12 problems)

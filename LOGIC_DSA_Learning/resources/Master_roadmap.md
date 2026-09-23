@@ -2353,7 +2353,7 @@ These are **algorithm implementation drills**, not LeetCode questions.
 
 ### 6. LC 56 — Merge Intervals
 
-- ⌛ Sorting as preprocessing
+- ✅ Sorting as preprocessing
 - Relevant concepts: sort first → then process intervals
 - **Preview:** Full interval/Greedy depth belongs to a later phase.
 
@@ -2361,7 +2361,7 @@ These are **algorithm implementation drills**, not LeetCode questions.
 
 ### 7. LC 215 — Kth Largest Element in an Array
 
-- ⌛ Partition / Quickselect preview
+- ✅ Partition / Quickselect preview
 - Relevant concepts: Quick Sort partitioning
 - **Preview:** Full Quickselect depth belongs to a later phase.
 

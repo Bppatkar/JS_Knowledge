@@ -1311,8 +1311,40 @@ function quickSelectSortFixTLE(arr, left, right) {
 // console.log(findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)); // 4
 // console.log(findKthLargest([3, 2, 1, 5, 6, 4, 8, 7, 10, 9], 2)); // 9
 
+//! Leetcode 56. Merge Intervals
+/* 
+1. Sort intervals by start time
+1.1. overlap? → current.end >= next.start
+2. overlap → merge
+3. new end → max(current.end, next.end)
+*/
+var mergeIntervals = function (intervals) {
+   // constraints - intervals[i].length == 2
+   let result = [];
+   if (intervals.length <= 1) return intervals;
 
+   // sorting based on first values because intervals has array and we cant sort array by array , we sort values by values
+   intervals.sort((a, b) => a[0] - b[0]);
 
+   // checking overlap
+   let curr = intervals[0];
+   for (let i = 1; i < intervals.length; i++) {
+      let next = intervals[i];
+      if (curr[1] >= next[0]) {
+         curr = [curr[0], Math.max(curr[1], next[1])];
+      } else {
+         result.push(curr);
+         curr = next;
+      }
+   }
+   result.push(curr);
+   return result;
+}
+// Basic cases
+// console.log(mergeIntervals([[1, 3], [2, 6], [8, 10], [15, 18]])); // [[1, 6], [8, 10], [15, 18]]
+// console.log(mergeIntervals([[1, 4], [4, 5]])); // [[1, 5]]
+// console.log(mergeIntervals([[4, 7], [1, 4]])); // [[1, 7]]
+// console.log(mergeIntervals([[1, 4], [5, 6]])); // [[1, 4], [5, 6]]
 
 
 //! ==============================================

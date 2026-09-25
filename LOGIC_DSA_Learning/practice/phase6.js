@@ -71,10 +71,90 @@ var isPowerOfTwo = function (n) {
 // console.log(isPowerOfTwo(3)); // false
 
 //* Leetcode 509. Fibonacci Number
+// without recursion
+function printFib(n) {
+  let a = -1, b = 1;
+  for (let i = 0; i < n; i++) {
+    let ans = a + b;
+    console.log(ans);
+    a = b;
+    b = ans;
+  }
+}
+// printFib(10);
+
+// with recursion
 var fib = function (n) {
   if (n < 1) return 0;
   if (n === 1 || n === 2) return 1;
   return fib(n - 1) + fib(n - 2);
 }
-console.log(fib(4)); // 3
-console.log(fib(6)); // 3
+// console.log(fib(4)); // 3
+// console.log(fib(6)); // 8
+
+//* Power and Exponent
+function powerAndExponent(power, expo) {
+  if (expo === 0) return 1;
+  return power * powerAndExponent(power, expo - 1);
+}
+// console.log(powerAndExponent(2, 5)); //32
+// console.log(powerAndExponent(2, 3)); //8
+// console.log(powerAndExponent(3, 4)); //81
+// console.log(powerAndExponent(7, 0)); //1
+
+//* Count Digit
+// Given a non-negative integer num, return the number of digits in num.
+// example : num = 12345 => 5, num = 123 => 3
+function countDigit(n) {
+  if (n < 10) return 1;
+  return 1 + countDigit(Math.floor(n / 10));
+}
+// console.log(countDigit(12345));
+// console.log(countDigit(42));
+// console.log(countDigit(5));
+
+//* Sum of Digits
+function sumOfDigit(n) {
+  if (n < 10) return n;
+  return sumOfDigit(Math.floor(n / 10)) + (n % 10);
+}
+// console.log(sumOfDigit(12345));
+// console.log(sumOfDigit(42));
+// console.log(sumOfDigit(5));
+
+//* Reverse a number
+// n = 1234, o/p-> 4321
+let result = 0;
+function reverseNumber(n, result) {
+  if (n < 10) return result * 10 + n;
+  result = result * 10 + (n % 10);
+  return reverseNumber(Math.floor(n / 10), result);
+}
+// console.log(reverseNumber(1234, result)); //4321
+// console.log(reverseNumber(5, result)); //5
+// console.log(reverseNumber(1276, result)); //6721
+// console.log(reverseNumber(0987, result)); // 789
+
+//* Palindrome Number
+function isPalindrome(n) {
+  let original = n;
+  function reverseNumber(n, result) {
+    if (n < 10) return result * 10 + n;
+    result = result * 10 + (n % 10);
+    return reverseNumber(Math.floor(n / 10), result);
+  }
+  return original === reverseNumber(n, 0);
+}
+// console.log(isPalindrome(121));// true;
+// console.log(isPalindrome(1221));// true
+// console.log(isPalindrome(123));  // false
+// console.log(isPalindrome(7)); // true;
+
+
+// ---------------------------------
+
+//! Backtracking
+//? Defination - Recursive Algorithmic Technique for solving problem incrementally by trying partial solutions and then abandoning them (Backtracking) if they fail to statisfy constraints of the problem.
+// in simple words - backtracking , wo technique hai jisme hum problem ko solve karte hai step by step aur agar humari solution sahi nahi hai to hum piche jaake dusra solution try karte hai.
+//! "Exploring all the possibilities, but being smart by abondoning wrong paths early."
+// Example - Like trying all the paths in maze and going back if you hit a wall. (Backtracking is used in solving maze problems, sudoku, n-queen problem, etc.)

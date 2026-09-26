@@ -153,8 +153,124 @@ function isPalindrome(n) {
 
 // ---------------------------------
 
-//! Backtracking
-//? Defination - Recursive Algorithmic Technique for solving problem incrementally by trying partial solutions and then abandoning them (Backtracking) if they fail to statisfy constraints of the problem.
+// ==============================================
+// (Advanced Recrusion/Controlled Recursion/Optimized Recursion)
+//! =========== Backtracking  ==============
+// ==============================================
+
+//? Defination -Backtracking is a Recursive Algorithmic Technique, for solving problem, incrementally by trying partial solutions and then, abandoning them (Backtracking) if they fail to statisfy constraints of the problem.
 // in simple words - backtracking , wo technique hai jisme hum problem ko solve karte hai step by step aur agar humari solution sahi nahi hai to hum piche jaake dusra solution try karte hai.
 //! "Exploring all the possibilities, but being smart by abondoning wrong paths early."
 // Example - Like trying all the paths in maze and going back if you hit a wall. (Backtracking is used in solving maze problems, sudoku, n-queen problem, etc.)
+
+//! When to use Backtracking?
+//? You want to explore all the combinations/permutations/subsets.
+//? When there is a clear way to validate a partial solution and you can abandon it if it is invalid.
+//? Number of combinations is too large to brute force, so you abandon the invalid ones early.
+// [Try a choice -> works ? -> continue, if not , undo (backtrack) and try another choice]
+
+//! Use Cases (Use DFS -> Depth First Search) - Backtracking is a DFS based algorithm.
+//? There is algorithm which is very similar to backtracking, called Branch and Bound, but it is not completely the same. It Uses BFS (Breadth First Search). Branch and Bound is used for optimization problems, where we want to find the best solution, while Backtracking is used for finding all possible solutions.
+
+// 1. Subset , means all the possible combinations of a given set. (2^n)
+// 2. Permutation, means all the possible arrangements of a given set. (n!)
+// 3. Combination, means all the possible combinations of a given set with a given length. (nCr)
+// 4. N-Queen Problem, means placing n queens on an n*n chessboard such that no two queens attack each other.
+// 5. A lot of choices and decisions + pruning early using abondoning function.
+
+//!General Backtracking Template 📝
+// Har backtracking problem mein ek similar structure hota hai. 🏗️
+
+// function solve(currentState, otherParameters) {
+//   // 1. Base Case: Check if current state is a solution or a dead-end
+//   if (isSolution(currentState)) {
+//     // Solution mil gaya, isko record kar lo
+//     addSolution(currentState);
+//     // Agar sirf ek solution chahiye toh yahan return kar sakte ho
+//     // Agar saare solutions chahiye toh aage explore karte raho (agar possible ho)
+//     return;
+//   }
+
+//   if (isInvalidState(currentState)) {
+//     // Pruning: Agar yeh path galat hai
+//     return; // Is path ko aage explore mat karo
+//   }
+
+//   // 2. Recursive Step: Iterate through all possible choices
+//   for (const choice of allPossibleChoices(currentState)) {
+//     // 3. Choose: Current state mein choice ko apply karo
+//     makeChoice(currentState, choice);
+
+//     // 4. Explore: Recursive call karke aage explore karo
+//     solve(currentState, otherParameters);
+
+//     // 5. Unchoose (Backtrack): Choice ko undo karo
+//     undoChoice(currentState, choice);
+//   }
+// }
+// Initial call
+// solve(initialState, initialParameters);
+
+//! Template with Path Tracking
+// function backtrack(path, choices) {
+//   // Base Case: Check if current 'path' is a complete solution
+//   if (pathIsACompleteSolution(path)) {
+//     // Solution mil gaya, isko record kar lo
+//     savePath(path);
+//     return;
+//   }
+
+//   // Optional: Pruning step to discard invalid paths early
+//   if (isInvalidState(path)) {
+//     return; // Is path ko aage explore mat karo
+//   }
+
+//   // Recursive Step: Iterate through all possible choices
+//   for (const choice of choices) {
+//     // 1. Choose: Current 'path' mein 'choice' ko apply karo
+//     makeChoice(path, choice);
+
+//     // 2. Explore: Recursive call karke aage explore karo
+//     // (updated path ya new state ke saath)
+//     backtrack(updatedPath, newChoices);
+
+//     // 3. Unchoose (Backtrack): 'choice' ko undo karo
+//     undoChoice(path, choice);
+//   }
+// }
+
+//! Leetcode 78. Subsets
+var subsets = function (arr) {
+  let result = [];
+
+  let backtracking = (path, start) => {
+    result.push([...path]);
+    for (let i = start; i < arr.length; i++) {
+      path.push(arr[i]);
+      backtracking(path, i + 1);
+      path.pop();
+    }
+  }
+  backtracking([], 0); // path and starting index
+  return result;
+}
+// console.log(subsets([1, 2, 3])); // [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+// console.log(subsets([0])); // [[],[0]]
+
+//! Leetcode 77. Combinations
+var combine = function (n, k) {
+  let result = [];
+
+  let backtracking = (path, start) => {
+    if (path.length === k) { result.push([...path]); return; }
+    for (let i = start; i <= n; i++) {
+      path.push(i);
+      backtracking(path, i + 1);
+      path.pop();
+    }
+  }
+  backtracking([], 1);
+  return result;
+}
+console.log(combine(4, 2)); // [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
+console.log(combine(1, 1)); // [[1]]

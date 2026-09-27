@@ -272,5 +272,69 @@ var combine = function (n, k) {
   backtracking([], 1);
   return result;
 }
-console.log(combine(4, 2)); // [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
-console.log(combine(1, 1)); // [[1]]
+// console.log(combine(4, 2)); // [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
+// console.log(combine(1, 1)); // [[1]]
+
+
+//! Leetcode 46. Permutations
+var permute = function (arr) {
+  let result = [];
+  let used = new Array(arr.length).fill(false);
+  let backtracking = (path, used) => {
+    if (path.length === arr.length) {
+      result.push([...path]);
+      return;
+    }
+    for (let i = 0; i < arr.length; i++) {
+      if (used[i] === true) continue;
+      used[i] = true;
+      path.push(arr[i]);
+      backtracking(path, used);
+      path.pop();
+      used[i] = false;
+    }
+  }
+  backtracking([], used);
+  return result;
+}
+//? Other way
+var permute = function (arr) {
+  let result = [];
+  let backtracking = (path) => {
+    if (path.length === arr.length) {
+      result.push([...path]);
+      return;
+    }
+    for (let i = 0; i < arr.length; i++) {
+      if (!path.includes(arr[i])) {
+        path.push(arr[i]);
+        backtracking(path);
+        path.pop();
+      }
+    }
+  }
+  backtracking([]);
+  return result;
+}
+// console.log(permute([1, 2, 3])); // [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+// console.log(permute([0, 1])); // [[0,1],[1,0]]
+// console.log(permute([1])); // [[1]]
+
+//! Leetcode 90. Subsets II
+var subsetsWithDup = function (arr) {
+  arr = arr.sort((a, b) => a - b);
+  let result = [];
+  let backtracking = (path, start) => {
+    result.push([...path]);
+    for (let i = start; i < arr.length; i++) {
+      if (i > start && arr[i] === arr[i - 1]) continue;
+      path.push(arr[i]);
+      backtracking(path, i + 1);
+      path.pop();
+    }
+  }
+  backtracking([], 0);
+  return result;
+}
+console.log(subsetsWithDup([1, 2, 2])); // [[],[1],[1,2],[1,2,2],[2],[2,2]]
+console.log(subsetsWithDup([0])); // [[],[0]]

@@ -2466,20 +2466,20 @@ Stop exploring branches that can no longer produce a valid answer.
 
 ## Representative LeetCode
 
-- **LC 78 — Subsets**
-- **LC 90 — Subsets II**
-- **LC 46 — Permutations**
-- **LC 47 — Permutations II**
-- **LC 39 — Combination Sum**
-- **LC 40 — Combination Sum II**
-- **LC 77 — Combinations**
+- **LC 78 — Subsets** ✅
+- **LC 90 — Subsets II** ✅
+- **LC 46 — Permutations** ✅
+- **LC 47 — Permutations II** ✅
+- **LC 39 — Combination Sum** ✅
+- **LC 40 — Combination Sum II** ✅
+- **LC 216 — Combination Sum III** ✅
+- **LC 77 — Combinations** ✅
 - **LC 131 — Palindrome Partitioning**
 - **LC 79 — Word Search**
 - **LC 51 — N-Queens**
 - **LC 37 — Sudoku Solver**
-- **LC 17 — Letter Combinations of a Phone Number**
+- **LC 17 — Letter Combinations of a Phone Number** ✅
 - **LC 22 — Generate Parentheses**
-- **LC 216 — Combination Sum III**
 
 ## Problem Ladder
 

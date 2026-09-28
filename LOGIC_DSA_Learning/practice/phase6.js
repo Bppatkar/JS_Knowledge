@@ -336,5 +336,189 @@ var subsetsWithDup = function (arr) {
   backtracking([], 0);
   return result;
 }
-console.log(subsetsWithDup([1, 2, 2])); // [[],[1],[1,2],[1,2,2],[2],[2,2]]
-console.log(subsetsWithDup([0])); // [[],[0]]
+// console.log(subsetsWithDup([1, 2, 2])); // [[],[1],[1,2],[1,2,2],[2],[2,2]]
+// console.log(subsetsWithDup([0])); // [[],[0]]
+
+
+//! Leetcode 39. Combination Sum
+var combinationSum = function (arr, target) {
+  let result = [];
+
+  function backtracking(path, start) {
+    let sum = path.reduce((acc, curr) => acc + curr, 0);
+    if (sum === target) {
+      result.push([...path]);
+      return;
+    }
+    if (sum > target) return;
+    for (let i = start; i < arr.length; i++) {
+      path.push(arr[i]);
+      backtracking(path, i);
+      path.pop();
+    }
+  }
+  backtracking([], 0);
+  return result;
+}
+//? Other way 
+var combinationSum = function (arr, target) {
+  let result = [];
+  function backtrack(path, start, target) {
+    if (target === 0) result.push([...path]);
+    if (target < 0) return;
+    for (let i = start; i < arr.length; i++) {
+      path.push(arr[i]);
+      backtrack(path, i, target - arr[i]);
+      path.pop();
+    }
+  }
+  backtrack([], 0, target);
+  return result;
+}
+// console.log(combinationSum([2, 3, 6, 7], 7)); // [[2,2,3],[7]]
+// console.log(combinationSum([2, 3, 5], 8)); // [[2,2,2,2],[2,3,3],[3,5]]
+// console.log(combinationSum([2], 1)); // []
+
+//! Leetcode 40. Combination Sum II
+var combinationSum2 = function (arr, target) {
+  arr = arr.sort((a, b) => a - b);
+  let result = [];
+
+  let backtracking = (path, start) => {
+    let sum = path.reduce((acc, curr) => acc + curr, 0);
+    if (sum === target) { result.push([...path]); return; }
+    if (sum > target) return;
+    for (let i = start; i < arr.length; i++) {
+      if (i > start && arr[i] === arr[i - 1]) continue;
+      path.push(arr[i]);
+      backtracking(path, i + 1);
+      path.pop();
+    }
+  }
+  backtracking([], 0); // path and starting index
+  return result;
+}
+//? Other way
+var combinationSum2 = function (arr, target) {
+  arr = arr.sort((a, b) => a - b);
+  let result = [];
+
+  let backtracking = (path, start, target) => {
+    if (target === 0) { result.push([...path]); return; }
+    if (target < 0) return;
+    for (let i = start; i < arr.length; i++) {
+      if (i > start && arr[i] === arr[i - 1]) continue;
+      path.push(arr[i]);
+      backtracking(path, i + 1, target - arr[i]);
+      path.pop();
+    }
+  }
+  backtracking([], 0, target); // path and starting index
+  return result;
+}
+// console.log(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)); // [[1,1,6],[1,2,5],[1,7],[2,6]]
+// console.log(combinationSum2([2, 5, 2, 1, 2], 5)); // [[1,2,2],[5]]
+
+//! Leetcode 216. Combination Sum III
+var combinationSum3 = function (k, n) {
+  let result = [];
+  function backtracking(path, start) {
+    let sum = path.reduce((acc, curr) => acc + curr, 0);
+    if (path.length === k) {
+      if (sum === n) { result.push([...path]); }
+      return;
+    }
+    if (sum > n) return;
+    for (let i = start; i <= 9; i++) {
+      path.push(i);
+      backtracking(path, i + 1);
+      path.pop();
+    }
+  }
+  backtracking([], 1);
+  return result;
+}
+// console.log(combinationSum3(3, 7)); // [[1,2,4]]
+// console.log(combinationSum3(3, 9)); // [[1,2,6],[1,3,5],[2,3,4]]
+// console.log(combinationSum3(4, 1)); // []
+
+//! Leetcode 17. Letter Combinations of a Phone Number
+var letterCombinations = function (digits) {
+  if (digits === "") return [];
+  let letters = {
+    '2': 'abc',
+    '3': 'def',
+    '4': 'ghi',
+    '5': 'jkl',
+    '6': 'mno',
+    '7': 'pqrs',
+    '8': 'tuv',
+    '9': 'wxyz'
+  }
+  let result = [];
+  function backtracking(path, start) {
+    if (start === digits.length) {
+      result.push([...path].join());
+      return;
+    }
+    let lettersOfDigit = letters[digits[start]];
+    for (let char of lettersOfDigit) {
+      path.push(char);
+      backtracking(path, start + 1);
+      path.pop();
+    }
+  }
+  backtracking([], 0);
+  return result;
+}
+// console.log(letterCombinations("23")); // ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+// console.log(letterCombinations("")); // []
+// console.log(letterCombinations("2")); // ["a","b","c"]
+
+//! Leetcode 47. Permutations II
+var permuteUnique = function (arr) {
+  arr = arr.sort((a, b) => a - b);
+  let result = [];
+  let usedArr = new Array(arr.length).fill(false);
+  let backtracking = (path) => {
+    if (path.length === arr.length) {
+      result.push([...path]);
+      return;
+    }
+    for (let i = 0; i < arr.length; i++) {
+      if (usedArr[i] === true) continue;
+      if (i > 0 && arr[i] === arr[i - 1] && usedArr[i - 1] === false) continue;
+      path.push(arr[i]);
+      usedArr[i] = true;
+      backtracking(path);
+      path.pop();
+      usedArr[i] = false;
+    }
+  }
+  backtracking([]);
+  return result;
+}
+
+//? Other way
+var permuteUnique = function (arr) {
+  arr.sort((a, b) => a - b);
+  let result = [];
+  let backtracking = (path, choice) => {
+    if (path.length === arr.length) {  
+      result.push([...path]);
+      return;
+    }
+    for (let i = 0; i < choice.length; i++) {
+      if (i > 0 && choice[i] === choice[i - 1]) continue;
+
+      path.push(choice[i]);
+      backtracking(path, [...choice.slice(0, i), ...choice.slice(i + 1)]);
+      path.pop();
+    }
+  }
+  backtracking([], arr);
+  return result;
+}
+// console.log(permuteUnique([1, 1, 2])); // [[1,1,2],[1,2,1],[2,1,1]]
+// console.log(permuteUnique([1, 2, 3])); // [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+// console.log(permuteUnique([1, 1, 1])); // [[1,1,1]]

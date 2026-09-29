@@ -504,7 +504,7 @@ var permuteUnique = function (arr) {
   arr.sort((a, b) => a - b);
   let result = [];
   let backtracking = (path, choice) => {
-    if (path.length === arr.length) {  
+    if (path.length === arr.length) {
       result.push([...path]);
       return;
     }
@@ -522,3 +522,237 @@ var permuteUnique = function (arr) {
 // console.log(permuteUnique([1, 1, 2])); // [[1,1,2],[1,2,1],[2,1,1]]
 // console.log(permuteUnique([1, 2, 3])); // [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 // console.log(permuteUnique([1, 1, 1])); // [[1,1,1]]
+
+//! Leetcode 131. Palindrome Partitioning
+var partition = function (s) {
+  let result = [];
+  let backtracking = (path, start) => {
+    if (start === s.length) { result.push([...path]); return; }
+    for (let i = start; i < s.length; i++) {
+      let subStr = s.slice(start, i + 1);
+      let reversed = subStr.split('').reverse().join('');
+      if (reversed === subStr) {
+        path.push(subStr);
+        backtracking(path, i + 1);
+        path.pop();
+      }
+    }
+  }
+  backtracking([], 0);
+  return result;
+}
+
+//? Other way
+var partition = function (s) {
+  let result = [];
+
+  function backtrack(path, remainingStr) {
+
+    if (!remainingStr.length) {
+      result.push([...path]);
+      return;
+    }
+
+    for (let i = 1; i <= remainingStr.length; i++) {
+      let subStr = remainingStr.substring(0, i);
+      if (!isRealPalindrome(subStr)) continue;
+      path.push(subStr);
+      backtrack(path, remainingStr.substring(i));
+      path.pop();
+    }
+  }
+  backtrack([], s);
+  return result;
+}
+const isRealPalindrome = (s) => {
+  let left = 0, right = s.length - 1;
+  while (left < right) {
+    if (s[left++] != s[right--]) return false;
+  }
+  return true;
+}
+// console.log(partition("aab")); // [["a","a","b"],["aa","b"]]
+// console.log(partition("a")); // [["a"]]
+// console.log(partition("aabb")); // [["a","a","b","b"],["a","a","bb"],["aa","b","b"],["aa","bb"]]
+
+//! Leetcode 79. Word Search
+var exist = function (board, word) {
+  let result = false;
+  let row = board.length;
+  let col = board[0].length;
+
+  let backtrack = (x, y, nextIdx) => {
+    if (nextIdx === word.length) {
+      result = true;
+      return;
+    }
+
+    let original = board[x][y];
+    board[x][y] = "$"
+
+    // left (col peeche)
+    if (y > 0 && board[x][y - 1] === word[nextIdx]) {
+      backtrack(x, y - 1, nextIdx + 1);
+    }
+
+    // right (col aage)
+    if (y < col - 1 && board[x][y + 1] === word[nextIdx]) {
+      backtrack(x, y + 1, nextIdx + 1);
+    }
+
+    // up (row peeche)
+    if (x > 0 && board[x - 1][y] === word[nextIdx]) {
+      backtrack(x - 1, y, nextIdx + 1);
+    }
+
+    // down (row aage)
+    if (x < row - 1 && board[x + 1][y] === word[nextIdx]) {
+      backtrack(x + 1, y, nextIdx + 1);
+    }
+
+    // when we backtrack we want original value back
+    board[x][y] = original;
+  }
+
+  // calling backtrack function for every letter of word
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
+      if (board[i][j] === word[0]) {
+        backtrack(i, j, 1);
+      }
+    }
+  }
+  return result;
+}
+// console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "ABCCED")); // true
+// console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "SEE")); // true
+// console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "ABCB")); // false
+
+//! Leetcode 51. N-Queens
+var solveNQueens = function (n) {
+  let result = [];
+
+  let board = Array.from({ length: n }, () => Array(n).fill("."));
+
+  function backtrack(board, row, colSet, digonalSet, antiDigonalSet) {
+
+    if (row === n) result.push(transform(board));
+
+    for (let col = 0; col < n; col++) {
+
+      if (colSet.has(col) || digonalSet.has(row - col) || antiDigonalSet.has(row + col)) { continue; }
+
+      board[row][col] = "Q"
+      colSet.add(col);
+      digonalSet.add(row - col);
+      antiDigonalSet.add(row + col);
+
+      backtrack(board, row + 1, colSet, digonalSet, antiDigonalSet);
+      board[row][col] = ".";
+      colSet.delete(col);
+      digonalSet.delete(row - col);
+      antiDigonalSet.delete(row + col);
+    }
+
+  }
+  backtrack(board, 0, new Set(), new Set(), new Set());
+  return result;
+}
+function transform(board) {
+  let newBoard = [];
+  for (let i = 0; i < board.length; i++) {
+    newBoard.push(board[i].join(''));
+  }
+  return newBoard;
+}
+// console.log(solveNQueens(4)); // [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+// console.log(solveNQueens(1)); // [["Q"]]
+// console.log(solveNQueens(2)); // []
+
+//! Leetcode 37. Sudoku Solver
+var solveSudoku = function (board) {
+  let rows = new Array(9).fill(null).map(() => new Set());
+  let cols = new Array(9).fill(null).map(() => new Set());
+  let boxes = new Array(9).fill(null).map(() => new Set());
+
+  // Pre-fill sets with existing numbers
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (board[r][c] !== ".") {
+        let num = board[r][c];
+        let boxIdx = Math.floor(r / 3) * 3 + Math.floor(c / 3);
+        rows[r].add(num);
+        cols[c].add(num);
+        boxes[boxIdx].add(num);
+      }
+    }
+  }
+
+  function backtrack(row, col) {
+
+    if (row === 9) { return true; }
+    if (col === 9) return backtrack(row + 1, 0);
+
+    // checking if cell is already filled or not, if filled, call for next col
+    if (board[row][col] !== '.') { return backtrack(row, col + 1); }
+
+    // Empty cell - 1-9 try
+    let boxIdx = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+
+    for (let num = 1; num <= 9; num++) {
+      let ch = num.toString();
+
+      // check if valid
+      if (rows[row].has(ch) || cols[col].has(ch) || boxes[boxIdx].has(ch)) continue;
+
+      // place
+      board[row][col] = ch;
+      rows[row].add(ch);
+      cols[col].add(ch);
+      boxes[boxIdx].add(ch);
+
+      if (backtrack(row, col + 1)) return true;
+
+      board[row][col] = '.';
+      rows[row].delete(ch);
+      cols[col].delete(ch);
+      boxes[boxIdx].delete(ch);
+
+    }
+
+    return false;  // any number is not working  --> backtrack
+  }
+
+  backtrack(0, 0);
+  return board;
+}
+console.log(solveSudoku([["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", "6", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]));
+
+//! Leetcode 22. Generate Parentheses
+var generateParenthesis = function (n) {
+  let result = [];
+  let openCount = 0, closeCount = 0;
+  function backtrack(path, openBrac, closeBrac) {
+    if (openCount === n && closeCount === n) { result.push([...path].join("")); return; }
+
+    if (openCount < n) {
+      path.push(openBrac);
+      openCount++;
+      backtrack(path, openBrac, closeBrac);
+      path.pop();
+      openCount--;
+    }
+    if (closeCount < openCount) {
+      path.push(closeBrac);
+      closeCount++;
+      backtrack(path, openBrac, closeBrac);
+      path.pop();
+      closeCount--;
+    }
+
+  }
+  backtrack([], '(', ')');
+  return result;
+}
+// console.log(generateParenthesis(3)); // ["((()))","(()())","(())()","()(())","()()()"]
+// console.log(generateParenthesis(1)); // ["()"]

@@ -2392,7 +2392,7 @@ This is a supporting/parallel track, not a full standalone phase — so its ladd
 
 ## Status
 
-⏳ Future Phase — **NEXT PHASE**
+Completed ✅
 
 ## Why This Phase Comes Here (Ordering Rationale)
 
@@ -2474,12 +2474,12 @@ Stop exploring branches that can no longer produce a valid answer.
 - **LC 40 — Combination Sum II** ✅
 - **LC 216 — Combination Sum III** ✅
 - **LC 77 — Combinations** ✅
-- **LC 131 — Palindrome Partitioning**
-- **LC 79 — Word Search**
-- **LC 51 — N-Queens**
-- **LC 37 — Sudoku Solver**
 - **LC 17 — Letter Combinations of a Phone Number** ✅
-- **LC 22 — Generate Parentheses**
+- **LC 131 — Palindrome Partitioning** ✅
+- **LC 79 — Word Search** ✅
+- **LC 51 — N-Queens** ✅
+- **LC 37 — Sudoku Solver** ✅
+- **LC 22 — Generate Parentheses** ✅
 
 ## Problem Ladder
 
@@ -2507,7 +2507,7 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ Future Phase
+⏳ Future Phase : Next phase after Recursion & Backtracking (Phase 6)
 
 ## Goal
 
@@ -3702,13 +3702,15 @@ Phase 12 — Advanced Data Structures
 
 ## Phase 6 — Recursion & Backtracking
 
-- 0/14 representative problems done ⏳ — **NEXT PHASE**
+- 14/14 representative problems done ✅
+
+## Phase 7 — Trees
+
+- 0/15 representative problems done ⏳ - **Next Phase**
 
 ## Next
 
 ```text
-Phase 6 — Recursion & Backtracking
-↓
 Phase 7 — Trees
 ↓
 Phase 8 — Heap
@@ -3750,12 +3752,12 @@ COMPLETED / LOCKED:
 - Phase 4 (Linked List — 20/20 core problems)
 - Phase 5 — Binary Search (main track, 17/17)
 - Phase 5B — Sorting & Searching (parallel track)
-
-CURRENT ACTIVE PHASE:
 - Phase 6 — Recursion & Backtracking (14 problems)
 
-NEXT AFTER CURRENT:
+CURRENT ACTIVE PHASE:
 - Phase 7  — Trees (15 problems)
+
+NEXT AFTER CURRENT:
 - Phase 8  — Heap (12 problems)
 - Phase 9  — Greedy (14 problems)
 - Phase 10 — Dynamic Programming (17 problems)
@@ -3872,8 +3874,8 @@ PHASE 4 — Linked List
 PHASE 5  — Binary Search ✅ (17 problems)
 PHASE 5B — Sorting & Searching ✅ PARALLEL TRACK (7–10 problems)
 
-PHASE 6  — Recursion & Backtracking ⏳ (14 problems)   ← NEXT
-PHASE 7  — Trees ⏳ (15 problems)
+PHASE 6  — Recursion & Backtracking ✅ (14 problems)
+PHASE 7  — Trees ⏳ (15 problems) ← NEXT
 PHASE 8  — Heap ⏳ (12 problems)
 PHASE 9  — Greedy ⏳ (14 problems)
 PHASE 10 — Dynamic Programming ⏳ (17 problems)

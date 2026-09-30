@@ -726,7 +726,7 @@ var solveSudoku = function (board) {
   backtrack(0, 0);
   return board;
 }
-console.log(solveSudoku([["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", "6", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]));
+// console.log(solveSudoku([["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", "6", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]));
 
 //! Leetcode 22. Generate Parentheses
 var generateParenthesis = function (n) {
@@ -756,3 +756,57 @@ var generateParenthesis = function (n) {
 }
 // console.log(generateParenthesis(3)); // ["((()))","(()())","(())()","()(())","()()()"]
 // console.log(generateParenthesis(1)); // ["()"]
+
+//-------------------------------------------
+
+// function solveSudoku(board) {
+//   let rows = new Array(9).fill(null).map(() => new Set());
+//   let cols = new Array(9).fill(null).map(() => new Set());
+//   let boxes = new Array(9).fill(null).map(() => new Set());
+
+//   // we are cheecking if the cell is already filled or not, if filled, call for next col
+//   for (let r = 0; r < 9; r++) {
+//     for (let c = 0; c < 9; c++) {
+//       if (board[r][c] != '.') {
+//         let ch = board[r][c];
+//         rows[r].add(ch);
+//         cols[c].add(ch);
+//         let boxIdx = Math.floor(r / 3) * 3 + Math.floor(c / 3);
+//         boxes[boxIdx].add(ch);
+//       }
+//     }
+//   }
+
+//   function backtrack(row, col) {
+//     // if  roww reaches end means everything filled
+//     if (row === 9) return true;
+
+//     // if col reachess end means we have too move to the next row and start col from 0 again
+//     if (col === 9) return backtrack(row + 1, 0);
+
+//     // checking if any cells if filled then we call for next cell/col
+//     if (board[row][col] != '.') { return backtrack(row, col + 1); }
+
+//     let boxIdx = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+
+//     for (let num = 1; num <= 9; num++) {
+//       let ch = num.toString();
+
+//       if (rows[row].has(ch) || cols[col].has(ch) || boxes[boxIdx].has(ch)) continue;
+
+//       board[row][col] = ch;
+//       rows[row].add(ch);
+//       cols[col].add(ch);
+//       boxes[boxIdx].add(ch);
+
+//       if (backtrack(row, col + 1)) return true;
+
+//       board[row][col] = ".";
+//       rows[row].delete(ch);
+//       cols[col].delete(ch);
+//       boxes[boxIdx].delete(ch);
+//     }
+//   }
+//   backtrack(row = 0, col = 0);// starting from 0'th index;
+//   return board;
+// }

@@ -2507,13 +2507,24 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ Future Phase : Next phase after Recursion & Backtracking (Phase 6)
+⏳ Running
 
 ## Goal
 
 Learn trees as recursive state systems rather than memorizing traversal code.
 
 > **Dependency:** This phase directly builds on **Phase 6 — Recursion & Backtracking**. Every tree traversal here _is_ a recursion. If recursion is not solid, return to Phase 6 first.
+
+## Structure
+
+```text
+7.0 Binary Tree
+7.1 Binary Search Tree
+```
+
+---
+
+# 7.0 — BINARY TREE
 
 ## Core Topics
 
@@ -2528,7 +2539,6 @@ Learn trees as recursive state systems rather than memorizing traversal code.
 - Height
 - Subtree
 - Binary Tree
-- Binary Search Tree
 
 ### Traversals
 
@@ -2568,11 +2578,15 @@ Push children
 - Path Sum
 - Maximum Path
 - Lowest Common Ancestor
-- BST Search
-- BST Insert
-- BST Validation
-- Tree Construction
-- Serialization
+- Symmetry / Same Tree / Subtree Matching
+- Level-based Views (Zigzag, Right Side View)
+- Path-carrying State (Count Good Nodes)
+- Level Linking (Next Right Pointers)
+
+### Extra
+
+- Tree Construction (Preorder + Inorder)
+- Serialization / Deserialization
 - Tree DP Introduction
 
 ## 80/20 Algorithms
@@ -2589,37 +2603,105 @@ Queue-based level traversal.
 
 A recursive function returns exactly the information its parent needs.
 
-### 4. BST Property
-
-```text
-left < root < right
-```
-
-### 5. LCA Reasoning
+### 4. LCA Reasoning
 
 Find where two target paths diverge.
 
-### 6. Height / Diameter State
+### 5. Height / Diameter State
 
 Use subtree information to derive parent state.
 
+### 6. Two-Tree Recursion
+
+Walk two trees together (Same Tree, Symmetric, Subtree).
+
 ## Representative LeetCode
 
-- **LC 94 — Binary Tree Inorder Traversal**
-- **LC 144 — Binary Tree Preorder Traversal**
-- **LC 145 — Binary Tree Postorder Traversal**
-- **LC 102 — Binary Tree Level Order Traversal**
+- **LC 144 — Binary Tree Preorder Traversal** ✅
+- **LC 94 — Binary Tree Inorder Traversal** ✅
+- **LC 145 — Binary Tree Postorder Traversal** ✅
+- **LC 102 — Binary Tree Level Order Traversal** ✅
 - **LC 104 — Maximum Depth of Binary Tree**
 - **LC 226 — Invert Binary Tree**
 - **LC 543 — Diameter of Binary Tree**
 - **LC 110 — Balanced Binary Tree**
 - **LC 112 — Path Sum**
+- **LC 101 — Symmetric Tree**
+- **LC 226 — Invert Binary Tree**
+- **LC 100 — Same Tree**
+- **LC 110 — Balanced Binary Tree**
+- **LC 543 — Diameter of Binary Tree**
+- **LC 572 — Subtree of Another Tree**
+- **LC 236 — Lowest Common Ancestor**
+- **LC 199 — Binary Tree Right Side View**
+- **LC 1448 — Count Good Nodes in Binary Tree**
+- **LC 116 — Populating Next Right Pointers in Each Node**
+- **LC 117 — Populating Next Right Pointers in Each Node II**
 - **LC 236 — Lowest Common Ancestor**
 - **LC 98 — Validate Binary Search Tree**
 - **LC 700 — Search in a Binary Search Tree**
 - **LC 105 — Construct Binary Tree**
 - **LC 297 — Serialize and Deserialize Binary Tree**
 - **LC 124 — Binary Tree Maximum Path Sum** — advanced
+
+---
+
+# 7.1 — BINARY SEARCH TREE (BST)
+
+## Core Topics
+
+- Binary Search Tree
+- BST Property
+- BST Search
+- BST Insert
+- BST Validation
+- Kth Smallest (Inorder property)
+- LCA in BST
+
+### BST Property
+
+```text
+left < root < right
+```
+
+> **Key insight:** Inorder traversal of a BST always gives a **sorted** sequence.
+
+## Lesson Sequence
+
+1. Binary Search Tree
+2. Valid Binary Search Tree
+3. Search in a Binary Search Tree
+4. Insert into a Binary Search Tree
+5. Kth Smallest Element in a BST
+6. Lowest Common Ancestor of a BST
+
+## 80/20 Algorithms
+
+### 1. BST Property
+
+Use `left < root < right` to discard half the tree at every step.
+
+### 2. Range Passing
+
+Validation needs `(min, max)` bounds passed down, not just parent comparison.
+
+### 3. Inorder = Sorted
+
+Kth smallest is just inorder traversal with a counter.
+
+### 4. BST LCA
+
+Use the BST property: if both targets are on one side, go there; otherwise the current node is the LCA.
+
+## Representative LeetCode
+
+- **LC 98 — Validate Binary Search Tree**
+- **LC 700 — Search in a Binary Search Tree**
+- **LC 701 — Insert into a Binary Search Tree**
+- **LC 230 — Kth Smallest Element in a BST**
+- **LC 235 — Lowest Common Ancestor of a BST**
+
+---
 
 ## Problem Ladder
 

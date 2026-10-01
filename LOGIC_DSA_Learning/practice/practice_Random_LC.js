@@ -514,4 +514,236 @@ var longestCommonPrefix = function (strs) {
   return strs[0];
 }
 
+//====================================================================
+//====================================================================
+class TreeNode {
+  constructor(val, left, right) {
+    this.val = (val === undefined ? 0 : val);
+    this.left = (left === undefined ? null : left);
+    this.right = (right === undefined ? null : right);
+  }
+}
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TREE 1 — Skewed Right (LeetCode example)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//     1
+//      \
+//       2
+//      /
+//     3
+let tree1 = new TreeNode(1);
+tree1.right = new TreeNode(2);
+tree1.right.left = new TreeNode(3);
+
+// PreOrder:  [1, 2, 3]
+// InOrder:   [1, 3, 2]
+// PostOrder: [3, 2, 1]
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TREE 2 — Single Node
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//     1
+let tree2 = new TreeNode(1);
+
+// PreOrder:  [1]
+// InOrder:   [1]
+// PostOrder: [1]
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TREE 3 — Perfect Balanced Tree
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//         1
+//       /   \
+//      2     3
+//     / \   / \
+//    4   5 6   7
+let tree3 = new TreeNode(1);
+tree3.left = new TreeNode(2);
+tree3.right = new TreeNode(3);
+tree3.left.left = new TreeNode(4);
+tree3.left.right = new TreeNode(5);
+tree3.right.left = new TreeNode(6);
+tree3.right.right = new TreeNode(7);
+
+// PreOrder:  [1, 2, 4, 5, 3, 6, 7]
+// InOrder:   [4, 2, 5, 1, 6, 3, 7]
+// PostOrder: [4, 5, 2, 6, 7, 3, 1]
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TREE 4 — Big Mixed Tree (tere drawing wala)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//               1
+//            /     \
+//           2       3
+//          / \       \
+//         4   5       8
+//            / \     /
+//           6   7   9
+let tree4 = new TreeNode(1);
+tree4.left = new TreeNode(2);
+tree4.right = new TreeNode(3);
+tree4.left.left = new TreeNode(4);
+tree4.left.right = new TreeNode(5);
+tree4.right.right = new TreeNode(8);
+tree4.left.right.left = new TreeNode(6);
+tree4.left.right.right = new TreeNode(7);
+tree4.right.right.left = new TreeNode(9);
+
+// PreOrder:  [1, 2, 4, 5, 6, 7, 3, 8, 9]
+// InOrder:   [4, 2, 6, 5, 7, 1, 3, 9, 8]
+// PostOrder: [4, 6, 7, 5, 2, 9, 8, 3, 1]
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TREE 5 — Left Skewed
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//         1
+//        /
+//       2
+//      /
+//     3
+let tree5 = new TreeNode(1);
+tree5.left = new TreeNode(2);
+tree5.left.left = new TreeNode(3);
+
+// PreOrder:  [1, 2, 3]
+// InOrder:   [3, 2, 1]
+// PostOrder: [3, 2, 1]
+
+
+//! PreOrder Traversal of Binary Tree
+// recursive
+function preOrderTraversal(root) {
+  if (!root) return [];
+  let ans = [];
+  function traversal(curr) {
+    if (curr === null) return;
+    ans.push(curr.val);
+    traversal(curr.left);
+    traversal(curr.right);
+  }
+  traversal(root);
+  return ans;
+}
+// Iterative
+function preOrderTraversalIterative(root) {
+  let stack = [root], ans = [];
+  while (stack.length) {
+    let curr = stack.pop();
+    ans.push(curr.val);
+    curr.right && stack.push(curr.right);
+    curr.left && stack.push(curr.left);
+  }
+  return ans;
+}
+
+//! InOrder Traversal of Binary Tree
+// recursive
+function inOrderTraversal(root) {
+  if (!root) return [];
+  let ans = [];
+  function traversal(curr) {
+    if (!curr) return;
+    traversal(curr.left);
+    ans.push(curr.val);
+    traversal(curr.right);
+  }
+  traversal(root);
+  return ans;
+}
+// Iterative
+function inOrderTraversalIterative(root) {
+  let ans = [], stack = [], curr = root;
+  while (curr || stack.length) {
+    while (curr) {
+      stack.push(curr);
+      curr = curr.left;
+    }
+    curr = stack.pop();
+    ans.push(curr.val);
+    curr = curr.right;
+  }
+  return ans;
+}
+
+//! PostOrder Traversal of Binary Tree
+// recursive
+function postOrderTraversal(root) {
+  if (!root) return [];
+  let ans = [];
+  function traversal(curr) {
+    if (curr === null) return;
+    traversal(curr.left);
+    traversal(curr.right);
+    ans.push(curr.val);
+  }
+  traversal(root);
+  return ans;
+}
+// Iterative [using 2 stack]
+function postOrderTraversalIterative2Stack(root) {
+  let s1 = [root], s2 = [], ans = [];
+  while (s1.length) {
+    let curr = s1.pop();
+    s2.push(curr.val);
+    curr.left && s1.push(curr.left);
+    curr.right && s1.push(curr.right);
+  }
+  for (let i = s2.length - 1; i >= 0; i--) {
+    ans.push(s2[i]);
+  }
+  return ans;
+}
+// Iterative [using 1 stack]
+function postOrderTraversalIterative1Stack(root) {
+  let stack = [root], ans = [];
+  while (stack.length) {
+    let curr = stack.pop();
+    ans.push(curr.val)
+    curr.left && stack.push(curr.left);
+    curr.right && stack.push(curr.right);
+  }
+  return ans.reverse();
+}
+
+
+//! Level Order Traversal of Binary Tree
+// Recursive
+var levelOrder = function (root) {
+  let ans = [];
+  function traversal(curr, level) {
+    if (!curr) return;
+    if (!ans[level]) ans[level] = [];
+
+    ans[level].push(curr.val)
+    curr.left && traversal(curr.left, level + 1);
+    curr.right && traversal(curr.right, level + 1);
+  }
+  traversal(root, 0);
+  return ans;
+}
+
+// Iterative [we use queue {FIFO} for this]
+var levelOrderIterative = function (root) {
+  
+}
+
+
+let trees = [tree1, tree2, tree3, tree4, tree5];
+
+trees.forEach((tree, i) => {
+  console.log(`\n━━━ Tree ${i + 1} ━━━`);
+  console.log("PreOrder recursive: ", preOrderTraversal(tree));
+  console.log("PreOrder iterative: ", preOrderTraversalIterative(tree));
+  console.log("InOrder recursive:  ", inOrderTraversal(tree));
+  console.log("InOrder iterative:  ", inOrderTraversalIterative(tree));
+  console.log("PostOrder recursive:", postOrderTraversal(tree));
+  console.log("PostOrder iterative 2 Stack:", postOrderTraversalIterative2Stack(tree));
+  console.log("PostOrder iterative 1 Stack:", postOrderTraversalIterative1Stack(tree));
+  console.log("Level Order recursive:", levelOrder(tree));
+  console.log("Level Order iterative:", levelOrderIterative(tree));
+});

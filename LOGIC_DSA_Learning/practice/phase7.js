@@ -225,8 +225,9 @@ var preorderTraversalIterative = function (root) {
     let node = stack.pop();
     ans.push(node.val);
 
-    if (node.right) stack.push(node.right)
-    if (node.left) stack.push(node.left)
+    if (node.right) stack.push(node.right);
+    // we put right first because stack is LIFO, so left will be processed first because right is pushed first and left is pushed later, so left will be on top of the stack
+    if (node.left) stack.push(node.left);
 
   }
   // console.log(ans);
@@ -234,6 +235,133 @@ var preorderTraversalIterative = function (root) {
 }
 // console.log(preorderTraversalIterative(root)); // Output: [1,2,3]
 
+//! Leetcode 94. Binary Tree Inorder Traversal
+//? Recursive approach
+var inorderTraversal = function (root) {
+  let ans = [];
+  function traversal(curr) {
+    if (curr === null) return;
+    traversal(curr.left);
+    ans.push(curr.val);
+    traversal(curr.right);
+  }
+  traversal(root);
+  return ans;
+}
+// console.log(inorderTraversal(root)); // Output: [1,3,2]
 
-// i want commit message for this file that whatever i learned about tree and binary tree and traversal methods and also about null vs undefined in javascript i have added in this file in bullet point.
-// git commit - m "Added comprehensive notes on Tree and Binary Tree concepts, traversal methods (Pre-order, In-order, Post-order, Level-order), and detailed explanation of null vs undefined in JavaScript with examples and best practices."
+//? Iterative approch
+var inorderTraversalIterative = function (root) {
+
+  let stack = [], ans = [], curr = root;
+  while (curr != null || stack.length > 0) {
+
+    while (curr !== null) {
+      stack.push(curr);
+      curr = curr.left;
+    }
+    curr = stack.pop();
+    ans.push(curr.val);
+    curr = curr.right;
+  }
+  return ans;
+}
+// console.log(inorderTraversalIterative(root)); // Output: [1,3,2]
+
+//! Leetcode 145. Binary Tree Postorder Traversal
+//? Recursive approach
+var postorderTraversal = function (root) {
+  if (root === null) return [];
+  let ans = [];
+  function traversal(curr) {
+    if (curr === null) return;
+    traversal(curr.left);
+    traversal(curr.right);
+    ans.push(curr.val);
+  }
+  traversal(root);
+  return ans;
+}
+// console.log(postorderTraversal(root)); // Output: [3,2,1]
+
+//? Iterative approch [using 2 stack]
+// we r using 2 stack here for saving the order of nodes, first we push the root to stack1, then we pop from stack1 and push it to stack2, then we push its left and right children to stack1, and repeat this process until stack1 is empty, and in stack2 we will have the nodes in postorder, but in reverse order, so we need to reverse the stack2 to get the correct postorder traversal
+var postorderTraversalIterative = function (root) {
+  let s1 = [root], s2 = [], ans = [];
+  while (s1.length > 0) {
+    let curr = s1.pop();
+    s2.push(curr);
+    s1.push(curr.left);
+    s1.push(curr.right);
+  }
+  for (let i = s2.length - 1; i >= 0; i--) {
+    ans.push(s2[i].val);
+  }
+  return ans;
+}
+
+//? Iterative approch [using 1 stack]
+// we r using 1 stack here for saving the order of nodes, first we push the root to stack, then we pop from stack and push its left and right children to stack, and repeat this process until stack is empty, and in ans we will have the nodes in postorder, but in reverse order, so we need to reverse the ans to get the correct postorder traversal
+var postorderTraversalIterative = function (root) {
+  let stack = [], ans = [], curr = root;
+  while (curr !== null || stack.length > 0) {
+    while (curr !== null) {
+      stack.push(curr);
+      ans.push(curr.val);
+      curr = curr.right;
+    }
+    curr = stack.pop();
+    curr = curr.left;
+  }
+  return ans.reverse();
+}
+// my way
+function postOrderTraversalIterative1Stack(root) {
+  let stack = [root], ans = [];
+  while (stack.length) {
+    let curr = stack.pop();
+    ans.push(curr.val)
+    curr.left && stack.push(curr.left);
+    curr.right && stack.push(curr.right);
+  }
+  return ans.reverse();
+}
+
+// console.log(postorderTraversalIterative(root)); // Output: [3,2,1]
+
+//! Leetcode 102. Binary Tree Level Order Traversal
+//? Recursive approach
+var levelOrder = function (root) {
+  let ans = [];
+  function traversal(curr, level) {
+    if (!curr) return;
+    if (!ans[level]) ans[level] = [];
+
+    ans[level].push(curr.val);
+    curr.left && traversal(curr.left, level + 1);
+    curr.right && traversal(curr.right, level + 1);
+  }
+  traversal(root, 0);
+  return ans;
+}
+// console.log(levelOrder(root)); // Output: [[1],[2],[3]]
+
+//? Iterative approch [we use queue {FIFO} here]
+var levelOrderIterative = function (root) {
+  if (!root) return [];
+  let queue = [root], result = [];
+  while (queue.length) {
+    let totalLevelSize = queue.length;
+    let currLevel = [];
+    while (totalLevelSize) {
+      let curr = queue.shift();
+      currLevel.push(curr.val);
+      curr.left && queue.push(curr.left);
+      curr.right && queue.push(curr.right);
+      totalLevelSize--;
+    }
+    result.push(currLevel);
+  }
+  return result;
+}
+console.log(levelOrderIterative(root)); // Output: [[1],[2],[3]]

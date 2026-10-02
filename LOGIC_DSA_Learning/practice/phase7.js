@@ -193,16 +193,18 @@ TODO:-  NULL vs UNDEFINED — NOTES
 //! Leetcode 144. Binary Tree Preorder Traversal
 //? Recursive solution
 // always practice to make tree node
-class TreeNode {
-  constructor(val, left, right) {
-    this.val = (val === undefined ? 0 : val);
-    this.left = (left === undefined ? null : left);
-    this.right = (right === undefined ? null : right);
-  }
-}
-let root = new TreeNode(1);
-root.right = new TreeNode(2);
-root.right.left = new TreeNode(3);
+
+
+// class TreeNode {
+//   constructor(val, left, right) {
+//     this.val = (val === undefined ? 0 : val);
+//     this.left = (left === undefined ? null : left);
+//     this.right = (right === undefined ? null : right);
+//   }
+// }
+// let root = new TreeNode(1);
+// root.right = new TreeNode(2);
+// root.right.left = new TreeNode(3);
 
 var preorderTraversal = function (root) {
   let ans = [];
@@ -317,6 +319,7 @@ var postorderTraversalIterative = function (root) {
 }
 // my way
 function postOrderTraversalIterative1Stack(root) {
+  if (!root) return [];
   let stack = [root], ans = [];
   while (stack.length) {
     let curr = stack.pop();
@@ -364,4 +367,60 @@ var levelOrderIterative = function (root) {
   }
   return result;
 }
-console.log(levelOrderIterative(root)); // Output: [[1],[2],[3]]
+// console.log(levelOrderIterative(root)); // Output: [[1],[2],[3]]
+
+
+//! DFS vs BFS (for Binary Tree Traversal)
+
+//! DFS (Depth First Search)
+//? DFS explores as far down a branch as possible before backtracking.
+//* It can be implemented in three main orders: "Pre-order", "In-order", and "Post-order".
+//? DFS is memory efficient for deep trees but "may not" find the shortest path in unweighted graphs.
+//* DFS uses a stack (in both solution - recursive and iterative) to keep track of nodes, Iska reason ye hai ki, DFS me hum ek branch ke neeche jaate hain, aur jab waha se wapas aate hain, toh hume stack me pehle se stored nodes milte hain jisse hum backtrack kar sakte hain, agar ham yahan array ya list ya queue use karte, toh hume wapas aane ke liye poore tree ko traverse karna padta, jo ki inefficient hota. Isliye stack ka use kiya jata hai DFS me, kyunki stack LIFO (Last In First Out) hota hai, aur ye backtracking ke liye perfect hai.
+
+//! BFS (Breadth First Search)
+//? BFS explores all neighbors simply means "Level by Level" before moving to the next level.
+//* It can be implemented using "Level-order" and "Zigzag Level-order" traversals.
+//? It is "guaranteed to find the shortest path" in unweighted graphs and is useful for problems requiring level-order information. However, it can consume more memory for wide trees.
+//* BFS uses a queue to keep track of nodes, iska reason ye hai ki, BFS me hum ek level ke saare nodes ko explore karte hain, aur phir next level me jaate hain, isliye hume queue ka use karna padta hai, kyunki queue FIFO (First In First Out) hota hai, aur ye level order traversal ke liye perfect hai. Agar ham yahan stack use karte, toh hume pehle se stored nodes milte, jisse hum backtrack karte, aur ye BFS ke concept ke against hota. Isliye queue ka use kiya jata hai BFS me.
+
+class TreeNode {
+  constructor(val, left, right) {
+    this.val = (val === undefined ? 0 : val);
+    this.left = (left === undefined ? null : left);
+    this.right = (right === undefined ? null : right);
+  }
+}
+let root = new TreeNode(3);
+root.left = new TreeNode(9);
+root.right = new TreeNode(20);
+root.right.left = new TreeNode(15);
+root.right.right = new TreeNode(7);
+root.right.right.right = new TreeNode(8);
+
+
+//! Leetcode 104. Maximum Depth of Binary Tree
+// top down approch
+var maxDepth = function (root) {
+  let depth = 0;
+  function dfs(curr, level) {
+    if (!curr) return;
+    if (depth < level) depth = level;
+    curr.left && dfs(curr.left, level + 1);
+    curr.right && dfs(curr.right, level + 1);
+  }
+  dfs(root, 1);
+  return depth;
+};
+
+// bottom up approch [recursion helps to calculate the depth of the tree from the bottom up]
+var maxDepthBottomUp = function (root) {
+  if (!root) return 0;
+  let leftDepth = maxDepthBottomUp(root.left);
+  let rightDepth = maxDepthBottomUp(root.right);
+  return 1 + Math.max(leftDepth, rightDepth);
+
+}
+
+console.log("depth of binary tree", maxDepth(root)); // Output: 3
+console.log("depth of binary tree with recursion", maxDepthBottomUp(root)); // Output: 3

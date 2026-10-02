@@ -700,6 +700,7 @@ function postOrderTraversalIterative2Stack(root) {
 }
 // Iterative [using 1 stack]
 function postOrderTraversalIterative1Stack(root) {
+  if (!root) return [];
   let stack = [root], ans = [];
   while (stack.length) {
     let curr = stack.pop();
@@ -718,8 +719,7 @@ var levelOrder = function (root) {
   function traversal(curr, level) {
     if (!curr) return;
     if (!ans[level]) ans[level] = [];
-
-    ans[level].push(curr.val)
+    ans[level].push(curr.val);
     curr.left && traversal(curr.left, level + 1);
     curr.right && traversal(curr.right, level + 1);
   }
@@ -729,7 +729,20 @@ var levelOrder = function (root) {
 
 // Iterative [we use queue {FIFO} for this]
 var levelOrderIterative = function (root) {
-  
+  let ans = [], queue = [root];
+  while (queue.length) {
+    let totalLevel = queue.length;
+    let currLevel = [];
+    while (totalLevel) {
+      let curr = queue.shift();
+      currLevel.push(curr.val);
+      curr.left && queue.push(curr.left);
+      curr.right && queue.push(curr.right);
+      totalLevel--;
+    }
+    ans.push(currLevel);
+  }
+  return ans;
 }
 
 
@@ -737,13 +750,13 @@ let trees = [tree1, tree2, tree3, tree4, tree5];
 
 trees.forEach((tree, i) => {
   console.log(`\n━━━ Tree ${i + 1} ━━━`);
-  console.log("PreOrder recursive: ", preOrderTraversal(tree));
-  console.log("PreOrder iterative: ", preOrderTraversalIterative(tree));
-  console.log("InOrder recursive:  ", inOrderTraversal(tree));
-  console.log("InOrder iterative:  ", inOrderTraversalIterative(tree));
-  console.log("PostOrder recursive:", postOrderTraversal(tree));
-  console.log("PostOrder iterative 2 Stack:", postOrderTraversalIterative2Stack(tree));
-  console.log("PostOrder iterative 1 Stack:", postOrderTraversalIterative1Stack(tree));
-  console.log("Level Order recursive:", levelOrder(tree));
-  console.log("Level Order iterative:", levelOrderIterative(tree));
+  // console.log("PreOrder recursive: ", preOrderTraversal(tree));
+  // console.log("PreOrder iterative: ", preOrderTraversalIterative(tree));
+  // console.log("InOrder recursive:  ", inOrderTraversal(tree));
+  // console.log("InOrder iterative:  ", inOrderTraversalIterative(tree));
+  // console.log("PostOrder recursive:", postOrderTraversal(tree));
+  // console.log("PostOrder iterative 2 Stack:", postOrderTraversalIterative2Stack(tree));
+  // console.log("PostOrder iterative 1 Stack:", postOrderTraversalIterative1Stack(tree));
+  // console.log("Level Order recursive:", levelOrder(tree));
+  // console.log("Level Order iterative:", levelOrderIterative(tree));
 });

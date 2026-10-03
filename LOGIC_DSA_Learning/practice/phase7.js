@@ -391,12 +391,12 @@ class TreeNode {
     this.right = (right === undefined ? null : right);
   }
 }
-let root = new TreeNode(3);
-root.left = new TreeNode(9);
-root.right = new TreeNode(20);
-root.right.left = new TreeNode(15);
-root.right.right = new TreeNode(7);
-root.right.right.right = new TreeNode(8);
+// let root = new TreeNode(3);
+// root.left = new TreeNode(9);
+// root.right = new TreeNode(20);
+// root.right.left = new TreeNode(15);
+// root.right.right = new TreeNode(7);
+// root.right.right.right = new TreeNode(8);
 
 
 //! Leetcode 104. Maximum Depth of Binary Tree
@@ -422,5 +422,66 @@ var maxDepthBottomUp = function (root) {
 
 }
 
-console.log("depth of binary tree", maxDepth(root)); // Output: 3
-console.log("depth of binary tree with recursion", maxDepthBottomUp(root)); // Output: 3
+// console.log("depth of binary tree", maxDepth(root)); // Output: 3
+// console.log("depth of binary tree with recursion", maxDepthBottomUp(root)); // Output: 3
+
+let root1 = new TreeNode(5);
+root1.left = new TreeNode(4);
+root1.right = new TreeNode(8);
+root1.left.left = new TreeNode(11);
+root1.left.left.left = new TreeNode(7);
+root1.left.left.right = new TreeNode(2);
+root1.right.left = new TreeNode(13);
+root1.right.right = new TreeNode(4);
+root1.right.right.right = new TreeNode(1);
+
+//! Leetcode 112. Path Sum
+// top down approch
+var hasPathSum = function (root, targetSum) {
+
+  if (!root) return false;
+  function traversal(curr, targetSum) {
+    if (!curr) return false;
+
+    targetSum -= curr.val;
+    if (!curr.left && !curr.right) return targetSum === 0;
+
+    if (traversal(curr.left, targetSum)) return true;
+    if (traversal(curr.right, targetSum)) return true;
+    return false;
+  }
+  return traversal(root, targetSum);
+}
+
+// bottom-up approach
+var hasPathSumOtherWay = function (root, targetSum) {
+  if (!root) return false;
+  if (!root.left && !root.right) return root.val === targetSum;
+
+  let left = hasPathSumOtherWay(root.left, targetSum - root.val);
+  let right = hasPathSumOtherWay(root.right, targetSum - root.val);
+  return left || right;
+}
+
+// console.log(hasPathSum(root1, 22)); // Output: true
+// console.log(hasPathSum(root1, 5)); // Output: false
+
+
+//! Leetcode 101. Symmetric Tree
+// recursive solution
+var isSymmetric = function (root) {
+
+  function isMirror(left, right) {
+    // if we find a leaf then we return true because there is no left annd right node
+    if (!left && !right) return true;
+
+    // if left is exist but right not exist and if right exist but left not, so if any of them not exist we return false;
+    if (!left.right || !right.left) return false;
+
+    return left.val === right.val &&
+      isMirror(left.left, right.right) &&
+      isMirror(left.right, right.left)
+  }
+  return isMirror(root.left, root.right);
+}
+

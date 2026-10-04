@@ -467,6 +467,28 @@ var hasPathSumOtherWay = function (root, targetSum) {
 // console.log(hasPathSum(root1, 5)); // Output: false
 
 
+/* 
+///! Top-Down vs Bottom-Up 
+           | Top-Down               | Bottom-Up                      |
+           |----------              |----------                      | 
+|Kaam kab: | Node pe pahunchte hi   |Children se answer aane ke baad |
+|Info:     | Parent se child        |  Child se parent               |
+|Extra param |Haan (level, path)    | Nahi                           |
+|Return    | Kuch nahi / void       | Answer                         |
+|Answer kahan| Global variable      | Return value                   |
+
+
+///* Ek line me:-  Top-Down: "Main pehle apna kaam karta hoon, phir bachcho ko bhejta hoon" .
+///* Bottom-Up: "Main pehle bachcho se poochta hoon, phir apna kaam karta hoon"
+
+///? Max Depth me tune dono dekhe:
+ 
+Top-Down: dfs(curr, level) — level bahar se aaya, depth global update kiya
+Bottom-Up: maxDepth(root) — koi param nahi, 1 + max(left, right) return kiya
+
+*/
+
+
 //! Leetcode 101. Symmetric Tree
 // recursive solution
 var isSymmetric = function (root) {
@@ -476,7 +498,7 @@ var isSymmetric = function (root) {
     if (!left && !right) return true;
 
     // if left is exist but right not exist and if right exist but left not, so if any of them not exist we return false;
-    if (!left.right || !right.left) return false;
+    if (!left || !right) return false;
 
     return left.val === right.val &&
       isMirror(left.left, right.right) &&
@@ -485,3 +507,68 @@ var isSymmetric = function (root) {
   return isMirror(root.left, root.right);
 }
 
+//? Iterative approch using queue
+var isSymmetric = function (root) {
+  let queue = [[root.left, root.right]];
+
+  while (queue.length) {
+    let [left, right] = queue.shift();
+
+    if (!left && !right) continue;
+    if (!left || !right) return false;
+
+    if (left && right) {
+      if (left.val === right.val) {
+        queue.push([left.left, right.right], [left.right, right.left]);
+      } else return false;
+    }
+  }
+  return true;
+}
+// we can write same code like
+var isSymmetric = function (root) {
+  let queue = [];
+  queue.push(root.left, root.right);
+  while (queue.length) {
+    let pair1 = queue.shift();
+    let pair2 = queue.shift();
+
+    if (!pair1 && !pair2) continue; // means they both are null
+    if (!pair1 || !pair2) return false; // means maybe left or right not exist
+    if (pair1.val != pair2.val) return false;
+
+    queue.push(pair1.left, pair2.right);
+    queue.push(pair1.right, pair2.left);
+  }
+  return true
+}
+
+//! Leetcode 226. Invert Binary Tree
+// recursive approch [top down approch]
+var invertTree = function (root) {
+  if (!root) return null;
+  // [root.left, root.right] = [root.right, root.left];
+  let temp = root.left;
+  root.left = root.right;
+  root.right = temp;
+
+  invertTree(root.left);
+  invertTree(root.right);
+  return root;
+}
+// iterative approch [using queue]
+var invertTreeIterative = function (root) {
+  if (!root) return null;
+
+  let q = [root];
+
+  while (q.length) {
+    let node = q.shift();
+    [node.left, node.right] = [node.right, node.left];
+
+    node.left && q.push(node.left);
+    node.right && q.push(node.right);
+  }
+
+  return root;
+}

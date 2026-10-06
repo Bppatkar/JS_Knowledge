@@ -572,3 +572,127 @@ var invertTreeIterative = function (root) {
 
   return root;
 }
+
+//! Leetcode 100. Same Tree
+// recursive approch
+var isSameTree = function (p, q) {
+  if (!p && !q) return true;
+  if (!p || !q) return false;
+  if (p.val != q.val) return false;
+
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+}
+
+// iterative approch [using queue] (bottom up approch)
+var issameTreeIterative = function (p, q) {
+  let queue = [p, q];
+  while (queue.length) {
+    let p1 = queue.shift();
+    let p2 = queue.shift();
+
+    if (!p1 && !p2) continue;
+    if (!p1 || !p2) return false;
+    if (p1.val != p2.val) return false;
+
+    queue.push(p1.left, p2.left);
+    queue.push(p1.right, p2.right);
+  }
+  return true;
+}
+
+//! Leetcode 110. Balanced Binary Tree
+var isBalanced = function (root) {
+  let ans = true;
+
+  function calculateHeight(curr) {
+    if (!curr) return 0;
+
+    let leftHeight = calculateHeight(curr.left);
+    let righHeight = calculateHeight(curr.right);
+    if (Math.abs(leftHeight - righHeight) > 1) { ans = ans && false; }
+
+    return 1 + Math.max(leftHeight, righHeight);
+  }
+  calculateHeight(root);
+  return ans;
+}
+
+//! Leetcode 543. Diameter of Binary Tree
+var diameterOfBinaryTree = function (root) {
+  let maxDiamter = 0;
+  function diameter(root) {
+    if (!root) return 0;
+    let leftH = diameter(root.left);
+    let rightH = diameter(root.right);
+
+    let currDiameter = leftH + rightH
+    maxDiamter = Math.max(maxDiamter, currDiameter);
+
+    return 1 + Math.max(leftH, rightH);
+  }
+  diameter(root);
+  return maxDiamter;
+}
+
+//! Leetcode 103. Binary Tree Zigzag Level Order Traversal
+// recursive solution
+var zigzagLevelOrder = function (root) {
+  let ans = [];
+  function traversal(curr, level) {
+    if (!curr) return;
+    if (!ans[level]) ans[level] = [];
+
+    if (level % 2 === 0) ans[level].push(curr.val);
+    else ans[level].unshift(curr.val);
+
+    curr.left && traversal(curr.left, level + 1);
+    curr.right && traversal(curr.right, level + 1);
+  }
+  traversal(root, 0);
+  return ans;
+}
+
+// other way to solve [pushing normally ---> but we reversing the ans which level is odd]
+var zigzagLevelOrderOtherWay = function (root) {
+  let ans = [];
+  function traversal(curr, level) {
+    if (!curr) return;
+    if (!ans[level]) ans[level] = [];
+
+    ans[level].push(curr.val);
+
+    curr.left && traversal(curr.left, level + 1);
+    curr.right && traversal(curr.right, level + 1);
+  }
+  traversal(root, 0);
+
+  // reversing
+  for (let i = 0; i < ans.length; i++) {
+    if (i % 2 != 0) {
+      ans[i].reverse();
+    }
+  }
+  return ans;
+}
+
+// iterative solution
+var zigzagLevelOrderIterative = function (root) {
+  if (!root) return [];
+  let q = [root], ans = [], level = 0;
+  while (q.length) {
+    let currLevel = [], levelSize = q.length;
+
+    while (levelSize) {
+      let curr = q.shift();
+      if (level % 2 === 0) currLevel.push(curr.val);
+      else curr.level.unshift(curr.val);
+
+      curr.left && q.push(curr.left);
+      curr.right && q.push(curr.right);
+      levelSize--;
+    }
+    ans.push(currLevel);
+    level++;
+  }
+  return ans;
+}

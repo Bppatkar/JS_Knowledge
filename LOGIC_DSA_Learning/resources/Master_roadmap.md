@@ -2617,32 +2617,27 @@ Walk two trees together (Same Tree, Symmetric, Subtree).
 
 ## Representative LeetCode
 
-- **LC 144 — Binary Tree Preorder Traversal** ✅
 - **LC 94 — Binary Tree Inorder Traversal** ✅
-- **LC 145 — Binary Tree Postorder Traversal** ✅
+- **LC 100 — Same Tree** ✅
+- **LC 101 — Symmetric Tree** ✅
 - **LC 102 — Binary Tree Level Order Traversal** ✅
-- **LC 104 — Maximum Depth of Binary Tree**
-- **LC 226 — Invert Binary Tree**
-- **LC 543 — Diameter of Binary Tree**
-- **LC 110 — Balanced Binary Tree**
-- **LC 112 — Path Sum**
-- **LC 101 — Symmetric Tree**
-- **LC 226 — Invert Binary Tree**
-- **LC 100 — Same Tree**
-- **LC 110 — Balanced Binary Tree**
-- **LC 543 — Diameter of Binary Tree**
-- **LC 572 — Subtree of Another Tree**
-- **LC 236 — Lowest Common Ancestor**
-- **LC 199 — Binary Tree Right Side View**
-- **LC 1448 — Count Good Nodes in Binary Tree**
+- **LC 103 — Binary Tree Zigzag Level Order Traversal** ✅
+- **LC 104 — Maximum Depth of Binary Tree** ✅
+- **LC 105 — Construct Binary Tree** 
+- **LC 110 — Balanced Binary Tree** ✅
+- **LC 112 — Path Sum** ✅
 - **LC 116 — Populating Next Right Pointers in Each Node**
 - **LC 117 — Populating Next Right Pointers in Each Node II**
-- **LC 236 — Lowest Common Ancestor**
-- **LC 98 — Validate Binary Search Tree**
-- **LC 700 — Search in a Binary Search Tree**
-- **LC 105 — Construct Binary Tree**
-- **LC 297 — Serialize and Deserialize Binary Tree**
 - **LC 124 — Binary Tree Maximum Path Sum** — advanced
+- **LC 144 — Binary Tree Preorder Traversal** ✅
+- **LC 145 — Binary Tree Postorder Traversal** ✅
+- **LC 199 — Binary Tree Right Side View**
+- **LC 226 — Invert Binary Tree** ✅
+- **LC 236 — Lowest Common Ancestor**
+- **LC 297 — Serialize and Deserialize Binary Tree**
+- **LC 543 — Diameter of Binary Tree** ✅
+- **LC 572 — Subtree of Another Tree**
+- **LC 1448 — Count Good Nodes in Binary Tree**
 
 ---
 

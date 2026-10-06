@@ -685,7 +685,7 @@ var zigzagLevelOrderIterative = function (root) {
     while (levelSize) {
       let curr = q.shift();
       if (level % 2 === 0) currLevel.push(curr.val);
-      else curr.level.unshift(curr.val);
+      else currLevel.unshift(curr.val);
 
       curr.left && q.push(curr.left);
       curr.right && q.push(curr.right);
@@ -694,5 +694,31 @@ var zigzagLevelOrderIterative = function (root) {
     ans.push(currLevel);
     level++;
   }
+  return ans;
+}
+
+// iterative solution [reversing]
+var zigzagLevelOrderIterativeOtherWay = function (root) {
+  if (!root) return [];
+  let q = [root], ans = [];
+  while (q.length) {
+    let currLevel = [], levelSize = q.length;
+
+    while (levelSize) {
+      let curr = q.shift();
+      currLevel.push(curr.val);
+      curr.left && q.push(curr.left);
+      curr.right && q.push(curr.right);
+      levelSize--;
+    }
+    ans.push(currLevel);
+  }
+  // reversing
+  for (let i = 0; i < ans.length; i++) {
+    if (i % 2 != 0) {
+      ans[i].reverse();
+    }
+  }
+
   return ans;
 }

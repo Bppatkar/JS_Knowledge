@@ -543,7 +543,7 @@ var isSymmetric = function (root) {
   return true
 }
 
-//! Leetcode 226. Invert Binary Tree
+//! Leetcode 226. Invert Binary Tree [⭐ Interview]
 // recursive approch [top down approch]
 var invertTree = function (root) {
   if (!root) return null;
@@ -888,8 +888,77 @@ function searchSubstringInString(str, subStr) {
 }
 
 
-//! Leetcode 236. Lowest Common Ancestor of a Binary Tree
-var lowestCommonAncestor = function (root, p, q) { }
+//! Leetcode 236. Lowest Common Ancestor of a Binary Tree [⭐ Interview]
+//* Ancestor ka matlab — us node se lekar p tak ka path, aur us node se lekar q tak ka path, dono exist karein. Aur node khud bhi apna descendant hota hai (matlab p bhi LCA ho sakta hai).
+//? Lowest" ka matlab "sabse neeche p aur q ke" nahi hai. 
+//? Iska matlab hai — "saare common ancestors me se sabse neeche wala".
+//? Yani pehle saare common ancestors dhundho. Phir unme se jo sabse gehra (root se sabse door) ho, wahi LCA hai.
+
+/* 
+        3          ← sabse upar (root)
+       / \
+      5   1        ← ye 3 se neeche hai
+     / \ / \
+    6  2 0  8
+      / \
+     7   4
+
+-------------------------------------
+//* p = 6, q = 8 ka case:- Common ancestors kya hain? Soch:
+
+6 ka ancestor chain: 6 → 5 → 3
+8 ka ancestor chain: 8 → 1 → 3
+
+Common: sirf 3
+
+Bas ek hi common ancestor hai. To LCA = 3 (majboori me). "Lowest" ka option hi nahi, kyunki ek hi candidate hai.
+
+//* p = 5, q = 4 ka case :- 
+
+5 ka ancestor chain: 5 → 3
+4 ka ancestor chain: 4 → 2 → 5 → 3
+
+Common: 5 aur 3
+
+Do candidates hain. "Lowest" (sabse gehra) chunna hai. Kaunsa gehra hai?
+
+
+        3      ← root ke paas (upar)
+       /
+      5        ← 3 se neeche (gehra)
+     /
+    ...
+    4
+5, 3 se neeche hai. To LCA = 5.
+--------------------------------------------------
+///! Sirf itna chahiye ki jis node pe p aur q alag-alag sides me chale jayein, wahi LCA ho (ya jis node pe khud p/q ho).
+*/
+//! It is a classic example of -> "Bottom up Recursion"
+// we move to the leaf and it dont have children we return 0 because no node found
+// if we found 1 node so we return 1, if our count is 2 means we found both node
+var lowestCommonAncestor = function (root, p, q) {
+  let ans = null;
+  function traversal(curr) {
+    let count = 0; // we want count on every level
+    if (!curr) return 0;
+    let ansOnLeft = traversal(curr.left);
+    let ansOnRight = traversal(curr.right);
+
+    if (curr.val === p.val || curr.val === q.val) {
+      count++;
+    }
+    count = count + ansOnLeft + ansOnRight;
+    if (count === 2 && ans === null) {
+      // means both 2 node founds
+      // for preventing every time overwrite ans we do this - ans === null
+      // means when ans is null then set the value one time set ok
+      ans = curr;
+    }
+    return count;
+  }
+  traversal(root);
+  return ans;
+}
 
 //! Leetcode 199. Binary Tree Right Side View
 var rightSideView = function (root) { }

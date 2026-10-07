@@ -760,3 +760,194 @@ trees.forEach((tree, i) => {
   // console.log("Level Order recursive:", levelOrder(tree));
   // console.log("Level Order iterative:", levelOrderIterative(tree));
 });
+
+
+
+//! Leetcode 572. Subtree of Another Tree
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//? APPROACH 1 — My Solution (Combination of two problems)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━═════════════════════════
+// This is a combination of two problems:
+//   1. Traverse recursively on whole root (every node)
+//   2. Check isSameTree on every node
+//
+// ⏱️  Time Complexity: O(n * m)
+//    n = nodes in root, m = nodes in subRoot
+//    Reason: for every node in root, we check if it is same as subRoot.
+//    In worst case, we traverse the whole subRoot for every node in root.
+//
+// 💾 Space Complexity: O(n + m)
+//    Reason: recursion stack for root (O(n)) + recursion stack for subRoot (O(m)).
+//    We don't traverse both trees at the same time.
+
+var isSubtree = function (root, subRoot) {
+  if (!root) return false;
+
+  // if parent value matches, check if trees are identical
+  if (root.val === subRoot.val) {
+    if (checkIsSameTree(root, subRoot)) return true;
+  }
+
+  // try left and right subtree
+  let left = isSubtree(root.left, subRoot);
+  let right = isSubtree(root.right, subRoot);
+  return left || right;
+};
+
+function checkIsSameTree(p, q) {
+  if (!p && !q) return true;
+  if (!p || !q) return false;
+  if (p.val !== q.val) return false;
+
+  return checkIsSameTree(p.left, q.left) && checkIsSameTree(p.right, q.right);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//? APPROACH 2 — converting Tree to String (Serialization) and use built-in method 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━═════════════════════════
+// Interviewer asks to optimize? Use serialization + substring search.
+//
+// ⏱️  Time Complexity: O(n + m)  [with KMP]
+//    n = nodes in root, m = nodes in subRoot
+// 💾 Space Complexity: O(n + m)
+//
+// Idea:
+//   1. Convert both trees into strings (preorder traversal with null markers)
+//   2. Search subRoot string inside root string
+
+//? Why do we need null markers in serialization?
+// Suppose we have:
+//   root    = [1, 2, 3]
+//   subRoot = [2]
+//
+// Without null markers:
+//   root    → "1,2,3"
+//   subRoot → "2"
+//   "2" is in "1,2,3" → returns TRUE  ❌ (but [2] is not a subtree of [1,2,3])
+//
+// With null markers (# or $):
+//   root    → "[1[2##3##"
+//   subRoot → "[2##"
+//   "[2##" is in "[1[2##3##" → returns FALSE  ✅
+//? If we use '-' as null marker, then: if there is negative value in the tree, it will create confusion. So we use '#' or '$' as null marker.
+//
+// Null markers preserve the STRUCTURE, not just the values.
+
+var isSubtreeOptimized = function (root, subRoot) {
+  let rootHash = serialize(root);
+  let subRootHash = serialize(subRoot);
+
+  // rootHash [3,4,5,1,2]    → "[3[4[1##2##5##"
+  // subRootHash [4,1,2] → "[4[1##2##"
+
+  // now we need to find: is subRootHash a substring of rootHash?
+
+  return rootHash.includes(subRootHash);
+
+  // ⚠️ Built-in includes() TC is O(n * m) 
+  //    So this is still not fully optimized. For true O(n + m), implement KMP.D
+};
+
+function serialize(root) {
+  let hash = "";
+
+  let traversal = (curr) => {
+    if (!curr) {
+      hash = hash + "#";   // null marker
+      return;
+    }
+
+    hash = hash + "[" + curr.val;
+
+    traversal(curr.left);
+    traversal(curr.right);
+  };
+
+  traversal(root);
+  return hash;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//? APPROACH 3 — KMP Solution (String Matching)
+// ━━━━━═══════════════════════════════════════
+// =============KMP Solution==============TC - O[m+n]===========
+var isSubtree = function (root, subRoot) {
+  //converting tree into string
+  let stringTree = serialize(root);
+  let stringSubTree = serialize(subRoot);
+
+  return searchStringInString(stringTree, stringSubTree);
+
+};
+function serialize(root) {
+  // we can use any symbol as a delimiter but we dont use '-' because if any tree node value is in negative so it makes confusion ok , that's why we use # or we can use $
+  let hash = "";
+
+  let traversal = (curr) => {
+    if (!curr) {
+      hash = hash + "#"; // for null we use #
+      return;
+    }
+    hash = hash + "[" + curr.val;  // for prefix we use '[' because they should be diff
+
+    traversal(curr.left);
+    traversal(curr.right);
+  }
+  traversal(root)
+  return hash;
+}
+
+//now we create lps [longest prefix-suffix] table for KMP
+function calculateLPS(subStr) {
+  // creating empty array of subStr length filled with 0
+  let lpsArr = new Array(subStr.length).fill(0);
+  let i = 1, j = 0;
+
+  // j i 
+  // a a b a a a c
+  // 0 1 0 1 2 2 0
+
+  while (i < subStr.length) {
+    if (subStr[i] === subStr[j]) {
+      // if character matches
+      lpsArr[i] = j + 1;
+      i++; j++;
+    } else {
+      // if not matched we move i, 
+      // make sure that if anything is mismatch we move back j to its previous prefix
+      if (j != 0) {
+        j = lpsArr[j - 1];
+      }
+      else { i++ }
+    }
+  }
+  return lpsArr;
+}
+
+function searchStringInString(str, subStr) {
+  // firstly we want lps table for substr so
+  let lps = calculateLPS(subStr);
+
+  // we put one pointer on string and one on substring and check
+  // both start with 0 index because we compare from start point
+  let i = 0, j = 0;
+
+  while (i < str.length) {
+    if (str[i] === subStr[j]) {
+      // if matched so we only move i and j
+      i++; j++;
+    } else {
+      // if not matched so we only move i beacuse its has long length and
+      // making sure the same thing we do in lpscalculateTable 
+      // if mismatch so we move back j 
+      if (j != 0) {
+        j = lps[j - 1];
+      }
+      else { i++; }
+    }
+
+    // if our j is reached the subStr length means everything matches
+    if (j === subStr.length) return true;
+  }
+  return false;
+}

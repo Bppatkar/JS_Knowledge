@@ -722,3 +722,192 @@ var zigzagLevelOrderIterativeOtherWay = function (root) {
 
   return ans;
 }
+
+//! Leetcode 572. Subtree of Another Tree
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//? APPROACH 1 — My Solution (Combination of two problems)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━═════════════════════════
+// This is a combination of two problems:
+//   1. Traverse recursively on whole root (every node)
+//   2. Check isSameTree on every node
+//
+// ⏱️  Time Complexity: O(n * m)
+//    n = nodes in root, m = nodes in subRoot
+//    Reason: for every node in root, we check if it is same as subRoot.
+//    In worst case, we traverse the whole subRoot for every node in root.
+//
+// 💾 Space Complexity: O(n + m)
+//    Reason: recursion stack for root (O(n)) + recursion stack for subRoot (O(m)).
+//    We don't traverse both trees at the same time.
+
+var isSubtree = function (root, subRoot) {
+  if (!root) return false;
+
+  // if parent value matches, check if trees are identical
+  if (root.val === subRoot.val) {
+    if (checkIsSameTree(root, subRoot)) return true;
+  }
+
+  // try left and right subtree
+  let left = isSubtree(root.left, subRoot);
+  let right = isSubtree(root.right, subRoot);
+  return left || right;
+};
+
+function checkIsSameTree(p, q) {
+  if (!p && !q) return true;
+  if (!p || !q) return false;
+  if (p.val !== q.val) return false;
+
+  return checkIsSameTree(p.left, q.left) && checkIsSameTree(p.right, q.right);
+}
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//? APPROACH 2 — Optimized (Serialization + String Search)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Interviewer asks to optimize? Use serialization + substring search.
+//
+// ⏱️  Time Complexity: O(n + m)  [with KMP]
+//    n = nodes in root, m = nodes in subRoot
+// 💾 Space Complexity: O(n + m)
+//
+// Idea:
+//   1. Convert both trees into strings (preorder traversal with null markers)
+//   2. Search subRoot string inside root string
+
+//? Why do we need null markers in serialization?
+// Suppose we have:
+//   root    = [1, 2, 3]
+//   subRoot = [2]
+//
+// Without null markers:
+//   root    → "1,2,3"
+//   subRoot → "2"
+//   "2" is in "1,2,3" → returns TRUE  ❌ (but [2] is not a subtree of [1,2,3])
+//
+// With null markers (# or $):
+//   root    → "[1[2##3##"
+//   subRoot → "[2##"
+//   "[2##" is in "[1[2##3##" → returns FALSE  ✅
+//? If we use '-' as null marker, then: if there is negative value in the tree, it will create confusion. So we use '#' or '$' as null marker.
+//
+// Null markers preserve the STRUCTURE, not just the values.
+
+var isSubtreeOptimized = function (root, subRoot) {
+  let rootHash = serialize(root);
+  let subRootHash = serialize(subRoot);
+
+  // rootHash [3,4,5,1,2]    → "[3[4[1##2##5##"
+  // subRootHash [4,1,2] → "[4[1##2##"
+
+  // now we need to find: is subRootHash a substring of rootHash?
+
+  // return rootHash.includes(subRootHash);
+
+  // ⚠️ Built-in includes() TC is O(n * m) — NOT KMP.
+  //    So this is still not fully optimized. For true O(n + m), implement KMP.
+  // -----------------------------------------------
+  // If we dont want to use built-in includes() method, so we implement KMP ok
+
+  return searchSubstringInString(rootHash, subRootHash); // search subRoot string inside root string in O(n + m)
+};
+
+function serialize(root) {
+  let hash = "";
+
+  let traversal = (curr) => {
+    if (!curr) {
+      hash = hash + "#";   // null marker
+      return;
+    }
+
+    hash = hash + "[" + curr.val;
+
+    traversal(curr.left);
+    traversal(curr.right);
+  };
+
+  traversal(root);
+  return hash;
+}
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//? APPROACH 3 — Serialization + KMP (True O(n + m))
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// To get true O(n + m), replace includes() with KMP.
+//
+// Steps:
+//   1. Build LPS (Longest Prefix Suffix) array for the subRoot string.
+//   2. Use LPS to search subRoot string inside root string in O(n + m).
+
+function calculateLpsTable(subStr) {
+  // build prefix table from substring
+  // creating empty array filled with 0 
+  let lps = new Array(subStr.length).fill(0);
+  let i = 1, j = 0;
+
+  // we run loop till i reaches in the end because we move j and i both and i is ahead that's why
+
+  // a a b a a a c
+  // 0 1 0 1 2 2 0
+  // j i
+  while (i < subStr.length) {
+    // if character matches, we increase value of j in prefix table and move i and j both
+    if (subStr[i] === subStr[j]) {
+      lps[i] = j + 1;
+      i++; j++;
+    } else {
+      // if not match, we move back j to previous prefix value, if j is 0 then we move i to next character
+      if (j != 0) j = lps[j - 1];
+      else i++;
+    }
+  }
+  return lps;
+}
+
+function searchSubstringInString(str, subStr) {
+  let stringLength = str.length, subStringLength = subStr.length;
+  let lpsTable = calculateLpsTable(subStr);
+
+  // i → pointer for str, j → pointer for subStr
+  let i = 0, j = 0;
+  // we run loop on root string, and we check if the character matches with subRoot string, if it matches we move both pointers, if not we move i to previous prefix value, if i is 0 then we move j to next character
+  while (i < stringLength) {
+    if (str[i] === subStr[j]) {
+      // if character matches, we move both pointers thats it
+      i++; j++;
+    } else {
+      if (j != 0) j = lpsTable[j - 1];
+      else i++;
+    }
+    if (j === subStringLength) return true; // if we reach the end of subStr, it means we found the substring in string
+  }
+  return false;
+}
+
+
+//! Leetcode 236. Lowest Common Ancestor of a Binary Tree
+var lowestCommonAncestor = function (root, p, q) { }
+
+//! Leetcode 199. Binary Tree Right Side View
+var rightSideView = function (root) { }
+
+//! Leetcode 1448. Count Good Nodes in Binary Tree
+var goodNodes = function (root) { }
+
+//! Leetcode 116. Populating Next Right Pointers in Each Node
+var connect = function (root) { }
+
+//! Leetcode 117. Populating Next Right Pointers in Each Node II
+var connect = function (root) { }
+
+//! Leetcode 124. Binary Tree Maximum Path Sum
+var maxPathSum = function (root) { }
+
+//! Leetcode 105. Construct Binary Tree from Preorder and Inorder Traversal
+var buildTree = function (preorder, inorder) { }
+
+//! Leetcode 297. Serialize and Deserialize Binary Tree
+var serialize = function (root) { }

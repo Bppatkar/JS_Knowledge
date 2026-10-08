@@ -1116,7 +1116,7 @@ var maxPathSum = function (root) {
     // current node peak
     maxSum = Math.max(maxSum, curr.val + maxLeft + maxRight);
 
-   // returning best for parent from only one side which one is max
+    // returning best for parent from only one side which one is max
     return curr.val + Math.max(maxLeft, maxRight);
   }
   traversal(root);
@@ -1124,7 +1124,171 @@ var maxPathSum = function (root) {
 }
 
 //! Leetcode 105. Construct Binary Tree from Preorder and Inorder Traversal
-var buildTree = function (preorder, inorder) { }
+var buildTree = function (preorder, inorder) {
+
+  // PreOrder - root, left, right
+  // InOrder - left, root, right
+
+  // base case 
+  if (preorder.length === 0 || inorder.length === 0) return null;
+
+  // pre order ka fist elem hmesha root hota hai
+  let rootVal = preorder[0];
+  // we create new TreeNode from that value
+  let root = new TreeNode(rootVal);
+
+  // finding index of rootVal in inorder 
+  // becase inore mein root ke LEFT me left subtree and RIGHT mein right subtree hota h
+  let index = inorder.indexOf(rootVal); // indexOf O(n) hota hai, and recursion se O(n^2) ho jayega so for the optimisation we can use map
+
+
+  // left subtree ka elems nikalenge [inorder mein left mein sara left tree hota hai fir root fir right to abhi leftTree banane k liye left ke sare elem le lete h]
+  // Inorder me se left k: root ke phle wale (0 se index -1)
+  // PreOrder me se bhi left k: root ke bad, utne hi elem (1 se index) [preorder mein first elem root hota hai to 1 se suru kiya fir uske bad left nodes hoti hai]
+  let leftSubtreeFromInorder = inorder.slice(0, index);
+  let leftSubtreeFromPreorder = preorder.slice(1, index + 1);
+
+  // right subtree ke elems nikalenge
+  let rightSubtreeFromInorder = inorder.slice(index + 1);
+  let rightSubtreeFromPreorder = preorder.slice(index + 1);
+
+
+  // creating left subTree recursively and putting in root.left
+  // given function buildTree asking first preOrder than Inorder in arguments
+  root.left = buildTree(leftSubtreeFromPreorder, leftSubtreeFromInorder);
+
+  // doint same for right subTree
+  root.right = buildTree(rightSubtreeFromPreorder, rightSubtreeFromInorder);
+
+
+  return root;
+}
+/* 
+preorder = [3, 9, 20, 15, 7]
+inorder  = [9, 3, 15, 20, 7]
+
+Step 1: rootVal = 3, idx = 1
+
+leftInorder  = inorder[0..0]  = [9]
+leftPreorder = preorder[1..1] = [9]
+
+rightInorder  = inorder[2..4]  = [15, 20, 7]
+rightPreorder = preorder[2..4] = [20, 15, 7]
+
+Step 2 (recursive left): buildTree([9], [9])
+  rootVal = 9, idx = 0
+  left arrays = [], right arrays = []
+  → node 9, no children
+
+Step 3 (recursive right): buildTree([20, 15, 7], [15, 20, 7])
+  rootVal = 20, idx = 1
+  left: preorder=[15], inorder=[15]
+  right: preorder=[7], inorder=[7]
+  → node 20, left=15, right=7
+
+Final tree:
+        3
+       / \
+      9   20
+         /  \
+        15   7
+*/
+
+//! Optimised Solution using map
+var buildTree = function (preorder, inorder) {
+  // PreOrder - root, left, right
+  // InOrder  - left, root, right
+
+  // Map banao: value → index in inorder
+  // Isse index dhundhna O(1) ho jayega (pehle O(n) tha)
+  let map = new Map();
+  for (let i = 0; i < inorder.length; i++) {
+    map.set(inorder[i], i);
+  }
+
+  // Helper function jo recursion karega
+  // preStart, preEnd → preorder me current subtree ka range
+  // inStart, inEnd   → inorder me current subtree ka range
+  function helper(preStart, preEnd, inStart, inEnd) {
+    // Base case — koi element nahi bacha
+    if (preStart > preEnd || inStart > inEnd) return null;
+
+    // Preorder ka pehla element root hota hai
+    let rootVal = preorder[preStart];
+    let root = new TreeNode(rootVal);
+
+    // Inorder me root ka index (O(1) me, Map se)
+    let idx = map.get(rootVal);
+
+    // Left subtree me kitne elements hain
+    let leftSize = idx - inStart;
+
+    // Left subtree recursively banao
+    // Preorder me: root ke baad wale leftSize elements
+    // Inorder me: root ke pehle wale (inStart se idx-1)
+    root.left = helper(
+      preStart + 1,          // root ke baad se start
+      preStart + leftSize,   // leftSize elements tak
+      inStart,               // same inStart
+      idx - 1                // root se pehle tak
+    );
+
+    // Right subtree recursively banao
+    // Preorder me: left ke baad se end tak
+    // Inorder me: root ke baad se end tak
+    root.right = helper(
+      preStart + leftSize + 1,  // left ke baad se
+      preEnd,                   // end tak
+      idx + 1,                  // root ke baad se
+      inEnd                     // end tak
+    );
+
+    return root;
+  }
+
+  return helper(0, preorder.length - 1, 0, inorder.length - 1);
+};
 
 //! Leetcode 297. Serialize and Deserialize Binary Tree
-var serialize = function (root) { }
+var serialize = function (root) {
+  let result = [];
+
+  let traversal = (curr) => {
+    if (!curr) {
+      result.push("#");  // null marker
+      return;
+    }
+    result.push(curr.val);
+
+    // preorder: root → left → right
+    traversal(curr.left);
+    traversal(curr.right);
+  }
+  traversal(root);
+
+  // creating a string , comma se join krke
+  return result.join(','); // string looks like "1,2,#,#,3,4,#,#,5,#,#"
+};
+
+var deserialize = function (data) {
+  let tokens = data.split(',');
+  // string like "1,2,#,#,3,4,#,#,5,#,#" ko array me convert karenge 
+  // ["1", "2", "#", "#", "3", "4", "#", "#", "5", "#", "#"]
+
+  let pointer = 0;
+
+  function helper() {
+    let token = tokens[pointer];
+    pointer++;
+
+    if (token === '#') return null;
+
+    let node = new TreeNode(Number(token));
+
+    // preorder me: root, left, right
+    node.left = helper();
+    node.right = helper();
+    return node;
+  }
+  return helper()
+};

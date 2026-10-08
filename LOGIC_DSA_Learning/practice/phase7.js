@@ -1028,13 +1028,100 @@ var goodNodes = function (root) {
 }
 
 //! Leetcode 116. Populating Next Right Pointers in Each Node
-var connect = function (root) { }
+//* My Solution
+var connect = function (root) {
+  if (!root) return root;
+
+  let start = root;
+
+  while (start.left) {  // because tree is perfect and that loop is for level chaange
+
+    let curr = start;
+    while (curr) { // that loop is for every nodes of curr level
+
+      curr.left.next = curr.right; // siblings connect
+
+      if (curr.next) {
+        curr.right.next = curr.next.left; // cousins connect
+      }
+
+      curr = curr.next //* — same level pe right side move kar raha
+    }
+    start = start.left;  //* — next level pe jane ke liye (kyunki perfect tree hai, left hamesha exist karta hai)
+  }
+  return root;
+}
+
+//? other way
+var connect = function (root) {
+  if (!root) return root;
+  let check = (curr) => {
+
+    if (curr.left) curr.left.next = curr.right; // siblings connect
+    if (curr.right && curr.next) {
+      curr.right.next = curr.next.left; // cousins connect
+    }
+
+    curr.left && check(curr.left);
+    curr.right && check(curr.right);
+  }
+  check(root);
+  return root;
+}
 
 //! Leetcode 117. Populating Next Right Pointers in Each Node II
-var connect = function (root) { }
+//* Dummy node trick" — jab bhi kisi linked list ko build karna ho jisme pehla node pata na ho, dummy node use karo
+
+var connect = function (root) {
+  if (!root) return root;
+
+  let start = root; // current level first node
+
+  while (start) {      // till node exist in curr level
+    let dummy = new Node(0);  // next level ke liye fake head
+
+    let prev = dummy;  // prev pointer — next level ki linked list banata jayega
+
+    let curr = start;  // curr = current level ka pehla node
+
+    while (curr) {  // using next chain , go to every nodes of curr level
+      if (curr.left) {
+        prev.next = curr.left; // prev k next mein left child joda
+        prev = prev.next; // prev ko aage move kiya
+      }
+      if (curr.right) {
+        prev.next = curr.right;
+        prev = prev.next;
+      }
+      curr = curr.next; // moving right side on same level
+    }
+    start = dummy.next; // next level ka first node
+  }
+
+
+  return root;
+}
 
 //! Leetcode 124. Binary Tree Maximum Path Sum
-var maxPathSum = function (root) { }
+var maxPathSum = function (root) {
+  let maxSum = -Infinity;
+
+  function traversal(curr) {
+    if (!curr) return 0;
+
+    // children se max lo, negative ho to 0
+    let maxLeft = Math.max(0, traversal(curr.left));
+    let maxRight = Math.max(0, traversal(curr.right));
+
+    // current node peak
+    maxSum = Math.max(maxSum, curr.val + maxLeft + maxRight);
+
+   // returning best for parent from only one side which one is max
+    return curr.val + Math.max(maxLeft, maxRight);
+  }
+  traversal(root);
+  return maxSum;
+}
 
 //! Leetcode 105. Construct Binary Tree from Preorder and Inorder Traversal
 var buildTree = function (preorder, inorder) { }

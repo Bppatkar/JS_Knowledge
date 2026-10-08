@@ -960,11 +960,72 @@ var lowestCommonAncestor = function (root, p, q) {
   return ans;
 }
 
-//! Leetcode 199. Binary Tree Right Side View
-var rightSideView = function (root) { }
+//! Leetcode 199. Binary Tree Right Side View [⭐ Interview]
+//* Right Side View ka matlab - Har level ka sirf ek node — jo us level pe sabse rightmost hai. Chahe wo kisi bhi subtree me ho.
+
+var rightSideView = function (root) {
+  if (!root) return [];
+
+  let ans = [];
+  let traversal = (curr, level) => {
+    if (!curr) return;
+    // we have to store only rightmost nodes, so we use level as index
+    // `!ans[level]` fails for falsy values like 0, "", false — treated as "not set"
+    // Use `ans[level] === undefined` to correctly check if slot is empty
+
+    // if (ans.length === level) ans[level] = curr.val;
+    if (ans[level] === undefined) ans[level] = curr.val;
+
+    traversal(curr.right, level + 1);
+    traversal(curr.left, level + 1);
+  }
+
+  traversal(root, 0); // starting from level 0
+  return ans;
+}
+
+//* Iterative solution using queue (BFS)
+var rightSideViewIterative = function (root) {
+  if (!root) return [];
+
+  let ans = [], q = [root];
+
+  while (q.length) {
+    let levelSize = q.length;
+    let isFirstVal = true;
+
+    // while (levelSize--) { // we can also write like this
+    while (levelSize) {
+      let curr = q.shift();
+      if (isFirstVal) { ans.push(curr.val); isFirstVal = false; }
+      curr.right && q.push(curr.right);
+      curr.left && q.push(curr.left);
+      levelSize--;
+    }
+  }
+  return ans;
+}
 
 //! Leetcode 1448. Count Good Nodes in Binary Tree
-var goodNodes = function (root) { }
+//? ham root se kisi node tak jaate hai. Us path pe jo bhi nodes aate hain, unki values hoti hain. Agar current node ki value us path pe aane wali saari values se badi ya barabar ho, to wo node good hai.
+//* Matlab: "Root se yahan tak ke raaste me, mera number sabse bada hai (ya barabar hai)."
+
+var goodNodes = function (root) {
+  let ans = [], maxSoFar = -Infinity;
+
+  function traversal(curr, maxSoFar) {
+    if (!curr) return;
+
+    if (curr.val >= maxSoFar) { maxSoFar = curr.val; ans.push(curr.val) }
+
+    traversal(curr.left, maxSoFar);
+    traversal(curr.right, maxSoFar);
+  }
+  // traversal(root, -Infinity); // we can also write like this
+  traversal(root, maxSoFar);
+
+  return ans.length;
+}
 
 //! Leetcode 116. Populating Next Right Pointers in Each Node
 var connect = function (root) { }

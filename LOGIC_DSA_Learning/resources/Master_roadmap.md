@@ -2690,11 +2690,11 @@ Use the BST property: if both targets are on one side, go there; otherwise the c
 
 ## Representative LeetCode
 
-- **LC 98 — Validate Binary Search Tree**
-- **LC 700 — Search in a Binary Search Tree**
-- **LC 701 — Insert into a Binary Search Tree**
-- **LC 230 — Kth Smallest Element in a BST**
-- **LC 235 — Lowest Common Ancestor of a BST**
+- **LC 98 — Validate Binary Search Tree** ✅
+- **LC 700 — Search in a Binary Search Tree** ✅
+- **LC 701 — Insert into a Binary Search Tree** ✅
+- **LC 230 — Kth Smallest Element in a BST** ✅
+- **LC 235 — Lowest Common Ancestor of a BST** ✅
 
 ---
 

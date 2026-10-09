@@ -80,6 +80,98 @@ var isValidBST = function (root) {
 }
 
 //! Leetcode 700. Search in a Binary Search Tree
-var searchBST = function (root, val) {}
+var searchBST = function (root, val) {
+  // recursive approch
+  if (!root) return null;
 
-//! 
+  if (val === root.val) return root;
+
+  if (val < root.val) {
+    return searchBST(root.left, val);
+  } else {
+    return searchBST(root.right, val);
+  }
+}
+
+// Iterative approch
+var searchBSTiterative = function (root, val) {
+  let curr = root;
+
+  while (curr) {
+    if (curr.val === val) return curr;
+    if (val < curr.val) curr = curr.left;
+    else curr = curr.right;
+  }
+  return null;
+}
+
+//! Leetcode 701. Insert into a Binary Search Tree
+var insertIntoBST = function (root, val) {
+  // recursive
+  if (!root) return new TreeNode(val);
+
+  if (val < root.val) {
+    root.left = insertIntoBST(root.left, val);
+  } else {
+    root.right = insertIntoBST(root.right, val);
+  }
+  return root;
+}
+
+// Iterative
+var insertIntoBSTiterative = function (root, val) {
+  if (!root) return new TreeNode(val);
+
+  let originalRoot = root;
+
+  while (true) {
+    if (val < root.val) {
+      if (!root.left) { root.left = new TreeNode(val); break; }
+      root = root.left;
+    } else {
+      if (!root.right) { root.right = new TreeNode(val); break; }
+      root = root.right;
+    }
+  }
+  return originalRoot;
+}
+
+//! Leetcode 230. Kth Smallest Element in a BST
+//*  Do u remember that in above theory we write it that- "Inorder gives us sorted values" so we can use it
+//? we use count variable so we ignore O(n), we use O(1) because  we need our k-th element, not the whole array that's why we use simple variable not the empty array, so when our count is reached till k we stop it
+var kthSmallest = function (root, k) {
+  let ans = null, count = 0;
+  let traversal = (curr) => {
+    if (!curr) return;
+
+    // If we found any answer, so we stop recursion
+    if (ans !== null) return;
+
+    traversal(curr.left);
+
+    count++;
+    if (count === k) {
+      ans = curr.val;
+      return;
+    }
+
+    traversal(curr.right);
+  }
+  traversal(root);
+  return ans
+}
+
+//! Leetcode 235. Lowest Common Ancestor of a BST
+var lowestCommonAncestor = function (root, p, q) {
+  if (!root) return null;
+
+
+  if ((p.val < root.val) && (q.val < root.val)) {
+    return lowestCommonAncestor(root.left, p, q);
+  }
+  if ((p.val > root.val) && (q.val > root.val)) {
+    return lowestCommonAncestor(root.right, p, q);
+  }
+
+  return root;
+}

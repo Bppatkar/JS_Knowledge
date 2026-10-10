@@ -69,9 +69,12 @@ var isValidBST = function (root) {
 
 
     let isleftValidBST = traversal(curr.left, min, curr.val);
-    // going left side means lower bound is null and higher bound is carry forward , and our recursion calling for curr.left
+    // left: max = curr.val
+    // going left side means lower bound is null and higher bound is carry forward , and our recursion calling for curr.left  
+
     let isRightValidBST = traversal(curr.right, curr.val, max);
-    // going right side means lower bound is carry forwar and higher bound is null, and our recursion calling for curr.left
+    // right: min = curr.val
+    // going right side means lower bound is carry forwar and higher bound is null, and our recursion calling for curr.left   
 
     return isleftValidBST && isRightValidBST;
   }

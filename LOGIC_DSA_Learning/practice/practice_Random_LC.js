@@ -951,3 +951,104 @@ function searchStringInString(str, subStr) {
   }
   return false;
 }
+
+//! Leetcode 98. Validate Binary Search Tree
+var isValidBST = (root) => {
+  let high = null, low = null, ans = null;
+
+  function traversal(curr, low, high) {
+    if (!curr) return true;
+
+    if ((low != null && curr.val <= low) ||
+      (high != null && curr.val >= high)) return false;;
+
+    let leftSubTree = isValidBST(curr.left, low, curr.val);
+    let rightSubTree = isValidBST(curr.right, curr.val, high);
+
+    return leftSubTree || rightSubTree;
+  }
+  ans = traversal(root, low, high);
+  return ans;
+}
+
+//! Leetcode 700. Search in a Binary Search Tree
+var searchBST = function (root, val) {
+  // if (!root) return null;
+
+  // if (val === root.val) return root;
+
+  // if (val < root.val) {
+  //   return searchBST(root.left, val);
+  // } else {
+  //   return searchBST(root.right, val);
+  // }
+
+  let curr = root;
+
+  while (curr) {
+    if (curr.val === val) return curr;
+    if (val < curr.val) curr = curr.left;
+    else curr = curr.right;
+  }
+  return null;
+}
+
+//! Leetcode 701. Insert into a Binary Search Tree
+var insertIntoBST = function (root, val) {
+  // if (!root) return new TreeNode(val);
+
+  // if (val < root.val) {
+  //   root.left = insertIntoBST(root.left, val);
+  // } else {
+  //   root.right = insertIntoBST(root.right, val);
+  // }
+  // return root;
+
+  if (!root) return new TreeNode(val);
+
+  let originalRoot = root; // because we modifying the root
+
+  while (true) {
+    if (val < root.val) {
+      if (!root.left) { root.left = new TreeNode(val); break; }
+      root = root.left;
+    } else {
+      if (!root.right) { root.right = new TreeNode(val); break; }
+      root = root.right;
+    }
+  }
+
+  return originalRoot;
+}
+
+//! Leetcode 230. Kth Smallest Element in a BST
+var kthSmallest = function (root, k) {
+  let ans = null, count = 0;
+
+  function traversal(curr) {
+    if (!curr) return;
+
+    traversal(curr.left);
+
+    count++;
+    if (count == k) { ans = curr.val; return; }
+
+    traversal(curr.right);
+  }
+  traversal(root);
+  return ans;
+}
+
+//! Leetcode 235. Lowest Common Ancestor of a BST
+var lowestCommonAncestor = function (root, p, q) {
+  if (!root) return null;
+
+  if ((p.val < root.val) && (q.val < root.val)) {
+    return lowestCommonAncestor(root.left, p, q);
+  }
+  if ((p.val > root.val) && (q.val > root.val)) {
+    return lowestCommonAncestor(root.left, p, q);
+  }
+
+  return root;
+}

@@ -2507,7 +2507,7 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ Running
+✅ COMPLETED / LOCKED
 
 ## Goal
 
@@ -2643,6 +2643,10 @@ Walk two trees together (Same Tree, Symmetric, Subtree).
 
 # 7.1 — BINARY SEARCH TREE (BST)
 
+## status
+
+✅ COMPLETED / LOCKED
+
 ## Core Topics
 
 - Binary Search Tree
@@ -2718,7 +2722,7 @@ Trees require deeper coverage, so the ladder may naturally approach the maximum.
 
 ## Status
 
-⏳ Future Phase
+⏳ Running
 
 ## Goal
 
@@ -3781,16 +3785,19 @@ Phase 12 — Advanced Data Structures
 
 - 14/14 representative problems done ✅
 
-## Phase 7 — Trees
+## Phase 7 — Trees & 7.1 - Binary Search Tree
 
-- 0/15 representative problems done ⏳ - **Next Phase**
+- 21/21 (Tree) representative problems done ✅
+- 5/5 (BST) representative problems done ✅
+
+## Phase 8 — Heap / Priority Queue
+
+- 12/12 representative problems ⏳ Running
 
 ## Next
 
 ```text
-Phase 7 — Trees
-↓
-Phase 8 — Heap
+Phase 8 — Heap/Priority Queue
 ↓
 Phase 9 — Greedy
 ↓
@@ -3830,12 +3837,12 @@ COMPLETED / LOCKED:
 - Phase 5 — Binary Search (main track, 17/17)
 - Phase 5B — Sorting & Searching (parallel track)
 - Phase 6 — Recursion & Backtracking (14 problems)
+- Phase 7  — Trees (21 problems)
 
 CURRENT ACTIVE PHASE:
-- Phase 7  — Trees (15 problems)
+- Phase 8  — Heap (12 problems)
 
 NEXT AFTER CURRENT:
-- Phase 8  — Heap (12 problems)
 - Phase 9  — Greedy (14 problems)
 - Phase 10 — Dynamic Programming (17 problems)
 - Phase 11 — Graphs (14 problems)
@@ -3952,8 +3959,8 @@ PHASE 5  — Binary Search ✅ (17 problems)
 PHASE 5B — Sorting & Searching ✅ PARALLEL TRACK (7–10 problems)
 
 PHASE 6  — Recursion & Backtracking ✅ (14 problems)
-PHASE 7  — Trees ⏳ (15 problems) ← NEXT
-PHASE 8  — Heap ⏳ (12 problems)
+PHASE 7  — Trees (21 problems) ✅
+PHASE 8  — Heap ⏳ (12 problems) ← NEXT
 PHASE 9  — Greedy ⏳ (14 problems)
 PHASE 10 — Dynamic Programming ⏳ (17 problems)
 PHASE 11 — Graphs ⏳ (14 problems)

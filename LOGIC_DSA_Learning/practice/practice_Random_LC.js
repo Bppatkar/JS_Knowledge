@@ -1052,3 +1052,104 @@ var lowestCommonAncestor = function (root, p, q) {
 
   return root;
 }
+
+
+//! minHeap
+class MinHeap {
+  constructor() {
+    this.heap = [];
+  }
+
+  getLeftChildIdx(i) {
+    return (2 * i) + 1;
+  }
+  getRightChildIdx(i) {
+    return (2 * i) + 2;
+  }
+  getParentIdx(i) {
+    return Math.floor((i - 1) / 2);
+  }
+
+  insert(val) {
+    this.heap.push(val);
+    let lastIdx = this.heap.length - 1;
+    this.heapifyUp(lastIdx);
+  }
+
+  heapifyUp(idx) {
+
+    while (idx > 0) {
+
+      let parentIdx = this.getParentIdx(idx);
+      if (this.heap[idx] < this.heap[parentIdx]) {
+        [this.heap[idx], this.heap[parentIdx]] = [this.heap[parentIdx], this.heap[idx]];
+        idx = parentIdx;
+      } else {
+        break;
+      }
+    }
+
+  }
+
+  deleteMin() {
+    if (this.heap.length === 0) return null;
+    else if (this.heap.length === 1) return this.heap.pop();
+    else {
+      let min = this.heap[0];
+      let lastIdx = this.heap.length - 1;
+      [this.heap[0], this.heap[lastIdx]] = [this.heap[lastIdx], this.heap[0]];
+
+      this.heap.pop();
+      this.heapifyDown(0);
+
+      return min;
+    }
+  }
+
+  heapifyDown(idx) {
+    let leftChildIdx = this.getLeftChildIdx(idx);
+    let rightChildIdx = this.getRightChildIdx(idx);
+
+    let smallestElem = idx;
+
+    let heapLength = this.heap.length;
+
+    if (leftChildIdx < heapLength && this.heap[leftChildIdx] < this.heap[smallestElem]) {
+      smallestElem = leftChildIdx;
+    }
+
+    if (rightChildIdx < heapLength && this.heap[rightChildIdx] < this.heap[smallestElem]) {
+      smallestElem = rightChildIdx;
+    }
+
+    // if smallestElem is diff from idx then we swap it
+    if (smallestElem !== idx) {
+      [this.heap[idx], this.heap[smallestElem]] = [this.heap[smallestElem], this.heap[idx]];
+
+      // calling hapifyDown recursively till smallest one reaches its correct position
+      this.heapifyDown(smallestElem);
+    }
+  }
+
+  peek() {
+    if (this.heap.length === 0) return null;
+    return this.heap[0];
+  }
+
+}
+// let minHeap = new MinHeap();
+// minHeap.insert(8);
+// minHeap.insert(12);
+// minHeap.insert(23);
+// minHeap.insert(28);
+// minHeap.insert(34);
+// minHeap.insert(18);
+// minHeap.insert(3);
+// minHeap.insert(1);
+// console.log(minHeap.heap);
+// console.log(minHeap.deleteMin());
+// console.log(minHeap.heap);
+// console.log(minHeap.peek());
+
+
+//! maxHeap

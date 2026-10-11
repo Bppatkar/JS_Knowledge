@@ -486,8 +486,8 @@ var compress = function (chars) {
 var countSubstrings = function (s) {
   let count = 0
   for (let i = 0; i < s.length; i++) {
-    let count = expand(s, i, i, count);
-    let count = expand(s, i, i + 1, count);
+     count = expand(s, i, i, count);
+     count = expand(s, i, i + 1, count);
   }
   return count;
 }
@@ -501,68 +501,3 @@ function expand(s, left, right, count) {
 console.log(countSubstrings("abc")); // Output: 3, ["a","b","c"]
 console.log(countSubstrings("aaa")); // Output: 6, ["a","a","a","aa","aa","aaa"]
 console.log(countSubstrings("ababa")); // Output: 9, ["a","b","a","b","a","aba","bab","aba","ababa"]
-
-/* 
-string complete ab tum roadmap update karoge tick lagaoge or sare question jo solve kiya hai wo add kroge and ye new topic ya phase add kroge- "Deep Constraints + TC + SC Foundation" , aur phir Deep Constraints + TC + SC Foundation ke liye new chat mein start krne keliye secret key then again new chat mein → Phase 3 start hoga.
-agar kuch updatation phase 0 mein krna hai to kr dena
----------------------------------------------------
-Current String status
-
-Completed:
-
-LC 125  ✅
-LC 242  ✅
-LC 205  ✅
-LC 49   ✅
-LC 3    ✅
-LC 76   ✅
-LC 5    ✅
-LC 344  ✅
-LC 14   ✅
-LC 567  ✅
-LC 438  ✅
-LC 459  ✅
-LC 443  ✅
-LC 647  ✅
-
- update  roadmap with:
-
-Strings
-→ 🔒 COMPLETED
-→ every solved String LC listed with number + title + ✅
-
-and add the next dedicated topic:
-
-Deep Constraints + TC + SC Foundation
-
-Then I'll give you a new Secret Key specifically for starting that foundation in a new chat.
-
-After that foundation is genuinely completed:
-
-NEW CHAT
-↓
-Secret Key
-↓
-Phase 3 — Linear Data Structures
-(Stack + Queue + Deque)
-
-So the sequence is now locked:
-
-String
-  ↓
-LC 459
-LC 443
-LC 647
-  ↓
-🔒 STRING COMPLETE
-  ↓
-Roadmap Update
-  ↓
-Deep Constraints + TC + SC Foundation
-  ↓
-🔒 FOUNDATION COMPLETE
-  ↓
-NEW SECRET KEY
-  ↓
-Phase 3 — Linear Data Structures
-*/

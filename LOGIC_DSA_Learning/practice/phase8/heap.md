@@ -1857,3 +1857,531 @@ heapifyDown → child best se better? → value update
 root → sabse better element
 
 </div>
+
+
+---
+
+# <span style="color:#9370DB">📊 HEAP SORT — COMPLETE DEEP DIVE</span>
+
+<div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #9370DB;">
+
+**Heap Sort** ek **comparison-based sorting algorithm** hai jo **Heap data structure** ka use karke array ko sort karta hai.
+
+⏱️ **Time Complexity:** `O(n log n)`  
+💾 **Space Complexity:** `O(1)` — **In-place** sort  
+🔀 **Stable?** ❌ Nahi — equal elements ka order badal sakta hai
+
+</div>
+
+---
+
+## <span style="color:#FFD700">🎯 Heap Sort Ka Core Idea</span>
+
+<div style="background-color:#2d2d0d; padding:15px; border-radius:10px; border-left:5px solid #FFD700;">
+
+Man lo hamare paas ek array hai: `[5, 22, 10, 20, 30]`
+
+### 🔹 Agar Min Heap banaye:
+
+```text
+        5
+      /   \
+     22     10
+    /  \
+   20   30
+```
+
+### 🔹 Agar Max Heap banaye:
+
+```text
+        30
+      /   \
+     22     10
+    /  \
+   20   5
+```
+
+**Sorted order chahiye to pehle heap banao — Max ya Min.**
+
+</div>
+
+---
+
+## <span style="color:#FF4500">🔑 Kaunsa Heap — Ascending vs Descending?</span>
+
+<div style="background-color:#3d1a0d; padding:15px; border-radius:10px; border-left:5px solid #FF4500;">
+
+| Order Chahiye | Kaunsa Heap Banao | Kyun? |
+|:---|:---|:---|
+| ⬆️ **Ascending** | **Max Heap** | Max value end me jaata hai |
+| ⬇️ **Descending** | **Min Heap** | Min value end me jaata hai |
+
+### 🔥 Yaad Rakhne Ka Rule:
+
+> **In-place Heap Sort me ULTA hota hai** —  
+> Max Heap banate ho, **ascending** milta hai.
+
+**Kyunki:** Max heap ka max **end me** swap hota hai (step-by-step), aur smallest **sabse aakhir** me. Isliye array **start se end** tak **ascending** ban jaata hai.
+
+</div>
+
+---
+
+## <span style="color:#32CD32">📋 Heap Sort Ke 4 Steps</span>
+
+<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
+
+### 🔹 Step 1: **Max/Min Heap Banao**
+
+Array se Max Heap (ascending ke liye) ya Min Heap (descending ke liye) banao — **bina extra space** ke.
+
+### 🔹 Step 2: **First aur Last Swap Karo**
+
+Root (max) ko **last element** se swap karo. Ab max apni **sahi jagah** pe pahunch gaya.
+
+### 🔹 Step 3: **Heap Size Reduce Karo**
+
+Last element sorted hai — usko **ignore** kar do. Heap ka size `1` kam karo.
+
+### 🔹 Step 4: **Heapify Down Karo**
+
+Root pe **heapify down** call karo. Ab naya max root pe aa jayega.
+
+### 🔁 Step 2 → 4 Repeat Karo
+
+Jab tak poora array sorted na ho jaye.
+
+</div>
+
+---
+
+## <span style="color:#FF69B4">🎬 STEP BY STEP VISUAL — Ascending Order</span>
+
+### <span style="color:#FFD700">📦 Input Array</span>
+
+```text
+[4, 10, 3, 5, 1]
+```
+
+---
+
+### <span style="color:#00BFFF">🔹 STEP 1: Max Heap Banao</span>
+
+```text
+Initial Tree:
+        4
+      /   \
+     10    3
+    /  \
+   5    1
+```
+
+**Heapify Down (last non-leaf se root tak):**
+
+```text
+        10
+      /    \
+     5      3
+    / \
+   4   1
+```
+
+📦 Array: `[10, 5, 3, 4, 1]` ✅ Max Heap ban gaya
+
+---
+
+### <span style="color:#FFD700">🔹 STEP 2: Swap Root ↔ Last</span>
+
+```text
+Swap 10 ↔ 1:
+        1
+      /   \
+     5     3
+    / \
+   4   10  ← 10 sorted (last position)
+```
+
+📦 Array: `[1, 5, 3, 4 | 10]`
+
+---
+
+### <span style="color:#FF4500">🔹 STEP 3: Heap Size Reduce + Heapify Down</span>
+
+Heap size `5 → 4` (10 ignore karo)
+
+```text
+Heapify Down on [1, 5, 3, 4]:
+        5
+      /   \
+     4     3
+    /
+   1
+```
+
+📦 Array: `[5, 4, 3, 1 | 10]`
+
+---
+
+### <span style="color:#FFD700">🔹 STEP 2 (Repeat): Swap Root ↔ Last</span>
+
+```text
+Swap 5 ↔ 1:
+        1
+      /   \
+     4     3
+    /
+   5  ← 5 sorted
+```
+
+📦 Array: `[1, 4, 3 | 5, 10]`
+
+---
+
+### <span style="color:#FF4500">🔹 STEP 3+4 (Repeat): Heapify Down</span>
+
+```text
+Heapify Down on [1, 4, 3]:
+        4
+      /   \
+     1     3
+```
+
+📦 Array: `[4, 1, 3 | 5, 10]`
+
+---
+
+### <span style="color:#FFD700">🔹 Continue...</span>
+
+```text
+Swap 4 ↔ 3:  [3, 1 | 4, 5, 10]
+Heapify:     [3, 1 | 4, 5, 10]
+
+Swap 3 ↔ 1:  [1 | 3, 4, 5, 10]
+Heapify:     [1 | 3, 4, 5, 10]
+```
+
+---
+
+### <span style="color:#32CD32">🎉 Final Sorted Array</span>
+
+```text
+[1, 3, 4, 5, 10]  ✅ Ascending
+```
+
+</div>
+
+---
+
+## <span style="color:#9370DB">🏗️ Build Heap Without Extra Space</span>
+
+<div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #9370DB;">
+
+**Challenge:** Array se Max Heap banana **bina extra array** ke — `O(1)` space.
+
+**Solution:** Array ko hi heap maan lo (complete binary tree ka array representation), aur **bottom-up heapify down** karo.
+
+### 🔑 Last Non-Leaf Node Ka Formula
+
+```text
+Last non-leaf index = Math.floor(n / 2) - 1
+```
+
+**Kyun?** Kyunki `n/2` se aage ke saare nodes **leaf** hote hain — unke children nahi hote, unhe heapify karne ki zaroorat nahi.
+
+</div>
+
+---
+
+### <span style="color:#FFD700">📦 Example: `[3, 9, 2, 1, 4, 5]` ko Max Heap banao</span>
+
+```text
+Initial Tree:
+        3
+      /   \
+     9     2
+    / \   /
+   1   4 5
+```
+
+**n = 6**, last non-leaf = `floor(6/2) - 1 = 2`
+
+**Loop: i = 2 → 1 → 0 (Heapify Down)**
+
+### 🔹 i = 2 (value 2): children = 5. 5 > 2 → swap
+
+```text
+        3
+      /   \
+     9     5
+    / \   /
+   1   4 2
+```
+
+### 🔹 i = 1 (value 9): children = 1, 4. 9 sabse bada → no swap
+
+### 🔹 i = 0 (value 3): children = 9, 5. 9 sabse bada → swap
+
+```text
+        9
+      /   \
+     3     5
+    / \   /
+   1   4 2
+```
+
+**Continue Heapify Down on i = 1 (value 3): children = 1, 4. 4 > 3 → swap**
+
+```text
+        9
+      /   \
+     4     5
+    / \   /
+   1   3 2
+```
+
+### <span style="color:#32CD32">🎉 Final Max Heap: `[9, 4, 5, 1, 3, 2]` ✅</span>
+
+---
+
+## <span style="color:#FF6347">💻 Complete Code — JavaScript</span>
+
+```javascript
+function heapSort(arr) {
+  let n = arr.length;
+
+  // ---------- STEP 1: BUILD MAX HEAP ----------
+  // Last non-leaf node se root tak heapify down
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapifyDown(arr, i, n);
+  }
+
+  // ---------- STEP 2-4: SORT ----------
+  // Root (max) ko last se swap karo, phir heapify down
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]]; // swap root ↔ last
+    heapifyDown(arr, 0, i);              // heapify with reduced size
+  }
+
+  return arr;
+}
+
+// ---------- HEAPIFY DOWN : O(log n) ----------
+function heapifyDown(arr, idx, n) {
+  let largest = idx;
+  let left = (2 * idx) + 1;
+  let right = (2 * idx) + 2;
+
+  // Left child compare
+  if (left < n && arr[left] > arr[largest]) largest = left;
+  // Right child compare
+  if (right < n && arr[right] > arr[largest]) largest = right;
+
+  if (largest !== idx) {
+    [arr[idx], arr[largest]] = [arr[largest], arr[idx]];
+    heapifyDown(arr, largest, n);
+  }
+}
+
+// ---------- USAGE ----------
+let arr = [1, 4, 10, 5, 3, 7, 9, 2];
+console.log(heapSort(arr)); // 👉 [1, 2, 3, 4, 5, 7, 9, 10]
+```
+
+---
+
+## <span style="color:#00FA9A">📊 TIME COMPLEXITY ANALYSIS</span>
+
+<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #00FA9A;">
+
+### 🔹 Build Heap (Optimized): **O(n)**
+
+**Do tarike hain:**
+
+| Method | Kyun | Complexity |
+|:---|:---|:---|
+| Insert ek-ek karke | Har insert `O(log n)` | `O(n log n)` ❌ |
+| **Heapify Down (last non-leaf se)** | Bottom ke nodes ko kam kaam | **`O(n)`** ✅ |
+
+**Mathematical Proof:**
+
+- Leaf nodes (n/2) → kuch nahi karna (0 work)
+- Level 1 (n/4 nodes) → max 1 swap
+- Level 2 (n/8 nodes) → max 2 swaps
+- Level 3 (n/16 nodes) → max 3 swaps
+
+**Total work** = `n/4·1 + n/8·2 + n/16·3 + ...` = **`O(n)`**
+
+---
+
+### 🔹 Extract/Delete: **O(n log n)**
+
+Har extract me:
+
+- Swap root ↔ last = `O(1)`
+- Heapify Down = `O(log n)`
+
+Total extracts = `n - 1`
+
+**Total delete cost** = `(n-1) × O(log n)` = **`O(n log n)`**
+
+---
+
+### 🔹 Total Time Complexity
+
+```text
+Build Heap (Optimized)   =  O(n)
+(n-1) Extract Operations =  O(n log n)
+────────────────────────────────────
+TOTAL                    =  O(n) + O(n log n)
+FINAL                    =  O(n log n)
+```
+
+</div>
+
+---
+
+## <span style="color:#00BFFF">💾 SPACE COMPLEXITY ANALYSIS</span>
+
+<div style="background-color:#0d1a3d; padding:15px; border-radius:10px; border-left:5px solid #00BFFF;">
+
+### 🔹 In-Place Sorting
+
+Heap Sort ki **sabse badi advantage** — **in-place** sort karta hai.
+
+**Matlab kya?**
+
+- ✅ Extra array nahi lete
+- ✅ Original array ko hi heap mein convert karte hain
+- ✅ Ussi array ko sort karte hain
+
+### 🔹 Space Breakdown
+
+| Component | Space |
+|:---|:---|
+| Input Array | Already given — extra nahi |
+| Temporary Variables | `O(1)` |
+| Recursion Stack (heapifyDown) | `O(log n)` |
+| **Total** | **`O(1)` ya `O(log n)`** |
+
+**Conclusion:**
+
+- Iterative `heapifyDown` → **`O(1)`**
+- Recursive `heapifyDown` → **`O(log n)` stack space**
+- **Standard answer:** `O(1)` ya `O(log n)` — dono acceptable
+
+</div>
+
+---
+
+## <span style="color:#FFD700">📊 COMPLEXITY TABLE</span>
+
+<div style="background-color:#2d2d0d; padding:15px; border-radius:10px; border-left:5px solid #FFD700;">
+
+| Case | Time Complexity | Space Complexity | In-Place? |
+|:---|:---:|:---:|:---:|
+| **Best Case** | `O(n log n)` | `O(1)` | ✅ Yes |
+| **Worst Case** | `O(n log n)` | `O(1)` | ✅ Yes |
+| **Average Case** | `O(n log n)` | `O(1)` | ✅ Yes |
+
+**🔥 Yehi Heap Sort ki khaas baat hai — har case mein `O(n log n)`.**
+
+</div>
+
+---
+
+## <span style="color:#FF8C00">⚖️ COMPARISON WITH OTHER SORTS</span>
+
+<div style="background-color:#3d1a0d; padding:15px; border-radius:10px; border-left:5px solid #FF8C00;">
+
+| Algorithm | Average | Worst | Space | Stable? |
+|:---|:---:|:---:|:---:|:---:|
+| **Quick Sort** | `O(n log n)` | ❌ `O(n²)` | `O(log n)` | ❌ No |
+| **Merge Sort** | `O(n log n)` | ✅ `O(n log n)` | ❌ `O(n)` | ✅ Yes |
+| **Heap Sort** | ✅ `O(n log n)` | ✅ `O(n log n)` | ✅ `O(1)` | ❌ No |
+
+### 🔹 Heap Sort Ke Fayde
+
+- ✅ **Guaranteed** `O(n log n)` — worst case me bhi
+- ✅ **In-place** — sabse kam space
+- ✅ **No worst case degradation** (Quick Sort me `O(n²)` ho sakta hai)
+
+### 🔹 Heap Sort Ke Nuksan
+
+- ❌ **Cache friendly nahi** — array me jump jump karna padta hai
+- ❌ **Unstable** — equal elements ka order badal sakta hai
+- ❌ **Quick Sort se slow** — practically (constant factors)
+
+### 🔥 Kab Use Kare
+
+> **Jab guaranteed `O(n log n)` chahiye aur memory limited ho → Heap Sort best hai.**
+
+</div>
+
+---
+
+## <span style="color:#DA70D6">🔍 Extra — Leaf Nodes Ka Formula</span>
+
+<div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #DA70D6;">
+
+**Leaf nodes nikalne ka tarika:**
+
+```
+Total nodes = n
+Parent nodes = Math.floor(n / 2)
+Leaf nodes = n - Math.floor(n / 2)
+```
+
+### 🔹 Example
+
+```text
+          1                 → Node count 1
+       /      \
+      5          7          → Node count 1 + 2 = 3
+    /  \       /   \
+   4    3     2     8       → Node count 3 + 4 = 7
+  / \  / \    /
+ 0  20 21 23  0             → Node count 7 + 5 = 12
+```
+
+**n = 12**
+
+- Parents = `Math.floor(12/2) = 6`
+- Leaves = `12 - 6 = 6`
+
+Matlab **6 parents** hain, **6 leaves** hain.
+
+**Isliye Build Heap me `n/2` se start karte hain** — kyunki leaf nodes ko heapify karne ki zaroorat nahi.
+
+</div>
+
+---
+
+## <span style="color:#FF4500">⚡ Ek Line Me Yaad Rakh</span>
+
+<div style="background-color:#3d1a0d; padding:15px; border-radius:10px; border-left:5px solid #FF4500;">
+
+> 🔼 **Ascending chahiye** → **Max Heap** banao  
+> 🔽 **Descending chahiye** → **Min Heap** banao  
+> 🏗️ **Build Heap** → `n/2 - 1` se `0` tak heapify down  
+> 🔄 **Sort** → Root ↔ Last swap, size `-1`, heapify down, repeat
+
+</div>
+
+---
+
+## <span style="color:#32CD32">🎯 FINAL SUMMARY</span>
+
+<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
+
+1. 🔹 **Heap Sort** = Selection Sort ka **upgraded version**
+2. 🔹 Selection Sort: `O(n²)` — min find karne me `O(n)`
+3. 🔹 Heap Sort: `O(n log n)` — min/max find in `O(log n)`
+4. 🔹 **In-place** sort — `O(1)` extra space
+5. 🔹 **Unstable** sort — equal elements ka order badal sakta hai
+6. 🔹 **Guaranteed** `O(n log n)` — best, worst, average sab me
+
+> 💡 **REMEMBER:** Heap Sort = **Selection Sort + Heap ka power**  
+> 🚀 **Best Use Case:** Limited memory + Guaranteed performance chahiye
+
+</div>
+```

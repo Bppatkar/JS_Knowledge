@@ -1153,3 +1153,242 @@ class MinHeap {
 
 
 //! maxHeap
+
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//* Min Heap vs Max Heap — Sirf 3 Comparisons Ka Farak
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//*
+//* ┌────────────────────┬──────────────────────────┬──────────────────────────┐
+//* │ Comparison         │ Min Heap                 │ Max Heap                 │
+//* ├────────────────────┼──────────────────────────┼──────────────────────────┤
+//* │ heapifyUp          │ heap[idx] < heap[parent] │ heap[idx] > heap[parent] │
+//* │ heapifyDown (left) │ heap[left] < heap[small] │ heap[left] > heap[large] │
+//* │ heapifyDown (right)│ heap[right] < heap[small]│ heap[right] > heap[large]│
+//* │ Root               │ Sabse chhota             │ Sabse bada               │
+//* │ Variable name      │ smallestElem             │ largestElem              │
+//* └────────────────────┴──────────────────────────┴──────────────────────────┘
+//*
+//* 🔑 Rule: Poora structure same — sirf `<` ki jagah `>` (comparisons ulti)
+//*
+//* 📌 Example (same values, different heaps):
+//*    Min Heap root  → sabse chhota element
+//*    Max Heap root  → sabse bada element
+//*
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+//! Generic Approch
+
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//* 🎯 TRICK — Ek hi Heap class, do heap types (Min + Max)
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//*
+//* Do alag classes (MinHeap, MaxHeap) banane ki zaroorat nahi.
+//* Ek class banao, aur ek "comparator" function pass karo.
+//* Code duplicate nahi hoga, aur flexible rahega.
+//*
+//* 🔑 Comparator kya karta hai?
+//*    compare(a, b) batata hai — "kya a, b se BETTER hai?"
+//*    - true  → a better hai, upar jayega
+//*    - false → b better hai, wahi rahega
+//*
+//* Examples:
+//*    (a, b) => a < b   →  Min Heap (chhota upar)
+//*    (a, b) => a > b   →  Max Heap (bada upar)
+//*
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+class Heap {
+  constructor(comparator) {
+    this.heap = [];
+    this.compare = comparator;   // (a, b) => boolean
+  }
+
+  getLeftChildIdx(i) {
+    return (2 * i) + 1;
+  }
+  getRightChildIdx(i) {
+    return (2 * i) + 2;
+  }
+  getParentIdx(i) {
+    return Math.floor((i - 1) / 2);
+  }
+
+  insert(val) {
+    this.heap.push(val);
+    let lastIdx = this.heap.length - 1;
+    this.heapifyUp(lastIdx);
+  }
+
+  heapifyUp(idx) {
+    while (idx > 0) {
+      let parentIdx = this.getParentIdx(idx);
+
+      // Agar child parent se "better" hai (compare true), to swap
+      if (this.compare(this.heap[idx], this.heap[parentIdx])) {
+        [this.heap[idx], this.heap[parentIdx]] = [this.heap[parentIdx], this.heap[idx]];
+        idx = parentIdx;
+      } else {
+        break;
+      }
+    }
+  }
+
+  deleteRoot() {
+    if (this.heap.length === 0) return null;
+    if (this.heap.length === 1) return this.heap.pop();
+
+    let root = this.heap[0];
+    let lastIdx = this.heap.length - 1;
+    [this.heap[0], this.heap[lastIdx]] = [this.heap[lastIdx], this.heap[0]];
+
+    this.heap.pop();
+    this.heapifyDown(0);
+
+    return root;
+  }
+
+  heapifyDown(idx) {
+    let leftChildIdx = this.getLeftChildIdx(idx);
+    let rightChildIdx = this.getRightChildIdx(idx);
+
+    let best = idx;
+    let heapLength = this.heap.length;
+
+    // Left child agar "better" hai to best update karo
+    if (leftChildIdx < heapLength && this.compare(this.heap[leftChildIdx], this.heap[best])) {
+      best = leftChildIdx;
+    }
+
+    // Right child agar "better" hai to best update karo
+    if (rightChildIdx < heapLength && this.compare(this.heap[rightChildIdx], this.heap[best])) {
+      best = rightChildIdx;
+    }
+
+    if (best !== idx) {
+      [this.heap[idx], this.heap[best]] = [this.heap[best], this.heap[idx]];
+      this.heapifyDown(best);
+    }
+  }
+
+  peek() {
+    return this.heap[0] ?? null;
+  }
+
+  size() {
+    return this.heap.length;
+  }
+}
+
+
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//* 📌 USAGE — Min Heap vs Max Heap
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Min Heap — chhota upar
+let minHeap = new Heap((a, b) => a < b);
+minHeap.insert(8);
+minHeap.insert(3);
+minHeap.insert(5);
+minHeap.insert(1);
+console.log(minHeap.heap);         // [1, 3, 5, 8]
+console.log(minHeap.deleteRoot()); // 1
+console.log(minHeap.heap);         // [3, 8, 5]
+
+// Max Heap — bada upar
+let maxHeap = new Heap((a, b) => a > b);
+maxHeap.insert(8);
+maxHeap.insert(3);
+maxHeap.insert(5);
+maxHeap.insert(1);
+console.log(maxHeap.heap);         // [8, 3, 5, 1]
+console.log(maxHeap.deleteRoot()); // 8
+console.log(maxHeap.heap);         // [5, 3, 1]
+
+
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//* 🎨 CUSTOM COMPARATOR KE EXAMPLES
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Numbers — min heap
+new Heap((a, b) => a < b)
+
+// Numbers — max heap
+new Heap((a, b) => a > b)
+
+// Objects — chhota priority pehle
+new Heap((a, b) => a.priority < b.priority)
+
+// Objects — bada priority pehle
+new Heap((a, b) => a.priority > b.priority)
+
+// Pairs — pehle first compare, phir second
+new Heap((a, b) => a[0] !== b[0] ? a[0] < b[0] : a[1] < b[1])
+
+
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//* 📊 COMPARISON — Do Alag Classes vs Ek Generic Class
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//*
+//* ┌──────────────────┬────────────────────┬────────────────────┐
+//* │ Point            │ Two Classes        │ One Generic Class  │
+//* ├──────────────────┼────────────────────┼────────────────────┤
+//* │ Code             │ Duplicate hota hai │ Ek hi baar         │
+//* │ Flexibility      │ Fixed min/max      │ Koi bhi comparator │
+//* │ Readability      │ Explicit naam      │ Thoda abstract     │
+//* │ Reusability      │ Kam                │ Zyada              │
+//* │ Objects ke liye  │ Nahi kaam karta    │ Bilkul kaam karega │
+//* └──────────────────┴────────────────────┴────────────────────┘
+//*
+//* 🔑 Note: Do alag classes bhi theek hai — concept clear ho to.
+//*          Generic class interview me impressive lagti hai.
+
+
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//* ⚡ QUICK REFERENCE — Yaad Rakhne Ka Rule
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//*
+//* compare(a, b) — "kya a, b se pehle aana chahiye?"
+//*
+//*    Min Heap  →  compare = (a, b) => a < b    "chhota pehle"
+//*    Max Heap  →  compare = (a, b) => a > b    "bada pehle"
+//*
+//* Heapify me sirf yahi compare use hota hai — baaki sab same:
+//*    heapifyUp   → child parent se better? → swap
+//*    heapifyDown → child best se better?   → best update
+//*    root        → sabse better element
+//*
+//* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+//! Heap Sort
+function heapSort(arr) {
+  let n = arr.length;
+
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapifyDown(arr, i, n);
+  }
+
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]];
+    heapifyDown(arr, 0, i);
+  }
+  return arr;
+}
+
+function heapifyDown(arr, idx, n) {
+  let largest = idx;
+  let left = (2 * idx) + 1;
+  let right = (2 * idx) + 2;
+
+  if (left < n && arr[left] > arr[largest]) largest = left;
+  if (right < n && arr[right] > arr[largest]) largest = right;
+
+  if (largest != idx) {
+    [arr[idx], arr[largest]] = [arr[largest], arr[idx]];
+    idx = largest;
+    heapifyDown(arr, idx, n);
+  }
+}
+let arr = [4, 10, 3, 5, 1, 8, 7, 2, 6, 9]
+console.log(heapSort(arr));

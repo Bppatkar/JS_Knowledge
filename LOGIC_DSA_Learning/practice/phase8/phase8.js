@@ -625,10 +625,394 @@ new Heap((a, b) => a[0] !== b[0] ? a[0] < b[0] : a[1] < b[1])
 //*
 //* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-//!  ======================================
 
-
-//?-------------------------------------------------------------
 //*-----------------
 //! Heap Sort
 //*-----------------
+
+// Heap sort ek comparison based sorting algorithm hai, jisme hum heap data structure ka use karte hain to sort an array,
+//? man lo hamare pass ek array hai, [5, 22, 10, 20, 30], aur hme is array ko sort karna hai, agar ham ise minheap ke form me convert kar dete hain, to hamara heap kuch is tarah dikhega:
+
+//     5
+//   /   \
+//  22     10
+// /  \
+//20   30
+
+//? agar ham is max heap ke form me convert kar dete hain, to hamara heap kuch is tarah dikhega:
+
+//     30
+//   /   \
+//  22     10
+// /  \
+//20   5
+
+// to hme array/heap ko pehle min heap ya max heap me change krna h according to our need
+// array ke last mein badi value chahiye to asceding order, choti value chahiye to descending order
+//TODO:  to fir before sort array we have to create max Heap or min Heap
+
+//! steps -
+//? 1. Create Max/Min Heap from Arr
+// now if we have to sort this array in ascending order so where this maximum value go, in the end
+
+//* - Ascending chahiye → Max Heap banao
+//* - Descending chahiye → Min Heap banao
+
+//? 2. swap the first and last value
+// ab right most value means the last value is in corrected place to uske aage s hme check krna hoga mtlb pichla reduce [means peeche se ek value kam check krege because wo apne correct place par aa gya hai]
+// matalb hm same space use kr rhe h to sort the array bs ab array ki length mein hm last value count nahi karege bs
+//? 3. reduce the size of heap
+// ab hm heapify krege because small value start m to h, pr baki ki values arranged nahi h, order maintain nahi ho rha h
+//* jab hm heap se delete/extract kr rhe the upar , same wahi concept/ wahi algorithm yaha lagega
+//? 4. heapify down process
+// delete last node , swap with root node and use heapify down
+// mean now after that process , we got our maxHeap so we again swap first value with the second last , because last one is already in correct order and we will continue from step 2
+//? 5. Keep repeating steps [step 2 to step 4] until full array is sorted
+
+
+//! Now the main condition is we have to create min/max heap
+//TODO: Create a maxHeap outof array
+// how we create it lets see
+// we have this arr [4,10,5,3,1] and we have to create a max heap for this
+
+// for that array we create heap and do heapify and again put into array
+//? so array mein rakhne ke liye extra space chahiye hoga wo bhi S-O(n) beacause we dont know the length of array
+//* Now , the challenge it , can we perform same thing without using extra array
+//TODO: Create a maxHeap outof array without using extra space S-O(1) [and we already know how to add/insert elem in heap]
+
+// heapify not work here, so what we do -  we use algorithm , in that
+// - we will start from end of the heap , and we will heapify down every node
+// on which leaf nodes do not have any childern mean it is already a maxHeap and on which leaf nodes heapify do not makes any changes, just ignore those leaf nodes and goes up and comparing from their left and right child that, is that big or not if big ignore, if not swap because we are using maxheap na, if we are using minheap to min value check krte while comparing - any u got maxHeap
+
+//? Reason why we start from end  - when we are starting from end , we are making sure that the right side element are alreay max heap
+
+
+//! --------------------------------------
+
+//! Heap sort code
+// array - [4,10,3,5,1] sorting this array using heap sort without using the extra space
+
+//* 4 step
+//? step 1 - create min/max heap
+// for creating maxheap - we run a loop from last to start , and make sure each of the subtree that we'll encounter already a max heap. [heap making sure that each and every subtree is maxheap]
+// in array i take last elem and try to heapify down and make sure that become the max heap, make sure each tree and subtree becoming the max heap, we omit/leave the leaf node
+// [10, 5, 3, 4, 1]
+//? step 2 - sort
+// extract max elem one by one and store at the end [means replace with last elem]  -  [1, 5, 3, 4, 10], now i have to heapify down also so it become - [5, 4, 3, 1 ,10] now this is a maxheap , so we put again first elem in the last and heapify down and 
+//? step 3 - reduce the size of heap
+// we reduce the heap/array length by 1 because from end one elem is already sorted and we reduced it from end 
+//? step 4 - heapify down process
+// looping the whole things till we found the sorted array  = Final - [1, 3, 4, 5, 10]
+
+
+//! code
+// we are any unsorted array
+console.log('----------Heap Sort-------------')
+
+let arr = [1, 4, 10, 5, 3, 7, 9, 2]
+
+function heapSort(arr) {
+
+  let n = arr.length;
+  // create a max heap
+  // run a loop from end to front and heapify down for getting maxHeap array 
+  for (let i = n - 1; i >= 0; i--) {
+    // we have to hepify each and every value
+    heapifyDown(arr, i, n); // heapify the array, and the ith value
+  }
+
+
+  // visuals -
+  // we have this given array visually we can see the max heap array like this
+  //        1
+  //      /   \
+  //     4     10
+  //    / \   / \
+  //   5   3 7   9
+  //  /
+  // 2
+
+  // we do this
+  //        10
+  //      /    \
+  //     4      1
+
+  // now we compare 1 with its left and right child 7 and 9, and we swap 1 with 9 because 9 is greater than 1, so we swap them and same thing we do with 4, we compare 4 with its left and right child 5 and 3, and we swap 4 with 5 because 5 is greater than 4, so we swap them and now we have a max heap array like this
+  //         10
+  //       /    \
+  //      5      9
+  //     / \    / \
+  //    4   3  7   1
+
+  // doing same thing and we got this
+
+  // we get this after checking left and right child of each node and swapping the value if the child is greater than the parent node
+  //         10
+  //       /    \
+  //      5      9
+  //     / \    / \
+  //    4   3  7   1
+  //   /
+  //  2
+
+
+  // sort the array 
+  // again -  run a loop from end to front and heapify down for getting final sorted array
+  // when the single node left in heap or single value left in array stop loop so we run loop till 0 not = to 0
+  for (let i = n - 1; i > 0; i--) {
+    // swap first node from last
+    // heapify process and reduce the heap size and continue
+    [arr[0], arr[i]] = [arr[i], arr[0]];
+    heapifyDown(arr, 0, i);
+  }
+  return arr;
+}
+
+// this takes log n time 
+function heapifyDown(arr, i, n) {
+  // let assume i is our largest value, and we have to compare it with left and right whatever big is
+  let largest = i;
+  let left = (2 * i) + 1;
+  let right = (2 * i) + 2;
+
+  // making sure that left/right child in the range, not undefined
+  if (left < n && arr[left] > arr[largest]) largest = left;
+  if (right < n && arr[right] > arr[largest]) largest = right;
+  if (largest !== i) {
+    [arr[i], arr[largest]] = [arr[largest], arr[i]];
+    heapifyDown(arr, largest, n);
+  }
+}
+
+
+let ans = heapSort(arr)
+console.log(ans)
+
+//* How to find leaf nodes
+//? just count the nodes in binary tree -> 'n' and then divide by 2 and u get parent
+// means jo bhi result aaya wo parent and jo bhi bacha wo leaf
+//? Example
+
+
+//          1                 => Node count 1
+//       /      \
+//      5          7          => Node count 1 + 2= 3
+//    /  \       /   \
+//   4    3     2     8       => Node count 3 + 4 = 7
+//  / \  / \    /
+// 0  20 21 23  0             => Node count 7 + 5 = 12
+
+// n = 12 just do n/2  ==> 12/2 means 6 [always take math.floor value] so there are 6 parent and rest of are children
+
+//! [Optimisation for big length of array] 
+//* so in above function heap sort - we are creating maxHeap by running loop . so we can use n/2 formulla means only for parents, because rest of them are leafs, and hmne already ,mention kiya h leaf ko ignore karo bcz unke left/right child h hi nahi to unko kisse compare karoge
+//? to use this
+for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+  // we have to hepify each and every value
+  heapifyDown(arr, i, n); // heapify the array, and the ith value
+}
+
+//? instead of this
+for (let i = n - 1; i >= 0; i--) {
+  // we have to hepify each and every value
+  heapifyDown(arr, i, n); // heapify the array, and the ith value
+}
+
+//!---------------------------------------------
+//! code without comment
+
+let newArr = [1, 4, 10, 5, 3, 7, 9, 2]
+function heapSort(arr) {
+  let n = arr.length;
+
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapifyDown(arr, i, n);
+  }
+  // for (let i = n - 1; i >= 0; i--) {
+  //   heapifyDown(arr, i, n);
+  // }
+
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]];
+    heapifyDown(arr, 0, i);
+  }
+  return arr;
+}
+
+function heapifyDown(arr, idx, n) {
+  let largest = idx;
+  let left = (2 * idx) + 1;
+  let right = (2 * idx) + 2;
+
+  if (left < n && arr[left] > arr[largest]) largest = left;
+  if (right < n && arr[right] > arr[largest]) largest = right;
+
+  if (largest !== idx) {
+    [arr[idx], arr[largest]] = [arr[largest], arr[idx]];
+    idx = largest;
+    heapifyDown(arr, idx, n);
+  }
+}
+
+console.log(heapSort(newArr));
+
+//!---------------------------------------------
+
+//! Heap Sort Time and Space Complexity
+
+//! Time Complexity Analysis
+//? Heap sort basically 3 steps mein kaam karta hai:
+//* Heap Construction(Max Heap banana)
+//* n - 1 baar Delete / Extract operation
+//* Heapify har baar
+
+//? Step 1: Heap Build karne ki Complexity
+
+//? Heap Build karne ke do tarike hain:
+
+//* Tarika 1: Insert method use karna (Ek ek karke dalna)
+// Agar hum har element ko insert karein (heapifyUp)
+// to har insert ki cost = O(log n)
+// Total cost = O(n log n)
+
+//* Tarika 2: HeapifyDown use karna (Optimized tarika)
+// Jaisa tune last mein likha hai - leaf nodes ko chhodkar
+// sirf parents ko heapify karo
+// Mathematical proof:
+// - Leaf nodes (n/2) ko kuch nahi karna
+// - Level 1 (n/4 nodes) -> max 1 swap
+// - Level 2 (n/8 nodes) -> max 2 swaps
+// - Total work = n/4*1 + n/8*2 + n/16*3 + ...
+//! Ye series solve karo to total = O(n) aata hai
+//! Extract/Delete ki Complexity
+
+//? Ek baar extract karne ka kya scene?
+
+// Step 1: Root ko last se swap karo - O(1)
+// Step 2: Last element hatao - O(1)
+// Step 3: HeapifyDown karo - O(log n)
+
+//! Ek delete ki cost = O(log n)
+
+//? Total delete operations kitne?
+// n elements hain to n-1 baar delete karna padega
+// Total delete cost = (n-1) * O(log n) = O(n log n)
+//* Total Time Complexity
+
+//! Heap Sort ki Total Time Complexity:
+
+// Build Heap (Optimized)     = O(n)
+// n-1 Extract Operations      = O(n log n)
+// ----------------------------------------
+// TOTAL                      = O(n) + O(n log n)
+//! FINAL                     = O(n log n)
+
+//? Best Case  : O(n log n) - Jab array already sorted ho
+//? Worst Case : O(n log n) - Jab array reverse sorted ho
+//? Average Case: O(n log n) - Har haal mein same
+
+//TODO: Yehi Heap Sort ki khaas baat hai -
+//TODO: Har case mein O(n log n) deta hai
+//! Space Complexity Analysis
+//? In-Place Sorting ka Concept
+
+//* Heap Sort ki sabse badi advantage -
+//* Ye in-place sort karta hai
+
+// Matlab kya?
+// - Extra array nahi lete
+// - Original array ko hi heap mein convert karte hain
+// - Ussi array ko sort karte hain
+
+//! Space Complexity = O(1) - Constant Space
+
+// Kyun?
+// - Recursive heapifyDown calls stack use karta hai
+// - But worst case recursion depth = O(log n)
+// - Isliye kuch log kehte hain O(log n) extra space
+// - Lekin generally hum O(1) maante hain
+//! Space Breakdown
+
+//! Space kahan kahan use ho raha:
+
+// 1. Input Array: Already given hai - extra nahi liya
+// 2. Temporary Variables: Swapping ke liye - O(1)
+// 3. Recursion Stack: HeapifyDown calls - O(log n)
+// 4. No Extra Array: In-place hai
+
+//? Conclusion:
+// Agar iterative heapifyDown likho -> O(1)
+// Agar recursive likho -> O(log n) stack space
+//! Standard answer: O(1) ya O(log n) - dono acceptable
+//! Complexity Table
+
+/*
+╔══════════════╦═════════════════╦══════════════════╦══════════════╗
+║   Case       ║ Time Complexity ║ Space Complexity ║ In - Place ? ║
+╠══════════════╬═════════════════╬══════════════════╬══════════════╣
+║ Best Case    ║   O(n log n)    ║     O(1)         ║    Yes       ║
+║ Worst Case   ║   O(n log n)    ║     O(1)         ║    Yes       ║
+║ Average Case ║   O(n log n)    ║     O(1)         ║    Yes       ║
+╚══════════════╩═════════════════╩══════════════════╩══════════════╝
+*/
+//! Comparison with Other Sorts
+
+//! Heap Sort vs Quick Sort vs Merge Sort
+
+//* Quick Sort:
+//   - Average: O(n log n)
+//   - Worst: O(n²) - Ye problem hai
+//   - Space: O(log n)
+
+//* Merge Sort:
+//   - Always: O(n log n)
+//   - Space: O(n) - Extra array leta hai
+
+//* Heap Sort:
+//   - Always: O(n log n) - Guaranteed performance
+//   - Space: O(1) - Sabse kam space
+//   - Disadvantage: Cache friendly nahi hai
+//     (Array mein jump jump karna padta hai)
+
+//TODO: Jab guaranteed O(n log n) chahiye aur
+//TODO: memory bachani hai to Heap Sort best hai
+//! Formula Recap - Tera Notes se Link
+
+//! Tune jo formulas likhe hain:
+
+//* HeapifyUp mein:
+//   - Har level par jaate ho
+//   - Max height = log n
+//   - Isliye O(log n)
+
+//* HeapifyDown mein bhi:
+//   - Root se leaf tak jaate ho
+//   - Height = log n
+//   - Isliye O(log n)
+
+//* Build Heap mein:
+//   - Tune Math.floor(n/2) - 1 se loop kiya
+//   - Isliye O(n) - Optimized approach
+//! Final Summary
+
+//! ----------- Heap Sort Complexity Summary -----------
+
+//? Time Complexity:
+//   Build Heap:  O(n)
+//   n-1 Deletes: O(n log n)
+//   TOTAL:       O(n log n)
+
+//? Space Complexity:
+//   In-Place Sorting: O(1)
+//   (Recursive version: O(log n) stack space)
+
+//? Stability:
+//   Unstable sort - Equal elements ka order change ho sakta hai
+
+//? Best Use Case:
+//   Jab memory limited ho aur guaranteed O(n log n) chahiye
+
+//! Remember:
+//   Heap sort is "Selection Sort" ka upgraded version
+//   Selection Sort: O(n²) - Har baar min find karne mein O(n)
+//   Heap Sort:    O(n log n) - Min find in O(log n)

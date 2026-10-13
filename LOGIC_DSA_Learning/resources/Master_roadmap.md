@@ -3960,11 +3960,11 @@ PHASE 5B — Sorting & Searching ✅ PARALLEL TRACK (7–10 problems)
 
 PHASE 6  — Recursion & Backtracking ✅ (14 problems)
 PHASE 7  — Trees (21 problems) ✅
-PHASE 8  — Heap ⏳ (12 problems) ← NEXT
+PHASE 8  — Heap/Priority Queue ⏳ ← NEXT
 PHASE 9  — Greedy ⏳ (14 problems)
 PHASE 10 — Dynamic Programming ⏳ (17 problems)
 PHASE 11 — Graphs ⏳ (14 problems)
-PHASE 12 — Advanced Data Structures ⏳ (11 problems)
+PHASE 12 — Advanced Data Structures - Trie, DP & Array, String ,
 ```
 
 **Ordering principle now enforced:**
@@ -3974,7 +3974,7 @@ Recursion & Backtracking   ← foundation of everything below
         ↓
 Trees
         ↓
-Heap
+Heap/Priority Queue
         ↓
 Greedy
         ↓

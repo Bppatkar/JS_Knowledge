@@ -205,7 +205,37 @@ var findKthLargest = function (nums, k) {
 }
 
 //! Leetcode 347 — Top K Frequent Elements
-var topKFrequent = function (nums, k) { }
+var topKFrequent = function (nums, k) {
+  // top k frequent means we have to sort using frequency and return top k
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    if (!map.has(nums[i])) map.set(nums[i], 1);
+    else map.set(nums[i], map.get(nums[i]) + 1)
+  }
+  // for (let val of nums) {
+  // map.set(val, (map.get(val) || 0) + 1);
+  // }
+
+  // let map = {};
+  // for (let val of nums) {
+  // map[val] = (map[val] || 0) + 1;
+  // }
+
+
+  let pq = new MinPriorityQueue(el => el.freq); // creating empty pq and making sure that it will sort using frequency
+
+  for (let [key, freq] of map) {
+    pq.enqueue({ key, freq });
+    if (pq.size() > k) {
+      pq.dequeue();
+    }
+  }
+
+  // Heap now has exactly K elements with highest frequencies
+  // Extract only the 'key' (element itself) from above for-in loop, converting back to Number
+  return pq.toArray().map(el => Number(el.key));
+}
 
 //! Leetcode 703 — Kth Largest Element in a Stream
 var KthLargest = function (k, nums) { }

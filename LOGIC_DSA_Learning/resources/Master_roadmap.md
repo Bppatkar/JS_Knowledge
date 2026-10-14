@@ -2771,14 +2771,15 @@ Always process the currently highest-priority item.
 
 ## Representative LeetCode
 
-- **LC 215 — Kth Largest Element**
-- **LC 347 — Top K Frequent Elements**
-- **LC 703 — Kth Largest Element in a Stream**
-- **LC 1046 — Last Stone Weight**
-- **LC 973 — K Closest Points to Origin**
-- **LC 378 — Kth Smallest Element in a Sorted Matrix**
+- **LC 215 — Kth Largest Element** ✅
+- **LC 347 — Top K Frequent Elements** ✅
+- **LC 703 — Kth Largest Element in a Stream** ✅
+- **LC 1046 — Last Stone Weight** ✅
+- **LC 378 — Kth Smallest Element in a Sorted Matrix** ✅
 - **LC 23 — Merge k Sorted Lists**
-- **LC 295 — Find Median from Data Stream**
+- **LC 973 — K Closest Points to Origin** ✅
+- **LC 295 — Find Median from Data Stream** [⭐ Interview Favourite]
+- **LC 632 - Smallest Range Covering Elements from K Lists**
 - **LC 621 — Task Scheduler**
 - **LC 767 — Reorganize String**
 - **LC 692 — Top K Frequent Words**

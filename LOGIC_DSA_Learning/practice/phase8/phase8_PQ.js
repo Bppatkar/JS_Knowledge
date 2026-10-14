@@ -72,13 +72,13 @@ class MaxPriorityQueueusingArrayWithSorting {
   }
 }
 
-const pqueue = new MaxPriorityQueueusingArrayWithSorting();
-pqueue.enqueue('Fever', 1);
-pqueue.enqueue('Accident', 5);
-pqueue.enqueue('Headache', 3);
+// const pqueue = new MaxPriorityQueueusingArrayWithSorting();
+// pqueue.enqueue('Fever', 1);
+// pqueue.enqueue('Accident', 5);
+// pqueue.enqueue('Headache', 3);
 
-console.log(pqueue.dequeue()); // { val: 'Accident', priority: 5 }
-console.log(pqueue.dequeue()); // { val: 'Headache', priority: 3 }
+// console.log(pqueue.dequeue()); // { val: 'Accident', priority: 5 }
+// console.log(pqueue.dequeue()); // { val: 'Headache', priority: 3 }
 
 //* problem -
 //* this.queue.sort((a, b) => b - a);
@@ -311,17 +311,18 @@ var kthSmallest = function (matrix, k) {
 
   for (let num of matrix.flat()) {
     pq.enqueue(num);
-    if (pq.size() > k) return pq.dequeue();
+    if (pq.size() > k)  pq.dequeue();
   }
 
   return pq.front();
 }
 
+//! Leetcode 23 — Merge k Sorted Lists
+var mergeKLists = function (lists) { }
+
 //! Leetcode 973 — K Closest Points to Origin
 var kClosest = function (points, k) { }
 
-//! Leetcode 23 — Merge k Sorted Lists
-var mergeKLists = function (lists) { }
 
 //! Leetcode 295 — Find Median from Data Stream [⭐ Interview Favourite]
 var MedianFinder = function () { }

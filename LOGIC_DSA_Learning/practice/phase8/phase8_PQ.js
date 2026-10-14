@@ -291,17 +291,43 @@ var lastStoneWeightIterative = function (stones) {
 
 // console(lastStoneWeight([2, 7, 4, 1, 8, 1])); //output - 1;
 
+//! Leetcode 378 — Kth Smallest Element in a Sorted Matrix
+var kthSmallest = function (matrix, k) {
+  let pq = new MaxPriorityQueue();
+
+  for (let row of matrix) {
+    for (let num of row) {
+      pq.enqueue(num);
+      if (pq.size() > k) pq.dequeue();
+    }
+  }
+
+  return pq.front();
+}
+
+// falting array
+var kthSmallest = function (matrix, k) {
+  let pq = new MaxPriorityQueue();
+
+  for (let num of matrix.flat()) {
+    pq.enqueue(num);
+    if (pq.size() > k) return pq.dequeue();
+  }
+
+  return pq.front();
+}
+
 //! Leetcode 973 — K Closest Points to Origin
 var kClosest = function (points, k) { }
-
-//! Leetcode 378 — Kth Smallest Element in a Sorted Matrix
-var kthSmallest = function (matrix, k) { }
 
 //! Leetcode 23 — Merge k Sorted Lists
 var mergeKLists = function (lists) { }
 
-//! Leetcode 295 — Find Median from Data Stream
+//! Leetcode 295 — Find Median from Data Stream [⭐ Interview Favourite]
 var MedianFinder = function () { }
+
+//! Leetcode 632. Smallest Range Covering Elements from K Lists
+var smallestRange = function (nums) { }
 
 //! Leetcode 621 — Task Scheduler
 var leastInterval = function (tasks, n) { }

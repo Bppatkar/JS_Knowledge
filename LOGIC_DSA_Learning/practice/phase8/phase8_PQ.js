@@ -259,12 +259,37 @@ KthLargest.prototype.add = function (val) {
 var lastStoneWeight = function (stones) {
   let pq = new MaxPriorityQueue();
 
-  let largest = pq.dequeue();
-  let secondLargest = pq.dequeue();
+  for (let i = 0; i < stones.length; i++) {
+    pq.enqueue(stones[i]);
+  }
 
-  if (secondLargest === largest) { };
-  if (secondLargest !== largest) { largest = largest - secondLargest }
+  while (pq.size() > 1) {
+    let largest = pq.dequeue();
+    let secondLargest = pq.dequeue();
+
+    if (secondLargest !== largest) { pq.enqueue(largest - secondLargest); }
+  }
+  return pq.size() === 0 ? 0 : pq.front();
 }
+
+// Array + sorting method
+var lastStoneWeightIterative = function (stones) {
+  let stoneCopy = [...stones];
+
+  while (stoneCopy.length > 1) {
+    stoneCopy.sort((a, b) => b - a);
+
+    let firstHeavy = stoneCopy[0];
+    let secondHeavy = stoneCopy[1];
+
+    stoneCopy.splice(0, 2); // splice returns removed elems, and array remains same
+
+    if (firstHeavy !== secondHeavy) stoneCopy.push(firstHeavy - secondHeavy);
+  }
+  return stoneCopy.length === 0 ? 0 : stoneCopy[0];
+}
+
+// console(lastStoneWeight([2, 7, 4, 1, 8, 1])); //output - 1;
 
 //! Leetcode 973 — K Closest Points to Origin
 var kClosest = function (points, k) { }

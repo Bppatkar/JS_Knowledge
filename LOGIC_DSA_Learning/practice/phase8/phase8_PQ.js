@@ -256,7 +256,15 @@ KthLargest.prototype.add = function (val) {
 }
 
 //! Leetcode 1046 — Last Stone Weight
-var lastStoneWeight = function (stones) { }
+var lastStoneWeight = function (stones) {
+  let pq = new MaxPriorityQueue();
+
+  let largest = pq.dequeue();
+  let secondLargest = pq.dequeue();
+
+  if (secondLargest === largest) { };
+  if (secondLargest !== largest) { largest = largest - secondLargest }
+}
 
 //! Leetcode 973 — K Closest Points to Origin
 var kClosest = function (points, k) { }

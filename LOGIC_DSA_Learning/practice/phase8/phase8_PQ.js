@@ -238,7 +238,22 @@ var topKFrequent = function (nums, k) {
 }
 
 //! Leetcode 703 — Kth Largest Element in a Stream
-var KthLargest = function (k, nums) { }
+var KthLargest = function (k, nums) {
+  this.pq = new MinPriorityQueue(); // min heap
+  this.k = k;
+  for (let i = 0; i < this.nums.length; i++) {
+    this.add(nums[i]);
+  }
+  return null;
+
+}
+KthLargest.prototype.add = function (val) {
+  this.pq.enqueue(val);
+
+  if (this.pq.size() > this.k) this.pq.dequeue(); // remove smallest if size exceeds k
+
+  return this.pq.front();
+}
 
 //! Leetcode 1046 — Last Stone Weight
 var lastStoneWeight = function (stones) { }

@@ -1390,5 +1390,120 @@ function heapifyDown(arr, idx, n) {
     heapifyDown(arr, idx, n);
   }
 }
-let arr = [4, 10, 3, 5, 1, 8, 7, 2, 6, 9]
-console.log(heapSort(arr));
+// let arr = [4, 10, 3, 5, 1, 8, 7, 2, 6, 9]
+// console.log(heapSort(arr));
+
+
+
+//! Leetcode 347 — Top K Frequent Elements
+var topKFrequent = function (nums, k) {
+  // top k frequent means we have to sort using frequency and return top k
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    if (!map.has(nums[i])) map.set(nums[i], 1);
+    else map.set(nums[i], map.get(nums[i]) + 1)
+  }
+  // for (let val of nums) {
+  // map.set(val, (map.get(val) || 0) + 1);
+  // }
+
+  // let map = {};
+  // for (let val of nums) {
+  // map[val] = (map[val] || 0) + 1;
+  // }
+
+
+  let pq = new MinPriorityQueue(el => el.freq); // creating empty pq and making sure that it will sort using frequency
+
+  for (let [key, freq] of map) {
+    pq.enqueue({ key, freq });
+    if (pq.size() > k) {
+      pq.dequeue();
+    }
+  }
+
+  // Heap now has exactly K elements with highest frequencies
+  // Extract only the 'key' (element itself) from above for-in loop, converting back to Number
+  return pq.toArray().map(el => Number(el.key));
+}
+
+//! Leetcode 703 — Kth Largest Element in a Stream
+var KthLargest = function (k, nums) {
+  this.pq = new MinPriorityQueue(); // min heap
+  this.k = k;
+  for (let i = 0; i < this.nums.length; i++) {
+    this.add(nums[i]);
+  }
+  return null;
+
+}
+KthLargest.prototype.add = function (val) {
+  this.pq.enqueue(val);
+
+  if (this.pq.size() > this.k) this.pq.dequeue(); // remove smallest if size exceeds k
+
+  return this.pq.front();
+}
+
+//! Leetcode 1046 — Last Stone Weight
+var lastStoneWeight = function (stones) {
+  let pq = new MaxPriorityQueue();
+
+  for (let i = 0; i < stones.length; i++) {
+    pq.enqueue(stones[i]);
+  }
+
+  while (pq.size() > 1) {
+    let largest = pq.dequeue();
+    let secondLargest = pq.dequeue();
+
+    if (secondLargest !== largest) { pq.enqueue(largest - secondLargest); }
+  }
+  return pq.size() === 0 ? 0 : pq.front();
+}
+
+// Array + sorting method
+var lastStoneWeightIterative = function (stones) {
+  let stoneCopy = [...stones];
+
+  while (stoneCopy.length > 1) {
+    stoneCopy.sort((a, b) => b - a);
+
+    let firstHeavy = stoneCopy[0];
+    let secondHeavy = stoneCopy[1];
+
+    stoneCopy.splice(0, 2); // splice returns removed elems, and array remains same
+
+    if (firstHeavy !== secondHeavy) stoneCopy.push(firstHeavy - secondHeavy);
+  }
+  return stoneCopy.length === 0 ? 0 : stoneCopy[0];
+}
+
+// console(lastStoneWeight([2, 7, 4, 1, 8, 1])); //output - 1;
+
+//! Leetcode 378 — Kth Smallest Element in a Sorted Matrix
+var kthSmallest = function (matrix, k) {
+  let pq = new MaxPriorityQueue();
+
+  for (let row of matrix) {
+    for (let num of row) {
+      pq.enqueue(num);
+      if (pq.size() > k) pq.dequeue();
+    }
+  }
+
+  return pq.front();
+}
+
+// falting array
+var kthSmallest = function (matrix, k) {
+  let pq = new MaxPriorityQueue();
+
+  for (let num of matrix.flat()) {
+    pq.enqueue(num);
+    if (pq.size() > k) pq.dequeue();
+  }
+
+  return pq.front();
+}

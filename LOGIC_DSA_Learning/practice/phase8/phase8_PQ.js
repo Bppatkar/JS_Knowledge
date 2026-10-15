@@ -169,6 +169,14 @@ class MaxPriorityQueueusingHeap {
 // console.log(pqueueWithHeap.dequeue()); // { val: 'Headache', priority: 3 }
 // console.log(pqueueWithHeap.dequeue()); // { val: 'Fever', priority: 1 }
 
+//! MIMP - Choosing Min or Max ....?
+/* 
+| Chahiye       | Heap  | Logic                                                               |
+|---------------|-------|---------------------------------------------------------------------|
+| Kth largest   | MinPQ | K largest maintain; root = smallest among them = Kth largest       |
+| Kth smallest  | MaxPQ | K smallest maintain; root = largest among them = Kth smallest      |
+*/
+
 //! =============================================================
 //* Leetcode Questions
 //! =============================================================
@@ -311,7 +319,7 @@ var kthSmallest = function (matrix, k) {
 
   for (let num of matrix.flat()) {
     pq.enqueue(num);
-    if (pq.size() > k)  pq.dequeue();
+    if (pq.size() > k) pq.dequeue();
   }
 
   return pq.front();

@@ -159,16 +159,16 @@ Same concept PQ me apply hota hai. Heap internal mechanism hai, par bahar se hum
 ---
 
 ---
-**Iska seedha sa matalb hai :** 
- we can use heap data structure as an pq 
- 
-  simple matlab hme poora sb kuch scratch s nahi likhna padega ki heap ka code scratch s banana pade, hme bane banaye method mil jayege bs use kro simple 
-  
-  -  bharosha na h to is website par jao  https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages 
-  - isme javascript mein - simple likha h ki leetcode particular datastrcture k liye ye cheez use kr rha h wo b bana banaya to bs use krlo simple  https://datastructures-js.info/docs/priority-queue
+
+**Iska seedha sa matalb hai :**
+we can use heap data structure as an pq
+
+simple matlab hme poora sb kuch scratch s nahi likhna padega ki heap ka code scratch s banana pade, hme bane banaye method mil jayege bs use kro simple
+
+- bharosha na h to is website par jao https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages
+- isme javascript mein - simple likha h ki leetcode particular datastrcture k liye ye cheez use kr rha h wo b bana banaya to bs use krlo simple https://datastructures-js.info/docs/priority-queue
+
 ---
-
-
 
 ## <span style="color:#00CED1">8️⃣ Types of Priority Queue</span>
 
@@ -225,7 +225,7 @@ class PriorityQueue {
   }
 
   peek() {
-    return this.queue; // O(1)
+    return this.queue[0]; // O(1)
   }
 
   isEmpty() {
@@ -253,55 +253,56 @@ class MaxPriorityQueue {
     this.heap = [];
   }
 
-  // Helper to swap elements in the heap
   swap(i, j) {
     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 
-  // ✅ Enqueue an item - O(log n)
+  // ✅ Enqueue - O(log n)
   enqueue(val, priority) {
     this.heap.push({ val, priority });
-    this.heapifyUp();
+    let lastIdx = this.heap.length - 1; // ← lastIdx nikala
+    this.heapifyUp(lastIdx); // ← pass kiya
   }
 
-  heapifyUp() {
-    let index = this.heap.length - 1;
+  heapifyUp(index) {
+    // ← parameter me index
     while (index > 0) {
       let parentIndex = Math.floor((index - 1) / 2);
-      // For MaxHeap, parent priority should be greater than or equal to child
+
+      // Max Heap: child chhota/equal hai parent se? Ruk jao
       if (this.heap[index].priority <= this.heap[parentIndex].priority) break;
+
       this.swap(index, parentIndex);
       index = parentIndex;
     }
   }
 
-  // ✅ Dequeue highest-priority item - O(log n)
+  // ✅ Dequeue - O(log n)
   dequeue() {
     if (this.heap.length === 0) return null;
-    if (this.heap.length === 1) return this.heap.pop(); // Handle single element case
+    if (this.heap.length === 1) return this.heap.pop();
 
-    let max = this.heap; // Store the highest priority item (root)
-    this.heap = this.heap.pop(); // Move the last element to the root
-    this.heapifyDown(); // Restore heap property
+    let max = this.heap[0]; // ← root element save
+    this.heap[0] = this.heap.pop(); // ← last ko root pe rakho
+    this.heapifyDown(0); // ← 0 pass kiya
     return max;
   }
 
-  heapifyDown() {
-    let index = 0;
+  heapifyDown(index) {
+    // ← parameter me index
     let length = this.heap.length;
+
     while (true) {
       let leftChildIndex = 2 * index + 1;
       let rightChildIndex = 2 * index + 2;
-      let largest = index; // Assume current node is the largest
+      let largest = index;
 
-      // Compare with left child
       if (
         leftChildIndex < length &&
         this.heap[leftChildIndex].priority > this.heap[largest].priority
       ) {
         largest = leftChildIndex;
       }
-      // Compare with right child
       if (
         rightChildIndex < length &&
         this.heap[rightChildIndex].priority > this.heap[largest].priority
@@ -309,27 +310,24 @@ class MaxPriorityQueue {
         largest = rightChildIndex;
       }
 
-      // If largest is not the current node, swap and continue heapifying down
       if (largest !== index) {
         this.swap(index, largest);
         index = largest;
       } else {
-        break; // Heap property restored
+        break;
       }
     }
   }
 
-  // ✅ View front item (highest priority) - O(1)
+  // ✅ Peek - O(1)
   front() {
-    return this.heap.length > 0 ? this.heap : null; // Return the root element
+    return this.heap.length > 0 ? this.heap[0] : null; // ← sirf root
   }
 
-  // Get current size of the priority queue - O(1)
   size() {
     return this.heap.length;
   }
 
-  // Check if the priority queue is empty - O(1)
   isEmpty() {
     return this.heap.length === 0;
   }
@@ -484,6 +482,67 @@ KthLargest.prototype.add = function (val) {
 
 ---
 
+## <span style="color:#FFD700">🎯 KTH LARGEST vs KTH SMALLEST — Kaunsa Heap?</span>
+
+<div style="background-color:#2d2d0d; padding:15px; border-radius:10px; border-left:5px solid #FFD700;">
+
+| Chahiye          |   Heap    | Logic                                                         |
+| :--------------- | :-------: | :------------------------------------------------------------ |
+| **Kth largest**  | **MinPQ** | K largest maintain, root = smallest among them = Kth largest  |
+| **Kth smallest** | **MaxPQ** | K smallest maintain, root = largest among them = Kth smallest |
+
+</div>
+
+### <span style="color:#00CED1">🔑 Yaad Rakhne Ka Trick</span>
+
+<div style="background-color:#0d2d2d; padding:15px; border-radius:10px; border-left:5px solid #00CED1;">
+
+> **"Jo tu remove kar raha hai (root se), uske ULTA heap me bachega."**
+
+- **MinPQ** se **smallest** nikaalta hai → bacha **K largest** → root = **Kth largest**
+- **MaxPQ** se **largest** nikaalta hai → bacha **K smallest** → root = **Kth smallest**
+
+</div>
+
+### <span style="color:#FF69B4">📌 Example — Kth Smallest with MaxPQ</span>
+
+<div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #FF69B4;">
+
+**nums = [1, 5, 3, 8, 2, 9, 4], k = 3**
+
+```text
+enqueue(1) → [1]
+enqueue(5) → [1, 5]
+enqueue(3) → [1, 5, 3]         size = 3 ✓
+enqueue(8) → [1, 5, 3, 8]      size = 4 > 3 → dequeue(max=8) → [1, 5, 3]
+enqueue(2) → [1, 5, 3, 2]      size = 4 > 3 → dequeue(max=5) → [1, 3, 2]
+enqueue(9) → [1, 3, 2, 9]      size = 4 > 3 → dequeue(max=9) → [1, 3, 2]
+enqueue(4) → [1, 3, 2, 4]      size = 4 > 3 → dequeue(max=4) → [1, 3, 2]
+
+Final heap: {1, 2, 3}  ← 3 sabse chhote elements
+Root = 3                ← 3rd smallest ✅
+```
+
+</div>
+
+### <span style="color:#32CD32">✅ Rule of Thumb</span>
+
+<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
+
+| Problem Type       | Heap Size | Compare By   | Return       |
+| :----------------- | :-------: | :----------- | :----------- |
+| **Kth largest**    |     K     | Element se   | `pq.front()` |
+| **Kth smallest**   |     K     | Element se   | `pq.front()` |
+| **Top K frequent** |     K     | Frequency se | `pq.front()` |
+
+<br>
+
+> 💡 **Dhyaan de:** Heap hamesha size **K** ka rehta hai. Sirf **kaunse elements nikalne hain** (chhote ya bade) wo decide karta hai kaunsa heap use karna hai.
+
+</div>
+
+---
+
 ## <span style="color:#FF4500">🎯 DEEP DIVE — PQ vs HEAP (Common Confusion)</span>
 
 <div style="background-color:#3d1a0d; padding:15px; border-radius:10px; border-left:5px solid #FF4500;">
@@ -532,9 +591,9 @@ Ye **classic confusion** hai. Chalo clear karte hain.
 
 ### 🔑 Analogy Se Samjho
 
-| Real World | DSA |
-|:---|:---|
-| "Transport" (concept) | PQ (concept) |
+| Real World                             | DSA                          |
+| :------------------------------------- | :--------------------------- |
+| "Transport" (concept)                  | PQ (concept)                 |
 | "Car", "Bike", "Bus" (implementations) | Heap, Array+Sort, LinkedList |
 
 Tu jab "transport" bolta hai, to ye ek **idea** hai. Us idea ko implement karne ke liye car/bike/bus use karta hai. Waise hi:
@@ -547,6 +606,7 @@ Tu jab "transport" bolta hai, to ye ek **idea** hai. Us idea ko implement karne 
 > **"Priority Queue" ek interface hai. "Heap" us interface ko implement karne ka ek tarika hai.**
 
 Aur bhi implementations ho sakte hain:
+
 - Array + Sorting
 - Linked List (sorted)
 - Binary Heap (best)
@@ -571,7 +631,9 @@ Chalo compare karte hain:
 
 ```javascript
 class PQ {
-  constructor() { this.queue = []; }
+  constructor() {
+    this.queue = [];
+  }
 
   enqueue(val) {
     this.queue.push(val);
@@ -600,11 +662,11 @@ class PQ {
 
 ### 🔥 Complexity Comparison
 
-| Operation | Array + Sort | Heap |
-|:---|:---:|:---:|
+| Operation |  Array + Sort   |     Heap      |
+| :-------- | :-------------: | :-----------: |
 | `enqueue` | ❌ `O(n log n)` | ✅ `O(log n)` |
-| `dequeue` | `O(1)` | `O(log n)` |
-| `peek` | `O(1)` | `O(1)` |
+| `dequeue` |     `O(1)`      |  `O(log n)`   |
+| `peek`    |     `O(1)`      |    `O(1)`     |
 
 ### 🧠 Problem Kya Hai Array + Sort Me?
 
@@ -630,15 +692,15 @@ Heap:         1,00,000 × O(log n)     ← Fast ✅
 
 <div style="background-color:#2d2d0d; padding:15px; border-radius:10px; border-left:5px solid #FFD700;">
 
-| Feature | Priority Queue (PQ) | Heap |
-|:---|:---|:---|
-| **Type** | Abstract Data Type (Concept) | Concrete Data Structure |
-| **Implementation** | Nahi — bas operations ka contract | Haan — specific rules hain |
-| **Rules** | Priority ke hisaab se serve karo | Complete Binary Tree + Parent-Child rule |
-| **Kya Define Karta Hai** | **Kya** karna hai (operations) | **Kaise** karna hai (mechanism) |
-| **Language Support** | Java: `PriorityQueue`, C++: `priority_queue`, JS: nahi hai | Har language me manually banana padta hai |
-| **Underlying** | Heap, Array, LinkedList, BST | Array (usually) |
-| **Focus** | **Behavior** — priority-based serving | **Structure** — heap property maintain karna |
+| Feature                  | Priority Queue (PQ)                                        | Heap                                         |
+| :----------------------- | :--------------------------------------------------------- | :------------------------------------------- |
+| **Type**                 | Abstract Data Type (Concept)                               | Concrete Data Structure                      |
+| **Implementation**       | Nahi — bas operations ka contract                          | Haan — specific rules hain                   |
+| **Rules**                | Priority ke hisaab se serve karo                           | Complete Binary Tree + Parent-Child rule     |
+| **Kya Define Karta Hai** | **Kya** karna hai (operations)                             | **Kaise** karna hai (mechanism)              |
+| **Language Support**     | Java: `PriorityQueue`, C++: `priority_queue`, JS: nahi hai | Har language me manually banana padta hai    |
+| **Underlying**           | Heap, Array, LinkedList, BST                               | Array (usually)                              |
+| **Focus**                | **Behavior** — priority-based serving                      | **Structure** — heap property maintain karna |
 
 ### 🔑 Yaad Rakhne Ka Ek Line Rule
 
@@ -688,15 +750,15 @@ Interview me jab bhi PQ ka question aaye:
 
 **Haan, bilkul!** Ye sab valid implementations hain:
 
-| Implementation | Enqueue | Dequeue | Peek | Efficiency |
-|:---|:---:|:---:|:---:|:---|
-| **Unsorted Array** | `O(1)` | `O(n)` | `O(n)` | 🐌 Slow |
-| **Sorted Array** | `O(n log n)` ya `O(n)` | `O(1)` | `O(1)` | ⚠️ Insert slow |
-| **Sorted Linked List** | `O(n)` | `O(1)` | `O(1)` | ⚠️ Insert slow |
-| **Unsorted Linked List** | `O(1)` | `O(n)` | `O(n)` | 🐌 Slow |
-| **Binary Heap** ⭐ | `O(log n)` | `O(log n)` | `O(1)` | ✅ Best balance |
-| **Balanced BST** | `O(log n)` | `O(log n)` | `O(log n)` | ✅ Good |
-| **Fibonacci Heap** | `O(1)` | `O(log n)` | `O(1)` | 🚀 Advanced |
+| Implementation           |        Enqueue         |  Dequeue   |    Peek    | Efficiency      |
+| :----------------------- | :--------------------: | :--------: | :--------: | :-------------- |
+| **Unsorted Array**       |         `O(1)`         |   `O(n)`   |   `O(n)`   | 🐌 Slow         |
+| **Sorted Array**         | `O(n log n)` ya `O(n)` |   `O(1)`   |   `O(1)`   | ⚠️ Insert slow  |
+| **Sorted Linked List**   |         `O(n)`         |   `O(1)`   |   `O(1)`   | ⚠️ Insert slow  |
+| **Unsorted Linked List** |         `O(1)`         |   `O(n)`   |   `O(n)`   | 🐌 Slow         |
+| **Binary Heap** ⭐       |       `O(log n)`       | `O(log n)` |   `O(1)`   | ✅ Best balance |
+| **Balanced BST**         |       `O(log n)`       | `O(log n)` | `O(log n)` | ✅ Good         |
+| **Fibonacci Heap**       |         `O(1)`         | `O(log n)` |   `O(1)`   | 🚀 Advanced     |
 
 ### 📌 Kya Seekha
 
@@ -710,18 +772,18 @@ Interview me jab bhi PQ ka question aaye:
 
 <div style="background-color:#2d2d0d; padding:15px; border-radius:10px; border-left:5px solid #FFD700;">
 
-| Application | Kaise Use Hoti Hai |
-|:---|:---|
-| 🏥 **Hospital Emergency** | Critical patients pehle |
-| 💻 **CPU Scheduling** | High priority processes pehle |
-| 🗺️ **Dijkstra's Algorithm** | Shortest path — nearest node pehle |
-| 🌐 **Network Routing** | Important packets pehle |
-| 📊 **Top K Problems** | K largest/smallest elements |
-| 🔄 **Task Scheduler** | High priority tasks pehle |
-| 📈 **Median Finder** | Do heaps ka use — min + max |
-| 🎮 **Game AI** | A* Pathfinding |
-| 📡 **Event Simulation** | Time-based events |
-| 🔍 **Huffman Coding** | Data compression — smallest frequency pehle |
+| Application                 | Kaise Use Hoti Hai                          |
+| :-------------------------- | :------------------------------------------ |
+| 🏥 **Hospital Emergency**   | Critical patients pehle                     |
+| 💻 **CPU Scheduling**       | High priority processes pehle               |
+| 🗺️ **Dijkstra's Algorithm** | Shortest path — nearest node pehle          |
+| 🌐 **Network Routing**      | Important packets pehle                     |
+| 📊 **Top K Problems**       | K largest/smallest elements                 |
+| 🔄 **Task Scheduler**       | High priority tasks pehle                   |
+| 📈 **Median Finder**        | Do heaps ka use — min + max                 |
+| 🎮 **Game AI**              | A\* Pathfinding                             |
+| 📡 **Event Simulation**     | Time-based events                           |
+| 🔍 **Huffman Coding**       | Data compression — smallest frequency pehle |
 
 ### 🔑 Common Pattern
 
@@ -786,14 +848,14 @@ Ye trick interview me bahut impressive lagti hai.
 
 Tere notes me `O(log n)` likha hai, par **kaunse operation ka kya** — ye clear nahi hai. Chalo poora table:
 
-| Operation | Array+Sort | Sorted LL | **Binary Heap** ⭐ | Balanced BST |
-|:---|:---:|:---:|:---:|:---:|
-| **Insert (enqueue)** | `O(n log n)` | `O(n)` | **`O(log n)`** | `O(log n)` |
-| **Delete Max/Min (dequeue)** | `O(1)` | `O(1)` | **`O(log n)`** | `O(log n)` |
-| **Peek (front)** | `O(1)` | `O(1)` | **`O(1)`** | `O(log n)` |
-| **Search (random)** | `O(n)` | `O(n)` | `O(n)` ❌ | `O(log n)` |
-| **Build from array** | `O(n log n)` | `O(n log n)` | **`O(n)`** ✅ | `O(n log n)` |
-| **Space** | `O(n)` | `O(n)` | **`O(n)`** | `O(n)` |
+| Operation                    |  Array+Sort  |  Sorted LL   | **Binary Heap** ⭐ | Balanced BST |
+| :--------------------------- | :----------: | :----------: | :----------------: | :----------: |
+| **Insert (enqueue)**         | `O(n log n)` |    `O(n)`    |   **`O(log n)`**   |  `O(log n)`  |
+| **Delete Max/Min (dequeue)** |    `O(1)`    |    `O(1)`    |   **`O(log n)`**   |  `O(log n)`  |
+| **Peek (front)**             |    `O(1)`    |    `O(1)`    |     **`O(1)`**     |  `O(log n)`  |
+| **Search (random)**          |    `O(n)`    |    `O(n)`    |     `O(n)` ❌      |  `O(log n)`  |
+| **Build from array**         | `O(n log n)` | `O(n log n)` |   **`O(n)`** ✅    | `O(n log n)` |
+| **Space**                    |    `O(n)`    |    `O(n)`    |     **`O(n)`**     |    `O(n)`    |
 
 ### 🔑 Key Points
 
@@ -836,7 +898,10 @@ class StudentPQ {
     while (idx > 0) {
       let parentIdx = Math.floor((idx - 1) / 2);
       if (!this.compare(this.heap[idx], this.heap[parentIdx])) break;
-      [this.heap[idx], this.heap[parentIdx]] = [this.heap[parentIdx], this.heap[idx]];
+      [this.heap[idx], this.heap[parentIdx]] = [
+        this.heap[parentIdx],
+        this.heap[idx],
+      ];
       idx = parentIdx;
     }
   }
@@ -862,11 +927,13 @@ Tere notes me `enqueue` ek-ek karke dikhaya hai. Par **array se seedha heap bana
 ### 🔹 Do Tarike
 
 **Tarika 1: Insert ek-ek karke — `O(n log n)`** ❌
+
 ```javascript
 for (let x of arr) pq.enqueue(x); // n × O(log n)
 ```
 
 **Tarika 2: Heapify Down — `O(n)`** ✅
+
 ```javascript
 // Last non-leaf se root tak heapify down
 for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
@@ -877,6 +944,7 @@ for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
 ### 🔑 Kyun O(n)?
 
 Kyunki **bottom ke nodes ko kam kaam** karna padta hai:
+
 - Leaf nodes (n/2) → 0 swaps
 - Level 1 (n/4) → 1 swap
 - Level 2 (n/8) → 2 swaps
@@ -984,18 +1052,18 @@ Ye trick interview me bahut impressive lagti hai.
 
 Tere notes me sirf 2 problems hain. Ye list complete kar:
 
-| # | Problem | Pattern | Difficulty |
-|:---:|:---|:---|:---:|
-| **215** | Kth Largest Element | Min Heap size K | 🟡 Medium |
-| **703** | Kth Largest in Stream | Min Heap size K | 🟢 Easy |
-| **347** | Top K Frequent Elements | Min Heap + HashMap | 🟡 Medium |
-| **295** | Find Median from Stream | Two Heaps | 🔴 Hard |
-| **23** | Merge K Sorted Lists | Min Heap of K | 🔴 Hard |
-| **973** | K Closest Points to Origin | Max Heap size K | 🟡 Medium |
-| **621** | Task Scheduler | Max Heap + Queue | 🟡 Medium |
-| **767** | Reorganize String | Max Heap | 🟡 Medium |
-| **1046** | Last Stone Weight | Max Heap | 🟢 Easy |
-| **692** | Top K Frequent Words | Min Heap + Custom Comparator | 🟡 Medium |
+|    #     | Problem                    | Pattern                      | Difficulty |
+| :------: | :------------------------- | :--------------------------- | :--------: |
+| **215**  | Kth Largest Element        | Min Heap size K              | 🟡 Medium  |
+| **703**  | Kth Largest in Stream      | Min Heap size K              |  🟢 Easy   |
+| **347**  | Top K Frequent Elements    | Min Heap + HashMap           | 🟡 Medium  |
+| **295**  | Find Median from Stream    | Two Heaps                    |  🔴 Hard   |
+|  **23**  | Merge K Sorted Lists       | Min Heap of K                |  🔴 Hard   |
+| **973**  | K Closest Points to Origin | Max Heap size K              | 🟡 Medium  |
+| **621**  | Task Scheduler             | Max Heap + Queue             | 🟡 Medium  |
+| **767**  | Reorganize String          | Max Heap                     | 🟡 Medium  |
+| **1046** | Last Stone Weight          | Max Heap                     |  🟢 Easy   |
+| **692**  | Top K Frequent Words       | Min Heap + Custom Comparator | 🟡 Medium  |
 
 ### 🔑 Kaunsa Heap Kab?
 
@@ -1015,19 +1083,19 @@ Tere notes me sirf 2 problems hain. Ye list complete kar:
 
 Log ye teeno naam interchangeably use karte hain, par technically:
 
-| Term | Kya Hai | Example |
-|:---|:---|:---|
-| **Heap** | Data structure (specific) | Binary Heap, Fibonacci Heap |
-| **Priority Queue** | Abstract Data Type (concept) | Interface/Contract |
-| **PQ Class** | Code implementation | `MaxPriorityQueue`, `MinPriorityQueue` |
+| Term               | Kya Hai                      | Example                                |
+| :----------------- | :--------------------------- | :------------------------------------- |
+| **Heap**           | Data structure (specific)    | Binary Heap, Fibonacci Heap            |
+| **Priority Queue** | Abstract Data Type (concept) | Interface/Contract                     |
+| **PQ Class**       | Code implementation          | `MaxPriorityQueue`, `MinPriorityQueue` |
 
 ### 🔹 Coding Me
 
 ```javascript
 // Ye sab valid hain:
-class MinHeap { }                    // Heap ke naam se
-class MinPriorityQueue { }           // PQ ke naam se
-class PriorityQueue { }              // Generic PQ
+class MinHeap {} // Heap ke naam se
+class MinPriorityQueue {} // PQ ke naam se
+class PriorityQueue {} // Generic PQ
 
 // Teeno ka internal mechanism same — heap
 ```
@@ -1044,14 +1112,14 @@ class PriorityQueue { }              // Generic PQ
 
 Ye galtiyan har beginner karta hai — pehle hi dhyan rakh:
 
-| ❌ Galti | ✅ Sahi |
-|:---|:---|
-| `heapifyUp` me `parentIdx` loop ke **bahar** | Loop ke **andar** — har iteration me recalculate |
-| `heapifyDown` me `smallest` ki jagah `largest` | Min me `smallest`, Max me `largest` |
-| Swap ke baad `heapifyDown(smallest)` ki jagah `heapifyDown(idx)` | `smallest` / `largest` bhejo, `idx` nahi |
-| Min/Max compare me `>` aur `<` ulta | Min: `<` (child chhota), Max: `>` (child bada) |
-| `deleteMin` me min save nahi kiya | `let min = heap[0]` pehle save karo |
-| Heap size check nahi kiya (out of bounds) | `left < heapLength` check zaroor |
+| ❌ Galti                                                         | ✅ Sahi                                          |
+| :--------------------------------------------------------------- | :----------------------------------------------- |
+| `heapifyUp` me `parentIdx` loop ke **bahar**                     | Loop ke **andar** — har iteration me recalculate |
+| `heapifyDown` me `smallest` ki jagah `largest`                   | Min me `smallest`, Max me `largest`              |
+| Swap ke baad `heapifyDown(smallest)` ki jagah `heapifyDown(idx)` | `smallest` / `largest` bhejo, `idx` nahi         |
+| Min/Max compare me `>` aur `<` ulta                              | Min: `<` (child chhota), Max: `>` (child bada)   |
+| `deleteMin` me min save nahi kiya                                | `let min = heap[0]` pehle save karo              |
+| Heap size check nahi kiya (out of bounds)                        | `left < heapLength` check zaroor                 |
 
 </div>
 
@@ -1066,6 +1134,7 @@ Agar interview me deeper jaana ho:
 ### 🔹 Decrease Key / Increase Key
 
 Kisi existing element ki priority change karna:
+
 - **Decrease key** (priority badhana) → `heapifyUp`
 - **Increase key** (priority ghatana) → `heapifyDown`
 - **Problem:** Element ka index dhundhna `O(n)` — isliye HashMap rakhna padta (index track karne ke liye)

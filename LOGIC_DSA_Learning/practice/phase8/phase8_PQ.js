@@ -432,19 +432,20 @@ MedianFinder.prototype.findMedian = function () {
 
 };
 
+//! Solved Later [Advanced Questions]
 
-//! Leetcode 632. Smallest Range Covering Elements from K Lists
-var smallestRange = function (nums) { }
+// //! Leetcode 632. Smallest Range Covering Elements from K Lists
+// var smallestRange = function (nums) { }
 
-//! Leetcode 621 — Task Scheduler
-var leastInterval = function (tasks, n) { }
+// //! Leetcode 621 — Task Scheduler
+// var leastInterval = function (tasks, n) { }
 
-//! Leetcode 767 — Reorganize String
-var reorganizeString = function (s) { }
+// //! Leetcode 767 — Reorganize String
+// var reorganizeString = function (s) { }
 
-//! Leetcode 692 — Top K Frequent Words
-var topKFrequentWords = function (words, k) { }
+// //! Leetcode 692 — Top K Frequent Words
+// var topKFrequentWords = function (words, k) { }
 
-//! Leetcode 502 — IPO
-var findMaximizedCapital = function (k, w, profits, capital) { }
+// //! Leetcode 502 — IPO
+// var findMaximizedCapital = function (k, w, profits, capital) { }
 

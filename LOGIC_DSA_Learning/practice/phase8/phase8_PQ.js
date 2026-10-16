@@ -326,7 +326,38 @@ var kthSmallest = function (matrix, k) {
 }
 
 //! Leetcode 23 — Merge k Sorted Lists
-var mergeKLists = function (lists) { }
+//* Logic - Har list ka current head heap me daalo. Min nikalo, result me jodo, uska next heap me daalo. Repeat.
+//? It works because:- Har list sorted hai, to har list ka current smallest wahi list ka head hai. Sab lists ke heads me se min hi global smallest hai.
+
+var mergeKLists = function (lists) {
+  // creating minPriorityQueue with compartor to compare with val
+  let pq = new MinPriorityQueue(node => node.val);
+
+  //1. head of every list put in pq (skiping null)
+  // we are storing node- {val, node} and comparing from value
+  for (let head of lists) {
+    if (head) pq.enqueue(head);
+  }
+  // console.log(pq);
+
+  //2. dummyNode because first one do not have and prev
+  let dummyNode = new ListNode(0);
+  let curr = dummyNode;
+
+  //3. we extract min till pq is not empty means not null
+  while (pq.size() > 0) {
+    let smallest = pq.dequeue();
+    curr.next = smallest;
+    curr = curr.next;
+
+    // putting next of the smallest that we extract in pq [if exist]
+    if (smallest.next) {
+      pq.enqueue(smallest.next);
+    }
+  }
+
+  return dummyNode.next;
+}
 
 //! Leetcode 973 — K Closest Points to Origin
 var kClosest = function (points, k) { }

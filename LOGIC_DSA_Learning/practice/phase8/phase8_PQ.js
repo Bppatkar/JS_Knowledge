@@ -359,12 +359,79 @@ var mergeKLists = function (lists) {
   return dummyNode.next;
 }
 
-//! Leetcode 973 — K Closest Points to Origin
-var kClosest = function (points, k) { }
-
-
 //! Leetcode 295 — Find Median from Data Stream [⭐ Interview Favourite]
-var MedianFinder = function () { }
+// if we use array so -
+/* 
+addNum → arr.push(num) ,
+findMedian → sort karo, middle nikalo
+Problem: findMedian har call pe sort karna padega → O(n log n) per call.
+Agar m calls hain, total O(m × n log n) = TLE.
+*/
+
+//* Logic
+/* 
+Median means beech wala element.
+
+agar ham numbers ko do groups me baant de: - 
+- Left group = chhote numbers
+- Right group = bade numbers
+
+Example: [1, 2, 3, 4, 5, 6]
+
+Left group:  [1, 2, 3]    ← 3 sabse bada is group me
+Right group: [4, 5, 6]    ← 4 sabse chhota is group me
+
+Median = (3 + 4) / 2 = 3.5
+Dekh — median nikalti hai left ka max aur right ka min se!
+
+-Kaunsa Heap Kis Group Ke Liye?
+
+///? Left group ka max chahiye → Max-Heap
+///? Right group ka min chahiye → Min-Heap
+*/
+
+
+var MedianFinder = function () {
+  this.leftMaxPQ = new MaxPriorityQueue();
+  this.rightMinPQ = new MinPriorityQueue();
+};
+
+MedianFinder.prototype.addNum = function (num) {
+  // Step 1: Naya num daalo
+  // Agar left khaali hai, ya num left ke max se chhota hai → left me daalo
+  // Warna right me daalo
+  if (this.leftMaxPQ.size() === 0 || num <= this.leftMaxPQ.front()) {
+    this.leftMaxPQ.enqueue(num);
+  } else {
+    this.rightMinPQ.enqueue(num);
+  }
+
+  //2. size balancing
+  // Left ka size, right ke size + 1 se zyada nahi hona chahiye
+  if (this.leftMaxPQ.size() > this.rightMinPQ.size() + 1) {
+    let elem = this.leftMaxPQ.dequeue();
+    this.rightMinPQ.enqueue(elem);
+  }
+  // Right ka size, left ke size se bada nahi hona chahiye
+  else if (this.rightMinPQ.size() > this.leftMaxPQ.size()) {
+    let elem = this.rightMinPQ.dequeue();
+    this.leftMaxPQ.enqueue(elem);
+  }
+};
+
+
+MedianFinder.prototype.findMedian = function () {
+  //1. check size equal [total even]
+  if (this.rightMinPQ.size() === this.leftMaxPQ.size()) {
+    return (this.leftMaxPQ.front() + this.rightMinPQ.front()) / 2;
+  }
+  //2. maybe left bada [total odd] (left ka root hi median hai)
+  else {
+    return this.leftMaxPQ.front();
+  }
+
+};
+
 
 //! Leetcode 632. Smallest Range Covering Elements from K Lists
 var smallestRange = function (nums) { }

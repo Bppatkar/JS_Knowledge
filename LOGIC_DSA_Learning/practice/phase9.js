@@ -87,6 +87,29 @@ var twoCitySchedCost = function (costs) {
 // console.log(twoCitySchedCost(costs));
 
 //! Leetcode 455. Assign Cookies
-var findContentChildren = function (g, s) { 
-  
+// g = greed factor = children
+// s = size = cookies
+
+var findContentChildren = function (g, s) {
+  let gSort = g.sort((a, b) => a - b);
+  let sSort = s.sort((a, b) => a - b);
+  let count = 0, j = 0, i = 0;
+  // i → children pointer means inside greed
+  // j → cookies pointer
+
+  while (i < sSort.length && j < gSort.length) {
+    if (sSort[j] >= gSort[i]) {
+      //   cookie    child
+      //   (size)    (greed)
+      // child satisfied
+      count++;
+      i++; j++;
+    } else {
+      // cookies is small in size, try diff one
+      j++;
+    }
+  }
+
+
+  return count;
 }

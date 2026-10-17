@@ -2776,8 +2776,8 @@ Always process the currently highest-priority item.
 - **LC 703 — Kth Largest Element in a Stream** ✅
 - **LC 1046 — Last Stone Weight** ✅
 - **LC 378 — Kth Smallest Element in a Sorted Matrix** ✅
-- **LC 23 — Merge k Sorted Lists**
-- **LC 295 — Find Median from Data Stream** [⭐ Interview Favourite]
+- **LC 23 — Merge k Sorted Lists**  ✅
+- **LC 295 — Find Median from Data Stream** [⭐ Interview Favourite] ✅
 - **LC 632 - Smallest Range Covering Elements from K Lists**
 - **LC 621 — Task Scheduler**
 - **LC 767 — Reorganize String**

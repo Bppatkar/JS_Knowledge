@@ -84,7 +84,6 @@ var twoCitySchedCost = function (costs) {
   return totalCost;
 }
 // let costs = [[259, 770], [448, 54], [926, 667], [184, 139], [840, 118], [577, 469]];
-// console.log(twoCitySchedCost(costs));
 
 //! Leetcode 455. Assign Cookies
 // g = greed factor = children
@@ -112,4 +111,65 @@ var findContentChildren = function (g, s) {
 
 
   return count;
+}
+
+// other way to write
+var findContentChildren = function (greed, sizee) {
+  sizee.sort((a, b) => a - b);
+  greed.sort((a, b) => a - b);
+
+  let j = 0, i = 0;
+
+  while (i < sizee.length) {
+    if (sizee[i] >= greed[j]) {
+      j++;
+    }
+    i++;
+  }
+  return j;
+}
+
+//! Leetcode 860. Lemonade Change
+var lemonadeChange = function (bills) {
+  let billsMap = new Map();
+
+  for (let i = 0; i < bills.length; i++) {
+    if (bills[i] === 5) {
+      billsMap.set(bills[i], (billsMap.get(bills[i]) || 0) + 1);
+    } else if (bills[i] === 10) {
+
+      billsMap.set(bills[i], (billsMap.get(bills[i]) || 0) + 1);
+      if (billsMap.get(5) > 0) billsMap.set(5, billsMap.get(5) - 1);
+      else return false;
+
+    } else {
+      if (billsMap.get(10) >= 1 && billsMap.get(5) >= 1) {
+        billsMap.set(10, billsMap.get(10) - 1);
+        billsMap.set(5, billsMap.get(5) - 1);
+      } else if (billsMap.get(5) >= 3) {
+        billsMap.set(5, billsMap.get(5) - 3);
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+// smaller code
+var lemonadeChange = function (bills) {
+  let five = 0, ten = 0;
+  for (let bill of bills) {
+    if (bill === 5) five++;
+    else if (bill === 10) {
+      if (!five) return false;
+      five--;
+      ten++;
+    } else {
+      if (five && ten) { ten--; five--; }
+      else if (five >= 3) five -= 3;
+      else return false;
+    }
+  }
+  return true;
 }

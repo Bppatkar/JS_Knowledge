@@ -179,10 +179,67 @@ var maxProfit = function (prices) {
   let diff = 0;
 
   for (let i = 0; i <= prices.length; i++) {
-    if (prices[i - 1] < prices[i]) 
+    if (prices[i - 1] < prices[i])
       diff += prices[i] - prices[i - 1];
   }
   return diff;
 }
-console.log(maxProfit([7, 1, 5, 3, 6, 4]));
-console.log(maxProfit([1, 2, 3, 4, 5]));
+
+//* ⭐ Interviews Favourite Topic - Interval Problems
+// like - Merge Intervals, Insert Interval, Non-overlapping Intervals, Meeting Rooms, Minimum Number of Arrows to Burst Balloons, etc.
+
+//! Leetcode 57. Insert Interval
+/* 
+intervals = [[1,3],[6,9]], newInterval = [2,5]
+        1.........3.........6.............9
+            2.............5
+
+o/p -   1.................5................9  
+o/p - [[1,5],[6,9]]
+    
+intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+
+        1......2..3....5...6..7..8....10....12............16
+                     4...........8  
+
+o/p-    1...........2..............10.................16    
+o/p-  [[1,2],[3,10],[12,16]]      
+*/
+var insert = function (arr, x) {
+  let resultInterval = [];
+  let i = 0, start = 0, end = 1;
+
+  // we split into 3 cases -
+  // 1) left side of non-overlapping intervals
+  // 2) overlapping intervals
+  // 3) right side of non-overlapping intervals
+
+  // In the left side we check, how many intervals are there which end time is less than newInterval start time so we direct add into answer array and we use loop here 
+  while (i < arr.length && arr[i][end] < x[start]) {
+    resultInterval.push(arr[i]);
+    i++;
+  }
+
+  // overlapping
+  while (i < arr.length && arr[i][start] <= x[end]) {
+    // newInterval start is whatever is min of start from interval or newInterval
+    // newInterval end is whatever is max of end from interval or newInterval
+
+    x[start] = Math.min(arr[i][start], x[start]);
+    x[end] = Math.max(arr[i][end], x[end]);
+    i++;
+  }
+  resultInterval.push(x);
+
+  // same for right side, if start time of interval is > than end time of new Merge interval so we add rightside interval in answer
+  while (i < arr.length) {
+    resultInterval.push(arr[i]);
+    i++;
+  }
+  return resultInterval;
+}
+// console.log(insert([[1, 3], [6, 9]], [2, 5])); // [[1,5],[6,9]]
+// console.log(insert([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 8])); // [[1,2],[3,10],[12,16]]
+
+
+

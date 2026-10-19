@@ -243,3 +243,60 @@ var insert = function (arr, x) {
 
 
 
+//! Leetcode 56. Merge Interval
+var merge = function (intervals) {
+  let result = [], start = 0, end = 1;
+
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  // pushing first interval because in else case we push the other one, so we prevent loosing the first interval that's why we pushing it first and loop start from 1
+  result.push(intervals[0]);
+
+  for (let i = 1; i < intervals.length; i++) {
+    // last merged interval
+    let last = result[result.length - 1];
+
+    if (last[end] >= intervals[i][start]) {
+      // overlap - last ka end update
+      last[end] = Math.max(last[end], intervals[i][end]);
+    } else {
+      result.push(intervals[i]);
+    }
+  }
+
+  return result;
+}
+/*
+Sort: [[1,3],[2,6],[8,10],[15,18]]  (already sorted)
+
+result = [[1,3]]   ← first push
+
+i=1: last = [1,3], 3 >= 2 ✓
+     last.end = max(3, 6) = 6
+     result = [[1,6]]
+
+i=2: last = [1,6], 6 >= 8? ❌
+     result.push([8,10])
+     result = [[1,6],[8,10]]
+
+i=3: last = [8,10], 10 >= 15? ❌
+     result.push([15,18])
+     result = [[1,6],[8,10],[15,18]]
+*/
+
+// Other way
+var merge = function (intervals) {
+    if (intervals.length <= 1) return intervals;
+
+    intervals.sort((a, b) => a[0] - b[0]);
+    let result = [intervals[0]];
+
+    for (let i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] <= result[result.length - 1][1]) {
+            result[result.length - 1][1] = Math.max(result[result.length - 1][1], intervals[i][1]);
+        } else {
+            result.push(intervals[i]);
+        }
+    }
+    return result;
+}

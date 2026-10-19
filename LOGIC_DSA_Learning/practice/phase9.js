@@ -286,17 +286,63 @@ i=3: last = [8,10], 10 >= 15? ❌
 
 // Other way
 var merge = function (intervals) {
-    if (intervals.length <= 1) return intervals;
+  if (intervals.length <= 1) return intervals;
 
-    intervals.sort((a, b) => a[0] - b[0]);
-    let result = [intervals[0]];
+  intervals.sort((a, b) => a[0] - b[0]);
+  let result = [intervals[0]];
 
-    for (let i = 1; i < intervals.length; i++) {
-        if (intervals[i][0] <= result[result.length - 1][1]) {
-            result[result.length - 1][1] = Math.max(result[result.length - 1][1], intervals[i][1]);
-        } else {
-            result.push(intervals[i]);
-        }
+  for (let i = 1; i < intervals.length; i++) {
+    if (intervals[i][0] <= result[result.length - 1][1]) {
+      result[result.length - 1][1] = Math.max(result[result.length - 1][1], intervals[i][1]);
+    } else {
+      result.push(intervals[i]);
     }
-    return result;
+  }
+  return result;
 }
+
+//! Leetcode 763. Partition Labels
+var partitionLabels = function (s) {
+  // partition is depend on first and last occurance of the character 
+  // find firstOcc and lastOcc of first character and mark that partition 1
+  // same for rest of the character [this problem is same as above question]
+  //?  Merge Interval such that partition are non-overlapping
+
+  let ans = [];
+  let firstOcc = new Array(26).fill(-1);
+  let lastOcc = new Array(26).fill(-1);
+
+  for (let i = 0; i < s.length; i++) {
+
+    let curr = s.charCodeAt(i) - 97;
+    if (firstOcc[curr] < 0) {
+      firstOcc[curr] = i;
+    }
+    lastOcc[curr] = i;
+  }
+
+
+  let partitionStart = 0, partitionEnd = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    let curr = s.charCodeAt(i) - 97;
+
+    // if i cross the end means new partition start
+    if (partitionEnd < firstOcc[curr]) {
+      ans.push(partitionEnd - partitionStart + 1)
+      partitionStart = i;
+      partitionEnd = i;
+    }
+
+    partitionEnd = Math.max(partitionEnd, lastOcc[curr]);
+  }
+
+  // adding the last partition
+  if (partitionEnd - partitionStart + 1 > 0) {
+    ans.push(partitionEnd - partitionStart + 1)
+  }
+
+  return ans;
+}
+// console.log(partitionLabels("ababcbacadefegdehijhklij")); // [9,7,8]
+// console.log(partitionLabels("eccbbbbdec")); // [10]

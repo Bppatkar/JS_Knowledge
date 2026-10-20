@@ -346,3 +346,54 @@ var partitionLabels = function (s) {
 }
 // console.log(partitionLabels("ababcbacadefegdehijhklij")); // [9,7,8]
 // console.log(partitionLabels("eccbbbbdec")); // [10]
+
+//! Leetcode 435. Non-overlapping Intervals
+var eraseOverlapIntervals = function (intervals) {
+  intervals.sort((a, b) => a[1] - b[1]);
+
+  let count = 0, start = 0, end = 1;
+  let lastKeep = intervals[0];
+
+
+  for (let i = 1; i < intervals.length; i++) {
+    let curr = intervals[i];
+
+    if (curr[start] < lastKeep[end]) {
+      // overlap - remove item
+      // we update lastKeep when we remove item
+      count++;
+      // removed item never be lastKeep and we only have to count
+      continue;
+    } else {
+      lastKeep = curr;
+    }
+  }
+  return count;
+}
+
+// Other way
+var eraseOverlapIntervals = function (intervals) {
+  intervals.sort((a, b) => a[1] - b[1]);
+
+  let count = 0;
+  let k = -Infinity;
+
+  for (let i = 0; i < intervals.length; i++) {
+    // k = end of last non-overlapping interval
+    if (intervals[i][0] < k) {
+      count++;
+    } else {
+      k = intervals[i][1];
+    }
+  }
+  return count;
+}
+
+// console.log(eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]])); // 1
+// console.log(eraseOverlapIntervals([[1, 2], [1, 2], [1, 2]])); // 2
+// console.log(eraseOverlapIntervals([[1, 11], [2, 12], [11, 22], [1, 100]])); // 2
+
+//! Leetcode 621. Task Scheduler
+var leastInterval = function (tasks, n) { }
+console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 2)); // 8
+console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 0)); // 6

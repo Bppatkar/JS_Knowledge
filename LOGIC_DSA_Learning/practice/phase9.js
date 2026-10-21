@@ -394,6 +394,189 @@ var eraseOverlapIntervals = function (intervals) {
 // console.log(eraseOverlapIntervals([[1, 11], [2, 12], [11, 22], [1, 100]])); // 2
 
 //! Leetcode 621. Task Scheduler
-var leastInterval = function (tasks, n) { }
-console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 2)); // 8
-console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 0)); // 6
+///* Notes
+/* 
+
+## 🎯 Core Variables & Definitions
+*   **`maxFreq`**: Sabse zyada baar aane wale task ki frequency (e.g., Task A 3 baar aaya, toh maxFreq = 3).
+*   **`numMaxFreq`**: Aise tasks ki ginti jinki frequency `maxFreq` ke barabar hai (e.g., A=3, B=3 hain, toh numMaxFreq = 2).
+*   **`n`**: Cooldown period (do same tasks ke beech mein kitne slots ka gap hona chahiye).
+*   **`tasks.length`**: Total tasks ka count.
+
+---
+
+## 📊 Case Studies & Data Tables
+
+### Table 1: General Cases
+| Case                | maxFreq | n | numMaxFreq | Answer |
+| :------------------ | :------ | :- | :--------- | :----- |
+| A×3, B×3            | 3       | 0 | 2          | 6      |
+| A×3, B×3            | 3       | 1 | 2          | 6      |
+| A×3, B×3            | 3       | 2 | 2          | 8      |
+| A×3, B×2            | 3       | 2 | 1          | 7      |
+| A×3, B×1            | 3       | 2 | 1          | 7      |
+| A×3 (only)          | 3       | 2 | 1          | 7      |
+| A×4, B×4            | 4       | 2 | 2          | 11     |
+| A×4, B×1            | 4       | 2 | 1          | 10     |
+| A×4, B×2, C×2       | 4       | 2 | 1          | 10     |
+| A×4, B×4, C×4       | 4       | 2 | 3          | 12     |
+| A×3, B×3, C×3       | 3       | 2 | 3          | 9      |
+
+### Table 2: Varying `n` (Constant `maxFreq` & `numMaxFreq`)
+**For A×4, B×4 (maxFreq=4, numMaxFreq=2)**
+| n | Answer | Change in Answer |
+|---|---: |:-----------------|
+| 0 | 8   | -                |
+| 1 | 8   | +0               |
+| 2 | 11  | +3               |
+| 3 | 14  | +3               |
+
+**For A×3, B×3 (maxFreq=3, numMaxFreq=2)**
+| n | Answer | Change in Answer |
+|---|---:|:-----------------|
+| 0 | 6   | -                |
+| 1 | 6   | +0               |
+| 2 | 8   | +2               |
+| 3 | 10  | +2               |
+
+---
+
+## 🔍 Findings & Coefficient Deductions
+
+Aapne tables se following mathematical patterns nikale hain:
+
+### Finding 1: Effect of `numMaxFreq`
+*   **Observation**: Jab `numMaxFreq` 1 unit badhta hai, Answer 1 unit badhta hai.
+*   **Example**: A×3, B×3 (numMaxFreq=2, Ans=8) vs A×3, B×2 (numMaxFreq=1, Ans=7).
+*   **Conclusion**: `numMaxFreq` ka coefficient = **1**
+
+### Finding 2: Effect of `n`
+*   **Observation**: Jab `n` 1 unit badhta hai, Answer `(maxFreq - 1)` units badhta hai.
+*   **Example**: 
+    *   A×3, B×3: n 1→2 hua, answer +2 badha (kyunki maxFreq=3, 3-1=2).
+    *   A×4, B×4: n 1→2 hua, answer +3 badha (kyunki maxFreq=4, 4-1=3).
+*   **Conclusion**: `n` ka coefficient = **`maxFreq - 1`**
+
+### Finding 3: Effect of `maxFreq` (when `n` is constant)
+*   **Observation**: Jab `maxFreq` 1 unit badhta hai, Answer `(n + 1)` units badhta hai.
+*   **Example**: A×3,B×3 (Ans=8) → A×4,B×4 (Ans=11) at n=2. Difference is +3 (kyunki n=2, n+1=3).
+*   **Conclusion**: `maxFreq` ka coefficient = **`n + 1`**
+
+---
+
+## 🧮 Formula Construction (Deductions)
+
+In findings ko combine karke ek formula banaya ja sakta hai:
+
+1.  Max frequency wale tasks ke beech mein `(maxFreq - 1)` gaps hote hain.
+2.  Har gap ka size `n` hota hai. 
+3.  Toh total empty slots = `(maxFreq - 1) * n`.
+4.  Total tasks jo max frequency par hain = `numMaxFreq`.
+5.  Total tasks ki execution slots = (Total maxFreq tasks) + (Gaps) + (Remaining tasks in last block).
+
+Mathematical derivation from coefficients:
+*   Base block size = `maxFreq`
+*   Multiply by `(n + 1)` (cooldown + the task itself)
+*   Add `numMaxFreq` (last row of tasks)
+*   **Derived Formula**: `(maxFreq - 1) * (n + 1) + numMaxFreq`
+
+---
+
+## ⚠️ Finding 4: The Edge Case (n=0 / Small n)
+*   **Observation**: Agar hum formula use karein aur `n` bohot chhota ho (e.g., `n=0`), toh formula answer 6 se chhota de sakta hai. Par 6 tasks ko complete karne ke liye minimum 6 slots toh chahiye hi.
+*   **Rule**: Answer hamesha total tasks se chhota nahi ho sakta.
+*   **Final Logic**: `Answer = max(Formula_Result, tasks.length)`
+
+---
+
+### 🎯 Summary Formula:
+Total Time = max( (maxFreq - 1) * (n + 1) + numMaxFreq, tasks.length )
+--------------------------------------------------------
+
+Maan lo aapke paas A, A, A (3 baar) aur B, B, B (3 baar) hain ,n = 2
+
+///? Humne A _ _ wala kitne dabbe banaye? 
+total 2 dabbe. (Kyunki total 3 A the, aakhri wale A ko chhod ke).
+Formula mein isko likhenge: maxFreq - 1 (3 - 1 = 2)
+
+///? Sirf Ek dabba A _ _ ka size kitna hai? 3 slots (1 A + 2 gaps).
+Formula mein isko likhenge: n + 1 (2 + 1 = 3)
+Toh in 2 dabbon ka total size hua: 2 × 3 = 6 slots.
+
+///? AB bacha-  Aakhri line (Last Row) jodo
+Ab humare paas bacha kya? Sirf aakhri wala A.
+Par humare paas B bhi toh hai! B bhi 3 baar aata hai. Toh kya B aakhri wale A ke saath fit ho sakta hai?
+Haan! Aakhri wala A + aakhri wala B, dono ek saath chal sakte hain: 👉 A B
+
+Yeh aakhri line hai. Isme 2 tasks (A aur B) hain, to ham numMaxFreq [dono A aur B ki freq] ko add karenge. Toh final answer hua: 6 + 2 = 8
+
+///* when n=0 to agar ham formulla lagaye to 
+Ax3, Bx3, n=0
+maxFreq = 3, numMaxFreq = 2, n=0
+Formula = (3-1) * (0+1) + 2 = 2*1 + 2 = 4 but actual answer is 6, so we take max of formula and tasks.length
+result =  (maxFreq - 1) * (n + 1) + numMaxFreq
+Math.max(result, tasks.length)  // 6
+
+
+| Case            | maxFreq | numMaxFreq | n | Formula result | tasks.length | Final | Expected |
+|-----------------|---------|------------|---|----------------|--------------|-------|----------|
+| A×3, B×3        | 3       | 2          | 0 | 4              | 6            | 6     | 6 ✅     |
+| A×3, B×3        | 3       | 2          | 1 | 6              | 6            | 6     | 6 ✅     |
+| A×3, B×3        | 3       | 2          | 2 | 8              | 6            | 8     | 8 ✅     |
+| A×4, B×4        | 4       | 2          | 2 | 11             | 8            | 11    | 11 ✅    |
+| A×4, B×4        | 4       | 2          | 3 | 14             | 8            | 14    | 14 ✅    |
+| A×4, B×4, C×4   | 4       | 3          | 2 | 12             | 12           | 12    | 12 ✅    |
+| A×3, B×3, C×3   | 3       | 3          | 2 | 9              | 9            | 9     | 9 ✅     |
+| [A, B, C]       | 1       | 3          | 2 | 3              | 3            | 3     | 3 ✅     |
+| [A, B]          | 1       | 2          | 2 | 2              | 2            | 2     | 2 ✅     |
+*/
+
+var leastInterval = function (tasks, n) {
+  // step 1 - Count the frequency of each task
+  // step 2 - find maxFreq and numMaxFreq
+  // step 3 - apply the formula
+  // step 4 - return the max of formula result and tasks.length
+
+  let freqMap = new Map();
+  for (let task of tasks) {
+    freqMap.set(task, (freqMap.get(task) || 0) + 1);
+  }
+
+  let maxFreq = 0, numMaxFreq = 0;
+
+  for (let freq of freqMap.values()) {
+    if (freq > maxFreq) {
+      maxFreq = freq;
+      numMaxFreq = 1;
+    } else if (freq === maxFreq) {
+      numMaxFreq++;
+    }
+  }
+
+  let Formula_Result = (maxFreq - 1) * (n + 1) + numMaxFreq;
+  return Math.max(Formula_Result, tasks.length);
+}
+
+// Other way
+var leastInterval = function (tasks, n) {
+  let freq = new Array(26).fill(0);
+  let maxFreq = 0, maxFreqCount = 0;
+
+  for (let i = 0; i < tasks.length; i++) {
+    let curr = tasks[i].charCodeAt() - 65;
+    freq[curr]++;
+    maxFreq = Math.max(maxFreq, freq[curr]);
+  }
+
+  for (let i = 0; i < 26; i++) {
+    if (freq[i] === maxFreq) maxFreqCount++;
+  }
+
+  // here n +1 is a given n means the cycle length and +1 is for the task itself and maxFreq - 1 is because we are counting the last task in maxFreqCount
+
+  let formulla = (n + 1) * (maxFreq - 1) + maxFreqCount;
+  return Math.max(formulla, tasks.length);
+}
+
+// console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 2)); // 8
+// console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 0)); // 6

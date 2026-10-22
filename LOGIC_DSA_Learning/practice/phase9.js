@@ -580,3 +580,213 @@ var leastInterval = function (tasks, n) {
 
 // console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 2)); // 8
 // console.log(leastInterval(["A", "A", "A", "B", "B", "B"], 0)); // 6
+
+//! Leetcode 134. Gas Station [MIMP - ⭐ Interview]
+/* 
+
+gas  = [1, 2, 3, 4, 5]
+cost = [3, 4, 5, 1, 2]
+diff = [-2, -2 , -2, 3 , 3]
+aise diff s bhi check kr skte h - jahan s +ve mila waha s suru krege to 
+phle empty tank - 0 ,and it  is circular path ok
+0+3+3-2-2-2  = 0 and hmne index 3 s hi start kiya tha and ham wahi aa gaye
+----------------------------------------
+Rule:
+Station i par gas[i] petrol milta hai.
+Station i se next station jaane ke liye cost[i] petrol kharch hota hai.
+Tank initially 0 hai.
+
+Important:
+Pehle current station ka gas add hoga,
+fir next station jaane ka cost minus hoga.
+Next station ka gas tab add hoga jab wahan pahunchenge.
+
+
+Start index 0:
+0 par khali tank ke saath pahunche, 1 petrol mila
+tank = 0 + 1 = 1
+
+1 se 2 jaane mein kharch 3 hua
+tank = 1 - 3 = -2
+
+tank negative ho gaya,
+isliye index 0 se start karke circular trip complete nahi hogi.
+
+
+Start index 1:
+1 par khali tank ke saath pahunche, 2 petrol mila
+tank = 0 + 2 = 2
+
+2 se 3 jaane mein kharch 4 hua
+tank = 2 - 4 = -2
+
+tank negative ho gaya,
+isliye index 1 se bhi circular trip complete nahi hogi.
+
+
+Start index 2:
+2 par khali tank ke saath pahunche, 3 petrol mila
+tank = 0 + 3 = 3
+
+3 se 4 jaane mein kharch 5 hua
+tank = 3 - 5 = -2
+
+tank negative ho gaya,
+isliye index 2 se bhi circular trip complete nahi hogi.
+
+
+Start index 3:
+3 par khali tank ke saath pahunche, 4 petrol mila
+tank = 0 + 4 = 4
+
+4 se 0 jaane mein kharch 1 hua
+tank = 4 - 1 = 3
+
+0 par pahunch kar 5 petrol mila
+tank = 3 + 5 = 8
+
+0 se 1 jaane mein kharch 2 hua
+tank = 8 - 2 = 6
+
+1 par pahunch kar 2 petrol mila
+tank = 6 + 2 = 8
+
+1 se 2 jaane mein kharch 3 hua
+tank = 8 - 3 = 5
+
+2 par pahunch kar 3 petrol mila
+tank = 5 + 3 = 8
+
+2 se 3 jaane mein kharch 4 hua
+tank = 8 - 4 = 4
+
+3 par pahunch kar 4 petrol mila
+tank = 4 + 4 = 8
+
+Hum wapas station 3 par pahunch gaye.
+Tank kabhi negative nahi hua.
+Isliye index 3 se circular trip complete ho jayegi.
+
+
+LeetCode expected output = 3.
+Answer = 3 ✅
+*/
+
+/* 
+Ek station se dusre station jaane ke liye:
+fuel = gas[i] - cost[i]
+
+Agar fuel positive hai => tank badhega
+Agar fuel negative hai => tank ghat jayega
+Agar tank negative ho gaya => trip fail
+*/
+/* 
+Example:
+
+gas  = [1, 2, 3, 4, 5]
+cost = [3, 4, 5, 1, 2]
+
+gas - cost:
+[1-3, 2-4, 3-5, 4-1, 5-2]
+[-2, -2, -2, 3, 3]
+
+Agar kisi start se tank negative ho jaye,
+to us start aur fail hone wale station ke beech
+koi bhi station start nahi kar sakta.
+
+Kyunki beech wale station ke paas
+starting fuel kam hoga,
+lekin same travel cost dena padega.
+
+Isliye fail hone par next index ko start maan lo.
+
+matlab - 
+
+Simple samjho:
+
+gas  = [1, 2, 3, 4, 5]
+cost = [3, 4, 5, 1, 2]
+
+
+Start 0:
+
+0 par 1 petrol mila
+tank = 1
+
+1 se 2 jaane ka kharch 3
+tank = 1 - 3 = -2
+
+tank negative ho gaya
+isliye start 0 fail
+
+
+Ab start 1 karo:
+
+1 par 2 petrol mila
+tank = 2
+
+2 se 3 jaane ka kharch 4
+tank = 2 - 4 = -2
+
+tank negative ho gaya
+isliye start 1 bhi fail
+
+
+Ab sawaal:
+
+Start 1 ke paas station 0 ka fuel hai ya nahi?
+
+Nahi.
+Station 0 ka 1 petrol sirf start 0 ko milta hai.
+
+
+To start 1 ka tank start 0 se kam hoga ya zyada?
+
+Kam hoga.
+
+Kyunki start 1 ko station 0 ka 1 petrol nahi mila,
+lekin station 0 se aage jaane ka kharch bhi nahi diya.
+
+Yaha dono ka net loss same hai:
+
+start 0: 1 - 3 = -2
+start 1: 2 - 4 = -2
+
+Isliye dono station 2 tak same tank -2 par pahunchte hain.
+
+
+Agar start 0 station 2 par -2 par fail hua,
+to start 1 bhi station 2 par -2 par fail hoga.
+
+Matlab start 1 se trip complete nahi hogi.
+
+
+General rule:
+
+Agar koi start station i par fail ho jaye,
+to uske baad wala station bhi
+usi jagah tak fail hoga.
+
+Isliye greedy me tank negative hone par
+start = i + 1 kar dete hain.
+
+*/
+var canCompleteCircuit = function (gas, cost) {
+  let totalFuelBalance = 0;  // poori circular route ka total gas - cost
+  let currentTankFuel = 0;   // current starting station se ab tak ka fuel balance
+  let possibleStartStation = 0;  // abhi tak ka best starting station
+
+  for (let currStation = 0; currStation < gas.length; currStation++) {
+    const fuelGainedMinusTravelCost = gas[currStation] - cost[currStation];
+
+    totalFuelBalance += fuelGainedMinusTravelCost;
+    currentTankFuel += fuelGainedMinusTravelCost;
+
+    if (currentTankFuel < 0) {
+      possibleStartStation = currStation + 1;
+      currentTankFuel = 0;
+    }
+  }
+
+  return totalFuelBalance >= 0 ? possibleStartStation : -1;
+}

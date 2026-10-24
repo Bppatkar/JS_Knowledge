@@ -773,20 +773,46 @@ start = i + 1 kar dete hain.
 */
 var canCompleteCircuit = function (gas, cost) {
   let totalFuelBalance = 0;  // poori circular route ka total gas - cost
-  let currentTankFuel = 0;   // current starting station se ab tak ka fuel balance
+  let currentFuelTank = 0;   // current starting station se ab tak ka fuel balance
   let possibleStartStation = 0;  // abhi tak ka best starting station
 
   for (let currStation = 0; currStation < gas.length; currStation++) {
     const fuelGainedMinusTravelCost = gas[currStation] - cost[currStation];
 
     totalFuelBalance += fuelGainedMinusTravelCost;
-    currentTankFuel += fuelGainedMinusTravelCost;
+    currentFuelTank += fuelGainedMinusTravelCost;
 
-    if (currentTankFuel < 0) {
+    if (currentFuelTank < 0) {
       possibleStartStation = currStation + 1;
-      currentTankFuel = 0;
+      currentFuelTank = 0;
     }
   }
 
   return totalFuelBalance >= 0 ? possibleStartStation : -1;
 }
+
+//! Leetcode 1094. Car Pooling
+var carPooling = function (trips, capacity) {
+  let events = []; // station change
+
+  for (let i = 0; i < trips.length; i++) {
+    let [passenger, from, to] = trips[i];
+    events.push([to, -passenger]);
+    events.push([from, +passenger]);
+  }
+  console.log(events);
+  // Ab station ke hisaab se sort karo 
+  events.sort((a, b) => a[0] - b[0]);
+  console.log(events);
+
+  let running = 0;
+
+  for (let i = 0; i < events.length; i++) {
+    running += events[i][1];
+    if (running > capacity) return false;
+  }
+  return true;
+}
+console.log(carPooling([[2, 1, 5], [3, 3, 7]], 4)); // false
+console.log(carPooling([[2, 1, 5], [3, 3, 7]], 5)); // true
+console.log(carPooling([[2, 1, 5], [3, 5, 7]], 3)); // true

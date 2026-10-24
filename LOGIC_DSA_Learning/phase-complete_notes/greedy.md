@@ -1,5 +1,7 @@
 # 🌈 GREEDY ALGORITHM — COMPLETE DEEP DIVE 🌈
 
+> **Philosophy:** Greedy is a problem-solving approach where we make locally optimal choices, with the hope that it will lead to a globally optimal solution.
+> **"Take the best choice at the moment, without worrying about the future."**
 
 # <span style="color:#FF6347">📚 PART 1 — GREEDY FUNDAMENTALS</span>
 
@@ -10,10 +12,6 @@
 **Greedy Algorithm** ek technique hai jisme hum **har step pe locally best choice** lete hain, ye soch ke ki overall globally best answer milega.
 
 **Matlab:** "Abhi jo best lagta hai wahi karo, aage ka baad me dekhenge."
-
-**Philosophy:**
-
-> **"Har step pe best choice lo. Umeed hai global optimum milega."**
 
 **Real life examples:**
 
@@ -26,27 +24,6 @@
 
 ---
 
-## <span style="color:#32CD32">⚡ GREEDY vs DP vs BACKTRACKING</span>
-
-<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
-
-| Aspect | Greedy | DP | Backtracking |
-|:---|:---|:---|:---|
-| **Approach** | Local best | Saare options | Saare options |
-| **Time** | Fast (`O(n log n)` usually) | Slow (`O(n²)`, `O(n·k)`) | Exponential |
-| **Space** | `O(1)` usually | `O(n)` DP table | `O(n)` stack |
-| **Correctness** | Kabhi kabhi ❌ | Always ✅ | Always ✅ |
-| **Kab Use** | Jab greedy choice safe ho | Jab overlapping problems | Jab saare solutions chahiye |
-
-### 🔑 Ek Line Me
-
-> **Greedy** — "abhi jo best, wahi karo"  
-> **DP** — "saare options try karo, best yaad rakho"  
-> **Backtracking** — "saare possible solutions banao"
-
-</div>
-
----
 
 ## <span style="color:#FFD700">🎯 GREEDY KE 2 CONDITIONS (Important!)</span>
 
@@ -55,33 +32,45 @@
 Greedy tabhi **correct** hoti hai jab ye do properties hon:
 
 ### 🔹 1. Greedy Choice Property
-
 **"Local best choice se global best milta hai."**
-
 Matlab — aaj ka best choice, kal ka bhi best hoga.
 
 ### 🔹 2. Optimal Substructure
-
 **"Problem ka optimal solution, subproblems ke optimal solutions se banta hai."**
-
 Matlab — badi problem ka answer, chhoti problems ke answers se milta hai.
 
 ### ⚠️ Problem Kab Aati Hai
-
 Agar greedy choice property **fail** ho jaye, to greedy **galat answer** dega.
 
 **Classic Example — Coin Change:**
+```text
+Coins: [1, 3, 4], Target: 6
+Greedy: 4 + 1 + 1 = 3 coins ❌
+Optimal: 3 + 3 = 2 coins
 ```
-Coins: [1, 3, 4]
-Target: 6
-
-Greedy: 4 + 1 + 1 = 3 coins
-Optimal: 3 + 3 = 2 coins ❌
-
-Greedy fails!
-```
-
 Kyunki greedy ne sabse bada coin (4) pehle liya — jo locally best tha, globally nahi.
+
+</div>
+
+---
+
+## <span style="color:#32CD32">⚡ GREEDY vs DP vs BACKTRACKING</span>
+
+<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
+
+| Aspect          | Greedy                      | DP                       | Backtracking                |
+| :-------------- | :-------------------------- | :----------------------- | :-------------------------- |
+| **Approach**    | Local best                  | Saare options            | Saare options               |
+| **Time**        | Fast (`O(n log n)` usually) | Slow (`O(n²)`, `O(n·k)`) | Exponential                 |
+| **Space**       | `O(1)` usually              | `O(n)` DP table          | `O(n)` stack                |
+| **Correctness** | Kabhi kabhi ❌              | Always ✅                | Always ✅                   |
+| **Kab Use**     | Jab greedy choice safe ho   | Jab overlapping problems | Jab saare solutions chahiye |
+
+### 🔑 Ek Line Me
+
+> **Greedy** — "abhi jo best, wahi karo"  
+> **DP** — "saare options try karo, best yaad rakho"  
+> **Backtracking** — "saare possible solutions banao"
 
 </div>
 
@@ -115,9 +104,70 @@ Kyunki greedy ne sabse bada coin (4) pehle liya — jo locally best tha, globall
 
 ---
 
+# <span style="color:#FF6347">📚 PART 2 — GREEDY PROBLEM HINTS & TYPES</span>
+
+## <span style="color:#1E90FF">🔍 TYPES OF PROBLEMS</span>
+
+<div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #1E90FF;">
+
+1. **Optimization Problems:** (min/max result)
+   - Activity selection / Interval Scheduling
+   - Fractional Knapsack
+   - Job Sequencing with Deadlines
+2. **Graph Problems:**
+   - Minimum Spanning Tree (MST) → Kruskal's / Prim's
+   - Shortest Path → Dijkstra
+3. **Scheduling Problems:**
+   - CPU Scheduling
+4. **Game/Puzzles and much more...**
+
+</div>
+
 ---
 
-# <span style="color:#FF6347">📚 PART 2 — GREEDY PATTERNS</span>
+## <span style="color:#FFD700">🎯 GREEDY PROBLEM HINTS (Keywords to look for)</span>
+
+<div style="background-color:#2d2d0d; padding:15px; border-radius:10px; border-left:5px solid #FFD700;">
+
+1. Max or min Number of.......
+2. Min cost / Max profit / Max utility
+3. Min time / Max time / Min distance / Max distance
+4. Schedule / allocate / assign / select / choose / pick / find / cover / partition / divide efficiently
+5. Sort / Arrange / Order / Organize / Prioritize / Rank / Group / Cluster
+6. Shortest / longest / smallest / largest / nearest / farthest (with constraints)
+7. Non-overlapping intervals
+
+</div>
+
+---
+
+## <span style="color:#32CD32">📜 GOLDEN RULE & TEMPLATE</span>
+
+<div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
+
+### 🔹 Golden Rule
+> **Greedy is an Algorithm, not a Data Structure.** So we can use any data structure to implement greedy algorithm (array, linked list, stack, queue, heap, priority queue, graph etc.)
+- Sometimes greedy requires: Sorting → Choosing
+- Sometimes greedy requires: Choosing → Sorting
+- Sometimes greedy requires: Sorting → Choosing → Sorting
+- Sometimes greedy requires: Combined with Heap / Priority Queues
+- Sometimes greedy requires: Combined with Graph Algorithms
+
+### 🔹 Greedy Algorithm Template
+1. **Sort** the input data (if required)
+2. **Initialize** the result variable (if required)
+3. **Iterate** through the input data and make locally optimal choices
+4. **Update** the result variable (if required)
+5. **Return** the result variable (if required)
+6. **Analyze** T&S Complexity: mostly `O(nlogn)` for sorting, `O(n)` for iteration → Total `O(nlogn)` Time, `O(1)` Space.
+7. **Check** if Greedy Choice Property and Optimal Substructure hold true.
+
+</div>
+
+---
+
+
+# <span style="color:#FF6347">📚 PART 3 — GREEDY PATTERNS</span>
 
 ## <span style="color:#1E90FF">🎯 PATTERN 1 — ACTIVITY SELECTION / INTERVALS</span>
 
@@ -138,7 +188,8 @@ function maxMeetings(intervals) {
   let lastEnd = intervals[0][1];
 
   for (let i = 1; i < intervals.length; i++) {
-    if (intervals[i][0] >= lastEnd) {  // No overlap
+    if (intervals[i][0] >= lastEnd) {
+      // No overlap
       count++;
       lastEnd = intervals[i][1];
     }
@@ -148,6 +199,7 @@ function maxMeetings(intervals) {
 ```
 
 **Visual:**
+
 ```text
 Intervals: [[1,3], [2,4], [3,5], [4,6]]
 
@@ -197,6 +249,7 @@ function merge(intervals) {
 ```
 
 **Visual:**
+
 ```text
 [[1,3], [2,6], [8,10], [15,18]]
        ↑ overlap
@@ -219,16 +272,18 @@ After merge:
 
 ```javascript
 function minMeetingRooms(intervals) {
-  let starts = intervals.map(i => i[0]).sort((a, b) => a - b);
-  let ends = intervals.map(i => i[1]).sort((a, b) => a - b);
+  let starts = intervals.map((i) => i[0]).sort((a, b) => a - b);
+  let ends = intervals.map((i) => i[1]).sort((a, b) => a - b);
 
-  let rooms = 0, endPtr = 0, maxRooms = 0;
+  let rooms = 0,
+    endPtr = 0,
+    maxRooms = 0;
 
   for (let start of starts) {
     if (start < ends[endPtr]) {
-      rooms++;              // Naya room chahiye
+      rooms++; // Naya room chahiye
     } else {
-      endPtr++;             // Ek room free ho gaya
+      endPtr++; // Ek room free ho gaya
     }
     maxRooms = Math.max(maxRooms, rooms);
   }
@@ -237,6 +292,7 @@ function minMeetingRooms(intervals) {
 ```
 
 **Visual:**
+
 ```text
 Meetings: [[0,30], [5,10], [15,20]]
 
@@ -262,7 +318,7 @@ Correct trace:
 start=0: 0 < ends[0]=10 → rooms=1
 start=5: 5 < 10 → rooms=2
 start=15: 15 >= 10 → endPtr=1, rooms stays 2
-         then check 15 vs ends[1]=20? 
+         then check 15 vs ends[1]=20?
 
 Actually algorithm:
 for start in starts:
@@ -278,10 +334,11 @@ Answer: 2 rooms ✅
 ```
 
 **Alternative — Min Heap:**
+
 ```javascript
 function minMeetingRooms(intervals) {
   intervals.sort((a, b) => a[0] - b[0]);
-  let heap = [];  // min-heap of end times
+  let heap = []; // min-heap of end times
 
   for (let [start, end] of intervals) {
     if (heap.length && heap[0] <= start) heap.shift();
@@ -308,7 +365,7 @@ function minMeetingRooms(intervals) {
 function canJump(nums) {
   let maxReach = 0;
   for (let i = 0; i < nums.length; i++) {
-    if (i > maxReach) return false;  // Can't reach
+    if (i > maxReach) return false; // Can't reach
     maxReach = Math.max(maxReach, i + nums[i]);
   }
   return true;
@@ -316,6 +373,7 @@ function canJump(nums) {
 ```
 
 **Visual:**
+
 ```text
 nums = [2, 3, 1, 1, 4]
 
@@ -332,11 +390,14 @@ Reach end ✅
 
 ```javascript
 function jump(nums) {
-  let jumps = 0, currEnd = 0, farthest = 0;
+  let jumps = 0,
+    currEnd = 0,
+    farthest = 0;
 
   for (let i = 0; i < nums.length - 1; i++) {
     farthest = Math.max(farthest, i + nums[i]);
-    if (i === currEnd) {  // Current jump khatam
+    if (i === currEnd) {
+      // Current jump khatam
       jumps++;
       currEnd = farthest;
     }
@@ -361,15 +422,18 @@ function jump(nums) {
 
 ```javascript
 function canCompleteCircuit(gas, cost) {
-  let totalGas = 0, totalCost = 0;
-  let tank = 0, start = 0;
+  let totalGas = 0,
+    totalCost = 0;
+  let tank = 0,
+    start = 0;
 
   for (let i = 0; i < gas.length; i++) {
     totalGas += gas[i];
     totalCost += cost[i];
     tank += gas[i] - cost[i];
 
-    if (tank < 0) {  // Reset
+    if (tank < 0) {
+      // Reset
       start = i + 1;
       tank = 0;
     }
@@ -400,7 +464,7 @@ function canCompleteCircuit(gas, cost) {
 
 ```javascript
 function coinChange(coins, amount) {
-  coins.sort((a, b) => b - a);  // Descending
+  coins.sort((a, b) => b - a); // Descending
   let count = 0;
   for (let coin of coins) {
     while (amount >= coin) {
@@ -440,7 +504,7 @@ Greedy FAILS ❌
 ```javascript
 function fractionalKnapsack(items, capacity) {
   // items = [{value, weight}]
-  items.sort((a, b) => (b.value / b.weight) - (a.value / a.weight));
+  items.sort((a, b) => b.value / b.weight - a.value / a.weight);
 
   let totalValue = 0;
   for (let item of items) {
@@ -457,6 +521,7 @@ function fractionalKnapsack(items, capacity) {
 ```
 
 **Visual:**
+
 ```text
 Items: [{v:60, w:10}, {v:100, w:20}, {v:120, w:30}]
 Capacity = 50
@@ -489,7 +554,7 @@ function jobScheduling(jobs) {
   // jobs = [{id, deadline, profit}]
   jobs.sort((a, b) => b.profit - a.profit);
 
-  let maxDeadline = Math.max(...jobs.map(j => j.deadline));
+  let maxDeadline = Math.max(...jobs.map((j) => j.deadline));
   let slots = new Array(maxDeadline + 1).fill(false);
 
   let totalProfit = 0;
@@ -507,6 +572,7 @@ function jobScheduling(jobs) {
 ```
 
 **Visual:**
+
 ```text
 Jobs: [(1,4,20), (2,1,10), (3,1,40), (4,1,30)]
 
@@ -537,12 +603,13 @@ Total profit: 40 + 20 = 60
 ```javascript
 function numRescueBoats(people, limit) {
   people.sort((a, b) => a - b);
-  let left = 0, right = people.length - 1;
+  let left = 0,
+    right = people.length - 1;
   let boats = 0;
 
   while (left <= right) {
     if (people[left] + people[right] <= limit) {
-      left++;  // Light wala bhi chala gaya
+      left++; // Light wala bhi chala gaya
     }
     right--;
     boats++;
@@ -578,6 +645,7 @@ function maxProfit(prices) {
 ```
 
 **Visual:**
+
 ```text
 prices = [7, 1, 5, 3, 6, 4]
 
@@ -614,11 +682,12 @@ function huffmanCoding(freqs) {
     let b = heap.shift();
     heap.push(a + b);
   }
-  return heap[0];  // Total cost
+  return heap[0]; // Total cost
 }
 ```
 
 **Visual:**
+
 ```text
 Freqs: [5, 9, 12, 13, 16, 45]
 
@@ -645,17 +714,23 @@ Total: 100
 
 ```javascript
 function lemonadeChange(bills) {
-  let five = 0, ten = 0;
+  let five = 0,
+    ten = 0;
 
   for (let bill of bills) {
     if (bill === 5) five++;
     else if (bill === 10) {
       if (five === 0) return false;
-      five--; ten++;
-    } else { // 20
-      if (ten > 0 && five > 0) { ten--; five--; }
-      else if (five >= 3) { five -= 3; }
-      else return false;
+      five--;
+      ten++;
+    } else {
+      // 20
+      if (ten > 0 && five > 0) {
+        ten--;
+        five--;
+      } else if (five >= 3) {
+        five -= 3;
+      } else return false;
     }
   }
   return true;
@@ -698,6 +773,7 @@ function candy(ratings) {
 ```
 
 **Visual:**
+
 ```text
 ratings = [1, 0, 2]
 
@@ -736,6 +812,7 @@ function leastInterval(tasks, n) {
 ```
 
 **Visual:**
+
 ```text
 tasks = ["A","A","A","B","B","B"],  n = 2
 
@@ -751,35 +828,27 @@ Layout: A B _ A B _ A B  → 8 slots
 
 ---
 
----
 
-# <span style="color:#FF6347">📚 PART 3 — GREEDY vs DP (Kab Kaunsa?)</span>
+# <span style="color:#FF6347">📚 PART 4 — GREEDY vs DP & PROVING TECHNIQUES</span>
 
-## <span style="color:#1E90FF">🔍 CONFUSION CLEAR KARO</span>
+## <span style="color:#1E90FF">🔍 CONFUSION CLEAR KARO (Greedy vs DP)</span>
 
 <div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #1E90FF;">
 
-Bahut problems me confusion hoti hai — "Greedy ya DP?"
+| Problem | Greedy | DP |
+|:---|:---:|:---:|
+| Activity Selection | ✅ | ✅ |
+| Merge Intervals | ✅ | — |
+| Jump Game I, II | ✅ | ✅ |
+| Coin Change (standard) | ✅ | ✅ |
+| Coin Change (custom) | ❌ | ✅ |
+| 0/1 Knapsack | ❌ | ✅ |
+| Fractional Knapsack | ✅ | ✅ |
+| Huffman Coding | ✅ | ✅ |
+| Task Scheduler | ✅ | ✅ |
+| LIS | ❌ | ✅ |
 
-### 🔹 Coin Change Example
-
-**Problem:** Minimum coins chahiye amount X ke liye.
-
-| Coins | Greedy | DP |
-|:---|:---|:---|
-| [1, 5, 10, 25] | ✅ Works (standard) | ✅ Works |
-| [1, 3, 4] | ❌ Fails | ✅ Works |
-
-**Rule:** Agar coins **canonical** hain (jaise standard currency), to greedy chalega. Warna DP.
-
-### 🔹 Knapsack Example
-
-| Type | Greedy | DP |
-|:---|:---|:---|
-| **Fractional** | ✅ Works | ✅ Works |
-| **0/1** | ❌ Fails | ✅ Works |
-
-**Rule:** Fractional me value/weight ratio use karo. 0/1 me DP.
+**Rule:** Jahan greedy chal jaye, wahi use karo — fast hai. Nahi chale to DP.
 
 </div>
 
@@ -826,24 +895,24 @@ Agar ye prove kar sake → greedy sahi hai.
 
 <div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #9370DB;">
 
-| Problem | Greedy | DP |
-|:---|:---:|:---:|
-| Activity Selection | ✅ | ✅ |
-| Merge Intervals | ✅ | — |
-| Jump Game I, II | ✅ | ✅ |
-| Coin Change (standard) | ✅ | ✅ |
-| Coin Change (custom) | ❌ | ✅ |
-| 0/1 Knapsack | ❌ | ✅ |
-| Fractional Knapsack | ✅ | ✅ |
-| Huffman Coding | ✅ | ✅ |
-| Task Scheduler | ✅ | ✅ |
-| LIS | ❌ | ✅ |
-| Edit Distance | ❌ | ✅ |
-| Matrix Chain Multiplication | ❌ | ✅ |
-| Longest Common Subsequence | ❌ | ✅ |
-| Gas Station | ✅ | — |
-| Stock Buy/Sell (multiple) | ✅ | ✅ |
-| Stock Buy/Sell (single) | ✅ (min so far) | ✅ |
+| Problem                     |     Greedy      | DP  |
+| :-------------------------- | :-------------: | :-: |
+| Activity Selection          |       ✅        | ✅  |
+| Merge Intervals             |       ✅        |  —  |
+| Jump Game I, II             |       ✅        | ✅  |
+| Coin Change (standard)      |       ✅        | ✅  |
+| Coin Change (custom)        |       ❌        | ✅  |
+| 0/1 Knapsack                |       ❌        | ✅  |
+| Fractional Knapsack         |       ✅        | ✅  |
+| Huffman Coding              |       ✅        | ✅  |
+| Task Scheduler              |       ✅        | ✅  |
+| LIS                         |       ❌        | ✅  |
+| Edit Distance               |       ❌        | ✅  |
+| Matrix Chain Multiplication |       ❌        | ✅  |
+| Longest Common Subsequence  |       ❌        | ✅  |
+| Gas Station                 |       ✅        |  —  |
+| Stock Buy/Sell (multiple)   |       ✅        | ✅  |
+| Stock Buy/Sell (single)     | ✅ (min so far) | ✅  |
 
 **Rule:** Jahan greedy chal jaye, wahi use karo — fast hai. Nahi chale to DP.
 
@@ -853,7 +922,7 @@ Agar ye prove kar sake → greedy sahi hai.
 
 ---
 
-# <span style="color:#FF6347">📚 PART 4 — HEAP + GREEDY COMBINATIONS</span>
+# <span style="color:#FF6347">📚 PART 5 — HEAP + GREEDY COMBINATIONS</span>
 
 ## <span style="color:#1E90FF">🔍 HEAP KA USE GREEDY ME</span>
 
@@ -896,7 +965,7 @@ Kai greedy problems **heap** ke saath solve hoti hain:
 
 ---
 
-# <span style="color:#FF6347">📚 PART 5 — GREEDY PROVING TECHNIQUES</span>
+# <span style="color:#FF6347">📚 PART 6 — GREEDY PROVING TECHNIQUES</span>
 
 ## <span style="color:#1E90FF">🔍 KAISE PROVE KARE GREEDY SAHI HAI?</span>
 
@@ -946,12 +1015,12 @@ Interview me sirf greedy likhna kaafi nahi — **prove** bhi karna padta hai.
 
 <div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
 
-| Proof Method | Kab Use |
-|:---|:---|
-| **Exchange Argument** | Most common — sorting based |
-| **Greedy Stays Ahead** | Sequential decisions |
-| **Contradiction** | Complex proofs |
-| **Structural** | Tree/graph based |
+| Proof Method           | Kab Use                     |
+| :--------------------- | :-------------------------- |
+| **Exchange Argument**  | Most common — sorting based |
+| **Greedy Stays Ahead** | Sequential decisions        |
+| **Contradiction**      | Complex proofs              |
+| **Structural**         | Tree/graph based            |
 
 **Interview me:** Exchange argument sabse zyada impressive hai. Bolo — "Maan lo optimal solution me ye choice X hai, hum isko Y se replace kar sakte hain..."
 
@@ -961,7 +1030,7 @@ Interview me sirf greedy likhna kaafi nahi — **prove** bhi karna padta hai.
 
 ---
 
-# <span style="color:#FF6347">📚 PART 6 — CLASSIC GREEDY PROBLEMS</span>
+# <span style="color:#FF6347">📚 PART 7 — CLASSIC GREEDY PROBLEMS</span>
 
 ## <span style="color:#00FA9A">💻 MUST-KNOW LEETCODE PROBLEMS</span>
 
@@ -969,56 +1038,56 @@ Interview me sirf greedy likhna kaafi nahi — **prove** bhi karna padta hai.
 
 ### 🔹 Interval / Scheduling
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **435** | Non-overlapping Intervals | Activity selection |
-| **56** | Merge Intervals | Sort + merge |
-| **57** | Insert Interval | Merge |
-| **253** | Meeting Rooms II | Heap |
-| **452** | Min Arrows to Burst Balloons | Sort by end |
-| **252** | Meeting Rooms | Sort |
-| **1288** | Remove Covered Intervals | Sort |
-| **1024** | Video Stitching | Jump game variant |
+|    #     | Problem                      | Pattern            |
+| :------: | :--------------------------- | :----------------- |
+| **435**  | Non-overlapping Intervals    | Activity selection |
+|  **56**  | Merge Intervals              | Sort + merge       |
+|  **57**  | Insert Interval              | Merge              |
+| **253**  | Meeting Rooms II             | Heap               |
+| **452**  | Min Arrows to Burst Balloons | Sort by end        |
+| **252**  | Meeting Rooms                | Sort               |
+| **1288** | Remove Covered Intervals     | Sort               |
+| **1024** | Video Stitching              | Jump game variant  |
 
 ### 🔹 Array Greedy
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **55** | Jump Game | Farthest reach |
-| **45** | Jump Game II | Min jumps |
-| **134** | Gas Station | Total + start |
-| **135** | Candy | Two passes |
-| **122** | Stock Buy/Sell II | Sum increases |
-| **121** | Stock Buy/Sell I | Min so far |
-| **763** | Partition Labels | Last occurrence |
+|    #    | Problem           | Pattern         |
+| :-----: | :---------------- | :-------------- |
+| **55**  | Jump Game         | Farthest reach  |
+| **45**  | Jump Game II      | Min jumps       |
+| **134** | Gas Station       | Total + start   |
+| **135** | Candy             | Two passes      |
+| **122** | Stock Buy/Sell II | Sum increases   |
+| **121** | Stock Buy/Sell I  | Min so far      |
+| **763** | Partition Labels  | Last occurrence |
 
 ### 🔹 Heap + Greedy
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **215** | Kth Largest | Min Heap |
-| **347** | Top K Frequent | Heap + HashMap |
-| **621** | Task Scheduler | Max Heap + math |
-| **973** | K Closest Points | Max Heap |
-| **692** | Top K Frequent Words | Heap + custom |
+|    #    | Problem              | Pattern         |
+| :-----: | :------------------- | :-------------- |
+| **215** | Kth Largest          | Min Heap        |
+| **347** | Top K Frequent       | Heap + HashMap  |
+| **621** | Task Scheduler       | Max Heap + math |
+| **973** | K Closest Points     | Max Heap        |
+| **692** | Top K Frequent Words | Heap + custom   |
 
 ### 🔹 String Greedy
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **860** | Lemonade Change | Greedy with counts |
-| **409** | Longest Palindrome | Char counts |
-| **680** | Valid Palindrome II | Two pointers |
-| **316** | Remove Duplicate Letters | Monotonic stack |
+|    #    | Problem                  | Pattern            |
+| :-----: | :----------------------- | :----------------- |
+| **860** | Lemonade Change          | Greedy with counts |
+| **409** | Longest Palindrome       | Char counts        |
+| **680** | Valid Palindrome II      | Two pointers       |
+| **316** | Remove Duplicate Letters | Monotonic stack    |
 
 ### 🔹 Graph Greedy
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **261** | Graph Valid Tree | DFS/BFS |
+|    #     | Problem                    | Pattern                |
+| :------: | :------------------------- | :--------------------- |
+| **261**  | Graph Valid Tree           | DFS/BFS                |
 | **1584** | Min Cost to Connect Points | MST (Prim's/Kruskal's) |
-| **743** | Network Delay Time | Dijkstra |
-| **787** | Cheapest Flights K Stops | Bellman-Ford / DP |
+| **743**  | Network Delay Time         | Dijkstra               |
+| **787**  | Cheapest Flights K Stops   | Bellman-Ford / DP      |
 
 </div>
 
@@ -1026,26 +1095,26 @@ Interview me sirf greedy likhna kaafi nahi — **prove** bhi karna padta hai.
 
 ---
 
-# <span style="color:#FF6347">📚 PART 7 — GREEDY PATTERNS — QUICK REFERENCE</span>
+# <span style="color:#FF6347">📚 PART 8 — GREEDY PATTERNS — QUICK REFERENCE</span>
 
 <div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #FF6347;">
 
-| Pattern | Signal | Greedy Choice |
-|:---|:---|:---|
-| **Activity Selection** | Max events without overlap | Sort by end time |
-| **Merge Intervals** | Combine overlaps | Sort by start time |
-| **Meeting Rooms** | Min resources | Heap of end times |
-| **Jump Game** | Reach end | Track farthest |
-| **Gas Station** | Circular route | Reset on negative |
-| **Fractional Knapsack** | Value/weight | Sort by ratio |
-| **Job Scheduling** | Deadlines | Sort by profit, latest slot |
-| **Huffman** | Min bits | Two smallest combine |
-| **Lemonade** | Change dena | Prefer big notes |
-| **Candy** | Ratings | Two passes |
-| **Task Scheduler** | Cooldown | Max freq first |
-| **Stock II** | Profit | Sum positives |
-| **Partition Labels** | Split string | Last occurrence |
-| **K Largest** | Top K | Min Heap size K |
+| Pattern                 | Signal                     | Greedy Choice               |
+| :---------------------- | :------------------------- | :-------------------------- |
+| **Activity Selection**  | Max events without overlap | Sort by end time            |
+| **Merge Intervals**     | Combine overlaps           | Sort by start time          |
+| **Meeting Rooms**       | Min resources              | Heap of end times           |
+| **Jump Game**           | Reach end                  | Track farthest              |
+| **Gas Station**         | Circular route             | Reset on negative           |
+| **Fractional Knapsack** | Value/weight               | Sort by ratio               |
+| **Job Scheduling**      | Deadlines                  | Sort by profit, latest slot |
+| **Huffman**             | Min bits                   | Two smallest combine        |
+| **Lemonade**            | Change dena                | Prefer big notes            |
+| **Candy**               | Ratings                    | Two passes                  |
+| **Task Scheduler**      | Cooldown                   | Max freq first              |
+| **Stock II**            | Profit                     | Sum positives               |
+| **Partition Labels**    | Split string               | Last occurrence             |
+| **K Largest**           | Top K                      | Min Heap size K             |
 
 </div>
 
@@ -1053,7 +1122,7 @@ Interview me sirf greedy likhna kaafi nahi — **prove** bhi karna padta hai.
 
 ---
 
-# <span style="color:#FF6347">📚 PART 8 — GREEDY MISTAKES (COMMON)</span>
+# <span style="color:#FF6347">📚 PART 9 — GREEDY MISTAKES (COMMON)</span>
 
 <div style="background-color:#3d1a0d; padding:15px; border-radius:10px; border-left:5px solid #FF4500;">
 
@@ -1105,7 +1174,7 @@ Jab **equal** values hain — kaunsa pehle? Sorting stable hai ya nahi?
 
 ---
 
-# <span style="color:#FF6347">📚 PART 9 — GREEDY VS DP — DECISION TREE</span>
+# <span style="color:#FF6347">📚 PART 10 — GREEDY VS DP — DECISION TREE</span>
 
 <div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #FF6347;">
 
@@ -1138,7 +1207,7 @@ Kya local best choice global best deti hai?
 
 ---
 
-# <span style="color:#FF6347">📚 PART 10 — FINAL SUMMARY</span>
+# <span style="color:#FF6347">📚 PART 11 — FINAL SUMMARY</span>
 
 <div style="background-color:#0d3320; padding:15px; border-radius:10px; border-left:5px solid #32CD32;">
 

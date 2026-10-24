@@ -797,15 +797,18 @@ var carPooling = function (trips, capacity) {
 
   for (let i = 0; i < trips.length; i++) {
     let [passenger, from, to] = trips[i];
+    // firstly passenger come out of car so seat become empty then fill it
+    // we dont have to count passenger , we have to count only seat availability , that's why we use +passenger and -passenger
     events.push([to, -passenger]);
     events.push([from, +passenger]);
   }
-  console.log(events);
-  // Ab station ke hisaab se sort karo 
-  events.sort((a, b) => a[0] - b[0]);
-  console.log(events);
+  // console.log(events);
+  // event has only to and passenger
+  // sort by station (whether from or to)"
+  events.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  // console.log(events);
 
-  let running = 0;
+  let running = 0; // running means current number of passengers in car
 
   for (let i = 0; i < events.length; i++) {
     running += events[i][1];

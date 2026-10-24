@@ -816,6 +816,337 @@ var carPooling = function (trips, capacity) {
   }
   return true;
 }
-console.log(carPooling([[2, 1, 5], [3, 3, 7]], 4)); // false
-console.log(carPooling([[2, 1, 5], [3, 3, 7]], 5)); // true
-console.log(carPooling([[2, 1, 5], [3, 5, 7]], 3)); // true
+
+// Other way to write it
+var carPooling = function (trips, capacity) {
+  // constraints is like
+  // from and to is 0 to 1000 so we can use array of size 1001 to store the number of passengers at each station and it is one side which is east so thats good
+  let locationArr = new Array(1001).fill(0);
+
+  for (let i = 0; i < trips.length; i++) {
+    let [passenger, from, to] = trips[i];
+
+    locationArr[from] = locationArr[from] + passenger; // passengers get in
+    locationArr[to] = locationArr[to] - passenger; // passengers get out
+  }
+
+  // now we check used capacity at each station
+  let usedCapacity = 0;
+
+  for (let i = 0; i < locationArr.length; i++) {
+    usedCapacity += locationArr[i];
+    if (usedCapacity > capacity) {
+      return false;
+    }
+    return true;
+  }
+}
+
+// console.log(carPooling([[2, 1, 5], [3, 3, 7]], 4)); // false
+// console.log(carPooling([[2, 1, 5], [3, 3, 7]], 5)); // true
+// console.log(carPooling([[2, 1, 5], [3, 5, 7]], 3)); // true
+
+
+//! Leetcode 135. Candy
+/*
+Rule 1: Har bachche ko kam se kam 1 candy milegi. (0 nahi.)
+
+Rule 2: Agar kisi bachche ki rating kisi neighbour se zyada hai, toh us
+bachche ko us neighbour se zyada candies milni chahiye.
+
+Pehle LeetCode ke given examples:
+
+Example 1: ratings = [1, 0, 2]
+
+Step 1: Sabko minimum 1 candy do.
+Ratings: [1, 0, 2]
+Candies: [1, 1, 1]
+
+Step 2: Ab left-to-right check karo.
+- index 0: left neighbour nahi hai, isliye candies[0] = 1.
+  Candies: [1, 1, 1]
+- index 1: rating 0, left rating 1 se chhoti hai, isliye change nahi.
+  Candies: [1, 1, 1]
+- index 2: rating 2, left rating 0 se badi hai, isliye
+  candies[2] = candies[1] + 1 = 1 + 1 = 2.
+  Candies: [1, 1, 2]
+
+Step 3: Ab right-to-left check karo.
+- index 2: right neighbour nahi hai, isliye change nahi.
+  Candies: [1, 1, 2]
+- index 1: rating 0, right rating 2 se chhoti hai, isliye change nahi.
+  Candies: [1, 1, 2]
+- index 0: rating 1, right rating 0 se badi hai, isliye
+  candies[0] = max(candies[0], candies[1] + 1)
+               = max(1, 1 + 1) = 2.
+  Candies: [2, 1, 2]
+
+Answer: 2 + 1 + 2 = 5
+
+Example 2: ratings = [1, 2, 2]
+
+Step 1: Initially sabko minimum 1 candy do.
+Ratings: [1, 2, 2]
+Candies: [1, 1, 1]
+
+Step 2: Ab left-to-right check karo.
+- index 0: left neighbour nahi hai, isliye candies[0] = 1.
+  Candies: [1, 1, 1]
+- index 1: rating 2, left rating 1 se badi hai, isliye
+  candies[1] = candies[0] + 1 = 1 + 1 = 2.
+  Candies: [1, 2, 1]
+- index 2: rating 2, left rating 2 ke equal hai. Equal rating par extra
+  candy nahi milti, isliye candies[2] = 1.
+  Candies: [1, 2, 1]
+
+Step 3: Ab right-to-left check karo.
+- index 2: right neighbour nahi hai, isliye change nahi.
+  Candies: [1, 2, 1]
+- index 1: rating 2, right rating 2 ke equal hai. Equal rating par
+  extra candy nahi milti, isliye change nahi.
+  Candies: [1, 2, 1]
+- index 0: rating 1, right rating 2 se chhoti hai, isliye change nahi.
+  Final candies: [1, 2, 1]
+
+Answer: 1 + 2 + 1 = 4
+
+Ab samjho ki dono passes kyun zaroori hain:
+
+Example 3: Sirf left-to-right kaafi hai
+ratings = [1, 2, 3, 4, 5]
+
+Step 1: Initially sabko minimum 1 candy do.
+Ratings: [1, 2, 3, 4, 5]
+Candies: [1, 1, 1, 1, 1]
+
+Step 2: Ab left-to-right check karo.
+- index 0: left neighbour nahi hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 1: 2 > 1, candies[1] = candies[0] + 1 = 1 + 1 = 2
+  [1, 2, 1, 1, 1]
+- index 2: 3 > 2, candies[2] = candies[1] + 1 = 2 + 1 = 3
+  [1, 2, 3, 1, 1]
+- index 3: 4 > 3, candies[3] = candies[2] + 1 = 3 + 1 = 4
+  [1, 2, 3, 4, 1]
+- index 4: 5 > 4, candies[4] = candies[3] + 1 = 4 + 1 = 5
+  [1, 2, 3, 4, 5]
+
+Step 3: Ab right-to-left check karo.
+- index 4: right neighbour nahi hai, isliye change nahi.
+  Candies: [1, 2, 3, 4, 5]
+- index 3: rating 4, right rating 5 se chhoti hai, isliye change nahi.
+  Candies: [1, 2, 3, 4, 5]
+- index 2: rating 3, right rating 4 se chhoti hai, isliye change nahi.
+  Candies: [1, 2, 3, 4, 5]
+- index 1: rating 2, right rating 3 se chhoti hai, isliye change nahi.
+  Candies: [1, 2, 3, 4, 5]
+- index 0: rating 1, right rating 2 se chhoti hai, isliye change nahi.
+  Final candies: [1, 2, 3, 4, 5]
+
+Yahan right-to-left pass se kuch change nahi hua, kyunki har rating apne
+right neighbour se chhoti hai.
+Answer: 1 + 2 + 3 + 4 + 5 = 15
+
+Example 4: Sirf right-to-left kaafi hai
+ratings = [5, 4, 3, 2, 1]
+
+Step 1: Initially sabko minimum 1 candy do.
+Ratings: [5, 4, 3, 2, 1]
+Candies: [1, 1, 1, 1, 1]
+
+Step 2: Ab left-to-right check karo.
+- index 0: left neighbour nahi hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 1: rating 4, left rating 5 se chhoti hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 2: rating 3, left rating 4 se chhoti hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 3: rating 2, left rating 3 se chhoti hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 4: rating 1, left rating 2 se chhoti hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+
+Step 3: Ab right-to-left check karo.
+- index 4: right neighbour nahi hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 3: 2 > 1, candies[3] = candies[4] + 1 = 1 + 1 = 2
+  [1, 1, 1, 2, 1]
+- index 2: 3 > 2, candies[2] = candies[3] + 1 = 2 + 1 = 3
+  [1, 1, 3, 2, 1]
+- index 1: 4 > 3, candies[1] = candies[2] + 1 = 3 + 1 = 4
+  [1, 4, 3, 2, 1]
+- index 0: 5 > 4, candies[0] = candies[1] + 1 = 4 + 1 = 5
+  [5, 4, 3, 2, 1]
+
+Answer: 5 + 4 + 3 + 2 + 1 = 15
+
+Example 5: Dono passes zaroori hain
+ratings = [1, 2, 3, 1, 0]
+
+Step 1: Initially sabko minimum 1 candy do.
+Ratings: [1, 2, 3, 1, 0]
+Candies: [1, 1, 1, 1, 1]
+
+Step 2: Ab left-to-right check karo.
+- index 0: left neighbour nahi hai, isliye change nahi.
+  Candies: [1, 1, 1, 1, 1]
+- index 1: rating 2, left rating 1 se badi hai, isliye
+  candies[1] = candies[0] + 1 = 1 + 1 = 2.
+  Candies: [1, 2, 1, 1, 1]
+- index 2: rating 3, left rating 2 se badi hai, isliye
+  candies[2] = candies[1] + 1 = 2 + 1 = 3.
+  Candies: [1, 2, 3, 1, 1]
+- index 3: rating 1, left rating 3 se chhoti hai, isliye change nahi.
+  Candies: [1, 2, 3, 1, 1]
+- index 4: rating 0, left rating 1 se chhoti hai, isliye change nahi.
+  Candies: [1, 2, 3, 1, 1]
+
+Step 3: Ab right-to-left check karo.
+- index 4: right neighbour nahi hai, isliye change nahi.
+  Candies: [1, 2, 3, 1, 1]
+- index 3: rating 1, right rating 0 se badi hai, isliye
+  candies[3] = max(candies[3], candies[4] + 1)
+               = max(1, 1 + 1) = 2.
+  [1, 2, 3, 2, 1]
+- index 2: rating 3, right rating 1 se badi hai, isliye
+  candies[2] = max(candies[2], candies[3] + 1)
+               = max(3, 2 + 1) = 3.
+  [1, 2, 3, 2, 1]
+- index 1: rating 2, right rating 3 se chhoti hai, isliye change nahi.
+  Candies: [1, 2, 3, 2, 1]
+- index 0: rating 1, right rating 2 se chhoti hai, isliye change nahi.
+  Final candies: [1, 2, 3, 2, 1]
+
+Final answer: [1, 2, 3, 2, 1]
+Total = 1 + 2 + 3 + 2 + 1 = 9
+
+`+1` kyun lagate hain?
+
+Rule ke hisaab se higher-rated child ko neighbour se strictly zyada candies milni chahiye. Agar neighbour ko 1 candy mili hai, toh current child ko kam se kam 2 candies chahiye, isliye `neighbour candies + 1` karte hain.
+
+Example:
+ratings  = [1, 2]
+candies  = [1, 1]
+
+Rating 2, rating 1 se zyada hai, isliye:
+candies[1] = candies[0] + 1 = 1 + 1 = 2
+Final candies = [1, 2]
+
+Agar sirf `candies[i] = candies[i - 1]` karte, toh dono ko 1 candy milti,
+jo rule todta hai. Isliye `+1` neighbour se ek candy zyada dene ke liye hai.
+
+`Math.max` isliye use karte hain kyunki left-to-right pass ki value ko
+right-to-left pass me unnecessarily chhota nahi karna hai. Dono passes me
+jo stronger requirement ho, woh value retain karni hai:
+
+candies[i] = Math.max(current candies[i], neighbour candies[i + 1] + 1)
+*/
+
+var candy = function (ratings) {
+  let candies = new Array(ratings.length).fill(1);
+
+  // we need to think about two pass - left to right, and right to left and for that two passes we need two loop
+
+  // left to right
+  for (let i = 0; i < ratings.length; i++) {
+    let left = i - 1;
+    if (left >= 0 && ratings[i] > ratings[left]) {
+      candies[i] = Math.max(candies[i], candies[left] + 1);
+    }
+  }
+
+  // right to left
+  // for right to left reverse we use reverse loop, and we need to check i+1 so we start from n-1, till 0 so '>='
+  for (let i = ratings.length - 1; i >= 0; i--) {
+    let right = i + 1;
+    if (right < ratings.length && ratings[i] > ratings[right]) {
+      candies[i] = Math.max(candies[i], candies[right] + 1);
+    }
+  }
+
+  return candies.reduce((total, candyCount) => total + candyCount, 0);
+}; // TC - O(n), SC - O(n)
+
+// Educator code
+var candy = function (ratings) {
+  let n = ratings.length;
+
+  /*
+///*  separate passes:
+for (let i = 1; i < n; i++) {
+    if (ratings[i] > ratings[i - 1]) {
+      leftToRight[i] = leftToRight[i - 1] + 1;
+    }
+  }
+
+  for (let i = n - 2; i >= 0; i--) {
+    if (ratings[i] > ratings[i + 1]) {
+      rightToLeft[i] = rightToLeft[i + 1] + 1;
+    }
+  }
+
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+    ans += Math.max(leftToRight[i], rightToLeft[i]);
+  }
+  return ans;
+*/
+
+  let leftToRight = new Array(n).fill(1);
+  let rightToLeft = new Array(n).fill(1);
+
+  // Ek hi loop me left-to-right aur right-to-left dono directions process karo.
+  for (let i = 0; i < n; i++) {
+    // Left-to-right: i ke left neighbour se compare karo.
+    if (i > 0 && ratings[i] > ratings[i - 1]) {
+      leftToRight[i] = leftToRight[i - 1] + 1;
+    }
+
+    // Right-to-left: i ke corresponding right-side index se compare karo.
+    let rightIndex = n - 2 - i;
+    if (
+      rightIndex >= 0 &&
+      ratings[rightIndex] > ratings[rightIndex + 1]
+    ) {
+      rightToLeft[rightIndex] = rightToLeft[rightIndex + 1] + 1;
+    }
+  }
+
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+    ans += Math.max(leftToRight[i], rightToLeft[i]);
+  }
+  return ans;
+} // TC - O(n), SC - O(n)
+
+//! TC - O(n) but now SC - O(1)
+// for O(1) space, we can use only one array and calculate the right-to-left pass on the fly while calculating the answer.
+var candy = function (arr) {
+  let i = 1, n = arr.length, ans = n;
+
+  while (i < n) {
+
+    if (arr[i] === arr[i - 1]) { ++i; continue; }
+
+    let up = 0;
+    while (i < n && arr[i] > arr[i - 1]) {
+      ++up;
+      ans += up;
+      i++;
+    }
+
+    let down = 0;
+    while (i < n && arr[i] < arr[i - 1]) {
+      ++down;
+      ans += down;
+      ++i;
+    }
+
+    // removing lesser value on peeks
+    ans = ans - Math.min(up, down);
+  }
+  return ans;
+}
+// console.log(candy([1, 0, 2])); // 5
+// console.log(candy([1, 2, 2])); // 4
+// console.log(candy([1, 3, 2, 2, 1])); // 7

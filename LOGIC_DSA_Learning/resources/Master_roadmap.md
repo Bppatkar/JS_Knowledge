@@ -2861,7 +2861,7 @@ Understand why replacing a non-greedy choice with the greedy choice does not mak
 - **LC 621 — Task Scheduler** ✅
 - **LC 134 — Gas Station** ✅
 - **LC 1094 — Car Pooling** ✅
-- **LC 135 — Candy**
+- **LC 135 — Candy** ✅
 - **LC 55 — Jump Game**
 - **LC 45 — Jump Game II**
 - **LC 452 — Minimum Number of Arrows**

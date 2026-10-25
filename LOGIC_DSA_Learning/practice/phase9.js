@@ -1150,3 +1150,80 @@ var candy = function (arr) {
 // console.log(candy([1, 0, 2])); // 5
 // console.log(candy([1, 2, 2])); // 4
 // console.log(candy([1, 3, 2, 2, 1])); // 7
+
+
+//! Leetcode 452. Minimum Number of Arrows to Burst Balloons
+/* 
+Input: points = [[10,16],[2,8],[1,6],[7,12]] Output - 2
+
+x:     1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16
+       |--------------|
+          |-----------------|
+                         |---------------|
+                                  |------------------|
+*/
+/* 
+Ye LC 435 (non-overlapping intervals) se ULTA hai:
+
+LC 435: touching intervals ko non-overlapping maana jaata tha ([1,2] aur [2,3] — alag)
+
+LC 452: touching intervals overlap maana jaata hai (ek arrow dono phatа sakta hai)
+
+Ye difference critical hai — dono problems ka solution similar dikhega par decision ulta hoga.
+
+LC 435 mein maximum non-overlapping intervals dhoondh rahe the — yahan minimum overlapping cove
+*/
+/* 
+Counterexample: [[1,10],[2,3],[4,5],[6,7]]
+sort by start - [[1,10],[2,3],[4,5],[6,7]] → arrow at 10 bursts only [1,10]; phir [2,3], [4,5], [6,7] ke liye alag → 4 arrows
+
+sort by end - [[2,3],[4,5],[6,7],[1,10]] → arrow at 3 bursts [2,3] + [1,10]; arrow at 5 bursts [4,5]; arrow at 7 bursts [6,7] → 3 arrows ✅
+*/
+/* 
+Counterexample jahan pairwise fail hota hai
+[[1,3],[2,5],[4,10]] — sorted by end already.
+
+Tumhara pairwise approach:
+
+[1,3] → pehla arrow, count = 1, arrow position = 3 (kyunki ye pehle interval ka end hai)
+
+[2,5] vs [1,3]: 2 <= 3 → overlap → skip. ✓ (arrow at 3 bursts [2,5], 2≤3≤5)
+
+[4,10] vs [2,5] (prev): 4 <= 5 → overlap → skip. ❌ GALAT!
+
+Par arrow at 3 bursts [4,10]? 4 ≤ 3? NAHI! [4,10] ko alag arrow chahiye.
+
+Pairwise output: 1 arrow (galat)
+Correct output: 2 arrows (arrow at 3 for [1,3]+[2,5]; arrow at 4/10 for [4,10])
+
+Kyun fail hua — root cause
+[2,5] skip hua, par uska end (5) arrow position (3) se bada hai. Tum [4,10] ko [2,5] se compare kar rahe ho (4 <= 5 → overlap lagta hai), par actual arrow at 3 hai, [4,10] usse burst nahi hota.
+
+Matlab: tum prev interval ke end se compare kar rahe ho — par prev skip ho chuka ho sakta hai, aur uska end actual arrow position se bada ho sakta hai. Compare kis se karna hai, wo confuse ho raha hai.
+*/
+var findMinArrowShots = function (points) {
+  // sort by end
+  points.sort((a, b) => a[1] - b[1]);
+
+  let start = 0, end = 1;
+  let lastArrowPosition = points[0][1]; // end of first interval
+  let arrowCount = 1; // its start from 1 because our lastArrowPosition showing we burst one ballon [Pehla arrow already shoot ho chuka hai ]
+
+  // overlap 
+  for (let curr = 1; curr < points.length; curr++) {
+    if (points[curr][start] > lastArrowPosition) {
+      // current interval lastArrow se aage h to new arrow chahiye
+      arrowCount++;
+      // updating lastArrowPosition
+      lastArrowPosition = points[curr][end];
+    }
+    // else: last arrow ne already burst kr diya to skip
+  }
+  return arrowCount;
+}
+
+//! Leetcode 406. Queue Reconstruction by Height
+var reconstructQueue = function (people) { }
+
+//! Leetcode 846. Hand of Straights
+var isNStraightHand = function (hand, groupSize) { }

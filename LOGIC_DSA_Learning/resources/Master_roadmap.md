@@ -2862,11 +2862,9 @@ Understand why replacing a non-greedy choice with the greedy choice does not mak
 - **LC 134 — Gas Station** ✅
 - **LC 1094 — Car Pooling** ✅
 - **LC 135 — Candy** ✅
-- **LC 55 — Jump Game**
-- **LC 45 — Jump Game II**
-- **LC 452 — Minimum Number of Arrows**
-- **LC 406 — Queue Reconstruction by Height**
-- **LC 846 — Hand of Straights**
+- **LC 452 — Minimum Number of Arrows to Burst Balloons** ✅
+- **LC 406 — Queue Reconstruction by Height**  ✅
+- **LC 846 — Hand of Straights** ✅
 
 ## Problem Ladder
 

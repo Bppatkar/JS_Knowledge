@@ -1246,8 +1246,38 @@ var reconstructQueue = function (people) {
   }
   return resultArr;
 }
-console.log(reconstructQueue([[7, 0], [4, 4], [7, 1], [5, 0], [6, 1], [5, 2]])); // [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
-console.log(reconstructQueue([[6, 0], [5, 0], [4, 0], [3, 2], [2, 2], [1, 4]])); // [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
+// console.log(reconstructQueue([[7, 0], [4, 4], [7, 1], [5, 0], [6, 1], [5, 2]])); // [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+// console.log(reconstructQueue([[6, 0], [5, 0], [4, 0], [3, 2], [2, 2], [1, 4]])); // [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
 
 //! Leetcode 846. Hand of Straights
-var isNStraightHand = function (hand, groupSize) { }
+var isNStraightHand = function (hand, groupSize) {
+  // handling edge case
+  if (hand.length % groupSize !== 0) return false;
+
+  // we use freqMap
+  let map = new Map();
+  for (let card of hand) {
+    map.set(card, (map.get(card) || 0) + 1);
+  }
+
+  // sorting of freqMap keys asending order
+  let sortedKeys = Array.from(map.keys()).sort((a, b) => a - b);
+
+  for (let i = 0; i < sortedKeys.length; i++) {
+    if (!map.has(sortedKeys[i])) continue; // if key is already used, skip
+
+    // now we count the number of current card and check for next groupSize - 1 cards
+
+    let count = map.get(sortedKeys[i]); // get the count of current card
+    
+    for (let j = 0; j < groupSize; j++) {
+      let currentCard = sortedKeys[i] + j;
+      if (!map.has(currentCard)) return false; // if next card is not present, return false
+      let currentCount = map.get(currentCard);
+      if (currentCount < count) return false;
+      map.set(currentCard, currentCount - count); // reduce the count of current card
+      if (map.get(currentCard) === 0) map.delete(currentCard); // if count becomes 0, delete the card from map
+    }
+  }
+  return true;
+}

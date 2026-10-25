@@ -1223,7 +1223,31 @@ var findMinArrowShots = function (points) {
 }
 
 //! Leetcode 406. Queue Reconstruction by Height
-var reconstructQueue = function (people) { }
+//? aage kitne log, aur unme se kitne lambe ya barabar.
+//* Rule -: Naye insaan ke liye — pehle wale sabhi logon ki height ko naye insaan ki height se compare karo. Jitne bhi ≥ naya_height hain — wahi count hai.
+//?  asli constraint ye hai ki har insaan ke aage usse lambe/barabar wale kitne hain, wo uske k ke barabar ho.
+
+
+var reconstructQueue = function (people) {
+  let resultArr = [], k = null;
+
+  // sorting - height descending, and if height same then k ascending
+  people.sort((a, b) => {
+    if (a[0] === b[0]) return a[1] - b[1];
+    return b[0] - a[0];
+  })
+
+  // insert each person at index k
+  for (let i = 0; i < people.length; i++) {
+    k = people[i][1];
+    // splice(k, 0, person)
+    // splice method  - (index, delete, insert)
+    resultArr.splice(k, 0, people[i]);
+  }
+  return resultArr;
+}
+console.log(reconstructQueue([[7, 0], [4, 4], [7, 1], [5, 0], [6, 1], [5, 2]])); // [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+console.log(reconstructQueue([[6, 0], [5, 0], [4, 0], [3, 2], [2, 2], [1, 4]])); // [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
 
 //! Leetcode 846. Hand of Straights
 var isNStraightHand = function (hand, groupSize) { }

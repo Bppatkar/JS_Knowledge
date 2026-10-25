@@ -2722,7 +2722,7 @@ Trees require deeper coverage, so the ladder may naturally approach the maximum.
 
 ## Status
 
-⏳ Running
+Completed ✅
 
 ## Goal
 
@@ -2801,7 +2801,7 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ Future Phase
+Completed ✅
 
 ## Goal
 
@@ -2863,7 +2863,7 @@ Understand why replacing a non-greedy choice with the greedy choice does not mak
 - **LC 1094 — Car Pooling** ✅
 - **LC 135 — Candy** ✅
 - **LC 452 — Minimum Number of Arrows to Burst Balloons** ✅
-- **LC 406 — Queue Reconstruction by Height**  ✅
+- **LC 406 — Queue Reconstruction by Height** ✅
 - **LC 846 — Hand of Straights** ✅
 
 ## Problem Ladder
@@ -2883,7 +2883,7 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ Future Phase
+⏳ RUNNING — current phase
 
 ## Goal
 
@@ -3025,7 +3025,7 @@ DP naturally needs deeper coverage.
 
 ## Status
 
-⏳ Future Phase
+⏳ Next Phase
 
 ## Goal
 
@@ -3793,15 +3793,15 @@ Phase 12 — Advanced Data Structures
 
 ## Phase 8 — Heap / Priority Queue
 
-- 12/12 representative problems ⏳ Running
+- 12/12 representative problems ✅
+
+## Phase 9 — Greedy
+
+- 15/15 representative problems ✅
 
 ## Next
 
 ```text
-Phase 8 — Heap/Priority Queue
-↓
-Phase 9 — Greedy
-↓
 Phase 10 — Dynamic Programming
 ↓
 Phase 11 — Graphs
@@ -3839,13 +3839,13 @@ COMPLETED / LOCKED:
 - Phase 5B — Sorting & Searching (parallel track)
 - Phase 6 — Recursion & Backtracking (14 problems)
 - Phase 7  — Trees (21 problems)
+- Phase 8  — Heap (12 problems)
+- Phase 9  — Greedy (15 problems)
 
 CURRENT ACTIVE PHASE:
-- Phase 8  — Heap (12 problems)
+- Phase 10 — Dynamic Programming (17 problems)
 
 NEXT AFTER CURRENT:
-- Phase 9  — Greedy (14 problems)
-- Phase 10 — Dynamic Programming (17 problems)
 - Phase 11 — Graphs (14 problems)
 - Phase 12 — Advanced Data Structures (11 problems)
 
@@ -3961,11 +3961,11 @@ PHASE 5B — Sorting & Searching ✅ PARALLEL TRACK (7–10 problems)
 
 PHASE 6  — Recursion & Backtracking ✅ (14 problems)
 PHASE 7  — Trees (21 problems) ✅
-PHASE 8  — Heap/Priority Queue ⏳ ← NEXT
-PHASE 9  — Greedy ⏳ (14 problems)
-PHASE 10 — Dynamic Programming ⏳ (17 problems)
-PHASE 11 — Graphs ⏳ (14 problems)
-PHASE 12 — Advanced Data Structures - Trie, DP & Array, String ,
+PHASE 8  — Heap/Priority Queue ✅
+PHASE 9  — Greedy ⏳ (15 problems) ✅
+PHASE 10 — Dynamic Programming (17 problems) ⏳ ← Current
+PHASE 11 — Graphs ⏳ (14 problems) ⏳ ← NEXT
+PHASE 12 — Advanced Data Structures - Trie, DP & Array, String
 ```
 
 **Ordering principle now enforced:**

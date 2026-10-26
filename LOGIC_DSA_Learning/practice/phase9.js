@@ -1250,8 +1250,43 @@ var reconstructQueue = function (people) {
 // console.log(reconstructQueue([[6, 0], [5, 0], [4, 0], [3, 2], [2, 2], [1, 4]])); // [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
 
 //! Leetcode 846. Hand of Straights
+/*
+! Thinking process:
+
+ Visualization:
+ hand = [1, 2, 3, 6, 2, 3, 4, 7, 8]
+ groupSize = 3
+
+ Sorted unique cards: [1, 2, 3, 4, 6, 7, 8]
+ Initial counts:       {1:1, 2:2, 3:2, 4:1, 6:1, 7:1, 8:1}
+
+ startCard = 1, count = 1
+ Required group: [1, 2, 3]
+ Counts after use: {2:1, 3:1, 4:1, 6:1, 7:1, 8:1}
+
+ `2` and `3` abhi bhi available hain, isliye next unused startCard = 2.
+ startCard = 2, count = 1
+ Required group: [2, 3, 4]
+ Counts after use: {6:1, 7:1, 8:1}
+
+ Next unused startCard = 6, count = 1
+ Required group: [6, 7, 8]
+ Counts after use: {}
+
+ Map empty ho gaya, matlab saare cards valid consecutive groups me use ho gaye.
+ Answer: true
+
+ Important:
+ `count` previous card ka count nahi hota. Ye smallest unused `startCard` ka
+ count hota hai, aur batata hai ki us card se kitne groups ek saath open karne
+ padenge. Isi wajah se har agle card ka count kam se kam `count` hona chahiye.
+
+ Time complexity: O(n + k log k)
+ n = hand.length, k = unique cards ki count
+ Space complexity: O(k)
+*/
 var isNStraightHand = function (hand, groupSize) {
-  // handling edge case
+  //handling edge case
   if (hand.length % groupSize !== 0) return false;
 
   // we use freqMap
@@ -1269,7 +1304,7 @@ var isNStraightHand = function (hand, groupSize) {
     // now we count the number of current card and check for next groupSize - 1 cards
 
     let count = map.get(sortedKeys[i]); // get the count of current card
-    
+
     for (let j = 0; j < groupSize; j++) {
       let currentCard = sortedKeys[i] + j;
       if (!map.has(currentCard)) return false; // if next card is not present, return false

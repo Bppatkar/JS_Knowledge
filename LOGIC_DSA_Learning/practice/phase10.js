@@ -86,9 +86,26 @@ function fib(n) {
 //? 2. Top-Down Approach - It is also called Memoization, when we solve the problem it uses "Recursion". Memoization means we are storing these result or values somewhere, [we can use array or map or object to store these values, because fetching data from a data structure is faster than recalculating it because it O(1)].
 
 //! Advantage and Disadvantage of both approaches
-//* 1. Bottom-Up Approach - It is more efficient than Top-Down Approach, because it uses Iteration, and it does not use extra space for recursion stack, but it takes more time to write the code, and it is not easy to understand for beginners.
+/* 
+         Top-Down Approach (Memoization)          |          Bottom-Up Approach (Tabulation)
+      1. use Recursion                            |      1. use Iteration
+      2. go from n to 0 (top to bottom)           |      2. go from 0 to n (bottom to top)
+      3. also called Memoization                  |      3. also called Tabulation
+    4. Easier to think [Recursion Tree Buidling]  |     4. Difficilt to think 
+                                                            [Iteration  Solution takes more time to think]
 
-//* 2. Top-Down Approach - It is less efficient than Bottom-Up Approach, because it uses Recursion, and it uses extra space for recursion stack, but it takes less time to write the code, and it is easy to understand for beginners.
+    5. Recursion is expensive                     |    5. Iteration is less expensive
+    [in callstack, it takes more space and time]
+
+-------------------------------------------------------------------------------------
+  🔑 -   If u consider Easuer to think, Top-Down wins, But,
+  🔑 -   If u consider Recursion is Expensive, Bottom-Up wins.
+
+(Both have its pros and cons, but both are used in different scenarios, so we have to choose the right approach according to the problem statement and constraints.)
+{in some questions it is very intutive to use Recursion, or in some questions it is very intutive to use Iteration, we solved more and more questions, so we will automatically realize that which approach is better for which type of question, and we will choose the right approach according to the problem statement and constraints.}
+///! "GOLDEN RULE" - If u r trying to solve any question, "THINK ABOUT USING RECURSION FIRST/ Decision Tree", then u code it in whatever way u want, in Recursive code or in Iterative code.
+*/
+
 
 //! Leetcode - 509. Fibonacci Number
 // using Recursion

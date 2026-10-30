@@ -340,3 +340,189 @@ var coinChange = function (coins, amount) {
   }
   return fn(amount);
 };
+
+//! Leetcode 647. Palindromic Substrings
+// top-down approach [Memoization] (Recursion)
+/*
+Thinking process:
+
+Har substring ke liye hum dono ends ko check karenge:
+  1. s[i] aur s[j] same hone chahiye.
+  2. Agar same hain, to andar wali substring palindrome honi chahiye.
+
+Example: "racecar"
+  r == r  -> ab "aceca" palindrome hai ya nahi check karo
+  a == a  -> ab "cec" palindrome hai ya nahi check karo
+  c == c  -> ab "e" palindrome hai ya nahi check karo
+  "e" ek single character hai, aur single character hamesha palindrome hota hai.
+
+Yahi recursive pattern hai:
+  isPal(i, j) = s[i] === s[j] && isPal(i + 1, j - 1)
+
+Base case i >= j hai:
+  - i === j: ek single character
+  - i > j: empty middle part
+Dono cases palindrome hote hain.
+
+Sirf palindrome check karna enough nahi hai; hame har possible substring count karni hai.
+Isliye i ko start index aur j ko end index bana kar all substrings check karte hain.
+Memoization se same (i, j) substring dobara calculate nahi hoti.
+*/
+var countSubstrings = function (s) {
+  let n = s.length;
+  let dpStore = Array.from({ length: n }, () => []);
+
+  function isPal(i, j) {
+    // i >= j means single character ya empty middle part: dono palindrome hain.
+    if (i >= j) return true;
+
+    if (dpStore[i][j] !== undefined) return dpStore[i][j];
+
+    // Outer characters different hain, to poori substring palindrome nahi ho sakti.
+    if (s[i] !== s[j]) return dpStore[i][j] = false;
+
+    // Outer characters same hain; ab andar ki poori substring check karo.
+    dpStore[i][j] = isPal(i + 1, j - 1);
+    return dpStore[i][j];
+  }
+  let count = 0;
+  for (let i = 0; i < n; i++) {
+    for (let j = i; j < n; j++) {
+      // Har start-end pair ek possible substring represent karta hai.
+      if (isPal(i, j)) count++;
+    }
+  }
+  return count;
+}
+
+// bottom-up approach [Tabulation]{Iterative}
+/*
+Iterative thinking:
+
+Recursion me hum pehle andar wali substring ka answer nikalte hain, phir bahar wali substring check karte hain. Iteration me bhi same order follow karna hoga:
+
+  "a"              -> length 1, always palindrome
+  "aa"             -> length 2, sirf outer characters same check karo
+  "aba"            -> length 3, outer same + andar "b" palindrome
+  "abba"           -> length 4, outer same + andar "bb" palindrome
+
+Isliye substring length 1 se n tak chalate hain. Jab dpStore[i + 1][j - 1]
+already calculate ho chuka hota hai, tab dpStore[i][j] calculate kar sakte hain.
+
+Pehle length 1 aur length 2 ke liye separate loops:
+  - length 1: (0,0), (1,1), (2,2) ... sab single characters hain, isliye true.
+  - length 2: (0,1), (1,2), (2,3) ... sirf s[i] === s[j] check karna hai.
+
+Uske baad length 3 se n tak same formula use karenge:
+  s[i] === s[j] && dpStore[i + 1][j - 1]
+
+Matlab agar outer characters same hain aur andar wali substring palindrome hai,
+to current substring bhi palindrome hai. Jaise "racecar" me r == r ke baad
+"aceca" check hota hai, phir a == a ke baad "cec", phir c == c ke baad "e".
+Single character "e" par pahunchte hi answer true milta hai.
+
+Recursion ka:
+  s[i] === s[j] && isPal(i + 1, j - 1)
+
+Iteration ka equivalent:
+  - length 2: s[i] === s[j]
+  - length 3 se n: s[i] === s[j] && dpStore[i + 1][j - 1]
+
+Har true palindrome milne par count++ karte hain.
+----------------------------------------------------
+new Array(n) — sirf length set karta hai, holes banate hain. .fill() ke saath use karo. 1D ke liye theek.
+
+Array.from({ length: n }, () => init) — har element ke liye callback chalata hai, fresh value deta hai. 2D ke liye zaroori (kyunki har row alag array honi chahiye).
+
+.fill([]) ek hi [] ko n baar daalta hai. Ek row modify karoge, sabhi modify ho jayengi.
+
+Ya loop se:
+
+let dp = [];
+for (let i = 0; i < n; i++) 
+  dp.push(new Array(n).fill(false));
+
+Rule: 
+1D → new Array(n).fill(x). 
+2D → Array.from(..., () => ...) ya loop. new Array(n).fill([]) kabhi nahi.
+------------------------------------------------------
+Dry run — "aaa" (n=3), Init: count=0
+
+Length 1:
+
+dp[0][0]=T, dp[1][1]=T, dp[2][2]=T → count=3
+
+Length 2:
+
+i=0, j=1: s[0]='a' === s[1]='a' → dp[0][1]=T, count=4
+
+i=1, j=2: s[1]='a' === s[2]='a' → dp[1][2]=T, count=5
+
+Length 3:
+
+i=0, j=2: s[0]='a' === s[2]='a' ✓, dp[1][1]=T ✓ → dp[0][2]=T, count=6
+
+Return 6 ✓ (a, a, a, aa, aa, aaa)
+
+Dry run — "abba" (n=4)
+Length 1: count=4
+
+Length 2:
+
+i=0, j=1: 'a'≠'b' → skip
+
+i=1, j=2: 'b'='b' → dp[1][2]=T, count=5
+
+i=2, j=3: 'b'≠'a' → skip
+
+Length 3:
+
+i=0, j=2: 'a'≠'b' → skip
+
+i=1, j=3: 'b'≠'a' → skip
+
+Length 4:
+
+i=0, j=3: 'a'='a' ✓, dp[1][2]=T ✓ → dp[0][3]=T, count=6
+
+Return 6 ✓ (a, b, b, a, bb, abba)
+
+
+*/
+var countSubstrings = function (s) {
+  let dpStore = Array.from({ length: s.length }, () => new Array(s.length).fill(false));
+
+  let count = 0;
+
+  // one length : length 1: (0,0), (1,1), (2,2) ... sab single 
+  for (let i = 0; i < s.length; i++) {
+    dpStore[i][i] = true;
+    count++;
+  }
+
+  // two length: (0,1), (1,2), (2,3) ...
+  for (let i = 0; i + 1 < s.length; i++) {
+    let j = i + 1;
+    if (s[i] === s[j]) {
+      dpStore[i][j] = true;
+      count++;
+    }
+  }
+
+  // three length se n length tak
+  // when we check 3 length, like "racecar"
+  // we check 3 length - rac, then ace, then ceb, then eca, then car so when we reach car so our len is on 4th index on "racecar" that why inner loop we write is -  i <= s.length - len, because we want to check all substrings of length len, and the last starting index for a substring of length len is s.length - len.
+  for (let len = 3; len <= s.length; len++) {
+    for (let i = 0; i <= s.length - len; i++) { // substring start index
+
+      // now if we have to find a substring length for check palindrome, we have to find the end index of the substring, which is i + len - 1, because if we have a substring of length len starting at index i, then the end index will be i + len - 1. For example, if we have a substring of length 3 starting at index 0, then the end index will be 0 + 3 - 1 = 2, which is correct. example - "racecar", if we start check first 3 length substring which is "rac", then i = 0, len = 3, so j = 0 + 3 - 1 = 2, which is correct. So we can check the substring from index i to j.
+      let j = i + len - 1; // substring end index
+
+      if (s[i] === s[j] && dpStore[i + 1][j - 1]) {
+        dpStore[i][j] = true;
+        count++;
+      }
+    }
+  }
+  return count;
+}

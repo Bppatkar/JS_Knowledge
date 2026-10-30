@@ -526,3 +526,38 @@ var countSubstrings = function (s) {
   }
   return count;
 }
+
+//! Leetcode 5. Longest Palindromic Substring
+// bottom-up approach [Tabulation]{Iterative}
+//? solving using above solution [LC 647]
+var longestPalindrome = function (s) {
+  let n = s.length;
+  let dp = Array.from({ length: n }, () => Array(n).fill(null));
+
+  let ans = [0, 0]; // storing index of string [start, end]
+
+  // base case - 1 length and 2 length string
+  for (let i = 0; i < s.length; i++) {
+    // 1 length - updating 2D Array
+    dp[i][i] = true;  // already updated answer array index
+
+    // 2 length
+    if (i < n - 1 && s[i] === s[i + 1]) {
+      dp[i][i + 1] = true;
+      ans = [i, i + 1]
+    }
+  }
+
+  // length 3 string till n
+  for (let len = 3; len <= n; len++) { // string length
+    for (let i = 0; i <= n - len; i++) { // substring start index
+      let j = i + len - 1 // substring length {ending index}
+
+      if (s[i] === s[j] && dp[i + 1][j - 1]) {
+        dp[i][j] = true;
+        ans = [i, j];
+      }
+    }
+  }
+  return s.substring(ans[0], ans[1] + 1); // substring dosent include last index thats why we use +1 
+}

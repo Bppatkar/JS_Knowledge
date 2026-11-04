@@ -561,3 +561,32 @@ var longestPalindrome = function (s) {
   }
   return s.substring(ans[0], ans[1] + 1); // substring dosent include last index thats why we use +1 
 }
+
+//! Leetcode 91. Decode Ways
+// top-down approach [Memoization] (Recursion)
+var numDecodings = function (s) {
+  let dpStore = [], n = s.length;
+
+
+  let ways = (i) => {
+    // base case - empty string = 1 successfull decoding
+    if (i >= n) return 1; // empty string = 1 way
+    if (s[i] === '0') return 0;          // leading zero invalid
+
+    if (dpStore[i] !== undefined) return dpStore[i];
+
+    // choice 1 : single digit (s[i]);
+    let total = ways(i + 1);
+
+    // choice 2 : two digit (s[i...i+1]);
+    if (i + 1 < n) {
+      let twoDigit = parseInt(s[i] + s[i + 1]);
+      if (twoDigit >= 10 && twoDigit <= 26) {
+        total += ways(i + 2);
+      }
+    }
+    dpStore[i] = total;
+    return total;
+  }
+  return ways(0); // initially starting from index 0 of string
+}

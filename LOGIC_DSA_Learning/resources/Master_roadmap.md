@@ -2987,10 +2987,15 @@ The most important DP skill:
 
 ## Representative LeetCode
 
-- **LC 70 — Climbing Stairs**
-- **LC 198 — House Robber**
-- **LC 213 — House Robber II**
-- **LC 322 — Coin Change**
+- **LC 509 — Fibonacci Number** ✅
+- **LC 70 — Climbing Stairs** ✅
+- **LC 746 — Min Cost Climbing Stairs** ✅
+- **LC 198 — House Robber** ✅
+- **LC 213 — House Robber II** ✅
+- **LC 322 — Coin Change** ✅
+- **LC 647 — Palindromic Substrings** ✅
+- **LC 5 — Longest Palindromic Substring** ✅
+- **LC 91 — Decode Ways** ✅
 - **LC 300 — Longest Increasing Subsequence**
 - **LC 1143 — Longest Common Subsequence**
 - **LC 72 — Edit Distance**

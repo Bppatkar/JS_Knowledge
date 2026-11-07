@@ -590,3 +590,29 @@ var numDecodings = function (s) {
   }
   return ways(0); // initially starting from index 0 of string
 }
+
+// other way
+var numDecodings = function (s) {
+  let dpStore = [];
+  let ways = (remainStr) => {
+    let n = remainStr.length;
+    if (remainStr === '') return 1; // way found
+    if (remainStr === '0') return 0; // leading 0 
+
+    if (dpStore[remainStr] !== undefined) return dpStore[remainStr];
+
+    let oneDigit = remainStr.substring(n - 1);
+    let twoDigit = remainStr.substring(n - 2);
+
+    let total = 0;
+    if (oneDigit !== '0') {
+      total += ways(remainStr.substring(0, n - 1));
+    }
+    if (n >= 2 && twoDigit >= 10 && twoDigit <= 26) {
+      total += ways(remainStr.substring(0, n - 2));
+    }
+    dpStore[remainStr] = total;
+    return total;
+  }
+  return ways(s);
+}

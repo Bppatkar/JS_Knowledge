@@ -2996,6 +2996,7 @@ The most important DP skill:
 - **LC 647 — Palindromic Substrings** ✅
 - **LC 5 — Longest Palindromic Substring** ✅
 - **LC 91 — Decode Ways** ✅
+- **LC 53 - Maximum Subarray** ✅
 - **LC 300 — Longest Increasing Subsequence**
 - **LC 1143 — Longest Common Subsequence**
 - **LC 72 — Edit Distance**

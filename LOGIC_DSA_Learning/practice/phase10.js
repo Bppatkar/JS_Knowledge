@@ -199,7 +199,7 @@ var rob = function (nums) {
     if (i === 0) return nums[0];
     if (i === 1) return Math.max(nums[0], nums[1]);
 
-    if (dpStore[i] === undefined) {
+    if (curr === undefined) {
       dpStore[i] = Math.max(nums[i] + maxVal(i - 2), maxVal(i - 1));
     }
     return dpStore[i];
@@ -642,4 +642,62 @@ var numDecodings = function (s) {
     }
   }
   return dpStore[n];
+}
+
+//! Leetcode 53. Maximum Subarray [using Kadane’s Algorithm]
+/* 
+ya to Kal ki best streak me aaj jod do → kal_best + aaj
+ya fir Aaj hi fresh start karo → aaj akela
+
+Agar kal_best positive hai → continue karo (faayda)
+Agar kal_best negative hai → fresh start kro
+*/
+
+// top-down approach [Memoization] (Recursion)
+var maxSubArray = function (nums) {
+  if (nums.length === 1) return nums[0];
+
+  let n = nums.length, maxSubArrSum = -Infinity, dpStore = [];
+
+  function getBestEndingHere(idx) {
+    if (idx === 0) {
+      maxSubArrSum = Math.max(maxSubArrSum, nums[0]);
+      return nums[0];
+    }
+    if (dpStore[idx] !== undefined) return dpStore[idx];
+
+    let currSubArrSum = Math.max(getBestEndingHere(idx - 1) + nums[idx], nums[idx]);
+    maxSubArrSum = Math.max(maxSubArrSum, currSubArrSum);
+    dpStore[idx] = currSubArrSum;
+
+    return currSubArrSum;
+  }
+  getBestEndingHere(n - 1);
+  return maxSubArrSum;
+};
+
+
+// bottom-up approach [Tabulation] (Itrative)
+// bottom-up approach [Tabulation] (Itrative)
+var maxSubArray = function (nums) {
+  let best = nums[0];
+  let dpStore = [];
+  dpStore[0] = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    dpStore[i] = Math.max(nums[i], nums[i] + dpStore[i - 1]);
+    best = Math.max(best, dpStore[i]);
+  }
+  return best;
+}
+
+// space optimisation [using only variable]
+var maxSubArray = function (nums) {
+  let curr = nums[0], best = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    curr = Math.max(nums[i], nums[i] + curr);
+    best = Math.max(best, curr);
+  }
+  return best;
 }

@@ -27,7 +27,7 @@
 
 (Both have its pros and cons, but both are used in different scenarios, so we have to choose the right approach according to the problem statement and constraints.)
 {in some questions it is very intutive to use Recursion, or in some questions it is very intutive to use Iteration, we solved more and more questions, so we will automatically realize that which approach is better for which type of question, and we will choose the right approach according to the problem statement and constraints.}
-///! "GOLDEN RULE" - If u r trying to solve any question, "THINK ABOUT USING RECURSION FIRST/ Decision Tree", then u code it in whatever way u want, in Recursive code or in Iterative code.
+///! "GOLDEN RULE" - If u r trying to solve any DP question, "THINK ABOUT SOLUTION USING RECURSION FIRST/ Decision Tree then just use any datastructure to store some data", then u code it in whatever way u want, in Recursive code or in Iterative code.
 */
 
 
@@ -615,4 +615,31 @@ var numDecodings = function (s) {
     return total;
   }
   return ways(s);
+}
+
+// bottom-up approach [Tabulation] (Itrative)
+var numDecodings = function (s) {
+  let n = s.length;
+  if (n === 0 || s[0] === '0') return 0;
+
+  let dpStore = new Array(n + 1).fill(0);
+
+  // empty string means we get o  ne way to decode so
+  dpStore[0] = 1;
+
+  for (let i = 0; i < n; i++) {
+    // single Digit
+    if (s[i] !== '0') {
+      dpStore[i + 1] += dpStore[i];
+    }
+
+    // two digit
+    if (i >= 1) {
+      let twoDigit = Number(s.slice(i - 1, i + 1));
+      if (twoDigit >= 10 && twoDigit <= 26) {
+        dpStore[i + 1] += dpStore[i - 1];
+      }
+    }
+  }
+  return dpStore[n];
 }

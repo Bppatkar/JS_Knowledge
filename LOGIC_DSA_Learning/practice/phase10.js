@@ -344,7 +344,7 @@ var coinChange = function (coins, amount) {
 //! Leetcode 647. Palindromic Substrings
 // top-down approach [Memoization] (Recursion)
 /*
-Thinking process:
+Thinking processArr:
 
 Har substring ke liye hum dono ends ko check karenge:
   1. s[i] aur s[j] same hone chahiye.
@@ -701,3 +701,129 @@ var maxSubArray = function (nums) {
   }
   return best;
 }
+
+//! Leetcode 152. Maximum Product Subarray
+// top-down approach [Memoization] (Recursion)
+/* 
+[-2, 3, -4] = 24 output
+
+Subarray	            Product
+[-2]	                  2
+[3]	                    3
+[-4]                   -2
+          
+[-2, 3]	               -6
+[3,-4]	               -12
+          
+[-2, 3,-4]          	  24 (max)
+----------------------------------------
+[-2, 3, -4]:
+maxEnding(0) = -2
+maxEnding(1) = max(3, -2 × 3) = 3
+maxEnding(2) = max(-4, 3 × -4) = max(-4, -12) = -4 — max = 3
+
+Par actual answer [-2, 3, -4] = 24 (poori array ka product)!
+
+Kyun? -2 × 3 × -4 = 24 — par tumne maxEnding(1) = 3 rakha, -6 discard kar diya. -6 × -4 = 24 banta, par tumne -6 track hi nahi kiya.
+
+Yahi min product ki zaroorat hai: minEnding(1) = -6 track karte, toh maxEnding(2) = max(-4, 3×-4=-12, -6×-4=24) = 24 ✓
+
+Isliye 2 variables: maxEnding aur minEnding.
+
+ */
+var maxProduct = function (nums) {
+  let n = nums.length;
+  let minEnding = nums[0], maxEnding = nums[0], best = nums[0];
+
+  function maxSubArrayProduct(idx) {
+    // base case - first elem
+    if (idx === 0) {
+      maxEnding = minEnding = best = nums[0]
+      return nums[0]
+    }
+
+    maxSubArrayProduct(idx - 1); // computing old states
+
+    // now 3 candidates in idx so we store in processArr
+
+    let processArr = [
+      nums[idx],                          // fresh start
+      nums[idx] * minEnding,              // +ve product
+      nums[idx] * maxEnding               // -ve X -ve = big +ve
+    ];
+
+    maxEnding = Math.max(...processArr); // we are passing array that why spread operator ya fir individual teeno bhej skte hai
+
+    minEnding = Math.min(...processArr);
+
+    // updating the final one
+    best = Math.max(best, maxEnding);
+
+    return maxEnding; // we return maxEnding because we want to use it in next recursion call
+  }
+
+  maxSubArrayProduct(n - 1);
+  return best;
+}
+
+// bottom-up approach [Tabulation] (Itrative)
+var maxProduct = function (nums) {
+  let n = nums.length;
+  let maxEnding = nums[0];
+  let minEnding = nums[0];
+  let best = nums[0];
+
+  for (let i = 1; i < n; i++) {
+    // we are making copy of maxEnding and minEnding because later we update maxEnding and minEnding, but we need old values for calculation of new maxEnding and minEnding
+
+    let prevMax = maxEnding;
+    let prevMin = minEnding;
+
+    maxEnding = Math.max(nums[i], nums[i] * prevMax, nums[i] * prevMin);
+    minEnding = Math.min(nums[i], nums[i] * prevMax, nums[i] * prevMin);
+
+    best = Math.max(best, maxEnding);
+  }
+  return best;
+}
+
+// Educator way of solving
+var maxProduct = function (nums) {
+  let leftToRightProd = 1; // initially 1 for multiplication
+  let righToLeftProd = 1;
+  let finalMax = -Infinity;
+  let n = nums.length;
+
+  // for (let i = 0; i < n; i++) {
+  //   leftToRightProd = leftToRightProd * nums[i];
+  //   finalMax = Math.max(finalMax, leftToRightProd);
+
+  //   // if product become 0 , so we reinitialize it
+  //   if (leftToRightProd === 0) leftToRightProd = 1;
+  // }
+  // for (let i = n - 1; i >= 0; i--) {
+  //   righToLeftProd = righToLeftProd * nums[i];
+  //   finalMax = Math.max(finalMax, righToLeftProd);
+
+  //   if (righToLeftProd === 0) righToLeftProd = 1;
+  // }
+
+
+
+  // using single loop
+  for (let i = 0; i < n; i++) {
+    leftToRightProd = leftToRightProd * nums[i];
+    righToLeftProd = righToLeftProd * nums[n - i - 1];
+    finalMax = Math.max(finalMax, leftToRightProd, righToLeftProd);
+    if (leftToRightProd === 0) leftToRightProd = 1;
+    if (righToLeftProd === 0) righToLeftProd = 1;
+  }
+  return finalMax;
+}
+
+//! Leetcode 300. Longest Increasing Subsequence
+// top-down approach [Memoization] (Recursion)
+var lengthOfLIS = function (nums) { }
+
+// bottom-up approach [Tabulation] (Itrative)
+var lengthOfLIS = function (nums) { }

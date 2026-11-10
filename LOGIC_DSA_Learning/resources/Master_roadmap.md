@@ -2999,13 +2999,13 @@ The most important DP skill:
 - **LC 53 - Maximum Subarray** ✅
 - **LC 152 — Maximum Product Subarray** ✅
 - **LC 300 — Longest Increasing Subsequence** ✅
+- **LC 139 — Word Break** ✅
 - **LC 1143 — Longest Common Subsequence**
 - **LC 72 — Edit Distance**
 - **LC 416 — Partition Equal Subset Sum**
 - **LC 518 — Coin Change II**
 - **LC 62 — Unique Paths**
 - **LC 64 — Minimum Path Sum**
-- **LC 139 — Word Break**
 - **LC 494 — Target Sum**
 - **LC 309 — Best Time to Buy and Sell Stock with Cooldown**
 - **LC 312 — Burst Balloons** — advanced

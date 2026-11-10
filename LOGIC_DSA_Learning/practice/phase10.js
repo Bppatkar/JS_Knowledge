@@ -821,6 +821,57 @@ var maxProduct = function (nums) {
   return finalMax;
 }
 
+//! Leetcode 139. Word Break
+// top-down approach [Memoization] (Recursion)
+var wordBreak = function (s, wordDict) {
+  let dpStore = [];
+  let dict = new Set(wordDict); // this will help us to check if a word is in the dictionary or not in O(1) time complexity.
+  function solve(idx) {
+    // base case
+    if (idx === s.length) return true;
+    if (dpStore[idx] !== undefined) return dpStore[idx];
+
+    for (let i = idx + 1; i <= s.length; i++) {
+      let subStr = s.substring(idx, i);
+
+      if (dict.has(subStr) && solve(i)) {
+        dpStore[idx] = true;
+        return true;
+      }
+    }
+    dpStore[idx] = false;
+    return false;
+  }
+  return solve(0); // starting from index 0 of string
+}
+
+// bottom-up approach [Tabulation] (Itrative)
+var wordBreak = function (s, wordDict) {
+  let n = s.length;
+  let dict = new Set(wordDict); // this will help us to check if a word is in the dictionary or not in O(1) time complexity.
+
+  // ham ek array banayenge jisme dpStore[i] = true means s[0...i-1] substring wordDict me hai, false means nahi hai.
+  let dpStore = new Array(n + 1).fill(false);
+
+  // base case - empty string
+  dpStore[0] = true;
+
+  for (let i = 1; i <= n; i++) { // how many characters we are considering from the string
+
+    for (let j = 0; j < i; j++) { // we are checking all possible substrings from 0 to i-1
+
+      let subStr = s.substring(j, i); // substring from j to i-1
+
+      if (dpStore[j] && dict.has(subStr)) { // if s[0...j-1] is in wordDict and s[j...i-1] is in wordDict
+
+        dpStore[i] = true; // then s[0...i-1] is in wordDict
+        break; // no need to check further, we found a valid split
+      }
+
+    }
+  }
+  return dpStore[n]; // return if the whole string can be segmented or not
+}
 //! Leetcode 300. Longest Increasing Subsequence
 // top-down approach [Memoization] (Recursion)
 var lengthOfLIS = function (nums) { }

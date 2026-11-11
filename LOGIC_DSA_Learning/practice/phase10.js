@@ -874,7 +874,46 @@ var wordBreak = function (s, wordDict) {
 }
 //! Leetcode 300. Longest Increasing Subsequence
 // top-down approach [Memoization] (Recursion)
-var lengthOfLIS = function (nums) { }
+var lengthOfLIS = function (nums) {
+  let dpStore = [];
+
+  function solve(idx) {
+    // base case
+    if (idx === 0) return 1;
+    if (dpStore[idx] !== undefined) return dpStore[idx];
+
+    let best = 1;
+    for (let i = 0; i < idx; i++) {  // 0 to idx - 1
+      if (nums[i] < nums[idx]) {
+        let candidate = solve(i) + 1;
+        best = Math.max(best, candidate);
+      }
+    }
+    dpStore[idx] = best;
+    return best;
+  }
+
+
+  let ans = 1;
+  for (let i = 0; i < nums.length; i++) { // 0 to n
+    ans = Math.max(ans, solve(i));
+  }
+
+  return ans;
+};
 
 // bottom-up approach [Tabulation] (Itrative)
-var lengthOfLIS = function (nums) { }
+var lengthOfLIS = function (nums) {
+  let n = nums.length;
+  let dpStore = new Array(n).fill(1); // each element is an increasing subsequence of length 1
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < i; j++) { // check all previous elements
+
+      if (nums[j] < nums[i]) {
+        dpStore[i] = Math.max(dpStore[i], dpStore[j] + 1);
+      }
+    }
+  }
+  return Math.max(...dpStore); // the longest increasing subsequence length
+}

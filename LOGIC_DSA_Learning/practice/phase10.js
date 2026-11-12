@@ -917,3 +917,11 @@ var lengthOfLIS = function (nums) {
   }
   return Math.max(...dpStore); // the longest increasing subsequence length
 }
+
+
+//! Leetcode 416. Partition Equal Subset Sum
+// top-down approach [Memoization] (Recursion)
+var canPartition = function (nums) { }
+
+// bottom-up approach [Tabulation] (Itrative)
+var canPartition = function (nums) { }

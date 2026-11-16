@@ -918,10 +918,81 @@ var lengthOfLIS = function (nums) {
   return Math.max(...dpStore); // the longest increasing subsequence length
 }
 
-
 //! Leetcode 416. Partition Equal Subset Sum
 // top-down approach [Memoization] (Recursion)
-var canPartition = function (nums) { }
+/* 
+ 2 cheezein change ho rahi hain: idx aur remainSum. Toh dpStore 2D hoga.
+
+Kya store karna hai
+dpStore[idx][remainSum] = solve(idx, remainSum) ka result — true ya false.
+
+Matlab: "pehle idx elements me se kuch choose karke, remainSum sum banana possible hai kya?"
+
+
+*/
+var canPartition = function (nums) {
+  // calculating total Sum
+  let total = 0, target = null;
+
+  for (let i = 0; i < nums.length; i++) {
+    total += nums[i]
+  }
+
+  // checking odd sum
+  if (total % 2 !== 0) return false;
+
+  target = total / 2; // if totalsum is for example 26 so we create two subset and both have 26/2 means sum 13 each side ,so we just check onside if it has that target means parition is equal otherwise we return false
+
+
+  // creating memo means dpStore
+  let dpStore = Array.from({ length: nums.length + 1 }, () =>
+    new Array(target + 1).fill(undefined)
+  ); // Kyun undefined se fill? Kyunki true/false dono valid results hain, false ko "not computed" nahi samajh sakte. undefined = "abhi compute nahi hua".
+
+  function solve(idx, remainSum) {
+    if (remainSum === 0) return true;
+    if (idx === nums.length || remainSum < 0) return false;
+    if (dpStore[idx][remainSum] !== undefined) return dpStore[idx][remainSum];
+
+    let include = nums[idx] <= remainSum ? solve(idx + 1, remainSum - nums[idx]) : false;
+    let exclude = solve(idx + 1, remainSum);
+
+    let result = include || exclude;
+    dpStore[idx][remainSum] = result;
+    return result;
+  }
+
+  return solve(0, target);
+
+}
 
 // bottom-up approach [Tabulation] (Itrative)
-var canPartition = function (nums) { }
+var canPartition = function (nums) {
+
+  let total = 0;
+  for (let i = 0; i < nums.length; i++) {
+    total += nums[i];
+  }
+  if (total % 2 !== 0) return false;
+
+  let target = total / 2;
+
+  let dpStore = Array.from({ length: nums.length + 1 }, () =>
+    new Array(target + 1).fill(false));
+
+  dpStore[0][0] = true;
+
+
+  for (let i = 1; i <= nums.length; i++) {
+    for (let j = 0; j <= target; j++) {
+      // exclude
+      dpStore[i][j] = dpStore[i - 1][j];
+      // include (if valid)
+      if (nums[i - 1] <= j && dpStore[i - 1][j - nums[i - 1]]) {
+        dpStore[i][j] = true;
+      }
+    }
+  }
+  return dpStore[nums.length][target];
+}
+canPartition([1, 5, 11, 5]); // true

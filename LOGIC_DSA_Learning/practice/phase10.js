@@ -1015,3 +1015,40 @@ var canPartition = function (nums) {
   }
   return dpStore[target];
 }
+
+//! Leetcode 518. Coin Change 2
+// top-down approach [Memoization] (Recursion)
+var change = function (amount, coins) {
+  let dpStore = Array.from({ length: coins.length + 1 }, () =>
+    new Array(amount + 1).fill(undefined));
+
+  function solve(idx, remainSum) {
+    if (remainSum === 0) return 1;
+    if (remainSum < 0) return 0;
+    if (idx === coins.length) return 0;
+    if (dpStore[idx][remainSum] != undefined) return dpStore[idx][remainSum]
+
+    let include = solve(idx, remainSum - coins[idx]);
+    let exclude = solve(idx + 1, remainSum);
+
+    let result = include + exclude
+    dpStore[idx][remainSum] = result;
+    return result;
+  }
+  return solve(0, amount); // starting index 0
+}
+
+// bottom-up approach [Tabulation] (Itrative)
+var change = function (amount, coins) {
+  let dpStore = new Array(amount + 1).fill(0);
+  dpStore[0] = 1; // base case: one way to make amount 0
+
+
+  for (let i = 0; i < coins.length; i++) {
+    for (let j = coins[i]; j <= amount; j++) {
+      dpStore[j] += dpStore[j - coins[i]];
+    }
+  }
+
+  return dpStore[amount] // dpStore - [1,1,2,2,3,4]
+}

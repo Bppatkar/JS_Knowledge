@@ -31,7 +31,6 @@
 - [PHASE 10 — DYNAMIC PROGRAMMING](#phase-10-dynamic-programming)
 - [PHASE 11 — GRAPHS](#phase-11-graphs)
 - [PHASE 12 — ADVANCED DATA STRUCTURES](#phase-12-advanced-data-structures)
-- [🔗 CROSS-PHASE ALGORITHM CONNECTIONS](#cross-phase-algorithm-connections)
 - [📚 LEETCODE SELECTION RULE](#leetcode-selection-rule)
 - [🔄 CCRS — CONTINUOUS CODING RETENTION SYSTEM](#ccrs-continuous-coding-retention-system)
 - [🧑‍💻 CODING SUPPORT RULE](#coding-support-rule)
@@ -2883,7 +2882,7 @@ Target ≈ 15–20
 
 ## Status
 
-⏳ RUNNING — current phase
+✅ COMPLETED / LOCKED
 
 ## Goal
 
@@ -3002,14 +3001,8 @@ The most important DP skill:
 - **LC 139 — Word Break** ✅
 - **LC 1143 — Longest Common Subsequence** ✅
 - **LC 416 — Partition Equal Subset Sum** ✅
-- **LC 72 — Edit Distance**
-- **LC 518 — Coin Change II**
-- **LC 62 — Unique Paths**
-- **LC 64 — Minimum Path Sum**
-- **LC 494 — Target Sum**
-- **LC 309 — Best Time to Buy and Sell Stock with Cooldown**
-- **LC 312 — Burst Balloons** — advanced
-- **LC 10 — Regular Expression Matching** — advanced
+- **LC 518 — Coin Change II** ✅
+- **LC 62 — Unique Paths** ✅
 
 ## Problem Ladder
 
@@ -3031,7 +3024,7 @@ DP naturally needs deeper coverage.
 
 ## Status
 
-⏳ Next Phase
+⏳ RUNNING — current phase
 
 ## Goal
 
@@ -3158,17 +3151,11 @@ Graphs require broad algorithm coverage, so deeper ladder coverage is expected.
 
 <a id="phase-12-advanced-data-structures"></a>
 
-# PHASE 12 — ADVANCED DATA STRUCTURES
+# PHASE 12 — ADVANCED DATA STRUCTURES [Trie]
 
 ## Status
 
-⏳ Future Phase
-
-## Goal
-
-Learn high-value advanced structures only after the core roadmap is strong.
-
-## Section 1 — Trie
+⏳ Next Phase
 
 ### Core
 
@@ -3194,201 +3181,9 @@ Follow path
 - **LC 211 — Design Add and Search Words**
 - **LC 212 — Word Search II**
 
----
-
-## Section 2 — Union Find / DSU
-
-If not fully mastered in Graphs, consolidate here.
-
-### Core
-
-- Parent
-- Find
-- Union
-- Path Compression
-- Union by Rank
-- Union by Size
-
-### Representative
-
-- **LC 547 — Number of Provinces**
-- **LC 684 — Redundant Connection**
-- **LC 721 — Accounts Merge**
-
----
-
-## Section 3 — Fenwick Tree
-
-### Core
-
-- Prefix Query
-- Point Update
-- Binary Indexed Tree
-- Logarithmic operations
-
-### 80/20 Algorithm
-
-```text
-index += index & -index
-```
-
-Use only after bit manipulation fundamentals are comfortable.
-
-### Representative
-
-- **LC 327 — Count of Range Sum**
-- **LC 493 — Reverse Pairs**
-
----
-
-## Section 4 — Segment Tree
-
-### Core
-
-- Build
-- Query
-- Update
-- Range Query
-- Range Update awareness
-- Lazy Propagation awareness
-
-### 80/20 Algorithm
-
-Divide the range recursively and combine child answers.
-
-### Representative
-
-- **LC 307 — Range Sum Query - Mutable**
-- **LC 315 — Count of Smaller Numbers After Self** — advanced application
-
----
-
-## Section 5 — Sparse Table
-
-Awareness / advanced range-query structure.
-
-Useful for static data with repeated range queries.
-
----
-
-## Problem Ladder
-
-Because these are advanced structures:
-
-```text
-Minimum: 5
-Target: 10–15
-Maximum: 25
-```
-
-Depth depends on target interviews and demonstrated need.
-
 [⬆️ Back to Index](#top)
 
 ---
-
-<a id="cross-phase-algorithm-connections"></a>
-
-# 🔗 CROSS-PHASE ALGORITHM CONNECTIONS
-
-Algorithms are not isolated.
-
-We continuously connect old and new knowledge.
-
-```text
-Two Pointer
-+
-Sliding Window
-+
-Hashing
-+
-String
-```
-
-```text
-Prefix Sum
-+
-Hashing
-```
-
-```text
-Monotonic Stack
-+
-Array Index Tracking
-```
-
-```text
-Deque
-+
-Sliding Window
-```
-
-```text
-Recursion
-+
-Backtracking
-+
-Pruning
-```
-
-```text
-Recursion
-+
-Trees
-(DFS is recursion on a tree)
-```
-
-```text
-Recursion
-+
-Graphs
-(DFS is recursion on a graph)
-```
-
-```text
-Recursion
-+
-Memoization
-=
-Dynamic Programming
-```
-
-```text
-Heap
-+
-Greedy
-```
-
-```text
-BFS
-+
-Queue
-```
-
-```text
-DFS
-+
-Stack
-```
-
-```text
-Binary Search
-+
-Constraint-driven Search Space
-```
-
-```text
-Merge Sort
-+
-Binary Search
-(shared divide-and-conquer / halving structure)
-```
-
-```text
-DP
-+
-State Thinking
-```
 
 ## Corrected Phase Flow
 
@@ -3751,7 +3546,7 @@ Phase 8  — Heap
 Phase 9  — Greedy
 Phase 10 — Dynamic Programming
 Phase 11 — Graphs
-Phase 12 — Advanced Data Structures
+Phase 12 — Advanced Data Structures [Trie]
 ```
 
 [⬆️ Back to Index](#top)
@@ -3805,11 +3600,17 @@ Phase 12 — Advanced Data Structures
 
 - 15/15 representative problems ✅
 
+## Phase 10 — Dynamic Programming
+
+- 17/17 representative problems ✅
+
+## Phase 11 - Graphs
+
+- 14/14 representative problems ⏳ RUNNING
+
 ## Next
 
 ```text
-Phase 10 — Dynamic Programming
-↓
 Phase 11 — Graphs
 ↓
 Phase 12 — Advanced Data Structures
@@ -3847,12 +3648,12 @@ COMPLETED / LOCKED:
 - Phase 7  — Trees (21 problems)
 - Phase 8  — Heap (12 problems)
 - Phase 9  — Greedy (15 problems)
-
-CURRENT ACTIVE PHASE:
 - Phase 10 — Dynamic Programming (17 problems)
 
-NEXT AFTER CURRENT:
+CURRENT ACTIVE PHASE:
 - Phase 11 — Graphs (14 problems)
+
+NEXT AFTER CURRENT:
 - Phase 12 — Advanced Data Structures (11 problems)
 
 IMPORTANT ORDERING NOTE:
@@ -3968,10 +3769,10 @@ PHASE 5B — Sorting & Searching ✅ PARALLEL TRACK (7–10 problems)
 PHASE 6  — Recursion & Backtracking ✅ (14 problems)
 PHASE 7  — Trees (21 problems) ✅
 PHASE 8  — Heap/Priority Queue ✅
-PHASE 9  — Greedy ⏳ (15 problems) ✅
-PHASE 10 — Dynamic Programming (17 problems) ⏳ ← Current
-PHASE 11 — Graphs ⏳ (14 problems) ⏳ ← NEXT
-PHASE 12 — Advanced Data Structures - Trie, DP & Array, String
+PHASE 9  — Greedy  (15 problems) ✅
+PHASE 10 — Dynamic Programming (17 problems) ✅
+PHASE 11 — Graphs ⏳ (14 problems)  ⏳ ← Current
+PHASE 12 — Advanced Data Structures - Trie, DP & Array, String ⏳ ← NEXT
 ```
 
 **Ordering principle now enforced:**

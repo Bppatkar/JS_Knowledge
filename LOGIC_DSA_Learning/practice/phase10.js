@@ -945,6 +945,7 @@ var canPartition = function (nums) {
 
 
   // creating memo means dpStore
+  // length will create nums.length -1 thats why we add +1 because we want to include last index also
   let dpStore = Array.from({ length: nums.length + 1 }, () =>
     new Array(target + 1).fill(undefined)
   ); // Kyun undefined se fill? Kyunki true/false dono valid results hain, false ko "not computed" nahi samajh sakte. undefined = "abhi compute nahi hua".
@@ -1019,6 +1020,8 @@ var canPartition = function (nums) {
 //! Leetcode 518. Coin Change 2
 // top-down approach [Memoization] (Recursion)
 var change = function (amount, coins) {
+  // length will create coins.length -1 thats why we add +1 because we want to include last index also
+
   let dpStore = Array.from({ length: coins.length + 1 }, () =>
     new Array(amount + 1).fill(undefined));
 
@@ -1051,4 +1054,63 @@ var change = function (amount, coins) {
   }
 
   return dpStore[amount] // dpStore - [1,1,2,2,3,4]
+}
+
+//! Leetcode 62. Unique Paths
+// top-down approach [Memoization] (Recursion)
+/* 
+crating table for m=3, n=7
+
+idx 0  1  2  3  4  5  6 
+
+0   1  1  1  1  1  1  1
+1   1  2  3  4  5  6  7
+2   1  3  6  10 15 21 28
+
+we are adding idx 0 [row] and idx 0 [col] 
+how we get 1 in 0th index row and col because we can only move right and down so we can only reach to 0th index row and col in one way so we fill 1 in 0th index row and col
+then we add like = [4th in row, 3rd in col] = so values is = 5 + 10 so we get 15 ways to reach to 4th index row and 3rd index col 
+*/
+var uniquePaths = function (m, n) {
+  let dpStore = Array.from({ length: m }, () => new Array(n).fill(0));
+  function solve(x, y) {
+    if (x === 0 || y == 0) return 1;
+    if (x < 0 || y < 0) return 0; // out of bounds
+    if (dpStore[x][y] !== 0) return dpStore[x][y];
+    dpStore[x][y] = solve(x - 1, y) + solve(x, y - 1); // move up or left
+    return dpStore[x][y];
+  }
+  return solve(m - 1, n - 1); // starting from bottom right corner [reverse]
+}
+
+// bottom-up approach [Tabulation] (Itrative)
+var uniquePaths = function (m, n) {
+  let dpStore = new Array(m).fill().map(() => new Array(n).fill(0));
+
+  dpStore[0][0] = 1; // starting point
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (i === 0 && j === 0) continue; // skip starting point
+      let fromTop = i > 0 ? dpStore[i - 1][j] : 0;
+      let fromLeft = j > 0 ? dpStore[i][j - 1] : 0;
+      dpStore[i][j] = fromTop + fromLeft;
+    }
+  }
+  return dpStore[m - 1][n - 1];
+}
+
+// one more way
+var uniquePaths = function (m, n) {
+  let dpStore = new Array(m).fill().map(() => new Array(n).fill(1)); // fill first row and first column with 1
+
+  for (let i = 0; i < m; i++) dpStore[i][0] = 1; // first column
+  for (let j = 0; j < n; j++) dpStore[0][j] = 1; // first row
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dpStore[i][j] = dpStore[i - 1][j] + dpStore[i][j - 1]; // from top and left
+    }
+  }
+  return dpStore[m - 1][n - 1];
 }

@@ -995,4 +995,23 @@ var canPartition = function (nums) {
   }
   return dpStore[nums.length][target];
 }
-canPartition([1, 5, 11, 5]); // true
+
+// more simpler way to solve using bottom-up approach [Tabulation] (Itrative)
+var canPartition = function (nums) {
+  // calculating total Sum
+  let total = 0, target = null;
+  total = nums.reduce((acc, curr) => acc + curr, 0);
+  // checking odd sum
+  if (total % 2 !== 0) return false;
+  target = total / 2;
+
+  let dpStore = new Array(target + 1).fill(false);
+  dpStore[0] = true; // base case: sum 0 is always possible with empty subset
+
+  for (let num of nums) {
+    for (let j = target; j >= num; j--) { // iterate backwards to avoid using the same number multiple times
+      dpStore[j] = dpStore[j] || dpStore[j - num];
+    }
+  }
+  return dpStore[target];
+}

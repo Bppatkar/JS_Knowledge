@@ -43,6 +43,17 @@ Early applications me military strategy aur ballistic-missile planning jaise opt
 
 DP ko **optimized recursion** samajhna easiest hai. Pehle choices ko recursion se model karo, phir repeated states ko store karke optimize karo.
 
+### DP solve karne ke 2 core steps
+
+Practical level par DP solve karne ki main thinking itni hai:
+
+1. **Pehle recursion / brute-force solution banao:** Problem ki choices aur recurrence ko recursion se clearly model karo.
+2. **Repeated calculations ko store karke reuse karo:** Jo same state baar-baar calculate ho raha hai, uska result memoization ya tabulation ke through store karo, taaki dobara calculation na karni pade.
+
+> **Simple formula:** **Recursion se solution samjho → repeated states store karke DP banao.**
+
+Ye do steps DP ko samajhne aur implement karne ka practical shortcut hain. Saath hi, valid DP ke liye state, transition, base case aur sub-problem dependencies ko bhi sahi identify karna zaroori hai.
+
 ### LeetCode 509 — Fibonacci Number
 
 #### Step 1: Brute-force recursion
@@ -87,27 +98,41 @@ Base cases se table ko chhote states se bade states ki taraf fill karte hain; re
 
 ### Memoization vs Tabulation
 
-| Aspect | Memoization (Top-Down) | Tabulation (Bottom-Up) |
-|:---|:---|:---|
-| Approach | Recursion + cache | Iteration + table |
-| Direction | Bade state se chhote states | Chhote states se bade states |
-| States | Sirf needed states | Usually saare states |
-| Stack | Recursion stack lagta hai | Recursion stack nahi |
-| Use when | Sparse/reachable states useful hon | Order clear ho aur all states required hon |
+| Aspect    | Memoization (Top-Down)             | Tabulation (Bottom-Up)                     |
+| :-------- | :--------------------------------- | :----------------------------------------- |
+| Approach  | Recursion + cache                  | Iteration + table                          |
+| Direction | Bade state se chhote states        | Chhote states se bade states               |
+| States    | Sirf needed states                 | Usually saare states                       |
+| Stack     | Recursion stack lagta hai          | Recursion stack nahi                       |
+| Use when  | Sparse/reachable states useful hon | Order clear ho aur all states required hon |
 
 ### 🔑 Dono approaches ke advantages aur disadvantages
 
-| Top-Down (Memoization) | Bottom-Up (Tabulation) |
-|:---|:---|
-| Recursion use karta hai | Iteration use karta hai |
-| Bade state se chhote states ki taraf jaata hai | Chhote states se bade states ki taraf jaata hai |
+| Top-Down (Memoization)                              | Bottom-Up (Tabulation)                                         |
+| :-------------------------------------------------- | :------------------------------------------------------------- |
+| Recursion use karta hai                             | Iteration use karta hai                                        |
+| Bade state se chhote states ki taraf jaata hai      | Chhote states se bade states ki taraf jaata hai                |
 | Recursion tree ki wajah se samajhna easier hota hai | Iterative solution sochna comparatively difficult ho sakta hai |
-| Recursion call stack extra time aur space leta hai | Recursion stack nahi hota; generally less overhead |
-| Sirf required states calculate kar sakta hai | Usually saare states calculate karta hai |
+| Recursion call stack extra time aur space leta hai  | Recursion stack nahi hota; generally less overhead             |
+| Sirf required states calculate kar sakta hai        | Usually saare states calculate karta hai                       |
 
 > **Approach selection:** Agar recursion/decision tree naturally samajh aa raha hai, Top-Down se start karo. Agar recursion expensive ho ya dependency order clear ho, Bottom-Up choose karo. Problem aur constraints ke hisaab se approach select karo.
 
+<div style="background:linear-gradient(135deg, #24104f, #102a43); padding:18px; border-radius:12px; border:2px solid #FFD700; box-shadow:0 0 12px #9370DB;">
+
+### 🌟 RECURSION (TOP-DOWN) vs ITERATION (BOTTOM-UP) — SPACE KI IMPORTANT THINKING
+
 > **Golden Rule:** Kisi bhi DP question ko solve karte waqt pehle **recursion/decision tree** ke baare me socho. Uske baad solution ko recursive memoization ya iterative tabulation—jis form me suitable ho—convert karo.
+
+> 💡 **Meri important observation:** DP me sirf recurrence samajhna enough nahi hai; yeh bhi dekhna hota hai ki current state ko kaun-si purani states chahiye aur unhe store karna zaroori hai ya nahi. DP ke do main styles hote hain: **Recursion + Memoization (Top-Down)** aur **Iteration + Tabulation (Bottom-Up)**.
+
+🔹 **Recursion + Memoization (Top-Down):** Recursion ke saath computed states ko store karne ke liye array, object ya `Map` use karte hain. Memoization ke liye storage zaroori hai, lekin cache ko **globally declare karna mandatory nahi** hai. Cache ko function ke andar/local scope me rakhna generally safer hota hai, taaki alag function calls ke beech stale data leak na ho.
+
+🔹 **Iteration + Tabulation (Bottom-Up):** Iterative solution me array/table use karna har baar mandatory nahi hota. Agar recurrence sirf pichhli **1–2 states** par depend karti hai, to un states ko variables me rakhkar space optimize kar sakte hain. Agar purani kai states chahiye, ya answer reconstruct karna ho, to poora table maintain karna padega.
+
+🚀 **Golden Space Rule:** Iterative bottom-up solution banate waqt pehle `dp` table imagine karo aur dependencies dekho. Agar current state ko sirf 1–2 previous states chahiye, to table ko variables se replace karke **`O(n)` space ko `O(1)` space** me optimize karo. Yaani pehle table ki thinking, phir space optimization!
+
+</div>
 
 </div>
 
@@ -119,11 +144,11 @@ Base cases se table ko chhote states se bade states ki taraf fill karte hain; re
 
 Optimization problems ko DP ya Greedy dono se approach kiya ja sakta hai, lekin decision process alag hai.
 
-| Approach | Core idea | Correctness / behavior |
-|:---|:---|:---|
-| **Recursion / brute force** | Saari possible choices explore karo | Correct ho sakta hai, par repeated work ki wajah se slow |
-| **Greedy** | Har step par current/local best choice lo | Fast ho sakta hai; global optimum ke liye proof chahiye |
-| **DP** | Relevant choices explore karo, states store/reuse karo | Valid recurrence ke saath optimal answer de sakta hai |
+| Approach                    | Core idea                                              | Correctness / behavior                                   |
+| :-------------------------- | :----------------------------------------------------- | :------------------------------------------------------- |
+| **Recursion / brute force** | Saari possible choices explore karo                    | Correct ho sakta hai, par repeated work ki wajah se slow |
+| **Greedy**                  | Har step par current/local best choice lo              | Fast ho sakta hai; global optimum ke liye proof chahiye  |
+| **DP**                      | Relevant choices explore karo, states store/reuse karo | Valid recurrence ke saath optimal answer de sakta hai    |
 
 - **DP:** Saari relevant possibilities explore karo, result store karo aur reuse karo.
 - **Greedy:** Current best choice lo; baaki possibilities explore nahi karta.
@@ -136,13 +161,13 @@ Optimization problems ko DP ya Greedy dono se approach kiya ja sakta hai, lekin 
 
 ### 🗝 Golden Key — DP kab aur Greedy kab?
 
-| Situation | Approach | Kyun? |
-|:---|:---|:---|
-| Same sub-problems baar-baar repeat ho rahe hain | **DP** | Ek baar solve karke result store aur reuse kar sakte ho |
-| Har step par local best choice lene se global best guaranteed hai | **Greedy** | Saari possibilities explore karne ki zaroorat nahi |
-| Local best choice ka global answer par proof nahi hai | **DP** | Greedy galat answer de sakta hai; DP alternatives compare karta hai |
-| Minimum/maximum answer chahiye aur choices overlap karti hain | **DP** | State aur recurrence ke through optimal answer milta hai |
-| Current decision future decisions ko affect nahi karti, ya greedy-choice property proven hai | **Greedy** | Simple aur generally faster solution milta hai |
+| Situation                                                                                    | Approach   | Kyun?                                                               |
+| :------------------------------------------------------------------------------------------- | :--------- | :------------------------------------------------------------------ |
+| Same sub-problems baar-baar repeat ho rahe hain                                              | **DP**     | Ek baar solve karke result store aur reuse kar sakte ho             |
+| Har step par local best choice lene se global best guaranteed hai                            | **Greedy** | Saari possibilities explore karne ki zaroorat nahi                  |
+| Local best choice ka global answer par proof nahi hai                                        | **DP**     | Greedy galat answer de sakta hai; DP alternatives compare karta hai |
+| Minimum/maximum answer chahiye aur choices overlap karti hain                                | **DP**     | State aur recurrence ke through optimal answer milta hai            |
+| Current decision future decisions ko affect nahi karti, ya greedy-choice property proven hai | **Greedy** | Simple aur generally faster solution milta hai                      |
 
 > **Quick test:** Agar tum prove kar sakte ho ki **“abhi ka best choice hamesha final best answer ka part hogi”**, to Greedy try karo. Agar same state repeat ho raha hai aur multiple choices compare karni hain, to DP consider karo.
 
@@ -174,17 +199,17 @@ Code se pehle ye 5 cheezein define karo:
 
 ## <span style="color:#FF69B4">📊 6. DP PATTERNS AUR FAMOUS PROBLEM FAMILIES</span>
 
-| Pattern | Typical state | Examples |
-|:---|:---|:---|
-| **1D Linear** | `dp[i]` | Fibonacci, Climbing Stairs, House Robber |
-| **2D / Grid** | `dp[i][j]` | Unique Paths, Minimum Path Sum |
-| **Two Strings** | `dp[i][j]` | LCS, Edit Distance |
-| **Subsequence** | `dp[i]` / `dp[i][j]` | LIS, Subset Sum |
-| **Knapsack** | `dp[i][w]` | 0/1 Knapsack, Coin Change |
-| **String / Partition** | `dp[i]` / `dp[i][j]` | Word Break, Palindrome Partitioning |
-| **Interval** | `dp[i][j]` | Matrix Chain, Burst Balloons |
-| **Tree / Graph** | `dfs(node)` + states | Tree DP, Counting Paths |
-| **Bitmask** | `dp[mask]` / `dp[mask][i]` | Travelling Salesman Problem |
+| Pattern                | Typical state              | Examples                                 |
+| :--------------------- | :------------------------- | :--------------------------------------- |
+| **1D Linear**          | `dp[i]`                    | Fibonacci, Climbing Stairs, House Robber |
+| **2D / Grid**          | `dp[i][j]`                 | Unique Paths, Minimum Path Sum           |
+| **Two Strings**        | `dp[i][j]`                 | LCS, Edit Distance                       |
+| **Subsequence**        | `dp[i]` / `dp[i][j]`       | LIS, Subset Sum                          |
+| **Knapsack**           | `dp[i][w]`                 | 0/1 Knapsack, Coin Change                |
+| **String / Partition** | `dp[i]` / `dp[i][j]`       | Word Break, Palindrome Partitioning      |
+| **Interval**           | `dp[i][j]`                 | Matrix Chain, Burst Balloons             |
+| **Tree / Graph**       | `dfs(node)` + states       | Tree DP, Counting Paths                  |
+| **Bitmask**            | `dp[mask]` / `dp[mask][i]` | Travelling Salesman Problem              |
 
 Famous families me Matrix Chain Multiplication, Egg Dropping, Rod Cutting, Coin Change, Minimum Cost Path, Longest Palindromic Subsequence, LCS, LIS, Subset Sum, 0/1 Knapsack, Fractional Knapsack, TSP, Word Break, Palindrome Partitioning aur Edit Distance shamil hain. Naye questions aksar inhi patterns ke variations hote hain.
 
@@ -193,6 +218,7 @@ Famous families me Matrix Chain Multiplication, Egg Dropping, Rod Cutting, Coin 
 </div>
 
 ---
+
 # <span style="color:#FF6347">📚 PART 2 — 1D DP (Linear)</span>
 
 ## <span style="color:#1E90FF">🎯 PATTERN 1 — CLIMBING STAIRS</span>
@@ -210,7 +236,8 @@ Famous families me Matrix Chain Multiplication, Egg Dropping, Rod Cutting, Coin 
 ```javascript
 function climbStairs(n) {
   if (n <= 1) return 1;
-  let a = 1, b = 1;
+  let a = 1,
+    b = 1;
   for (let i = 2; i <= n; i++) {
     [a, b] = [b, a + b];
   }
@@ -219,6 +246,7 @@ function climbStairs(n) {
 ```
 
 **Visual (n=5):**
+
 ```text
 dp[0] = 1 (base)
 dp[1] = 1 (base)
@@ -264,6 +292,7 @@ function rob(nums) {
 ```
 
 **Visual:**
+
 ```text
 nums = [2, 7, 9, 3, 1]
 
@@ -320,6 +349,7 @@ function lengthOfLIS(nums) {
 ```
 
 **Visual:**
+
 ```text
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
 
@@ -343,7 +373,8 @@ Answer: 4
 function lengthOfLIS(nums) {
   let tails = [];
   for (let x of nums) {
-    let left = 0, right = tails.length;
+    let left = 0,
+      right = tails.length;
     while (left < right) {
       let mid = Math.floor((left + right) / 2);
       if (tails[mid] < x) left = mid + 1;
@@ -390,6 +421,7 @@ function wordBreak(s, wordDict) {
 ```
 
 **Visual:**
+
 ```text
 s = "leetcode"
 dict = ["leet", "code"]
@@ -434,6 +466,7 @@ function coinChange(coins, amount) {
 ```
 
 **Visual:**
+
 ```text
 coins = [1, 2, 5], amount = 11
 
@@ -454,8 +487,10 @@ function change(amount, coins) {
   let dp = new Array(amount + 1).fill(0);
   dp[0] = 1;
 
-  for (let coin of coins) {              // Outer: coins
-    for (let i = coin; i <= amount; i++) {  // Inner: amount
+  for (let coin of coins) {
+    // Outer: coins
+    for (let i = coin; i <= amount; i++) {
+      // Inner: amount
       dp[i] += dp[i - coin];
     }
   }
@@ -502,6 +537,7 @@ function uniquePaths(m, n) {
 ```
 
 **Visual (3×3):**
+
 ```text
 1 1 1
 1 2 3
@@ -516,7 +552,7 @@ Answer: 6
 
 ```javascript
 if (grid[i][j] === 1) dp[i][j] = 0;
-else dp[i][j] = dp[i-1][j] + dp[i][j-1];
+else dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
 ```
 
 </div>
@@ -535,7 +571,8 @@ else dp[i][j] = dp[i-1][j] + dp[i][j-1];
 
 ```javascript
 function minPathSum(grid) {
-  let m = grid.length, n = grid[0].length;
+  let m = grid.length,
+    n = grid[0].length;
   let dp = Array.from({ length: m }, () => new Array(n).fill(0));
   dp[0][0] = grid[0][0];
 
@@ -578,7 +615,8 @@ else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
 ```javascript
 function longestCommonSubsequence(text1, text2) {
-  let m = text1.length, n = text2.length;
+  let m = text1.length,
+    n = text2.length;
   let dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
 
   for (let i = 1; i <= m; i++) {
@@ -595,6 +633,7 @@ function longestCommonSubsequence(text1, text2) {
 ```
 
 **Visual:**
+
 ```text
 text1 = "abcde", text2 = "ace"
 
@@ -638,7 +677,8 @@ else: dp[i][j] = 1 + min(
 
 ```javascript
 function minDistance(word1, word2) {
-  let m = word1.length, n = word2.length;
+  let m = word1.length,
+    n = word2.length;
   let dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
 
   for (let i = 0; i <= m; i++) dp[i][0] = i;
@@ -649,11 +689,7 @@ function minDistance(word1, word2) {
       if (word1[i - 1] === word2[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1];
       } else {
-        dp[i][j] = 1 + Math.min(
-          dp[i - 1][j],
-          dp[i][j - 1],
-          dp[i - 1][j - 1]
-        );
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
       }
     }
   }
@@ -662,6 +698,7 @@ function minDistance(word1, word2) {
 ```
 
 **Visual:**
+
 ```text
 word1 = "horse", word2 = "ros"
 
@@ -684,7 +721,7 @@ Answer: 3 (horse ? rorse ? rose ? ros)
 
 ```javascript
 function longestPalindromeSubseq(s) {
-  let rev = s.split("").reverse().join("");
+  let rev = s.split('').reverse().join('');
   return longestCommonSubsequence(s, rev);
 }
 ```
@@ -730,22 +767,23 @@ if p[j-1] === '*':
 
 ```javascript
 function isMatch(s, p) {
-  let m = s.length, n = p.length;
+  let m = s.length,
+    n = p.length;
   let dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(false));
   dp[0][0] = true;
 
   // Handle patterns like a*, a*b*, etc.
   for (let j = 2; j <= n; j++) {
-    if (p[j - 1] === "*") dp[0][j] = dp[0][j - 2];
+    if (p[j - 1] === '*') dp[0][j] = dp[0][j - 2];
   }
 
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
-      if (p[j - 1] === "." || p[j - 1] === s[i - 1]) {
+      if (p[j - 1] === '.' || p[j - 1] === s[i - 1]) {
         dp[i][j] = dp[i - 1][j - 1];
-      } else if (p[j - 1] === "*") {
+      } else if (p[j - 1] === '*') {
         dp[i][j] = dp[i][j - 2];
-        if (p[j - 2] === "." || p[j - 2] === s[i - 1]) {
+        if (p[j - 2] === '.' || p[j - 2] === s[i - 1]) {
           dp[i][j] = dp[i][j] || dp[i - 1][j];
         }
       }
@@ -811,7 +849,8 @@ function knapsack(weights, values, W) {
 function knapsack(weights, values, W) {
   let dp = new Array(W + 1).fill(0);
   for (let i = 0; i < weights.length; i++) {
-    for (let w = W; w >= weights[i]; w--) {  // Reverse!
+    for (let w = W; w >= weights[i]; w--) {
+      // Reverse!
       dp[w] = Math.max(dp[w], values[i] + dp[w - weights[i]]);
     }
   }
@@ -850,7 +889,8 @@ function canPartition(nums) {
   dp[0] = true;
 
   for (let num of nums) {
-    for (let s = target; s >= num; s--) {  // Reverse
+    for (let s = target; s >= num; s--) {
+      // Reverse
       dp[s] = dp[s] || dp[s - num];
     }
   }
@@ -876,7 +916,8 @@ function canPartition(nums) {
 function unboundedKnapsack(weights, values, W) {
   let dp = new Array(W + 1).fill(0);
   for (let i = 0; i < weights.length; i++) {
-    for (let w = weights[i]; w <= W; w++) {  // Forward!
+    for (let w = weights[i]; w <= W; w++) {
+      // Forward!
       dp[w] = Math.max(dp[w], values[i] + dp[w - weights[i]]);
     }
   }
@@ -888,11 +929,11 @@ function unboundedKnapsack(weights, values, W) {
 
 ### 🔹 0/1 vs Unbounded
 
-| | 0/1 | Unbounded |
-|:---|:---|:---|
-| **Item use** | Ek baar | Multiple |
-| **Loop** | Reverse | Forward |
-| **Example** | Subset Sum | Coin Change |
+|              | 0/1        | Unbounded   |
+| :----------- | :--------- | :---------- |
+| **Item use** | Ek baar    | Multiple    |
+| **Loop**     | Reverse    | Forward     |
+| **Example**  | Subset Sum | Coin Change |
 
 </div>
 
@@ -953,8 +994,8 @@ function maxCoins(nums) {
     for (let left = 0; left < n - len; left++) {
       let right = left + len;
       for (let k = left + 1; k < right; k++) {
-        let coins = arr[left] * arr[k] * arr[right]
-                  + dp[left][k] + dp[k][right];
+        let coins =
+          arr[left] * arr[k] * arr[right] + dp[left][k] + dp[k][right];
         dp[left][right] = Math.max(dp[left][right], coins);
       }
     }
@@ -989,8 +1030,8 @@ function rob(root) {
     let [leftRob, leftNot] = dfs(node.left);
     let [rightRob, rightNot] = dfs(node.right);
 
-    let robThis = node.val + leftNot + rightNot;         // Rob current
-    let notRob = Math.max(leftRob, leftNot) + Math.max(rightRob, rightNot);  // Don't rob
+    let robThis = node.val + leftNot + rightNot; // Rob current
+    let notRob = Math.max(leftRob, leftNot) + Math.max(rightRob, rightNot); // Don't rob
 
     return [robThis, notRob];
   }
@@ -1018,8 +1059,8 @@ function maxPathSum(root) {
     let left = Math.max(0, dfs(node.left));
     let right = Math.max(0, dfs(node.right));
 
-    maxSum = Math.max(maxSum, node.val + left + right);  // Peak
-    return node.val + Math.max(left, right);              // One side
+    maxSum = Math.max(maxSum, node.val + left + right); // Peak
+    return node.val + Math.max(left, right); // One side
   }
   dfs(root);
   return maxSum;
@@ -1050,9 +1091,9 @@ function maxPathSum(root) {
 function tsp(graph) {
   let n = graph.length;
   let dp = Array.from({ length: 1 << n }, () => new Array(n).fill(Infinity));
-  dp[1][0] = 0;  // Start from city 0
+  dp[1][0] = 0; // Start from city 0
 
-  for (let mask = 1; mask < (1 << n); mask++) {
+  for (let mask = 1; mask < 1 << n; mask++) {
     for (let u = 0; u < n; u++) {
       if (!(mask & (1 << u))) continue;
       for (let v = 0; v < n; v++) {
@@ -1085,18 +1126,18 @@ function tsp(graph) {
 
 <div style="background-color:#1a1a2e; padding:15px; border-radius:10px; border-left:5px solid #FF6347;">
 
-| Pattern | State | Recurrence | Example |
-|:---|:---|:---|:---|
-| **Linear** | `dp[i]` | `dp[i] = f(dp[i-1], dp[i-2])` | Climbing Stairs |
-| **LIS** | `dp[i]` | `dp[i] = max(dp[j]+1)` | Longest Inc. Subseq |
-| **Coin Change** | `dp[i]` | `dp[i] = min(dp[i-c]+1)` | Min coins |
-| **Grid** | `dp[i][j]` | `dp[i][j] = grid[i][j] + min(...)` | Min Path Sum |
-| **2 Strings** | `dp[i][j]` | `if same: 1 + dp[i-1][j-1]` | LCS, Edit Distance |
-| **0/1 Knapsack** | `dp[i][w]` | `max(skip, take)` | Subset Sum |
-| **Unbounded** | `dp[w]` | `max(dp[w], dp[w-wi]+vi)` | Coin Change II |
-| **Interval** | `dp[i][j]` | `min/max over k` | Matrix Chain |
-| **Tree** | `dfs(node)` | Return multiple values | House Robber III |
-| **Bitmask** | `dp[mask][i]` | Try all next | TSP |
+| Pattern          | State         | Recurrence                         | Example             |
+| :--------------- | :------------ | :--------------------------------- | :------------------ |
+| **Linear**       | `dp[i]`       | `dp[i] = f(dp[i-1], dp[i-2])`      | Climbing Stairs     |
+| **LIS**          | `dp[i]`       | `dp[i] = max(dp[j]+1)`             | Longest Inc. Subseq |
+| **Coin Change**  | `dp[i]`       | `dp[i] = min(dp[i-c]+1)`           | Min coins           |
+| **Grid**         | `dp[i][j]`    | `dp[i][j] = grid[i][j] + min(...)` | Min Path Sum        |
+| **2 Strings**    | `dp[i][j]`    | `if same: 1 + dp[i-1][j-1]`        | LCS, Edit Distance  |
+| **0/1 Knapsack** | `dp[i][w]`    | `max(skip, take)`                  | Subset Sum          |
+| **Unbounded**    | `dp[w]`       | `max(dp[w], dp[w-wi]+vi)`          | Coin Change II      |
+| **Interval**     | `dp[i][j]`    | `min/max over k`                   | Matrix Chain        |
+| **Tree**         | `dfs(node)`   | Return multiple values             | House Robber III    |
+| **Bitmask**      | `dp[mask][i]` | Try all next                       | TSP                 |
 
 </div>
 
@@ -1110,76 +1151,76 @@ function tsp(graph) {
 
 ### 🔹 1D DP (Easy)
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **70** | Climbing Stairs | Fib |
-| **198** | House Robber | Linear |
-| **213** | House Robber II | Circular |
-| **746** | Min Cost Climbing Stairs | Linear |
-| **121** | Best Time to Buy Stock | Kadane |
-| **53** | Maximum Subarray | Kadane |
-| **338** | Counting Bits | Bit DP |
+|    #    | Problem                  | Pattern  |
+| :-----: | :----------------------- | :------- |
+| **70**  | Climbing Stairs          | Fib      |
+| **198** | House Robber             | Linear   |
+| **213** | House Robber II          | Circular |
+| **746** | Min Cost Climbing Stairs | Linear   |
+| **121** | Best Time to Buy Stock   | Kadane   |
+| **53**  | Maximum Subarray         | Kadane   |
+| **338** | Counting Bits            | Bit DP   |
 
 ### 🔹 1D DP (Medium)
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **300** | Longest Increasing Subsequence | LIS |
-| **139** | Word Break | String DP |
-| **322** | Coin Change | Unbounded |
-| **518** | Coin Change II | Combinations |
-| **152** | Maximum Product Subarray | Kadane variant |
-| **91** | Decode Ways | String DP |
-| **279** | Perfect Squares | Unbounded |
-| **5** | Longest Palindromic Substring | Interval |
+|    #    | Problem                        | Pattern        |
+| :-----: | :----------------------------- | :------------- |
+| **300** | Longest Increasing Subsequence | LIS            |
+| **139** | Word Break                     | String DP      |
+| **322** | Coin Change                    | Unbounded      |
+| **518** | Coin Change II                 | Combinations   |
+| **152** | Maximum Product Subarray       | Kadane variant |
+| **91**  | Decode Ways                    | String DP      |
+| **279** | Perfect Squares                | Unbounded      |
+|  **5**  | Longest Palindromic Substring  | Interval       |
 
 ### 🔹 2D DP (Medium)
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **62** | Unique Paths | Grid |
-| **63** | Unique Paths II | Grid with obstacles |
-| **64** | Min Path Sum | Grid |
-| **1143** | Longest Common Subsequence | Two strings |
-| **72** | Edit Distance | Two strings |
-| **221** | Maximal Square | Grid |
-| **494** | Target Sum | Subset |
-| **416** | Partition Equal Subset | Subset |
+|    #     | Problem                    | Pattern             |
+| :------: | :------------------------- | :------------------ |
+|  **62**  | Unique Paths               | Grid                |
+|  **63**  | Unique Paths II            | Grid with obstacles |
+|  **64**  | Min Path Sum               | Grid                |
+| **1143** | Longest Common Subsequence | Two strings         |
+|  **72**  | Edit Distance              | Two strings         |
+| **221**  | Maximal Square             | Grid                |
+| **494**  | Target Sum                 | Subset              |
+| **416**  | Partition Equal Subset     | Subset              |
 
 ### 🔹 2D DP (Hard)
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **10** | Regular Expression Matching | Regex |
-| **44** | Wildcard Matching | Regex |
-| **312** | Burst Balloons | Interval |
-| **115** | Distinct Subsequences | Two strings |
-| **97** | Interleaving String | Two strings |
+|    #    | Problem                     | Pattern     |
+| :-----: | :-------------------------- | :---------- |
+| **10**  | Regular Expression Matching | Regex       |
+| **44**  | Wildcard Matching           | Regex       |
+| **312** | Burst Balloons              | Interval    |
+| **115** | Distinct Subsequences       | Two strings |
+| **97**  | Interleaving String         | Two strings |
 
 ### 🔹 DP on Trees
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **337** | House Robber III | Tree DP |
+|    #    | Problem                  | Pattern |
+| :-----: | :----------------------- | :------ |
+| **337** | House Robber III         | Tree DP |
 | **124** | Binary Tree Max Path Sum | Tree DP |
-| **543** | Diameter | Tree DP |
+| **543** | Diameter                 | Tree DP |
 
 ### 🔹 Bitmask DP
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **847** | Shortest Path Visiting All Nodes | BFS + Bitmask |
-| **1125** | Smallest Sufficient Team | Subset bitmask |
+|    #     | Problem                          | Pattern        |
+| :------: | :------------------------------- | :------------- |
+| **847**  | Shortest Path Visiting All Nodes | BFS + Bitmask  |
+| **1125** | Smallest Sufficient Team         | Subset bitmask |
 
 ### 🔹 Classic DP
 
-| # | Problem | Pattern |
-|:---:|:---|:---|
-| **118** | Pascal's Triangle | 2D |
-| **119** | Pascal's Triangle II | 1D space-opt |
-| **647** | Palindromic Substrings | Interval |
-| **516** | Longest Palindromic Subsequence | Interval |
-| **132** | Palindrome Partitioning II | Interval |
+|    #    | Problem                         | Pattern      |
+| :-----: | :------------------------------ | :----------- |
+| **118** | Pascal's Triangle               | 2D           |
+| **119** | Pascal's Triangle II            | 1D space-opt |
+| **647** | Palindromic Substrings          | Interval     |
+| **516** | Longest Palindromic Subsequence | Interval     |
+| **132** | Palindrome Partitioning II      | Interval     |
 
 </div>
 
@@ -1191,17 +1232,17 @@ function tsp(graph) {
 
 <div style="background-color:#3d1a0d; padding:15px; border-radius:10px; border-left:5px solid #FF4500;">
 
-| ? Galti | ? Sahi |
-|:---|:---|
-| Base case bhool jana | Base pehle define karo |
-| State galat define karna | `dp[i]` ka meaning clearly likho |
-| Recurrence me options miss | Saare transitions socho |
-| Loop order galat (knapsack) | 0/1 me reverse, unbounded me forward |
-| Space optimization galat | Reverse loop zaroori |
+| ? Galti                             | ? Sahi                                  |
+| :---------------------------------- | :-------------------------------------- |
+| Base case bhool jana                | Base pehle define karo                  |
+| State galat define karna            | `dp[i]` ka meaning clearly likho        |
+| Recurrence me options miss          | Saare transitions socho                 |
+| Loop order galat (knapsack)         | 0/1 me reverse, unbounded me forward    |
+| Space optimization galat            | Reverse loop zaroori                    |
 | `Infinity` use karna initialization | Kabhi `Infinity`, kabhi `0`, kabhi `-1` |
-| Answer ki jagah bhool jana | `dp[n]`? `dp[m][n]`? `max(dp)`? |
-| Memoization key galat | String key + separator |
-| Arrays me reference leak | `[...arr]` ya `slice()` |
+| Answer ki jagah bhool jana          | `dp[n]`? `dp[m][n]`? `max(dp)`?         |
+| Memoization key galat               | String key + separator                  |
+| Arrays me reference leak            | `[...arr]` ya `slice()`                 |
 
 ### 🔹 Rule
 

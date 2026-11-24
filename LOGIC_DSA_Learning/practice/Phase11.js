@@ -158,3 +158,36 @@ Disconnected — Kuch components alag hain
 //==============================================================
 
 
+//! Leetcode 133 — Clone Graph
+function Node(val, neighbors) {
+  this.val = val === undefined ? 0 : val;
+  this.neighbors = neighbors === undefined ? [] : neighbors;
+}
+
+var cloneGraph = function (root) {
+  if (!root) return null;
+
+  let queue = [root];
+  let cloneRoot = new Node(root.val); // first argu is val second is neighbors
+
+  let visited = new Map(); //tracking- originalRoot and cloneRoot is visited or not 
+
+  visited.set(root, cloneRoot); // setting first key value pair in map
+
+  while (queue.length) {
+    let curr = queue.shift();
+
+    for (let singlePadosi of curr.neighbors) { // means neighbors
+      if (!visited.has(singlePadosi)) {
+        queue.push(singlePadosi);
+        visited.set(singlePadosi, new Node(singlePadosi.val));
+      }
+
+      // making connection to cloneRoot curr to its neighbor
+      let cloneCurr = visited.get(curr); // clone of curr one
+      cloneCurr.neighbors.push(visited.get(singlePadosi));
+    }
+  }
+
+  return cloneRoot;
+};

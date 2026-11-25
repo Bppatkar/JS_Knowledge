@@ -157,11 +157,14 @@ Disconnected — Kuch components alag hain
 */
 //==============================================================
 
-
+//* We are using BFS for clonning a graph
 //! Leetcode 133 — Clone Graph
-function Node(val, neighbors) {
-  this.val = val === undefined ? 0 : val;
-  this.neighbors = neighbors === undefined ? [] : neighbors;
+class Node {
+  constructor(val, neighbors) {
+    this.val = val === undefined ? 0 : val;
+    this.neighbors = neighbors === undefined ? [] : neighbors;
+  }
+
 }
 
 var cloneGraph = function (root) {
@@ -177,7 +180,8 @@ var cloneGraph = function (root) {
   while (queue.length) {
     let curr = queue.shift();
 
-    for (let singlePadosi of curr.neighbors) { // means neighbors
+    // LeetCode uses the `neighbors` property for adjacent nodes.
+    for (let singlePadosi of curr.neighbors) {
       if (!visited.has(singlePadosi)) {
         queue.push(singlePadosi);
         visited.set(singlePadosi, new Node(singlePadosi.val));
@@ -191,3 +195,29 @@ var cloneGraph = function (root) {
 
   return cloneRoot;
 };
+
+
+//! Same Question solution using DFS
+var cloneGraph = function (root) {
+  if (!root) return null;
+
+  let stack = [root];
+  let cloneRoot = new Node(root.val);
+  let visited = new Map();
+
+  visited.set(root, cloneRoot);
+
+  while (stack.length) {
+    let curr = stack.pop();
+
+    for (let singlePadosi of curr.neighbors) {
+      if (!visited.has(singlePadosi)) {
+        stack.push(singlePadosi);
+        visited.set(singlePadosi, new Node(singlePadosi.val));
+      }
+      let cloneCurr = visited.get(curr);
+      cloneCurr.neighbors.push(visited.get(singlePadosi));
+    }
+  }
+  return cloneRoot;
+}

@@ -221,3 +221,66 @@ var cloneGraph = function (root) {
   }
   return cloneRoot;
 }
+
+//! same question DFS using recursion
+var cloneGraph = function (root) {
+
+  // Handle an empty graph.
+  if (!root) return null;
+
+  // Store cloned nodes.
+  let visited = new Map();
+
+  function dfs(curr) {
+    // Return the existing clone.
+    if (visited.has(curr)) return visited.get(curr);
+
+    // Store the clone before its neighbors.
+    let cloneCurr = new Node(curr.val);
+    visited.set(curr, cloneCurr);
+
+    // Clone and connect each neighbor.
+    for (let neighbor of curr.neighbors) {
+      cloneCurr.neighbors.push(dfs(neighbor)); // caliing dfs function for each neighbor of curr node
+    }
+
+    // Return the clone.
+    return cloneCurr;
+  }
+
+  // Start DFS at the root.
+  return dfs(root);
+}
+
+
+//! LeetCode 1971 — Find if Path Exists in Graph
+//? This question is just simple traversal - like a elem present in tree or in stack etc, node present in linkedlist etc
+var validPath = function (n, edges, source, destination) {
+  let map = {};
+  for (let [x, y] of edges) { // [x,y] means in second example [[0,1]]
+    // creating empty array so it will not throw error, if array exist so push otherwise create it
+    if (!map[x]) map[x] = [];
+    if (!map[y]) map[y] = [];
+    // we are creating adjacent List like - {0: [1,2], 1: [0], 2: [0]}
+    map[x].push(y);
+    map[y].push(x);
+  }
+  // console.log(map);    
+
+  let queue = [source]; // we add source in queue, because we have to start from source and check if destination is reachable or not
+  let visited = new Set(); // we are using set to track visited nodes, so that we dont visit same node again and again because set will not allow duplicate values
+  visited.add(source); // we are adding source in visited set, because we have already added it in queue
+
+  while (queue.length) {
+    let curr = queue.shift();
+
+    if (curr === destination) return true;
+    for (let padosi of map[curr]) {
+      if (!visited.has(padosi)) {
+        visited.add(padosi);
+        queue.push(padosi);
+      }
+    }
+  }
+  return false;
+}

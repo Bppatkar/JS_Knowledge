@@ -347,3 +347,25 @@ var allPathsSourceTarget = function (graph) {
   backtrack(0); // 0 se n-1 tk jana hai isiliye 0 se start
   return result;
 }
+
+// educator's code
+var allPathsSourceTarget = function (graph) {
+  let start = 0;
+  let target = graph.length - 1;
+  let result = [];
+
+  const dfs = (curr, path) => {
+    if (curr === target) {
+      result.push([...path]);
+      return;
+    }
+    for (let padosi of graph[curr]) {
+      path.push(padosi);
+      dfs(padosi, path);
+      path.pop();
+    }
+
+  }
+  dfs(start, [start]);
+  return result;
+};

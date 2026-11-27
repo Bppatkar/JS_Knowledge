@@ -254,6 +254,7 @@ var cloneGraph = function (root) {
 
 
 //! LeetCode 1971 — Find if Path Exists in Graph
+//* BFS Solution
 //? This question is just simple traversal - like a elem present in tree or in stack etc, node present in linkedlist etc
 var validPath = function (n, edges, source, destination) {
   let map = {};
@@ -275,7 +276,7 @@ var validPath = function (n, edges, source, destination) {
     let curr = queue.shift();
 
     if (curr === destination) return true;
-    for (let padosi of map[curr]) {
+    for (let padosi of map[curr] || []) { // if map[curr] is undefined then we will get empty array, so that we dont get error
       if (!visited.has(padosi)) {
         visited.add(padosi);
         queue.push(padosi);
@@ -284,3 +285,33 @@ var validPath = function (n, edges, source, destination) {
   }
   return false;
 }
+
+//* DFS Recursive Solution
+var validPath = function (n, edges, source, destination) {
+  let map = {};
+  for (let [x, y] of edges) {
+    if (!map[x]) map[x] = [];
+    if (!map[y]) map[y] = [];
+    map[x].push(y);
+    map[y].push(x);
+  }
+
+  let visited = new Set();
+  visited.add(source);
+
+  function dfs(curr) {
+    if (curr === destination) return true;
+
+    for (let padosi of map[curr] || []) {
+      if (!visited.has(padosi)) {
+        visited.add(padosi);
+        if (dfs(padosi)) return true;
+      }
+    }
+    return false;
+  }
+  return dfs(source);
+}
+
+//! LeetCode 797 - All Paths from Source to Target
+var allPathsSourceTarget = function (graph) { }

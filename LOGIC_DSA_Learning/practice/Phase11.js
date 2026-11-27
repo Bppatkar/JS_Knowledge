@@ -369,3 +369,45 @@ var allPathsSourceTarget = function (graph) {
   dfs(start, [start]);
   return result;
 };
+
+//! Leetcode 332. Reconstruct Itinerary
+//* Heirhoizer's Algorithm
+/* 
+ ye algorithm basically ek graph traversal algorithm hai jo ki directed graph ke liye use hota hai. isme hame ek directed graph diya hua hota hai jismein hame ek starting node se start karna hota hai aur har edge ko exactly once traverse karna hota hai aur hame ek path return karna hota hai jismein har edge exactly once use ho.
+*/
+var findItinerary = function (tickets) {
+
+  //? We cannot use Greedy approach here because we have to find the lexicographically smallest path, so we have to use backtracking here. 
+  //? we sort the adjacency list to maintain the lexicographical order and then we use backtracking to find the path.
+  //? we keep removing the edges from the list wherever we store to mark visited 
+
+  // firstly we have to create adjacency list
+
+  let map = {};
+  for (let [from, to] of tickets) {
+    if (!map[from]) map[from] = [];
+    map[from].push(to);
+    // we dont need to add reverse edge because it is directed graph, so we only add edge from "from" to "to"
+  }
+
+  // now we have to sort the adjacency list to maintain the lexicographical order
+  for (let key in map) {
+    map[key].sort();  // lexically means ex:- aman, akash so we use akash first then aman
+  }
+
+  let result = [];
+  const backtrack = (curr) => {
+
+    let destination = map[curr] || []; // if map[curr] is undefined then we will get empty array, so that we dont get error
+
+    while (destination.length) {
+      let padosi = map[curr].shift(); // we remove the first element from the list to mark visited
+      backtrack(padosi);
+    }
+
+    result.push(curr); // we push the current node in the last because, there is a edge case where we cant return from one node to another node because maybe it is directed to only one way, so we need to traverse all the nodes first and then push the current node in the result, so that we can get the correct path.
+  }
+
+  backtrack('JFK'); // starting point is JFK because it mentioned in question
+  return result.reverse(); // we reverse the result because we have pushed the nodes in the last, so we need to reverse it to get the correct path.
+}

@@ -314,4 +314,36 @@ var validPath = function (n, edges, source, destination) {
 }
 
 //! LeetCode 797 - All Paths from Source to Target
-var allPathsSourceTarget = function (graph) { }
+/* 
+Example 1 - graph = [[1,2],[3],[3],[]]
+Output: [[0,1,3],[0,2,3]]
+
+examples mein hame adjacenty list diya hua hai, jismein graph[0] = [1,2] means 0 se 1 aur 2 connected hai, graph[1] = [3] means 1 se 3 connected hai, graph[2] = [3] means 2 se 3 connected hai, graph[3] = [] means 3 se koi bhi connected nahi hai. So hame source se target tak ke sare paths find karne hai. because question is = " find all possible paths from node 0 to node n - 1 and return them in any order."
+
+Example 2 - graph = [[4,3,1],[3,2,4],[3],[4],[]]
+Output: [[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]]
+
+same wahi adjacenty list hai, jismein graph[0] = [4,3,1] means 0 se 4,3 aur 1 connected hai, graph[1] = [3,2,4] means 1 se 3,2 aur 4 connected hai, graph[2] = [3] means 2 se 3 connected hai, graph[3] = [4] means 3 se 4 connected hai, graph[4] = [] means 4 se koi bhi connected nahi hai. So hame source se target tak ke sare paths find karne hai. because question is = " find all possible paths from node 0 to node n - 1 and return them in any order."
+ */
+var allPathsSourceTarget = function (graph) {
+  let destination = graph.length - 1;
+  let result = [];
+  let visited = [];
+  const backtrack = (currNode) => {
+    visited.push(currNode);
+
+    if (currNode === destination) {
+      result.push([...visited]);
+    }
+
+    for (let padosi of graph[currNode]) {
+      backtrack(padosi);
+    }
+
+    // graph[destination] hamesha empty array [] hota hai, toh loop khud hi skip ho jata hai aur pop() chal jata hai)
+
+    visited.pop(); // (Loop khatam hone ke baad, wapas aate waqt means backtrack hoga to node ko path se nikaal do jisse sare path push na ho jaye)
+  }
+  backtrack(0); // 0 se n-1 tk jana hai isiliye 0 se start
+  return result;
+}

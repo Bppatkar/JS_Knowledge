@@ -406,8 +406,40 @@ var findItinerary = function (tickets) {
     }
 
     result.push(curr); // we push the current node in the last because, there is a edge case where we cant return from one node to another node because maybe it is directed to only one way, so we need to traverse all the nodes first and then push the current node in the result, so that we can get the correct path.
+
+    // result.unshift(curr);
   }
 
   backtrack('JFK'); // starting point is JFK because it mentioned in question
   return result.reverse(); // we reverse the result because we have pushed the nodes in the last, so we need to reverse it to get the correct path.
+
+  // return result; // if we use result.unshift(curr) then we dont need to reverse the result, so we can just return the result.
 }
+//* we can also use result.unshift(curr) so instead of reversing the result we can just return using simple line return result;
+
+
+/* 
+///! Q: - Detect Cycle in an Undirected Connected Graph [Difficulty: Medium]
+
+///? Problem Description:
+///? You receive the graph as an array of edge pairs edges, where each pair [u, v] represents a bidirectional connection between nodes u and v. Implement hasCycle(edges) that:
+///? - Builds an adjacency list from those pairs.
+///? - Starts DFS from node 0 only.
+///? - Returns true as soon as DFS encounters a neighbor that is visited and not the immediate parent.
+
+///? Examples:
+
+///? Example 1:
+///? Input: edges = [[0, 1], [1, 2]]
+///? Output: false
+
+///? Example 2:
+///? Input: edges = [[0, 1], [1, 2], [2, 0]]
+///? Output: true
+
+///* Constraints:
+///* - Nodes are assumed to be integers that can act as object keys.
+///* - Edges should always include the component that contains node 0; the function never explores other components.
+///* - Inputs are expected to be well-formed arrays of two-item arrays; no explicit validation is performed.
+///* - Self-loops or malformed inputs can lead to unexpected results because no guards are present.
+*/
